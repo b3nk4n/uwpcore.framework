@@ -129,6 +129,8 @@
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringToListConverter.cs" />
     <Compile Include="Converters\TimeToShapeConverter.cs" />
+    <Compile Include="Data\DataContractSerializationService.cs" />
+    <Compile Include="Data\ISerializationService.cs" />
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardHelper.cs" />
     <Compile Include="Input\KeyboardService.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
