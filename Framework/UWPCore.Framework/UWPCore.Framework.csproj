@@ -113,6 +113,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\AudioService.cs" />
+    <Compile Include="Audio\IAudioService.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
@@ -141,6 +143,7 @@
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\UniversalApp.cs" />
+    <Compile Include="Storage\IOConstants.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
