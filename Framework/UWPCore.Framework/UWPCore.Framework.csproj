@@ -133,6 +133,8 @@
     <Compile Include="Data\ICompressionService.cs" />
     <Compile Include="Data\ISerializationService.cs" />
     <Compile Include="Data\ZipArchiveService.cs" />
+    <Compile Include="Devices\IVibrateService.cs" />
+    <Compile Include="Devices\VibrateService.cs" />
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardHelper.cs" />
     <Compile Include="Input\KeyboardService.cs" />
@@ -155,7 +157,11 @@
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
