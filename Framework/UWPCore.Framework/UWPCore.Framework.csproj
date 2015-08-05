@@ -130,7 +130,9 @@
     <Compile Include="Converters\StringToListConverter.cs" />
     <Compile Include="Converters\TimeToShapeConverter.cs" />
     <Compile Include="Data\DataContractSerializationService.cs" />
+    <Compile Include="Data\ICompressionService.cs" />
     <Compile Include="Data\ISerializationService.cs" />
+    <Compile Include="Data\ZipArchiveService.cs" />
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardHelper.cs" />
     <Compile Include="Input\KeyboardService.cs" />
