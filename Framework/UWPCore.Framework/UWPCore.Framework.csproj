@@ -135,6 +135,8 @@
     <Compile Include="Data\ZipArchiveService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
+    <Compile Include="Graphics\GraphicsService.cs" />
+    <Compile Include="Graphics\IGraphicsService.cs" />
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardHelper.cs" />
     <Compile Include="Input\KeyboardService.cs" />
