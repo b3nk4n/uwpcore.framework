@@ -113,6 +113,8 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ListExtensions.cs" />
+    <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
