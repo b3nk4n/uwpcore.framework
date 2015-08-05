@@ -3,7 +3,7 @@ using Windows.UI;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-namespace UWPCore.Demo.Converters
+namespace UWPCore.Framework.Converters
 {
     /// <summary>
     /// Converts a <see cref="Windows.UI.Color"/> to a <see cref="SolidColorBrush"/> and vice versa.

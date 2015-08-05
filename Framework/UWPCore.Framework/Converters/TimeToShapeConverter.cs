@@ -3,7 +3,7 @@ using Windows.Foundation;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-namespace UWPCore.Demo.Converters
+namespace UWPCore.Framework.Converters
 {
     /// <summary>
     /// Value converter that creates a clock image from a time value.

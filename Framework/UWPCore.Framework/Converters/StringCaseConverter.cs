@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace UWPCore.Demo.Converters
+namespace UWPCore.Framework.Converters
 {
     /// <summary>
     /// Converter class to convert upper case or lower case Strings.

@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace UWPCore.Demo.Converters
+namespace UWPCore.Framework.Converters
 {
     /// <summary>
     /// The custom string format converter, which requires a parameter for formation {0:<parameter>}.
