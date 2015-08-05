@@ -144,6 +144,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\UniversalApp.cs" />
     <Compile Include="Storage\IOConstants.cs" />
+    <Compile Include="Storage\IStorageService.cs" />
+    <Compile Include="Storage\LocalStorageService.cs" />
+    <Compile Include="Storage\StoredObject.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
