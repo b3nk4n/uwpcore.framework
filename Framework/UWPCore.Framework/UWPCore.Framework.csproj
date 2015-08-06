@@ -159,6 +159,7 @@
     <Compile Include="Storage\StoredObject.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
+    <Compile Include="UI\TemplateSelectorBase.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>
   <ItemGroup>
