@@ -121,7 +121,9 @@
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\SystemIcons.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
+    <Compile Include="Controls\BackAppBarButton.cs" />
     <Compile Include="Controls\BackButton.cs" />
+    <Compile Include="Controls\ForwardAppBarButton.cs" />
     <Compile Include="Controls\ForwardButton.cs" />
     <Compile Include="Controls\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>

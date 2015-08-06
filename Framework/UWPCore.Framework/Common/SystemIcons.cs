@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace UWPCore.Framework.Common
 {
@@ -12,6 +13,8 @@ namespace UWPCore.Framework.Common
     /// <see cref="http://metronuggets.com/2015/05/18/introducing-mdl2-helpers/"/>
     public static class SystemIcons
     {
+        public static readonly FontFamily Font = new FontFamily("Segoe MDL2 Assets");
+
         public static string Account => "&xEA8C;";
         public static string AccountBox => "&xE187;";
         public static string AccountCancel => "&xE1E0;";
