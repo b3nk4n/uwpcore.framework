@@ -3,6 +3,7 @@ using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Navigation;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Xaml;
 
 namespace UWPCore.Demo
 {
@@ -11,7 +12,7 @@ namespace UWPCore.Demo
     /// </summary>
     sealed partial class App : UniversalApp
     {
-        public App()
+        public App() : base(typeof(MainPage))
         {
             InitializeComponent();
             ShowShellBackButton = true;
@@ -24,7 +25,7 @@ namespace UWPCore.Demo
 
         public override Task OnInitializeAsync()
         {
-            // runs before everything
+            Window.Current.Content = new Shell(RootFrame);
             return base.OnInitializeAsync();
         }
 
@@ -36,7 +37,7 @@ namespace UWPCore.Demo
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // start the user experience
-            NavigationService.Navigate(typeof(MainPage));
+            NavigationService.Navigate(DefaultPage);
             return Task.FromResult<object>(null);
         }
     }

@@ -14,8 +14,10 @@ namespace UWPCore.Framework.Common
 {
     public abstract class UniversalApp : Application
     {
-        public UniversalApp()
+        public UniversalApp(Type defaultPage)
         {
+            DefaultPage = defaultPage;
+
             Resuming += (s, e) => { OnResuming(s, e); };
             Suspending += async (s, e) =>
             {
@@ -39,12 +41,14 @@ namespace UWPCore.Framework.Common
 
         #region properties
 
-        protected NavigationService NavigationService
+        public Type DefaultPage { get; private set; }
+
+        public Frame RootFrame { get; set; }
+        public NavigationService NavigationService
         {
             // because it is protected, we can safely assume it will ref the first view
             get { return WindowWrapper.ActiveWrappers.First().NavigationServices.First(); }
         }
-
         protected Func<SplashScreen, Page> SplashFactory { get; set; }
         public TimeSpan CacheMaxDuration { get; set; } = TimeSpan.MaxValue;
         private const string CacheKey = "Setting-Cache-Date";
@@ -117,19 +121,19 @@ namespace UWPCore.Framework.Common
             }
 
             // setup frame
-            var frame = new Frame
+            RootFrame = new Frame
             {
                 Language = ApplicationLanguages.Languages[0]
             };
-            frame.Navigated += (s, args) =>
+            RootFrame.Navigated += (s, args) =>
             {
                 SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    (ShowShellBackButton && frame.CanGoBack) ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+                    (ShowShellBackButton && RootFrame.CanGoBack) ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
             };
 
             // setup default view
             var view = WindowWrapper.ActiveWrappers.First();
-            var navigationService = new NavigationService(frame);
+            var navigationService = new NavigationService(RootFrame);
             view.NavigationServices.Add(navigationService);
 
             // expire state (based on expiry)
@@ -178,8 +182,8 @@ namespace UWPCore.Framework.Common
             }
 
             // if the user didn't already set custom content use rootframe
-            if (Window.Current.Content == splashScreen) { Window.Current.Content = frame; }
-            if (Window.Current.Content == null) { Window.Current.Content = frame; }
+            if (Window.Current.Content == splashScreen) { Window.Current.Content = RootFrame; }
+            if (Window.Current.Content == null) { Window.Current.Content = RootFrame; }
 
             // ensure active
             Window.Current.Activate();
