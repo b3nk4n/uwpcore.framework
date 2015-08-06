@@ -24,7 +24,7 @@ namespace UWPCore.Demo.Views
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

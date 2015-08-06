@@ -1,9 +1,9 @@
-﻿<uwpcore:UniversalApp
+﻿<uwpcCommon:UniversalApp
     x:Class="UWPCore.Demo.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:UWPCore.Demo"
-    xmlns:uwpcore="using:UWPCore.Framework.Common"
+    xmlns:uwpcCommon="using:UWPCore.Framework.Common"
     RequestedTheme="Light">
 
-</uwpcore:UniversalApp>
+</uwpcCommon:UniversalApp>

@@ -13,7 +13,7 @@ namespace UWPCore.Framework.Audio
     /// This implementation only works when the root element of the page is a <see cref="Page"/> 
     /// that supports multiple child elements. This audio service registers an invisible media element to the visual tree.
     /// </remarks>
-    class AudioService : IAudioService
+    public class AudioService : IAudioService
     {
         /// <summary>
         /// The visual tree name of the nested <see cref="MediaElement"/> control.
