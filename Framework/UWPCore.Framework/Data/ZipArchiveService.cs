@@ -13,7 +13,10 @@ namespace UWPCore.Framework.Data
     {
         #region Members
 
-        IStorageService localStorageService;
+        /// <summary>
+        /// The local storage service.
+        /// </summary>
+        IStorageService _localStorageService;
 
         #endregion
 
@@ -24,7 +27,7 @@ namespace UWPCore.Framework.Data
         /// </summary>
         public ZipArchiveService()
         {
-            localStorageService = new LocalStorageService();
+            _localStorageService = new LocalStorageService();
         }
 
         #endregion
@@ -36,7 +39,7 @@ namespace UWPCore.Framework.Data
             if (!String.IsNullOrEmpty(Path.GetExtension(path)))
                 return; // TODO LOG Need to be folder.
 
-            if (!await localStorageService.ContainsDirectory(path))
+            if (!await _localStorageService.ContainsDirectory(path))
                 return; // TODO LOG Folder does not exist.
 
             var zipPath = Path.ChangeExtension(path, ".zip");
@@ -49,7 +52,7 @@ namespace UWPCore.Framework.Data
                 zipPath = Path.ChangeExtension(zipPath, ".zip");
             }
 
-            var file = await localStorageService.CreateOrReplaceFileAsync(zipPath);
+            var file = await _localStorageService.CreateOrReplaceFileAsync(zipPath);
             if (file != null)
             {
                 using (var fs = await file.OpenStreamForWriteAsync())
@@ -67,7 +70,7 @@ namespace UWPCore.Framework.Data
 
         public async Task UncompressAsync(string path, string name = null)
         {
-            var zipFile = await localStorageService.GetFileAsync(path);
+            var zipFile = await _localStorageService.GetFileAsync(path);
             if (zipFile == null)
                 return; // TODO LOG file does not exist.
 
@@ -90,11 +93,11 @@ namespace UWPCore.Framework.Data
                         // Create relative path and test if file has extension.
                         if (String.IsNullOrEmpty(Path.GetExtension(unzipPath)))
                         {
-                            await localStorageService.CreateOrReplaceFolderAsync(unzipPath);
+                            await _localStorageService.CreateOrReplaceFolderAsync(unzipPath);
                         }
                         else
                         {
-                            var file = await localStorageService.CreateOrReplaceFileAsync(unzipPath);
+                            var file = await _localStorageService.CreateOrReplaceFileAsync(unzipPath);
                             using (var wstream = await file.OpenStreamForWriteAsync())
                             {
                                 await zipArchiveEntry.Open().CopyToAsync(wstream);
@@ -114,7 +117,7 @@ namespace UWPCore.Framework.Data
         /// <returns>Returns task to await for.</returns>
         private async Task CompressRecursive(ZipArchive zipArchive, string root, string path)
         {
-            var folders = await localStorageService.GetFoldersAsync(Path.Combine(root, path));
+            var folders = await _localStorageService.GetFoldersAsync(Path.Combine(root, path));
             if (folders == null)
                 return;
 
@@ -126,7 +129,7 @@ namespace UWPCore.Framework.Data
                 await CompressRecursive(zipArchive, root, entry);
             }
 
-            var files = await localStorageService.GetFilesAsync(Path.Combine(root, path));
+            var files = await _localStorageService.GetFilesAsync(Path.Combine(root, path));
             if (files == null)
                 return;
 

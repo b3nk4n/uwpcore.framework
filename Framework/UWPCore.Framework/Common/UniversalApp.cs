@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace UWPCore.Framework.Common
 {
+    /// <summary>
+    /// The base class of an Universal Windows Platform app that is based on the UWPCore framework.
+    /// </summary>
     public abstract class UniversalApp : Application
     {
         /// <summary>
@@ -34,6 +37,15 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
+        /// The app start kind.
+        /// </summary>
+        public enum StartKind
+        {
+            Launch,
+            Activate
+        }
+
+        /// <summary>
         /// Creates a new UniversalApp instance.
         /// </summary>
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
@@ -44,24 +56,26 @@ namespace UWPCore.Framework.Common
             DefaultPage = defaultPage;
             AppAssemblyName = appAssemblyName;
 
-            Resuming += (s, e) => { OnResuming(s, e); };
+            Resuming += (s, e) => { OnResuming(e); };
             Suspending += async (s, e) =>
             {
-                // one, global deferral
-                var deferral = e.SuspendingOperation.GetDeferral();
+                var globalDeferral = e.SuspendingOperation.GetDeferral();
                 try
                 {
                     foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
                     {
                         // date the cache (which marks the date/time it was suspended)
-                        service.Frame.SetFrameState(CacheKey, DateTime.Now.ToString());
+                        service.Frame.SetFrameState(CACHE_DATE_KEY, DateTime.Now.ToString());
                         // call view model suspend (OnNavigatedfrom)
                         await service.SuspendingAsync();
                     }
                     // call system-level suspend
-                    await OnSuspendingAsync(s, e);
+                    await OnSuspendingAsync(e);
                 }
-                finally { deferral.Complete(); }
+                finally
+                {
+                    globalDeferral.Complete();
+                }
             };
         }
 
@@ -72,15 +86,38 @@ namespace UWPCore.Framework.Common
         /// </summary>
         public Type DefaultPage { get; private set; }
 
+        /// <summary>
+        /// The current root frame.
+        /// </summary>
         public Frame RootFrame { get; set; }
+
+        /// <summary>
+        /// Gets the navigation service.
+        /// </summary>
         public NavigationService NavigationService
         {
             // because it is protected, we can safely assume it will ref the first view
             get { return WindowWrapper.ActiveWrappers.First().NavigationServices.First(); }
         }
+
+        /// <summary>
+        /// Gets or sets the splash screen factory.
+        /// </summary>
         protected Func<SplashScreen, Page> SplashFactory { get; set; }
+
+        /// <summary>
+        /// The maximum duration of the frame state cache container.
+        /// </summary>
         public TimeSpan CacheMaxDuration { get; set; } = TimeSpan.MaxValue;
-        private const string CacheKey = "Setting-Cache-Date";
+
+        /// <summary>
+        /// The cache date key.
+        /// </summary>
+        private const string CACHE_DATE_KEY = "Setting-Cache-Date";
+
+        /// <summary>
+        /// Gets or sets whether the shell back button is visible.
+        /// </summary>
         public bool ShowShellBackButton { get; set; } = true;
 
         #endregion
@@ -89,7 +126,6 @@ namespace UWPCore.Framework.Common
 
 #pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         [Obsolete("Use OnStartAsync()")]
-
         protected override async void OnActivated(IActivatedEventArgs e) { await InternalActivatedAsync(e); }
 
         [Obsolete("Use OnStartAsync()")]
@@ -111,6 +147,10 @@ namespace UWPCore.Framework.Common
         protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args) { await InternalActivatedAsync(args); }
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 
+        /// <summary>
+        /// The internal actived handler that is called whenever the app is activated.
+        /// </summary>
+        /// <param name="e">The event args.</param>
         private async Task InternalActivatedAsync(IActivatedEventArgs e)
         {
             await OnStartAsync(StartKind.Activate, e);
@@ -119,7 +159,15 @@ namespace UWPCore.Framework.Common
 
         #endregion
 
+        /// <summary>
+        /// The windows created event.
+        /// </summary>
         public event EventHandler<WindowCreatedEventArgs> WindowCreated;
+
+        /// <summary>
+        /// The windows created event handler.
+        /// </summary>
+        /// <param name="args">The event args.</param>
         protected override void OnWindowCreated(WindowCreatedEventArgs args)
         {
             var window = new WindowWrapper(args.Window);
@@ -132,6 +180,10 @@ namespace UWPCore.Framework.Common
         protected override void OnLaunched(LaunchActivatedEventArgs e) { InternalLaunchAsync(e as ILaunchActivatedEventArgs); }
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 
+        /// <summary>
+        /// The internal launch handler that is called when when the app has been launched.
+        /// </summary>
+        /// <param name="e">The launch activated event args.</param>
         private async void InternalLaunchAsync(ILaunchActivatedEventArgs e)
         {
             // first handle prelaunch, which will not continue
@@ -168,7 +220,7 @@ namespace UWPCore.Framework.Common
             // expire state (based on expiry)
             DateTime cacheDate;
             var otherwise = DateTime.MinValue.ToString();
-            if (DateTime.TryParse(navigationService.Frame.GetFrameState(CacheKey, otherwise), out cacheDate))
+            if (DateTime.TryParse(navigationService.Frame.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
             {
                 var cacheAge = DateTime.Now.Subtract(cacheDate);
                 if (cacheAge >= CacheMaxDuration)
@@ -182,7 +234,7 @@ namespace UWPCore.Framework.Common
             }
             else
             {
-                // no date, that's okay
+                // no date, also fine...
             }
 
             // the user may override to set custom content
@@ -241,13 +293,11 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
-        /// Default Hardware/Shell Back handler overrides standard Back behavior that navigates to previous app
+        /// Default hardware/shell BACK handler overrides standard BACK behavior that navigates to previous app
         /// in the app stack to instead cause a backward page navigation.
         /// Views or Viewodels can override this behavior by handling the BackRequested event and setting the
         /// Handled property of the BackRequestedEventArgs to true.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void RaiseBackRequested()
         {
             var args = new HandledEventArgs();
@@ -262,6 +312,11 @@ namespace UWPCore.Framework.Common
             NavigationService.GoBack();
         }
 
+        /// <summary>
+        /// Default shell FORWARD handler overrides standard FORWARD behavior that navigates to next page
+        /// in the stack. Views or Viewodels can override this behavior by handling the ForwardRequested event
+        /// and setting the Handled property of the ForwardRequestedEventArgs to true.
+        /// </summary>
         private void RaiseForwardRequested()
         {
             var args = new HandledEventArgs();
@@ -278,12 +333,41 @@ namespace UWPCore.Framework.Common
 
         #region overrides
 
-        public enum StartKind { Launch, Activate }
+        /// <summary>
+        /// The hook method that is invoked before the app has launched.
+        /// </summary>
         public virtual void OnPrelaunch() { }
+
+        /// <summary>
+        /// The hook method that is invoked when the app has started.
+        /// </summary>
+        /// <param name="startKind">The start up kind.</param>
+        /// <param name="args">The activated event args.</param>
         public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args);
-        public virtual Task OnInitializeAsync() { return Task.FromResult<object>(null); }
-        public virtual Task OnSuspendingAsync(object s, SuspendingEventArgs e) { return Task.FromResult<object>(null); }
-        public virtual void OnResuming(object s, object e) { }
+
+        /// <summary>
+        /// The hook method to perform some initialization work, such as registering
+        /// the Shell frame wrapper class.
+        /// </summary>
+        public virtual Task OnInitializeAsync()
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        /// <summary>
+        /// The hook method that is invoked when the app is suspended.
+        /// </summary>
+        /// <param name="e">The suspending event args.</param>
+        public virtual Task OnSuspendingAsync(SuspendingEventArgs e)
+        {
+            return Task.FromResult<object>(null);
+        }
+
+        /// <summary>
+        /// The hook method that is invoked when the app is resumed.
+        /// </summary>
+        /// <param name="args">The resuming argument.</param>
+        public virtual void OnResuming(object args) { }
 
         #endregion
     }

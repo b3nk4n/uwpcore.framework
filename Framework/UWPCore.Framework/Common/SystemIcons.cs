@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media;
+﻿using Windows.UI.Xaml.Media;
 
 namespace UWPCore.Framework.Common
 {
     /// <summary>
-    /// Proviedes constants to the system icons based on the font Mdl2
+    /// Proviedes constants to the system icons based on the font MDL2
     /// </summary>
     /// <see cref="http://metronuggets.com/2015/05/18/introducing-mdl2-helpers/"/>
     public static class SystemIcons
     {
+        /// <summary>
+        /// The system icon font Segoe MDL2.
+        /// </summary>
         public static readonly FontFamily Font = new FontFamily("Segoe MDL2 Assets");
 
         public static string Account => "&xEA8C;";

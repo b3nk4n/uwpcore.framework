@@ -10,7 +10,7 @@ namespace UWPCore.Framework.Devices
     /// <remarks>
     /// This service is only available on mobile devices.
     /// </remarks>
-    public sealed class PhoneVibrateService : IVibrateService
+    public sealed class VibrateService : IVibrateService
     {
         /// <summary>
         /// The vibration device.
@@ -18,10 +18,11 @@ namespace UWPCore.Framework.Devices
         private VibrationDevice _virationDevice;
 
         /// <summary>
-        /// Creates a <see cref="UniversalKit.Framework.Phone.Devices.PhoneVibrateService"/> instance.
+        /// Creates a VibrateService instance.
         /// </summary>
-        public PhoneVibrateService()
+        public VibrateService()
         {
+            // FIXME: is this correct like this? or is it even crashing because of the VibrationDevice instance var?
             if (ApiInformation.IsTypePresent("Windows.Phone.Devices.Notification.VibrationDevice"))
             {
                 _virationDevice = VibrationDevice.GetDefault();

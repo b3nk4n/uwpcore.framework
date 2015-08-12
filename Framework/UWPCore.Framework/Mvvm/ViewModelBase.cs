@@ -5,12 +5,43 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Mvvm
 {
+    /// <summary>
+    /// The base class of view model in the MVVM pattern.
+    /// </summary>
     public abstract class ViewModelBase : BindableBase, INavigable
     {
+        /// <summary>
+        /// Gets or sets the identifier of the view model.
+        /// </summary>
+        /// <remarks>
+        /// This identifier is used by the navigation service for (re)storing the view model.
+        /// </remarks>
         public string Identifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation service.
+        /// </summary>
         public NavigationService NavigationService { get; set; }
-        public virtual void OnNavigatedTo(string parameter, NavigationMode mode, IDictionary<string, object> state) { /* nothing by default */ }
+
+        /// <summary>
+        /// Hook method that is called when a page using this view model was navigated to.
+        /// </summary>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="mode">The navigation mode.</param>
+        /// <param name="state">The state.</param>
+        public virtual void OnNavigatedTo(string parameter, NavigationMode mode, IDictionary<string, object> state) { }
+
+        /// <summary>
+        /// Hook method that is called when a page using this view model was navigated from.
+        /// </summary>
+        /// <param name="state">The state.</param>
+        /// <param name="suspending">The suspending indicator.</param>
         public virtual Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending) { return Task.FromResult<object>(null); }
-        public virtual void OnNavigatingFrom(NavigatingEventArgs args) { /* nothing by default */ }
+
+        /// <summary>
+        /// Hooh method that is called when a page using this view model is navigating from.
+        /// </summary>
+        /// <param name="args">The navigating event args.</param>
+        public virtual void OnNavigatingFrom(NavigatingEventArgs args) { }
     }
 }

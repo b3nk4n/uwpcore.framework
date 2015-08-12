@@ -6,10 +6,24 @@ using Windows.UI.Xaml.Media;
 
 namespace UWPCore.Framework.Controls
 {
+    /// <summary>
+    /// The FORWARD button of the app bar.
+    /// </summary>
     public sealed class ForwardAppBarButton : AppBarButton
     {
+        /// <summary>
+        /// The visibility changed event.
+        /// </summary>
         public event EventHandler VisibilityChanged;
 
+        /// <summary>
+        /// Gets or sets the frame.
+        /// </summary>
+        public Frame Frame { get; set; }
+
+        /// <summary>
+        /// Creates a ForwardAppBarButton instance.
+        /// </summary>
         public ForwardAppBarButton()
         {
             Label = "Forward";
@@ -36,8 +50,10 @@ namespace UWPCore.Framework.Controls
             RegisterPropertyChangedCallback(VisibilityProperty, (s, e) => VisibilityChanged?.Invoke(this, EventArgs.Empty));
         }
 
-        public Frame Frame { get; set; }
-
+        /// <summary>
+        /// Calculate the FORWARD visibilty on the canvas.
+        /// </summary>
+        /// <returns>Returns the visiblity of the FORWARD button.</returns>
         private Visibility CalculateOnCanvasBackVisibility()
         {
             // by design it is not visible when not applicable

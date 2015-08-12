@@ -4,15 +4,29 @@ using Windows.UI.Core;
 
 namespace UWPCore.Framework.Common
 {
+    /// <summary>
+    /// The dispather wrapper class for thread-safity.
+    /// </summary>
     public class DispatcherWrapper
     {
+        /// <summary>
+        /// The core dispatcher of Windows Runtime to wrap.
+        /// </summary>
+        private readonly CoreDispatcher dispatcher;
+
+        /// <summary>
+        /// Creates a dispatcher wrapper instance.
+        /// </summary>
+        /// <param name="dispatcher">The core dispatcher of Windows Runtime to wrap.</param>
         public DispatcherWrapper(CoreDispatcher dispatcher)
         {
             this.dispatcher = dispatcher;
         }
 
-        private CoreDispatcher dispatcher;
-
+        /// <summary>
+        /// Dispatches the action asynchronously.
+        /// </summary>
+        /// <param name="action">The action to dispatch.</param>
         public async Task DispatchAsync(Action action)
         {
             if (dispatcher.HasThreadAccess) { action(); }
@@ -28,6 +42,10 @@ namespace UWPCore.Framework.Common
             }
         }
 
+        /// <summary>
+        /// Dispatches the function asynchronously.
+        /// </summary>
+        /// <param name="func">The function to dispatch.</param>
         public async Task DispatchAsync(Func<Task> func)
         {
             if (dispatcher.HasThreadAccess) { await func?.Invoke(); }
@@ -43,6 +61,10 @@ namespace UWPCore.Framework.Common
             }
         }
 
+        /// <summary>
+        /// Dispatches the function asynchronously.
+        /// </summary>
+        /// <param name="func">The function to dispatch.</param>
         public async Task<T> DispatchAsync<T>(Func<T> func)
         {
             if (dispatcher.HasThreadAccess) { return func(); }

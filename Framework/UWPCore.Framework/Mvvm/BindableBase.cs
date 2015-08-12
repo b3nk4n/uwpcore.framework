@@ -4,8 +4,15 @@ using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Mvvm
 {
+    /// <summary>
+    /// An implementation of <see cref="IBindable"/> interface to simplify 
+    /// model and view models of the MVVM pattern.
+    /// </summary> 
     public abstract class BindableBase : IBindable
     {
+        /// <summary>
+        /// Multicast event for property change notifications.
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         public async void RaisePropertyChanged([CallerMemberName]string propertyName = null)
@@ -17,10 +24,10 @@ namespace UWPCore.Framework.Mvvm
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             });
         }
-
+ 
         public void Set<T>(ref T storage, T value, [CallerMemberName()]string propertyName = null)
         {
-            if (object.Equals(storage, value))
+            if (Equals(storage, value))
                 return;
             storage = value;
             RaisePropertyChanged(propertyName);

@@ -10,10 +10,24 @@ using Windows.UI.Xaml.Media;
 
 namespace UWPCore.Framework.Controls
 {
+    /// <summary>
+    /// The BACK button of the app bar.
+    /// </summary>
     public class BackAppBarButton : AppBarButton
     {
+        /// <summary>
+        /// The visibility changed event.
+        /// </summary>
         public event EventHandler VisibilityChanged;
 
+        /// <summary>
+        /// Gets or sets the frame.
+        /// </summary>
+        public Frame Frame { get; set; }
+
+        /// <summary>
+        /// Creates a new BackAppBarButton instance.
+        /// </summary>
         public BackAppBarButton()
         {
             Label = "Back";
@@ -39,8 +53,10 @@ namespace UWPCore.Framework.Controls
             RegisterPropertyChangedCallback(VisibilityProperty, (s, e) => VisibilityChanged?.Invoke(this, EventArgs.Empty));
         }
 
-        public Frame Frame { get; set; }
-
+        /// <summary>
+        /// Calculate the BACK visibilty on the canvas.
+        /// </summary>
+        /// <returns>Returns the visiblity of the BACK button.</returns>
         private Visibility CalculateOnCanvasBackVisibility()
         {
             // by design it is not visible when not applicable
