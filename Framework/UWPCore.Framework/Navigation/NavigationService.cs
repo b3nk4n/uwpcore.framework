@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,6 +14,10 @@ namespace UWPCore.Framework.Navigation
     public class NavigationService
     {
         private const string EmptyNavigation = "1,0";
+
+        public const string CURRENT_PAGE_TYPE_KEY = "CurrentPageType";
+        public const string CURRENT_PAGE_PARAM_KEY = "CurrentPageParam";
+        public const string NAVIGATE_STATE_KEY = "NavigateState";
 
         public FrameFacade Frame { get; private set; }
         string LastNavigationParameter { get; set; }
@@ -108,7 +114,7 @@ namespace UWPCore.Framework.Navigation
                         dataContext.OnNavigatedTo(parameter, mode, pageState);
                     }
                 }
-            }
+             }
         }
 
         // TODO: this will spawn a new window instead of navigating to an existing frame.
@@ -166,9 +172,12 @@ namespace UWPCore.Framework.Navigation
         public void SaveNavigation()
         {
             var state = Frame.PageStateContainer(GetType());
-            state["CurrentPageType"] = CurrentPageType.ToString();
-            state["CurrentPageParam"] = CurrentPageParam;
-            state["NavigateState"] = Frame.GetNavigationState();
+            state[CURRENT_PAGE_TYPE_KEY] = CurrentPageType.ToString();
+            Debug.WriteLine("Saved CurrentPageType: " + CurrentPageType.ToString());
+            state[CURRENT_PAGE_PARAM_KEY] = CurrentPageParam;
+            Debug.WriteLine("Saved CurrentPageParam: " + CurrentPageParam);
+            state[NAVIGATE_STATE_KEY] = Frame.GetNavigationState();
+            Debug.WriteLine("Saved NavigateState: " + Frame.GetNavigationState());
         }
 
         public bool RestoreSavedNavigation()
@@ -176,9 +185,14 @@ namespace UWPCore.Framework.Navigation
             try
             {
                 var state = Frame.PageStateContainer(GetType());
-                Frame.CurrentPageType = Type.GetType(state["CurrentPageType"].ToString());
-                Frame.CurrentPageParam = state["CurrentPageParam"]?.ToString();
-                Frame.SetNavigationState(state["NavigateState"].ToString());
+                string currentPageType = state[CURRENT_PAGE_TYPE_KEY].ToString();
+                Type pageTypeOfAppAssembly = Type.GetType(currentPageType + ", " + UniversalApp.AppAssemblyName);
+                Frame.CurrentPageType = pageTypeOfAppAssembly;
+                Debug.WriteLine("Loaded CurrentPageType: " + Frame.CurrentPageType);
+                Frame.CurrentPageParam = state[CURRENT_PAGE_PARAM_KEY]?.ToString();
+                Debug.WriteLine("Loaded CurrentPageParam: " + Frame.CurrentPageParam);
+                Frame.SetNavigationState(state[NAVIGATE_STATE_KEY].ToString());
+                Debug.WriteLine("Loaded NavigateState: " + state[NAVIGATE_STATE_KEY].ToString());
                 NavigateTo(NavigationMode.Refresh, Frame.CurrentPageParam);
                 return true;
             }

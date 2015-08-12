@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Reflection;
+using System.Threading.Tasks;
 using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Navigation;
@@ -12,7 +13,7 @@ namespace UWPCore.Demo
     /// </summary>
     sealed partial class App : UniversalApp
     {
-        public App() : base(typeof(MainPage))
+        public App() : base(typeof(MainPage), "UWPCore.Demo")
         {
             InitializeComponent();
             ShowShellBackButton = true;

@@ -14,9 +14,20 @@ namespace UWPCore.Framework.Common
 {
     public abstract class UniversalApp : Application
     {
-        public UniversalApp(Type defaultPage)
+        /// <summary>
+        /// The assembly name of the application to be implemented by the framework user.
+        /// </summary>
+        public static string AppAssemblyName { get; private set; }
+
+        /// <summary>
+        /// Creates a new UniversalApp instance.
+        /// </summary>
+        /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
+        /// <param name="appAssemblyName">The applicatoins assembly name implememnted by the framework user.</param>
+        public UniversalApp(Type defaultPage, string appAssemblyName)
         {
             DefaultPage = defaultPage;
+            AppAssemblyName = appAssemblyName;
 
             Resuming += (s, e) => { OnResuming(s, e); };
             Suspending += async (s, e) =>
@@ -41,6 +52,9 @@ namespace UWPCore.Framework.Common
 
         #region properties
 
+        /// <summary>
+        /// The default page to be navigated to when the app is launched.
+        /// </summary>
         public Type DefaultPage { get; private set; }
 
         public Frame RootFrame { get; set; }
