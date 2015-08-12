@@ -13,7 +13,7 @@ namespace UWPCore.Demo
     /// </summary>
     sealed partial class App : UniversalApp
     {
-        public App() : base(typeof(MainPage), "UWPCore.Demo")
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.Terminate, "UWPCore.Demo")
         {
             InitializeComponent();
             ShowShellBackButton = true;

@@ -20,11 +20,26 @@ namespace UWPCore.Framework.Common
         public static string AppAssemblyName { get; private set; }
 
         /// <summary>
+        /// Indicates the BACK button behaviour of the initial page.
+        /// </summary>
+        public static AppBackButtonBehaviour BackButtonBehaviour { get; private set; }
+
+        /// <summary>
+        /// The back button behaviour of the app on the root level.
+        /// </summary>
+        public enum AppBackButtonBehaviour
+        {
+            Terminate,
+            KeepAlive
+        }
+
+        /// <summary>
         /// Creates a new UniversalApp instance.
         /// </summary>
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
+        /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
         /// <param name="appAssemblyName">The applicatoins assembly name implememnted by the framework user.</param>
-        public UniversalApp(Type defaultPage, string appAssemblyName)
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, string appAssemblyName)
         {
             DefaultPage = defaultPage;
             AppAssemblyName = appAssemblyName;
@@ -206,8 +221,15 @@ namespace UWPCore.Framework.Common
             SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
             {
                 // TODO: handled=true canisn't true at end of backstack
-                args.Handled = true;
-                RaiseBackRequested();
+                if (navigationService.CanGoBack)
+                {
+                    args.Handled = true;
+                    RaiseBackRequested();
+                }
+                else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                {
+                    Current.Exit();
+                }
             };
 
             // Hook up keyboard and mouse Back handler
