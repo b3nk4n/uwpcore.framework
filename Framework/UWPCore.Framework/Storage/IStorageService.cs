@@ -95,30 +95,30 @@ namespace UWPCore.Framework.Storage
         /// <summary>
         /// Get a file async.
         /// </summary>
-        /// <param name="path">Path of file to get.</param>
+        /// <param name="filePath">Path of file to get.</param>
         /// <returns>Returns file or null if file does not exist.</returns>
-        Task<StorageFile> GetFileAsync(string path);
+        Task<StorageFile> GetFileAsync(string filePath);
 
         /// <summary>
         /// Get a list of files async.
         /// </summary>
-        /// <param name="path">Folder path to list of containing files.</param>
+        /// <param name="filePath">Folder path to list of containing files.</param>
         /// <returns>Returns list of storage files.</returns>
-        Task<IReadOnlyList<StorageFile>> GetFilesAsync(string path);
+        Task<IReadOnlyList<StorageFile>> GetFilesAsync(string filePath);
 
         /// <summary>
         /// Create or get a file async.
         /// </summary>
-        /// <param name="path">Path of file to create or get.</param>
+        /// <param name="filePath">Path of file to create or get.</param>
         /// <returns>The async result that contains the storage file.</returns>
-        Task<StorageFile> CreateOrGetFileAsync(string path);
+        Task<StorageFile> CreateOrGetFileAsync(string filePath);
 
         /// <summary>
         /// Create or replace a file async.
         /// </summary>
-        /// <param name="path">Path of file to create or replace.</param>
+        /// <param name="filePath">Path of file to create or replace.</param>
         /// <returns>The async result that contains the storage file.</returns>
-        Task<StorageFile> CreateOrReplaceFileAsync(string path);
+        Task<StorageFile> CreateOrReplaceFileAsync(string filePath);
 
         /// <summary>
         /// Delete a file async.

@@ -1,0 +1,23 @@
+﻿<UserControl
+    x:Class="UWPCore.Test.Graphics.Controls.SampleControl300"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Test.Graphics.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="300"
+    Width="300"
+    Height="300">
+    <Grid Background="Red">
+        <StackPanel Margin="24">
+            <TextBlock FontSize="40">UWPCore</TextBlock>
+            <TextBlock FontSize="36">UWPCore</TextBlock>
+            <TextBlock FontSize="32">UWPCore</TextBlock>
+            <TextBlock FontSize="28">UWPCore</TextBlock>
+            <TextBlock FontSize="24">UWPCore</TextBlock>
+            <TextBlock FontSize="20">UWPCore</TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

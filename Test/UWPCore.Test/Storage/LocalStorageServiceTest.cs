@@ -13,6 +13,21 @@ namespace UWPCore.Test.Storage
         public const string TEST_FILE_TXT = "test_file.txt";
 
         /// <summary>
+        /// The used test text file which is nested in some folders.
+        /// </summary>
+        public const string TEST_FILE_TXT_WITH_DIRS = "dir1/dir2/" + TEST_FILE_TXT;
+
+        /// <summary>
+        /// The used test folder name in root folder.
+        /// </summary>
+        public const string TEST_FOLDER = "test_folder";
+
+        /// <summary>
+        /// The used nested test folder path starting from root folder.
+        /// </summary>
+        public const string TEST_FOLDER_NESTED = "dir1/dir2/" + TEST_FOLDER;
+
+        /// <summary>
         /// The system under test.
         /// </summary>
         private IStorageService _storageService;
@@ -46,6 +61,17 @@ namespace UWPCore.Test.Storage
             await _storageService.WriteFile(TEST_FILE_TXT, data);
 
             var fileExists = await _storageService.ContainsFile(TEST_FILE_TXT);
+
+            Assert.IsTrue(fileExists);
+        }
+
+        [TestMethod]
+        public async Task TestWriteInSubfolderCreatesNewFile()
+        {
+            string data = "data";
+            await _storageService.WriteFile(TEST_FILE_TXT_WITH_DIRS, data);
+
+            var fileExists = await _storageService.ContainsFile(TEST_FILE_TXT_WITH_DIRS);
 
             Assert.IsTrue(fileExists);
         }
@@ -101,10 +127,73 @@ namespace UWPCore.Test.Storage
             Assert.IsFalse(fileExistsAfterDelete);
         }
 
-        [TestCleanup]
-        public void Cleanup()
+        [TestMethod]
+        public async Task TestCreateOrGetFile()
         {
-            // TODO: cleanup files
+            var file = await _storageService.CreateOrGetFileAsync(TEST_FILE_TXT);
+
+            Assert.IsNotNull(file);
+            Assert.AreEqual(TEST_FILE_TXT, file.Name);
+        }
+
+        [TestMethod]
+        public async Task TestCreateOrGetFileWithDirs()
+        {
+            var file = await _storageService.CreateOrGetFileAsync(TEST_FILE_TXT_WITH_DIRS);
+
+            Assert.IsNotNull(file);
+            Assert.AreEqual(TEST_FILE_TXT, file.Name);
+        }
+
+        [TestMethod]
+        public async Task TestCreateDirectory()
+        {
+            var folder = await _storageService.CreateOrGetFolderAsync(TEST_FOLDER);
+
+            Assert.IsNotNull(folder);
+            Assert.AreEqual(TEST_FOLDER, folder.Name);
+        }
+
+        [TestMethod]
+        public async Task TestCreateNestedDirectories()
+        {
+            var folder = await _storageService.CreateOrGetFolderAsync(TEST_FOLDER_NESTED);
+
+            Assert.IsNotNull(folder);
+            Assert.AreEqual(TEST_FOLDER, folder.Name);
+        }
+
+        [TestMethod]
+        public async Task TestCreateNestedDirectoriesAndDeleteAllFromTheMiddle()
+        {
+            var folder = await _storageService.CreateOrGetFolderAsync("f1/f2/f3");
+
+            Assert.IsNotNull(folder);
+            Assert.AreEqual("f3", folder.Name);
+
+            var containsFolderF2 = await _storageService.ContainsDirectory("f1/f2");
+
+            Assert.IsTrue(containsFolderF2);
+
+            await _storageService.DeleteFolderAsync("f1/f2");
+
+            var containsFolderF1 = await _storageService.ContainsDirectory("f1");
+            containsFolderF2 = await _storageService.ContainsDirectory("f1/f2");
+            var containsFolderF3 = await _storageService.ContainsDirectory("f1/f2/f3");
+
+            Assert.IsTrue(containsFolderF1);
+            Assert.IsFalse(containsFolderF2);
+            Assert.IsFalse(containsFolderF3);
+        }
+
+        [TestCleanup]
+        public async Task Cleanup()
+        {
+            await _storageService.DeleteFileAsync(TEST_FILE_TXT);
+            await _storageService.DeleteFileAsync(TEST_FILE_TXT_WITH_DIRS);
+            await _storageService.DeleteFolderAsync(TEST_FOLDER);
+            await _storageService.DeleteFolderAsync(TEST_FOLDER_NESTED);
+            await _storageService.DeleteFolderAsync(TEST_FOLDER_NESTED);
         }
     }
 

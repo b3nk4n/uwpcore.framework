@@ -18,7 +18,7 @@ namespace UWPCore.Framework.Storage
         /// <summary>
         /// The local root folder.
         /// </summary>
-        private StorageFolder _rootFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+        private StorageFolder _rootFolder = ApplicationData.Current.LocalFolder;
 
         #endregion
 
@@ -105,7 +105,7 @@ namespace UWPCore.Framework.Storage
             var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
             using (var outputStream = stream.GetOutputStreamAt(0))
             {
-                var dataWriter = new Windows.Storage.Streams.DataWriter(outputStream);
+                var dataWriter = new DataWriter(outputStream);
                 dataWriter.WriteBuffer(image.PixelBuffer);
             }
 
@@ -159,19 +159,19 @@ namespace UWPCore.Framework.Storage
             return folder != null;
         }
 
-        public async Task<StorageFile> GetFileAsync(string path)
+        public async Task<StorageFile> GetFileAsync(string filePath)
         {
-            if (await ContainsFile(path))
+            if (await ContainsFile(filePath))
             {
-                return await RootFolder.GetFileAsync(path);
+                return await RootFolder.GetFileAsync(filePath);
             }
 
             return null;
         }
 
-        public async Task<IReadOnlyList<StorageFile>> GetFilesAsync(string path)
+        public async Task<IReadOnlyList<StorageFile>> GetFilesAsync(string filePath)
         {
-            var folder = await GetFolderAsync(path);
+            var folder = await GetFolderAsync(filePath);
             if (folder != null)
             {
                 return await folder.GetFilesAsync();
@@ -180,26 +180,40 @@ namespace UWPCore.Framework.Storage
             return null;
         }
 
-        public async Task<StorageFile> CreateOrGetFileAsync(string path)
-        {
-            return await RootFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists);
-        }
-
-        public async Task<StorageFile> CreateOrReplaceFileAsync(string path)
-        {
-            return await RootFolder.CreateFileAsync(path, CreationCollisionOption.ReplaceExisting);
-        }
-
-        public async Task DeleteFileAsync(string path)
+        public async Task<StorageFile> CreateOrGetFileAsync(string filePath)
         {
             try
             {
-                var folder = await GetStorageFolder(path);
+                return await RootFolder.CreateFileAsync(filePath, CreationCollisionOption.OpenIfExists);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<StorageFile> CreateOrReplaceFileAsync(string filePath)
+        {
+            try
+            {
+                return await RootFolder.CreateFileAsync(filePath, CreationCollisionOption.ReplaceExisting);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task DeleteFileAsync(string filePath)
+        {
+            try
+            {
+                var folder = await GetStorageFolder(filePath);
 
                 if (folder == null)
                     return;
 
-                var file = await folder.GetFileAsync(Path.GetFileName(path));
+                var file = await folder.GetFileAsync(Path.GetFileName(filePath));
                 await file.DeleteAsync();
             }
             catch (FileNotFoundException)

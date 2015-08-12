@@ -96,7 +96,12 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\BooleanNegationConverterTest.cs" />
     <Compile Include="Data\DataContractSerializationServiceTest.cs" />
+    <Compile Include="Graphics\Controls\SampleControl300.xaml.cs">
+      <DependentUpon>SampleControl300.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Graphics\GraphicsServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storage\LocalStorageServiceTest.cs" />
     <Compile Include="Storage\StoredObjectTest.cs" />
@@ -134,6 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Graphics\Controls\SampleControl300.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
