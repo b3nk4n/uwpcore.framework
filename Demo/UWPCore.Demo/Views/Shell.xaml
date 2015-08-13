@@ -85,6 +85,17 @@
                             </TextBlock>
                         </RadioButton.Tag>
                     </RadioButton>
+
+                    <!-- networking -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Networking" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:NetworkingPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource Network}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
                     
                     <!-- about -->
                     <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">

@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 namespace UWPCore.Demo.Views
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Demo page for testing device dependent features.
     /// </summary>
     public sealed partial class DeviceFeaturesPage : Page
     {

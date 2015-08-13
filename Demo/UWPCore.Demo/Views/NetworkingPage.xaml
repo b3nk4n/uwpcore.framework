@@ -1,0 +1,46 @@
+﻿<Page
+    x:Class="UWPCore.Demo.Views.NetworkingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcConverters="using:UWPCore.Framework.Converters"
+    x:Name="This"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <uwpcConverters:BooleanToBrushConverter x:Key="BoolToBrushConv" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- header -->
+        <uwpcControls:PageHeader Grid.Row="0" Text="Networking" />
+
+        <!-- content -->
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Width="100">Connection:</TextBlock>
+                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=ConnectionStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Width="100">Internet:</TextBlock>
+                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=InternetStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Width="100">Wifi:</TextBlock>
+                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=WifiStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

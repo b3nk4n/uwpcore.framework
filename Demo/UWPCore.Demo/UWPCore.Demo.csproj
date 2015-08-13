@@ -105,6 +105,9 @@
     <Compile Include="Views\AudioPage.xaml.cs">
       <DependentUpon>AudioPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NetworkingPage.xaml.cs">
+      <DependentUpon>NetworkingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DeviceFeaturesPage.xaml.cs">
       <DependentUpon>DeviceFeaturesPage.xaml</DependentUpon>
     </Compile>
@@ -154,6 +157,10 @@
     <Page Include="Views\AudioPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DeviceFeaturesPage.xaml">
       <SubType>Designer</SubType>
