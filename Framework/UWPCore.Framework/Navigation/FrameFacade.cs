@@ -10,8 +10,15 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation
 {
+    /// <summary>
+    /// A facade pattern implementatoin of a <see cref="Frame"/> to simplify its use.
+    /// </summary>
     public class FrameFacade
     {
+        /// <summary>
+        /// Creates a FrameFacade instance.
+        /// </summary>
+        /// <param name="frame">The frame to wrap.</param>
         public FrameFacade(Frame frame)
         {
             _frame = frame;
@@ -26,96 +33,222 @@ namespace UWPCore.Framework.Navigation
             _frame.ContentTransitions = c;
         }
 
+        /// <summary>
+        /// The BACK requested event.
+        /// </summary>
         public event EventHandler<HandledEventArgs> BackRequested;
-        public void RaiseBackRequested(HandledEventArgs args) { BackRequested?.Invoke(this, args); }
 
+        /// <summary>
+        /// Raises the BACK requested event.
+        /// </summary>
+        /// <param name="args">The handled event args.</param>
+        public void RaiseBackRequested(HandledEventArgs args)
+        {
+            BackRequested?.Invoke(this, args);
+        }
+
+        /// <summary>
+        /// The FORWARD requested event.
+        /// </summary>
         public event EventHandler<HandledEventArgs> ForwardRequested;
-        public void RaiseForwardRequested(HandledEventArgs args) { ForwardRequested?.Invoke(this, args); }
 
-        #region state
+        /// <summary>
+        /// Raises the FORWARD requested event.
+        /// </summary>
+        /// <param name="args">The handled event args.</param>
+        public void RaiseForwardRequested(HandledEventArgs args)
+        {
+            ForwardRequested?.Invoke(this, args);
+        }
 
+        #region State
+
+        /// <summary>
+        /// Gets the frame state key.
+        /// </summary>
+        /// <returns>The frame state key.</returns>
         private string GetFrameStateKey()
         {
             return string.Format("{0}-PageState", FrameId);
         }
 
+        /// <summary>
+        /// The frame state container.
+        /// </summary>
         private Windows.Storage.ApplicationDataContainer frameStateContainer;
-        private Windows.Storage.ApplicationDataContainer FrameStateContainer()
+
+        /// <summary>
+        /// Get or creates the frame state container.
+        /// </summary>
+        /// <returns></returns>
+        private Windows.Storage.ApplicationDataContainer GetFrameStateContainer()
         {
             if (frameStateContainer != null)
                 return frameStateContainer;
             var data = Windows.Storage.ApplicationData.Current;
             var key = GetFrameStateKey();
             var container = data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
-            return container;
+            return container; // FIXME: assign to frameStateContainer for reuse?
         }
 
+        /// <summary>
+        /// Sets the frame state.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="value">The value.</param>
         public void SetFrameState(string key, string value)
         {
-            FrameStateContainer().Values[key] = value ?? string.Empty;
+            GetFrameStateContainer().Values[key] = value ?? string.Empty;
         }
 
-        public string GetFrameState(string key, string otherwise)
+        /// <summary>
+        /// Gets the frame state.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="fallbackValue">The fallback value.</param>
+        /// <returns>The frame state value.</returns>
+        public string GetFrameState(string key, string fallbackValue)
         {
-            if (!FrameStateContainer().Values.ContainsKey(key))
-                return otherwise;
-            try { return FrameStateContainer().Values[key].ToString(); }
-            catch { return otherwise; }
+            if (!GetFrameStateContainer().Values.ContainsKey(key))
+                return fallbackValue;
+            try { return GetFrameStateContainer().Values[key].ToString(); }
+            catch { return fallbackValue; }
         }
 
+        /// <summary>
+        /// Clears the frame state.
+        /// </summary>
         public void ClearFrameState()
         {
-            FrameStateContainer().Values.Clear();
-            foreach (var container in FrameStateContainer().Containers)
+            GetFrameStateContainer().Values.Clear();
+            foreach (var container in GetFrameStateContainer().Containers)
             {
-                FrameStateContainer().DeleteContainer(container.Key);
+                GetFrameStateContainer().DeleteContainer(container.Key);
             }
             pageStateContainers.Clear();
         }
 
+        /// <summary>
+        /// Gets the page state key.
+        /// </summary>
+        /// <param name="type">The page type.</param>
+        /// <returns>Returns the page state key.</returns>
         private string GetPageStateKey(Type type)
         {
             return string.Format("{0}", type);
         }
 
+        /// <summary>
+        /// The page state containers data structure.
+        /// </summary>
         readonly Dictionary<Type, IPropertySet> pageStateContainers = new Dictionary<Type, IPropertySet>();
-        public IPropertySet PageStateContainer(Type type)
+
+        /// <summary>
+        /// Gets the page state container.
+        /// </summary>
+        /// <param name="type">The page type.</param>
+        /// <returns>Returns the page state container.</returns>
+        public IPropertySet GetPageStateContainer(Type type)
         {
             if (pageStateContainers.ContainsKey(type))
                 return pageStateContainers[type];
             var key = GetPageStateKey(type);
-            var container = FrameStateContainer().CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
+            var container = GetFrameStateContainer().CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
             pageStateContainers.Add(type, container.Values);
             return container.Values;
         }
 
+        /// <summary>
+        /// Clears the page state of a given page type.
+        /// </summary>
+        /// <param name="type">The page type.</param>
         public void ClearPageState(Type type)
         {
             var key = GetPageStateKey(type);
-            if (FrameStateContainer().Containers.ContainsKey(key))
-                FrameStateContainer().DeleteContainer(key);
+            if (GetFrameStateContainer().Containers.ContainsKey(key))
+                GetFrameStateContainer().DeleteContainer(key);
         }
 
         #endregion
 
-        #region frame facade
+        #region Frame Facade
 
-        readonly Frame _frame;
+        /// <summary>
+        /// The frame.
+        /// </summary>
+        private readonly Frame _frame;
 
+        /// <summary>
+        /// Gets or sets the frame ID.
+        /// </summary>
         public string FrameId { get; set; } = string.Empty;
 
-        public bool Navigate(Type page, string parameter) { return _frame.Navigate(page, parameter); }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public bool Navigate(Type page, string parameter)
+        {
+            return _frame.Navigate(page, parameter);
+        }
 
-        public void SetNavigationState(string state) { _frame.SetNavigationState(state); }
+        /// <summary>
+        /// Sets the navigatoin state.
+        /// </summary>
+        /// <param name="state">The navigation state.</param>
+        public void SetNavigationState(string state)
+        {
+            _frame.SetNavigationState(state);
+        }
 
-        public string GetNavigationState() { return _frame.GetNavigationState(); }
+        /// <summary>
+        /// Gets the navigation state.
+        /// </summary>
+        /// <returns>Returns the navigation state.</returns>
+        public string GetNavigationState()
+        {
+            return _frame.GetNavigationState();
+        }
 
-        public int BackStackDepth { get { return _frame.BackStackDepth; } }
+        /// <summary>
+        /// Gets the BACK stack depth.
+        /// </summary>
+        public int BackStackDepth
+        {
+            get
+            {
+                return _frame.BackStackDepth;
+            }
+        }
 
-        public bool CanGoBack { get { return _frame.CanGoBack; } }
+        /// <summary>
+        /// Gets whether we can go back in the back history.
+        /// </summary>
+        public bool CanGoBack
+        {
+            get
+            {
+                return _frame.CanGoBack;
+            }
+        }
 
-        public void GoBack() { _frame.GoBack(); }
+        /// <summary>
+        /// Goes back in the back stack.
+        /// </summary>
+        /// <remarks>
+        /// Check <see cref="CanGoBack"/> whether a call to this method is valid.
+        /// </remarks>
+        public void GoBack()
+        {
+            _frame.GoBack();
+        }
 
+        /// <summary>
+        /// Refreshes the current loaded page by popping it from the stack 
+        /// and renavigate to it again.
+        /// </summary>
         public void Refresh()
         {
             var page = CurrentPageType;
@@ -124,25 +257,88 @@ namespace UWPCore.Framework.Navigation
             Navigate(page, param);
         }
 
-        public bool CanGoForward { get { return _frame.CanGoForward; } }
+        /// <summary>
+        /// Gets whether we can go forward in the forward history.
+        /// </summary>
+        public bool CanGoForward
+        {
+            get
+            {
+                return _frame.CanGoForward;
+            }
+        }
 
-        public void GoForward() { _frame.GoForward(); }
+        /// <summary>
+        /// Goes forward in the forward stack.
+        /// </summary>
+        /// <remarks>
+        /// Check <see cref="CanGoForward"/> whether a call to this method is valid.
+        /// </remarks>
+        public void GoForward()
+        {
+            _frame.GoForward();
+        }
 
-        public object Content { get { return _frame.Content; } }
+        /// <summary>
+        /// Gets the content of the of the frame.
+        /// </summary>
+        public object Content
+        {
+            get
+            {
+                return _frame.Content;
+            }
+        }
 
+        /// <summary>
+        /// Gets or sets the current page type.
+        /// </summary>
         public Type CurrentPageType { get; internal set; }
 
+        /// <summary>
+        /// Gets or sets the current page parameter.
+        /// </summary>
         public string CurrentPageParam { get; internal set; }
 
-        public object GetValue(DependencyProperty dp) { return _frame.GetValue(dp); }
+        /// <summary>
+        /// Gets the dependency property value of the frame.
+        /// </summary>
+        /// <param name="dp">The dependency property.</param>
+        /// <returns>The value.</returns>
+        public object GetValue(DependencyProperty dp)
+        {
+            return _frame.GetValue(dp);
+        }
 
-        public void SetValue(DependencyProperty dp, object value) { _frame.SetValue(dp, value); }
+        /// <summary>
+        /// Sets the dependency property value of the frame.
+        /// </summary>
+        /// <param name="dp">The dependency property.</param>
+        /// <param name="value">The value.</param>
+        public void SetValue(DependencyProperty dp, object value)
+        {
+            _frame.SetValue(dp, value);
+        }
 
-        public void ClearValue(DependencyProperty dp) { _frame.ClearValue(dp); }
+        /// <summary>
+        /// Clears the dependency property value of the frame.
+        /// </summary>
+        /// <param name="dp">The dependency property.</param>
+        public void ClearValue(DependencyProperty dp)
+        {
+            _frame.ClearValue(dp);
+        }
 
         #endregion
 
+        /// <summary>
+        /// The collection of navigated event handlers.
+        /// </summary>
         readonly List<EventHandler<NavigatedEventArgs>> _navigatedEventHandlers;
+
+        /// <summary>
+        /// The navigated event.
+        /// </summary>
         public event EventHandler<NavigatedEventArgs> Navigated
         {
             add
@@ -164,7 +360,12 @@ namespace UWPCore.Framework.Navigation
             }
         }
 
-        void FacadeNavigatedEventHandler(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+        /// <summary>
+        /// The facade navigated event handler.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
+        void FacadeNavigatedEventHandler(object sender, NavigationEventArgs e)
         {
             var args = new NavigatedEventArgs(e);
             foreach (var handler in _navigatedEventHandlers)
@@ -175,7 +376,14 @@ namespace UWPCore.Framework.Navigation
             CurrentPageParam = e.Parameter as String;
         }
 
+        /// <summary>
+        /// The collection of navigating event handlers.
+        /// </summary>
         readonly List<EventHandler<NavigatingEventArgs>> _navigatingEventHandlers = new List<EventHandler<NavigatingEventArgs>>();
+
+        /// <summary>
+        /// the navigating event.
+        /// </summary>
         public event EventHandler<NavigatingEventArgs> Navigating
         {
             add
@@ -196,6 +404,11 @@ namespace UWPCore.Framework.Navigation
             }
         }
 
+        /// <summary>
+        /// The facade navigating cancel event handler.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void FacadeNavigatingCancelEventHandler(object sender, NavigatingCancelEventArgs e)
         {
             var args = new NavigatingEventArgs(e);

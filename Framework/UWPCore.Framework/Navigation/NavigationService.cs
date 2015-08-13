@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation.Collections;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,18 +10,50 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation
 {
+    /// <summary>
+    /// The navigation service that manages and simplifies the page navigation.
+    /// </summary>
     public class NavigationService
     {
-        private const string EmptyNavigation = "1,0";
+        /// <summary>
+        /// The empty navigation value.
+        /// </summary>
+        private const string EMPTY_NAVIGATION = "1,0";
 
+        /// <summary>
+        /// The current page type state key.
+        /// </summary>
         public const string CURRENT_PAGE_TYPE_KEY = "CurrentPageType";
+
+        /// <summary>
+        /// The current page param state key.
+        /// </summary>
         public const string CURRENT_PAGE_PARAM_KEY = "CurrentPageParam";
+
+        /// <summary>
+        /// The navigate state key.
+        /// </summary>
         public const string NAVIGATE_STATE_KEY = "NavigateState";
 
+        /// <summary>
+        /// Gets the wrapped frame.
+        /// </summary>
         public FrameFacade Frame { get; private set; }
-        string LastNavigationParameter { get; set; }
-        string LastNavigationType { get; set; }
 
+        /// <summary>
+        /// The last navigation parameter.
+        /// </summary>
+        private string _lastNavigationParameter;
+
+        /// <summary>
+        /// The last navigation type.
+        /// </summary>
+        private string _lastNavigationType;
+
+        /// <summary>
+        /// Creates a NavigationService instance.
+        /// </summary>
+        /// <param name="frame">The page frame.</param>
         public NavigationService(Frame frame)
         {
             Frame = new FrameFacade(frame);
@@ -44,7 +75,11 @@ namespace UWPCore.Framework.Navigation
             };
         }
 
-        // before navigate (cancellable)
+        /// <summary>
+        /// Navigating from before navigation (cancellable).
+        /// </summary>
+        /// <param name="suspending">The suspending flag.</param>
+        /// <returns>Returns True when navigating from is ok, else False when to cancel.</returns>
         bool NavigatingFrom(bool suspending)
         {
             var page = Frame.Content as Page;
@@ -66,8 +101,11 @@ namespace UWPCore.Framework.Navigation
             return true;
         }
 
-        // after navigate
-        async Task NavigateFromAsync(bool suspending)
+        /// <summary>
+        /// Navigate from that is called after navigation.
+        /// </summary>
+        /// <param name="suspending">The suspending flag.</param>
+        private async Task NavigateFromAsync(bool suspending)
         {
             var page = Frame.Content as Page;
             if (page != null)
@@ -77,16 +115,21 @@ namespace UWPCore.Framework.Navigation
                 if (dataContext != null)
                 {
                     dataContext.Identifier = string.Format("Page- {0}", Frame.BackStackDepth);
-                    var pageState = Frame.PageStateContainer(page.GetType());
+                    var pageState = Frame.GetPageStateContainer(page.GetType());
                     await dataContext.OnNavigatedFromAsync(pageState, suspending);
                 }
             }
         }
 
-        void NavigateTo(NavigationMode mode, string parameter)
+        /// <summary>
+        /// Navigates to the current page type defined in <see cref="CurrentPageType"/>.
+        /// </summary>
+        /// <param name="mode">The navigation mode.</param>
+        /// <param name="parameter">The parameter.</param>
+        private void NavigateTo(NavigationMode mode, string parameter)
         {
-            LastNavigationParameter = parameter;
-            LastNavigationType = Frame.Content.GetType().FullName;
+            _lastNavigationParameter = parameter;
+            _lastNavigationType = Frame.Content.GetType().FullName;
 
             if (mode == NavigationMode.New)
             {
@@ -110,16 +153,24 @@ namespace UWPCore.Framework.Navigation
                     {
                         // prepare for state load
                         dataContext.NavigationService = this;
-                        var pageState = Frame.PageStateContainer(page.GetType());
+                        var pageState = Frame.GetPageStateContainer(page.GetType());
                         dataContext.OnNavigatedTo(parameter, mode, pageState);
                     }
                 }
              }
         }
 
-        // TODO: this will spawn a new window instead of navigating to an existing frame.
+        /// <summary>
+        /// Open the page in a new window instaad of navigating to an exisitng frame.
+        /// </summary>
+        /// <param name="page">The page type.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <param name="size">The prefered windows size.</param>
+        /// <returns>The view ID of the new window.</returns>
         public async Task<int> OpenAsync(Type page, string parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
         {
+            // TODO: this will spawn a new window instead of navigating to an existing frame.
+
             var coreView = CoreApplication.CreateNewView();
             ApplicationView view = null;
             var create = new Action(() =>
@@ -159,66 +210,129 @@ namespace UWPCore.Framework.Navigation
             return view.Id;
         }
 
+        /// <summary>
+        /// Navigates to a page.
+        /// </summary>
+        /// <param name="page">The page type.</param>
+        /// <param name="parameter">The navigation parameter.</param>
+        /// <returns>Returns True for success, else False.</returns>
         public bool Navigate(Type page, string parameter = null)
         {
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
-            if (page.FullName.Equals(LastNavigationType)
-                && parameter == LastNavigationParameter)
+            if (page.FullName.Equals(_lastNavigationType)
+                && parameter == _lastNavigationParameter)
                 return false;
             return Frame.Navigate(page, parameter);
         }
 
-        public void SaveNavigation()
+        /// <summary>
+        /// Save the navigation state.
+        /// </summary>
+        public void SaveNavigationState()
         {
-            var state = Frame.PageStateContainer(GetType());
+            var state = Frame.GetPageStateContainer(GetType());
             state[CURRENT_PAGE_TYPE_KEY] = CurrentPageType.ToString();
-            Debug.WriteLine("Saved CurrentPageType: " + CurrentPageType.ToString());
             state[CURRENT_PAGE_PARAM_KEY] = CurrentPageParam;
-            Debug.WriteLine("Saved CurrentPageParam: " + CurrentPageParam);
             state[NAVIGATE_STATE_KEY] = Frame.GetNavigationState();
-            Debug.WriteLine("Saved NavigateState: " + Frame.GetNavigationState());
         }
 
-        public bool RestoreSavedNavigation()
+        /// <summary>
+        /// Restores the saved navigation state.
+        /// </summary>
+        /// <returns>Returns True for success, else False.</returns>
+        public bool RestoreSavedNavigationState()
         {
             try
             {
-                var state = Frame.PageStateContainer(GetType());
+                var state = Frame.GetPageStateContainer(GetType());
                 string currentPageType = state[CURRENT_PAGE_TYPE_KEY].ToString();
                 Type pageTypeOfAppAssembly = Type.GetType(currentPageType + ", " + UniversalApp.AppAssemblyName);
+
                 Frame.CurrentPageType = pageTypeOfAppAssembly;
-                Debug.WriteLine("Loaded CurrentPageType: " + Frame.CurrentPageType);
                 Frame.CurrentPageParam = state[CURRENT_PAGE_PARAM_KEY]?.ToString();
-                Debug.WriteLine("Loaded CurrentPageParam: " + Frame.CurrentPageParam);
                 Frame.SetNavigationState(state[NAVIGATE_STATE_KEY].ToString());
-                Debug.WriteLine("Loaded NavigateState: " + state[NAVIGATE_STATE_KEY].ToString());
                 NavigateTo(NavigationMode.Refresh, Frame.CurrentPageParam);
                 return true;
             }
-            catch { return false; }
+            catch
+            {
+                return false;
+            }
         }
 
-        public void Refresh() { Frame.Refresh(); }
+        /// <summary>
+        /// Refreshes the current frame.
+        /// </summary>
+        public void Refresh()
+        {
+            Frame.Refresh();
+        }
 
-        public void GoBack() { if (Frame.CanGoBack) Frame.GoBack(); }
+        /// <summary>
+        /// Goes back when possible.
+        /// </summary>
+        public void GoBack()
+        {
+            if (Frame.CanGoBack)
+                Frame.GoBack();
+        }
 
-        public bool CanGoBack { get { return Frame.CanGoBack; } }
+        /// <summary>
+        /// Gets whether we can go back in the history stack.
+        /// </summary>
+        public bool CanGoBack
+        {
+            get
+            {
+                return Frame.CanGoBack;
+            }
+        }
 
-        public void GoForward() { Frame.GoForward(); }
+        /// <summary>
+        /// Goes forward when possible.
+        /// </summary>
+        public void GoForward()
+        {
+            if (Frame.CanGoForward)
+                Frame.GoForward();
+        }
 
-        public bool CanGoForward { get { return Frame.CanGoForward; } }
+        /// <summary>
+        /// Gets whether we can go forward in the history stack.
+        /// </summary>
+        public bool CanGoForward
+        {
+            get
+            {
+                return Frame.CanGoForward;
+            }
+        }
 
-        public void ClearHistory() { Frame.SetNavigationState(EmptyNavigation); }
+        /// <summary>
+        /// Clears the history stack.
+        /// </summary>
+        public void ClearHistory()
+        {
+            Frame.SetNavigationState(EMPTY_NAVIGATION);
+        }
 
-        public void Resuming() { /* nothing */ }
+        public void Resuming(){ } // FIXME: not referenced and empty. Delete? Check again after some more progress in Template10!
 
+        /// <summary>
+        /// When suspending, it saves the navigation state and fires the navigate from event.
+        /// </summary>
         public async Task SuspendingAsync()
         {
-            SaveNavigation();
+            SaveNavigationState();
             await NavigateFromAsync(true);
         }
 
+        /// <summary>
+        /// Shaws the settings flyout.
+        /// </summary>
+        /// <param name="flyout">The flyout.</param>
+        /// <param name="parameter">The parameter.</param>
         public void Show(SettingsFlyout flyout, string parameter = null)
         {
             if (flyout == null)
@@ -231,7 +345,26 @@ namespace UWPCore.Framework.Navigation
             flyout.Show();
         }
 
-        public Type CurrentPageType { get { return Frame.CurrentPageType; } }
-        public string CurrentPageParam { get { return Frame.CurrentPageParam; } }
+        /// <summary>
+        /// Gets the current page type.
+        /// </summary>
+        public Type CurrentPageType
+        {
+            get
+            {
+                return Frame.CurrentPageType;
+            }
+        }
+
+        /// <summary>
+        /// Get the current page parameter.
+        /// </summary>
+        public string CurrentPageParam
+        {
+            get
+            {
+                return Frame.CurrentPageParam;
+            }
+        }
     }
 }

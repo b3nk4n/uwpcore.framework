@@ -5,14 +5,46 @@ using Windows.UI.Xaml;
 
 namespace UWPCore.Framework.Input
 {
+    /// <summary>
+    /// The virtual key class.
+    /// </summary>
+    enum VKeyClass_EnUs
+    {
+        Control, // 0-31, 33-47, 91-95, 144-165
+        Character, // 32, 48-90
+        NumPad, // 96-111
+        Function // 112 - 135
+    }
+
+    /// <summary>
+    /// The virtual key character classes.
+    /// </summary>
+    public enum VKeyCharacterClass
+    {
+        Space,
+        Numeric,
+        Alphabetic
+    }
+
+    /// <summary>
+    /// The keyboard helper class.
+    /// </summary>
     public class KeyboardHelper
     {
+        /// <summary>
+        /// Creates a KeyboardHelper instance.
+        /// </summary>
         public KeyboardHelper()
         {
             Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += CoreDispatcher_AcceleratorKeyActivated;
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;
         }
 
+        /// <summary>
+        /// Is fired when a key combination is pressed.
+        /// </summary>
+        /// <param name="sender">The sender</param>
+        /// <param name="e">The event args.</param>
         private void CoreDispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
         {
             if ((e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown ||
@@ -80,6 +112,9 @@ namespace UWPCore.Framework.Input
             }
         }
 
+        /// <summary>
+        /// Gets or sets the key down action.
+        /// </summary>
         public Action<KeyboardEventArgs> KeyDown { get; set; }
 
         /// <summary>
@@ -109,27 +144,54 @@ namespace UWPCore.Framework.Input
             }
         }
 
+        /// <summary>
+        /// Gets or sets the go forward gesture action.
+        /// </summary>
         public Action GoForwardGestured { get; set; }
+
+        /// <summary>
+        /// Raises the go forward gesture action.
+        /// </summary>
         protected void RaiseGoForwardGestured()
         {
             try { GoForwardGestured?.Invoke(); }
             catch { }
         }
 
+        /// <summary>
+        /// Gets or sets the go back gesture action.
+        /// </summary>
         public Action GoBackGestured { get; set; }
+
+        /// <summary>
+        /// Raises the go back gesture action.
+        /// </summary>
         protected void RaiseGoBackGestured()
         {
             try { GoBackGestured?.Invoke(); }
             catch { }
         }
 
+        /// <summary>
+        /// Gets or sets the CTRL-E gesture action.
+        /// </summary>
         public Action ControlEGestured { get; set; }
+
+        /// <summary>
+        /// Raises the CTRL-E gesture action.
+        /// </summary>
         protected void RaiseControlEGestured()
         {
             try { ControlEGestured?.Invoke(); }
             catch { }
         }
 
+        /// <summary>
+        /// Converts the key combination to a character.
+        /// </summary>
+        /// <param name="key">The virtual key.</param>
+        /// <param name="shift">Indicates whether the shift key was pressed.</param>
+        /// <returns>The converted character.</returns>
         private static char? ToChar(VirtualKey key, bool shift)
         {
             // convert virtual key to char
@@ -155,20 +217,5 @@ namespace UWPCore.Framework.Input
             // not found
             return null;
         }
-    }
-
-    enum VKeyClass_EnUs
-    {
-        Control, // 0-31, 33-47, 91-95, 144-165
-        Character, // 32, 48-90
-        NumPad, // 96-111
-        Function // 112 - 135
-    }
-
-    public enum VKeyCharacterClass
-    {
-        Space,
-        Numeric,
-        Alphabetic
     }
 }

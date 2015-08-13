@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation
 {
+    /// <summary>
+    /// The navigable interface that is based on <see cref="IBindable"/>.
+    /// </summary>
     public interface INavigable : IBindable
     {
         /// <summary>
