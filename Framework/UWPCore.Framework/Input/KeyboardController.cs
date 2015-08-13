@@ -29,12 +29,12 @@ namespace UWPCore.Framework.Input
     /// <summary>
     /// The keyboard helper class.
     /// </summary>
-    public class KeyboardHelper
+    public class KeyboardController
     {
         /// <summary>
         /// Creates a KeyboardHelper instance.
         /// </summary>
-        public KeyboardHelper()
+        public KeyboardController()
         {
             Window.Current.CoreWindow.Dispatcher.AcceleratorKeyActivated += CoreDispatcher_AcceleratorKeyActivated;
             Window.Current.CoreWindow.PointerPressed += CoreWindow_PointerPressed;

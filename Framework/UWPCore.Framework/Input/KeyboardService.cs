@@ -8,18 +8,18 @@ namespace UWPCore.Framework.Input
     public class KeyboardService
     {
         /// <summary>
-        /// The keyboard helper.
+        /// The keyboard controller engine.
         /// </summary>
-        KeyboardHelper _helper;
+        KeyboardController _keyboardController;
 
         /// <summary>
         /// Creates a KeyboardService instance.
         /// </summary>
         public KeyboardService()
         {
-            _helper = new KeyboardHelper();
-            _helper.GoBackGestured = () => { AfterBackGesture?.Invoke(); };
-            _helper.GoForwardGestured = () => { AfterForwardGesture?.Invoke(); };
+            _keyboardController = new KeyboardController();
+            _keyboardController.GoBackGestured = () => { AfterBackGesture?.Invoke(); };
+            _keyboardController.GoForwardGestured = () => { AfterForwardGesture?.Invoke(); };
         }
 
         /// <summary>
