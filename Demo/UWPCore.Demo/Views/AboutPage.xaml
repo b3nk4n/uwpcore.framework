@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <!-- header -->
-        <uwpcControls:PageHeader Grid.Row="0" Text="About" ShowBack="True" />
+        <uwpcControls:PageHeader Grid.Row="0" Text="About" />
 
         <!-- content -->
         <Grid Grid.Row="1">

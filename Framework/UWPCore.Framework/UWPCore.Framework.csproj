@@ -129,6 +129,7 @@
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanNegationConverter.cs" />
+    <Compile Include="Converters\BooleanToBrushConverter.cs" />
     <Compile Include="Converters\BooleanToDoubleConverter.cs" />
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
@@ -141,6 +142,7 @@
     <Compile Include="Data\ICompressionService.cs" />
     <Compile Include="Data\ISerializationService.cs" />
     <Compile Include="Data\ZipArchiveService.cs" />
+    <Compile Include="Devices\IDeviceService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
     <Compile Include="Graphics\GraphicsService.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Storage\StoredObject.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
+    <Compile Include="UI\ColorConverter.cs" />
     <Compile Include="UI\TemplateSelectorBase.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>

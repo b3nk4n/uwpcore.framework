@@ -9,7 +9,7 @@ namespace UWPCore.Framework.Converters
     public sealed class BooleanNegationConverter : IValueConverter
     {
         /// <summary>
-        /// Negates the boolen value.
+        /// Negates the boolean value.
         /// </summary>
         /// <param name="value">The boolean value.</param>
         /// <param name="targetType">The target conversion type.</param>
@@ -22,7 +22,7 @@ namespace UWPCore.Framework.Converters
         }
 
         /// <summary>
-        /// Negates the boolen value.
+        /// Negates the boolean value.
         /// </summary>
         /// <param name="value">The boolean value.</param>
         /// <param name="targetType">The target conversion type.</param>

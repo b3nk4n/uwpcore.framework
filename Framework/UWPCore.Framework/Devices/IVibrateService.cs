@@ -9,13 +9,13 @@ namespace UWPCore.Framework.Devices
     /// <summary>
     /// The service for the vibration controller.
     /// </summary>
-    public interface IVibrateService
+    public interface IVibrateService : IDeviceService
     {
         /// <summary>
         /// Invokes the vibration controller for the given time.
         /// </summary>
-        /// <param name="seconds">The vibration time in seconds.</param>
-        void Vibrate(double seconds);
+        /// <param name="millis">The vibration time in milliseconds.</param>
+        void Vibrate(int millis);
 
         /// <summary>
         /// Stops the current vibration.

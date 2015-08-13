@@ -36,11 +36,11 @@
                     <StackPanel>
 
                         <!-- back -->
-                        <RadioButton Checked="DontCheck" Command="{Binding BackCommand}"  Background="{StaticResource SystemControlBackgroundAccentBrush}">
+                        <!--<RadioButton Checked="DontCheck" Command="{Binding BackCommand}"  Background="{StaticResource SystemControlBackgroundAccentBrush}">
                             <RadioButton.Tag>
                                 <TextBlock Text="{StaticResource BackButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
                             </RadioButton.Tag>
-                        </RadioButton>
+                        </RadioButton>-->
 
                         <!-- hamburger -->
                         <RadioButton Checked="DontCheck" Command="{Binding MenuCommand}">
@@ -75,6 +75,17 @@
                         </RadioButton.Tag>
                     </RadioButton>
 
+                    <!-- device features -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Device Features" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:DeviceFeaturesPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource Tablet}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+                    
                     <!-- about -->
                     <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">
                         <RadioButton.CommandParameter>

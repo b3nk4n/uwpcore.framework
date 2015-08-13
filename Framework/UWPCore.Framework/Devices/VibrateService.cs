@@ -22,23 +22,30 @@ namespace UWPCore.Framework.Devices
         /// </summary>
         public VibrateService()
         {
-            // FIXME: is this correct like this? or is it even crashing because of the VibrationDevice instance var?
-            if (ApiInformation.IsTypePresent("Windows.Phone.Devices.Notification.VibrationDevice"))
+            if (IsSupported)
             {
                 _virationDevice = VibrationDevice.GetDefault();
             }
         }
 
-        public void Vibrate(double seconds)
+        public void Vibrate(int millis)
         {
             if (_virationDevice != null)
-                _virationDevice.Vibrate(TimeSpan.FromSeconds(seconds));
+                _virationDevice.Vibrate(TimeSpan.FromMilliseconds(millis));
         }
 
         public void Stop()
         {
             if (_virationDevice != null)
                 _virationDevice.Cancel();
+        }
+
+        public bool IsSupported
+        {
+            get
+            {
+                return ApiInformation.IsTypePresent("Windows.Phone.Devices.Notification.VibrationDevice");
+            }
         }
     }
 
