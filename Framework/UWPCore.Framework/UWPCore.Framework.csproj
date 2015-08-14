@@ -161,6 +161,9 @@
     <Compile Include="Navigation\NavigatedEventArgs.cs" />
     <Compile Include="Navigation\NavigatingEventArgs.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
+    <Compile Include="Networking\HttpConstants.cs" />
+    <Compile Include="Networking\HttpService.cs" />
+    <Compile Include="Networking\IHttpService.cs" />
     <Compile Include="Networking\INetworkInfoService.cs" />
     <Compile Include="Networking\NetworkInfoService.cs" />
     <Compile Include="Primitive\Lazy.cs" />
