@@ -27,12 +27,24 @@
         <Grid Grid.Row="1">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock>Support:</TextBlock>
-                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=Status, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}" Margin="24,4,0,0" />
+                    <TextBlock Width="100">Support:</TextBlock>
+                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=Status, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
                 </StackPanel>
                 <TextBox Header="Duration" x:Name="VibrationDurationTextBox" Width="100" HorizontalAlignment="Left" Text="500" Margin="4" />
                 <Button Content="Vibrate" Click="VibrateClicked" MinWidth="100" Margin="4"/>
                 <Button Content="Stop" Click="StopClicked" MinWidth="100" Margin="4"/>
+                
+                <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="0,8,0,8" />
+
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Width="100">IsPhone:</TextBlock>
+                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsPhoneStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="4">
+                    <TextBlock Width="100">IsWindows:</TextBlock>
+                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsWindowsStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
+                </StackPanel>
+
             </StackPanel>
         </Grid>
     </Grid>

@@ -13,11 +13,14 @@ namespace UWPCore.Demo.Views
     {
         private IVibrateService _vibrateService;
 
+        private IDeviceInfoService _deviceInfoService;
+
         public DeviceFeaturesPage()
         {
             InitializeComponent();
 
             _vibrateService = new VibrateService();
+            _deviceInfoService = new DeviceInfoService();
         }
 
         private void VibrateClicked(object sender, RoutedEventArgs e)
@@ -35,6 +38,22 @@ namespace UWPCore.Demo.Views
             get
             {
                 return _vibrateService.IsSupported;
+            }
+        }
+
+        public bool IsPhoneStatus
+        {
+            get
+            {
+                return _deviceInfoService.IsPhone;
+            }
+        }
+
+        public bool IsWindowsStatus
+        {
+            get
+            {
+                return _deviceInfoService.IsWindows;
             }
         }
     }

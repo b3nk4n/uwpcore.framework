@@ -142,6 +142,8 @@
     <Compile Include="Data\ICompressionService.cs" />
     <Compile Include="Data\ISerializationService.cs" />
     <Compile Include="Data\ZipArchiveService.cs" />
+    <Compile Include="Devices\DeviceInfoService.cs" />
+    <Compile Include="Devices\IDeviceInfoService.cs" />
     <Compile Include="Devices\IDeviceService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
