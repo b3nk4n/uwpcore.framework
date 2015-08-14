@@ -166,6 +166,8 @@
     <Compile Include="Networking\IHttpService.cs" />
     <Compile Include="Networking\INetworkInfoService.cs" />
     <Compile Include="Networking\NetworkInfoService.cs" />
+    <Compile Include="Notifications\IToastService.cs" />
+    <Compile Include="Notifications\ToastService.cs" />
     <Compile Include="Primitive\Lazy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\UniversalApp.cs" />
