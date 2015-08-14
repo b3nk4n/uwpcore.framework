@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
@@ -17,6 +18,14 @@ namespace UWPCore.Framework.Networking
         Task<string> GetAsync(Uri path);
 
         /// <summary>
+        /// Sends a GET request.
+        /// </summary>
+        /// <param name="path">The URI path.</param>
+        /// <param name="parameters">The query parameters.</param>
+        /// <returns>The retrieved content or NULL in case of an error.</returns>
+        Task<string> GetAsync(Uri path, NameValueCollection parameters);
+
+        /// <summary>
         /// Sends a PUT request.
         /// </summary>
         /// <typeparam name="T">The payload type that must be serializable.</typeparam>
@@ -24,6 +33,16 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
         Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload);
+
+        /// <summary>
+        /// Sends a PUT request.
+        /// </summary>
+        /// <typeparam name="T">The payload type that must be serializable.</typeparam>
+        /// <param name="path">The URI path.</param>
+        /// <param name="parameters">The query parameters.</param>
+        /// <param name="payload">The serializable payload data.</param>
+        /// <returns>The retrieved response or NULL in case of an error.</returns>
+        Task<HttpResponseMessage> PutAsync<T>(Uri path, NameValueCollection parameters, T payload);
 
         /// <summary>
         /// Sends a POST request.
@@ -35,10 +54,28 @@ namespace UWPCore.Framework.Networking
         Task<HttpResponseMessage> PostAsync<T>(Uri path, T payload);
 
         /// <summary>
+        /// Sends a POST request.
+        /// </summary>
+        /// <typeparam name="T">The payload type that must be serializable.</typeparam>
+        /// <param name="path">The URI path.</param>
+        /// <param name="parameters">The query parameters.</param>
+        /// <param name="payload">The serializable payload data.</param>
+        /// <returns>The retrieved response or NULL in case of an error.</returns>
+        Task<HttpResponseMessage> PostAsync<T>(Uri path, NameValueCollection parameters, T payload);
+
+        /// <summary>
         /// Sends a DELETE request.
         /// </summary>
         /// <param name="path">The URI path.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
         Task<HttpResponseMessage> DeleteAsync(Uri path);
+
+        /// <summary>
+        /// Sends a DELETE request.
+        /// </summary>
+        /// <param name="path">The URI path.</param>
+        /// <param name="parameters">The query parameters.</param>
+        /// <returns>The retrieved response or NULL in case of an error.</returns>
+        Task<HttpResponseMessage> DeleteAsync(Uri path, NameValueCollection parameters);
     }
 }
