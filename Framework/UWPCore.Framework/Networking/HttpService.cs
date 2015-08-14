@@ -20,11 +20,6 @@ namespace UWPCore.Framework.Networking
         private ISerializationService _serializationService;
 
         /// <summary>
-        /// The HTTP client.
-        /// </summary>
-        private HttpClient _httpClient;
-
-        /// <summary>
         /// Gets or sets the used encoding.
         /// </summary>
         public UnicodeEncoding Encoding { get; set; } = UnicodeEncoding.Utf8;

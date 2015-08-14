@@ -80,15 +80,16 @@ namespace UWPCore.Framework.Navigation
         /// <summary>
         /// Get or creates the frame state container.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A new or reused frame state container.</returns>
         private Windows.Storage.ApplicationDataContainer GetFrameStateContainer()
         {
-            if (frameStateContainer != null)
-                return frameStateContainer;
-            var data = Windows.Storage.ApplicationData.Current;
-            var key = GetFrameStateKey();
-            var container = data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
-            return container; // FIXME: assign to frameStateContainer for reuse?
+            if (frameStateContainer == null)
+            {
+                var data = Windows.Storage.ApplicationData.Current;
+                var key = GetFrameStateKey();
+                frameStateContainer = data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
+            }
+            return frameStateContainer;
         }
 
         /// <summary>
