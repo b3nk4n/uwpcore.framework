@@ -60,5 +60,22 @@ namespace UWPCore.Demo.Views
 
             _toastService.Show(toast);
         }
+
+        private void ClearHistoryClicked(object sender, RoutedEventArgs e)
+        {
+            _toastService.ClearHistory();
+        }
+
+        private void RemoveByTagClicked(object sender, RoutedEventArgs e)
+        {
+            var tag = TagTextBox.Text;
+            _toastService.RemoveFromHistory(tag);
+        }
+
+        private void RemoveByGroupClicked(object sender, RoutedEventArgs e)
+        {
+            var group = GroupTextBox.Text;
+            _toastService.RemoveGroupeFromHistory(group);
+        }
     }
 }

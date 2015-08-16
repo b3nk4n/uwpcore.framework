@@ -38,7 +38,13 @@
                          Text="Content2"/>
                 <TextBox x:Name="ImageUriTextBox" Header="ImageUri" Width="200" HorizontalAlignment="Left" Margin="4"
                          Text="ms-appx:///Assets/StoreLogo.png"/>
-                <Button x:Name="NotifyButton" Content="Notify" Click="NotifyClicked" Margin="4"/>
+                <TextBox x:Name="TagTextBox" Header="Tag" Width="200" HorizontalAlignment="Left" Margin="4"/>
+                <TextBox x:Name="GroupTextBox" Header="Group" Width="200" HorizontalAlignment="Left" Margin="4"/>
+                <Button x:Name="NotifyButton" Content="Notify" Click="NotifyClicked" MinWidth="200" Margin="4"/>
+                <Button x:Name="ClearHistoryButton" Content="Clear History" Click="ClearHistoryClicked" MinWidth="200" Margin="4"/>
+                <Button x:Name="RemoveByTagButton" Content="Remove by Tag" Click="RemoveByTagClicked" MinWidth="200" Margin="4"/>
+                <Button x:Name="RemoveByGroupButton" Content="Remove by Group" Click="RemoveByGroupClicked" MinWidth="200" Margin="4"/>
+                
             </StackPanel>
         </Grid>
     </Grid>
