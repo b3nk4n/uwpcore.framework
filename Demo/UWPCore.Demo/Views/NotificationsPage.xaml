@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="UWPCore.Demo.Views.NotificationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- header -->
+        <uwpcControls:PageHeader Grid.Row="0" Text="Notifications" />
+
+        <!-- content -->
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <ComboBox x:Name="ToastTemplateComboBox" Header="ToastTemplate" MinWidth="200" Margin="4">
+                    <ComboBoxItem Content="ToastText1" />
+                    <ComboBoxItem Content="ToastText2" />
+                    <ComboBoxItem Content="ToastText3" />
+                    <ComboBoxItem Content="ToastText4" />
+                    <ComboBoxItem Content="ToastImageAndText1" />
+                    <ComboBoxItem Content="ToastImageAndText2" />
+                    <ComboBoxItem Content="ToastImageAndText3" />
+                    <ComboBoxItem Content="ToastImageAndText4" />
+                </ComboBox>
+                <TextBox x:Name="TitleTextBox" Header="Title" Width="200" HorizontalAlignment="Left" Margin="4"
+                         Text="Title"/>
+                <TextBox x:Name="Content1TextBox" Header="Content1" Width="200" HorizontalAlignment="Left" Margin="4"
+                         Text="Content1"/>
+                <TextBox x:Name="Content2TextBox" Header="Content2" Width="200" HorizontalAlignment="Left" Margin="4"
+                         Text="Content2"/>
+                <TextBox x:Name="ImageUriTextBox" Header="ImageUri" Width="200" HorizontalAlignment="Left" Margin="4"
+                         Text="ms-appx:///Assets/StoreLogo.png"/>
+                <Button x:Name="NotifyButton" Content="Notify" Click="NotifyClicked" Margin="4"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

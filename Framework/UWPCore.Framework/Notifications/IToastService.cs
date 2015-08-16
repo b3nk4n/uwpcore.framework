@@ -13,7 +13,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="content">The content.</param>
         /// <param name="arg">The optional launch argument.</param>
         /// <returns>Returns the toast notification.</returns>
-        ToastNotification CreateToastText1(string content, string arg = null);
+        ToastNotification CreateToastText01(string content, string arg = null);
 
         /// <summary>
         /// Creates a toast notification.

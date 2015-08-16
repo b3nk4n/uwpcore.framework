@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
@@ -14,6 +15,11 @@ namespace UWPCore.Framework.Notifications
         private const string TEXT_NODE = "text";
 
         /// <summary>
+        /// The image node.
+        /// </summary>
+        private const string IMAGE_NODE = "image";
+
+        /// <summary>
         /// The launch attribute to identify the notification when the app is launched via a toast.
         /// </summary>
         private const string LAUNCH_ATTRIBUTE = "launch";
@@ -23,7 +29,7 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         private const string SRC_ATTRIBUTE = "src";
 
-        public ToastNotification CreateToastText1(string content, string arg = null)
+        public ToastNotification CreateToastText01(string content, string arg = null)
         {
             // build toast
             var template = ToastTemplateType.ToastText01;
@@ -123,12 +129,12 @@ namespace UWPCore.Framework.Notifications
                 xml.DocumentElement.SetAttribute(LAUNCH_ATTRIBUTE, arg);
 
             // image
-            elements[0].Attributes
-                .First(x => x.LocalName.Equals(SRC_ATTRIBUTE)).InnerText = image;
+            var toastImageAttributes = xml.GetElementsByTagName(IMAGE_NODE);
+            ((XmlElement)toastImageAttributes[0]).SetAttribute(SRC_ATTRIBUTE, image);
 
             // content
             var text = xml.CreateTextNode(content);
-            elements[1].AppendChild(text);
+            elements[0].AppendChild(text);
 
             return new ToastNotification(xml);
         }
@@ -145,16 +151,16 @@ namespace UWPCore.Framework.Notifications
                 xml.DocumentElement.SetAttribute(LAUNCH_ATTRIBUTE, arg);
 
             // image
-            elements[0].Attributes
-                .First(x => x.LocalName.Equals(SRC_ATTRIBUTE)).InnerText = image;
+            var toastImageAttributes = xml.GetElementsByTagName(IMAGE_NODE);
+            ((XmlElement)toastImageAttributes[0]).SetAttribute(SRC_ATTRIBUTE, image);
 
             // title
             var text = xml.CreateTextNode(title);
-            elements[1].AppendChild(text);
+            elements[0].AppendChild(text);
 
             // content
             text = xml.CreateTextNode(content);
-            elements[2].AppendChild(text);
+            elements[1].AppendChild(text);
 
             return new ToastNotification(xml);
         }
@@ -171,16 +177,16 @@ namespace UWPCore.Framework.Notifications
                 xml.DocumentElement.SetAttribute(LAUNCH_ATTRIBUTE, arg);
 
             // image
-            elements[0].Attributes
-                .First(x => x.LocalName.Equals(SRC_ATTRIBUTE)).InnerText = image;
+            var toastImageAttributes = xml.GetElementsByTagName(IMAGE_NODE);
+            ((XmlElement)toastImageAttributes[0]).SetAttribute(SRC_ATTRIBUTE, image);
 
             // title
             var text = xml.CreateTextNode(title);
-            elements[1].AppendChild(text);
+            elements[0].AppendChild(text);
 
             // content
             text = xml.CreateTextNode(content);
-            elements[2].AppendChild(text);
+            elements[1].AppendChild(text);
 
             return new ToastNotification(xml);
         }
@@ -197,20 +203,20 @@ namespace UWPCore.Framework.Notifications
                 xml.DocumentElement.SetAttribute(LAUNCH_ATTRIBUTE, arg);
 
             // image
-            elements[0].Attributes
-                .First(x => x.LocalName.Equals(SRC_ATTRIBUTE)).InnerText = image;
+            var toastImageAttributes = xml.GetElementsByTagName(IMAGE_NODE);
+            ((XmlElement)toastImageAttributes[0]).SetAttribute(SRC_ATTRIBUTE, image);
 
             // title
             var text = xml.CreateTextNode(title);
-            elements[1].AppendChild(text);
+            elements[0].AppendChild(text);
 
             // content1
             text = xml.CreateTextNode(content1);
-            elements[2].AppendChild(text);
+            elements[1].AppendChild(text);
 
             // content2
             text = xml.CreateTextNode(content2);
-            elements[3].AppendChild(text);
+            elements[2].AppendChild(text);
 
             return new ToastNotification(xml);
         }

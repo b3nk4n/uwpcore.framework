@@ -96,7 +96,18 @@
                             </TextBlock>
                         </RadioButton.Tag>
                     </RadioButton>
-                    
+
+                    <!-- notifications -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Notifications" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:NotificationsPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource MessageProcessing}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
                     <!-- about -->
                     <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">
                         <RadioButton.CommandParameter>
