@@ -11,11 +11,21 @@ namespace UWPCore.Framework.Notifications
     /// </remarks>
     public class TileService : ITileService
     {
+        /// <summary>
+        /// The text node.
+        /// </summary>
+        private const string TEXT_NODE = "text";
+
+        /// <summary>
+        /// The image node.
+        /// </summary>
+        private const string IMAGE_NODE = "image";
+
         public TileNotification CreateTileSquareBlock(string text1Block, string text2 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Block);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Block));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
 
@@ -26,7 +36,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Text01);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -39,7 +49,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Text02);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
 
@@ -50,7 +60,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Text03);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -63,7 +73,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Text04);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
 
             return new TileNotification(xmlTemplate);
@@ -73,7 +83,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Image);
 
-            var imageNodes = xmlTemplate.GetElementsByTagName("image");
+            var imageNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             imageNodes[0].Attributes[1].NodeValue = imgUri;
 
             return new TileNotification(xmlTemplate);
@@ -83,10 +93,10 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150PeekImageAndText01);
 
-            var imageNodes = xmlTemplate.GetElementsByTagName("image");
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
             imageNodes[0].Attributes[1].NodeValue = imgUri;
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -99,10 +109,10 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150PeekImageAndText01);
 
-            var imageNodes = xmlTemplate.GetElementsByTagName("image");
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
             imageNodes[0].Attributes[1].NodeValue = imgUri;
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
 
@@ -113,10 +123,10 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150PeekImageAndText01);
 
-            var imageNodes = xmlTemplate.GetElementsByTagName("image");
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
             imageNodes[0].Attributes[1].NodeValue = imgUri;
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -129,10 +139,10 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150PeekImageAndText01);
 
-            var imageNodes = xmlTemplate.GetElementsByTagName("image");
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
             imageNodes[0].Attributes[1].NodeValue = imgUri;
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
 
             return new TileNotification(xmlTemplate);
@@ -142,7 +152,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text01);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -156,7 +166,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text02);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -174,7 +184,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text03);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
 
             return new TileNotification(xmlTemplate);
@@ -184,7 +194,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text04);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
 
             return new TileNotification(xmlTemplate);
@@ -194,7 +204,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text05);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -208,7 +218,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text06);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -227,7 +237,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text07);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -245,7 +255,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text08);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -264,7 +274,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text09);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
 
@@ -275,7 +285,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text10);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -293,7 +303,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150Text11);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -312,7 +322,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150BlockAndText01);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
@@ -327,7 +337,7 @@ namespace UWPCore.Framework.Notifications
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150BlockAndText02);
 
-            var textNodes = xmlTemplate.GetElementsByTagName("text");
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2Block));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3UnderBlock));
