@@ -168,6 +168,8 @@
     <Compile Include="Networking\IHttpService.cs" />
     <Compile Include="Networking\INetworkInfoService.cs" />
     <Compile Include="Networking\NetworkInfoService.cs" />
+    <Compile Include="Notifications\BadgeService.cs" />
+    <Compile Include="Notifications\IBadgeService.cs" />
     <Compile Include="Notifications\ITileService.cs" />
     <Compile Include="Notifications\IToastService.cs" />
     <Compile Include="Notifications\TileService.cs" />
