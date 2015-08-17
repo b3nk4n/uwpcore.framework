@@ -237,10 +237,15 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
-            ILaunchArgs launchArgs = null;
+            // create launch argmunets
+            ILaunchArgs launchArgs;
             if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId))
             {
                 launchArgs = new LaunchArgs(e.Arguments, e.TileId);
+            }
+            else
+            {
+                launchArgs = new LaunchArgs();
             }
 
             // the user may override to set custom content
