@@ -70,7 +70,7 @@
                             <local:NavType Type="local:AudioPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Headphones}">
+                            <TextBlock Text="{StaticResource Sound}">
                             </TextBlock>
                         </RadioButton.Tag>
                     </RadioButton>
@@ -104,6 +104,17 @@
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
                             <TextBlock Text="{StaticResource MessageProcessing}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
+                    <!-- notifications -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Speech" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:SpeechPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource Speaker}">
                             </TextBlock>
                         </RadioButton.Tag>
                     </RadioButton>
