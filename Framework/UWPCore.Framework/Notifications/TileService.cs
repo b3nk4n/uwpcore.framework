@@ -1,5 +1,4 @@
 ﻿using Windows.UI.Notifications;
-using Windows.UI.StartScreen;
 
 namespace UWPCore.Framework.Notifications
 {
