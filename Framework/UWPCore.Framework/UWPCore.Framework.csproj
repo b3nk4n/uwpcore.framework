@@ -154,6 +154,7 @@
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardController.cs" />
     <Compile Include="Input\KeyboardService.cs" />
+    <Compile Include="Logging\Logger.cs" />
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Mvvm\IBindable.cs" />
@@ -209,6 +210,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
