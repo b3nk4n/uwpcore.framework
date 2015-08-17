@@ -153,7 +153,7 @@ namespace UWPCore.Framework.Common
         /// <param name="e">The event args.</param>
         private async Task InternalActivatedAsync(IActivatedEventArgs e)
         {
-            await OnStartAsync(StartKind.Activate, e);
+            await OnStartAsync(StartKind.Activate, e, new LaunchArgs());
             Window.Current.Activate();
         }
 
@@ -177,7 +177,7 @@ namespace UWPCore.Framework.Common
 
 #pragma warning disable CS0809 // Obsolete member overrides non-obsolete member
         [Obsolete("Use OnStartAsync()")]
-        protected override void OnLaunched(LaunchActivatedEventArgs e) { InternalLaunchAsync(e as ILaunchActivatedEventArgs); }
+        protected override void OnLaunched(LaunchActivatedEventArgs e) { InternalLaunchAsync(e); }
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 
         /// <summary>
@@ -237,6 +237,12 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
+            ILaunchArgs launchArgs = null;
+            if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId))
+            {
+                launchArgs = new LaunchArgs(e.Arguments, e.TileId);
+            }
+
             // the user may override to set custom content
             await OnInitializeAsync();
             switch (e.PreviousExecutionState)
@@ -246,7 +252,7 @@ namespace UWPCore.Framework.Common
                 case ApplicationExecutionState.Suspended:
                     {
                         // launch if not restored
-                        await OnStartAsync(StartKind.Launch, e);
+                        await OnStartAsync(StartKind.Launch, e, launchArgs);
                         break;
                     }
                 case ApplicationExecutionState.ClosedByUser:
@@ -256,7 +262,7 @@ namespace UWPCore.Framework.Common
                         var restored = navigationService.RestoreSavedNavigationState();
                         if (!restored)
                         {
-                            await OnStartAsync(StartKind.Launch, e);
+                            await OnStartAsync(StartKind.Launch, e, launchArgs);
                         }
                         break;
                     }
@@ -343,7 +349,8 @@ namespace UWPCore.Framework.Common
         /// </summary>
         /// <param name="startKind">The start up kind.</param>
         /// <param name="args">The activated event args.</param>
-        public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args);
+        /// <param name="launchArgs">The optional launch args, which can be NULL.</param>
+        public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs);
 
         /// <summary>
         /// The hook method to perform some initialization work, such as registering

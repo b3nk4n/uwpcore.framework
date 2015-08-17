@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
@@ -35,8 +37,13 @@ namespace UWPCore.Demo
             // handle prelaunch
         }
 
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
+        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs)
         {
+            if (launchArgs.IsValid)
+            {
+                Debug.WriteLine(string.Format("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId));
+            }
+
             // start the user experience
             NavigationService.Navigate(DefaultPage);
             return Task.FromResult<object>(null);

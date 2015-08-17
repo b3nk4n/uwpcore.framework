@@ -119,6 +119,8 @@
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
+    <Compile Include="Common\ILaunchArgs.cs" />
+    <Compile Include="Common\LaunchArgs.cs" />
     <Compile Include="Common\SystemIcons.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
     <Compile Include="Controls\BackAppBarButton.cs" />
@@ -166,7 +168,9 @@
     <Compile Include="Networking\IHttpService.cs" />
     <Compile Include="Networking\INetworkInfoService.cs" />
     <Compile Include="Networking\NetworkInfoService.cs" />
+    <Compile Include="Notifications\ITileService.cs" />
     <Compile Include="Notifications\IToastService.cs" />
+    <Compile Include="Notifications\TileService.cs" />
     <Compile Include="Notifications\ToastService.cs" />
     <Compile Include="Primitive\Lazy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
