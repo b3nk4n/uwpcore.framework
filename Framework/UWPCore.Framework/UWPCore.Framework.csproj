@@ -180,6 +180,10 @@
     <Compile Include="Common\UniversalApp.cs" />
     <Compile Include="Share\EmailService.cs" />
     <Compile Include="Share\IEmailService.cs" />
+    <Compile Include="Speech\IRecognitionResult.cs" />
+    <Compile Include="Speech\ISpeechService.cs" />
+    <Compile Include="Speech\RecognitionResult.cs" />
+    <Compile Include="Speech\SpeechService.cs" />
     <Compile Include="Storage\IOConstants.cs" />
     <Compile Include="Storage\IStorageService.cs" />
     <Compile Include="Storage\LocalStorageService.cs" />

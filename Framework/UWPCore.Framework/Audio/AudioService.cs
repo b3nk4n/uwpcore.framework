@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using UWPCore.Framework.Storage;
-using Windows.UI.Xaml;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 
 namespace UWPCore.Framework.Audio
@@ -28,23 +29,16 @@ namespace UWPCore.Framework.Audio
         /// </remarks>
         private MediaElement _mediaElement = new MediaElement();
 
-        public void Register(Page page)
+        public async Task PlayAsync(string path)
         {
-            // media element initial setup
-            _mediaElement.Name = VISUAL_TREE_NAME;
-            _mediaElement.Visibility = Visibility.Collapsed;
-
-            // register media element to visual tree
-            var pageContainer = page.Content as Panel;
-            if (pageContainer != null && pageContainer.FindName(VISUAL_TREE_NAME) == null)
-            {
-                pageContainer.Children.Add(_mediaElement);
-            }
+            var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri(string.Format("{0}/{1}", IOConstants.APPX_SCHEME, path)));
+            var stream = await storageFile.OpenReadAsync(); // TODO: move these 2 lines to StorageService
+            PlayFromStream(stream);
         }
 
-        public void Play(string path)
+        public void PlayFromStream(IRandomAccessStreamWithContentType stream)
         {
-            _mediaElement.Source = new Uri(string.Format("{0}/{1}", IOConstants.APPX_SCHEME, path));
+            _mediaElement.SetSource(stream, stream.ContentType);
             _mediaElement.Play();
         }
 
