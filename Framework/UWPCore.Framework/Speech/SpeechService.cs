@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UWPCore.Framework.Audio;
+using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Logging;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.VoiceCommands;
@@ -12,6 +13,9 @@ namespace UWPCore.Framework.Speech
     /// <summary>
     /// The speech service class for voice commands, speech recognition and speech synthesization.
     /// </summary>
+    /// <remarks>
+    /// Speech recognition requires: CAP_MICROPHONE
+    /// </remarks>
     public class SpeechService : ISpeechService
     {
         /// <summary>
@@ -107,6 +111,40 @@ namespace UWPCore.Framework.Speech
         #endregion
 
         #region Recognizer
+
+        // see: https://msdn.microsoft.com/en-us/library/dn630427.aspx
+        public async Task<IRecognitionResult> RecoginizeUI()
+        {
+            try
+            {
+                //Recognizer.UIOptions.AudiblePrompt = "Say what you want to search for...";
+                //Recognizer.UIOptions.ExampleText = @"Ex. 'weather for London'";
+
+                //var webSearchGrammar = new SpeechRecognitionTopicConstraint(SpeechRecognitionScenario.WebSearch, "webSearch");
+                //Recognizer.Constraints.Add(webSearchGrammar);
+
+                // Compile the dictation grammar by default.
+                await Recognizer.CompileConstraintsAsync(); // FIXME: is this call required? Each time?
+
+                // Start recognition.
+                SpeechRecognitionResult speechRecognitionResult = await Recognizer.RecognizeWithUIAsync();
+                return new RecognitionResult(speechRecognitionResult);
+            }
+            catch (Exception exception)
+            {
+                // Handle the speech privacy policy error.
+                if ((uint)exception.HResult == HRESULT_PRIVACY_STATEMENT_DECLINED)
+                {
+                    await SettingsLauncher.LaunchPrivacyAccounts();
+                }
+                else
+                {
+                    var messageDialog = new Windows.UI.Popups.MessageDialog(exception.Message, "Exception");
+                    await messageDialog.ShowAsync(); // TODO: dialog service?
+                }
+            }
+            return null;
+        }
 
         #endregion
     }

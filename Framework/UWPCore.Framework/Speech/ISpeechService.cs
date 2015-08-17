@@ -48,5 +48,11 @@ namespace UWPCore.Framework.Speech
         /// Stops to speak.
         /// </summary>
         void StopSpeak();
+
+        /// <summary>
+        /// Recognizes text via the UI.
+        /// </summary>
+        /// <returns>The recognized results.</returns>
+        Task<IRecognitionResult> RecoginizeUI();
     }
 }
