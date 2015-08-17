@@ -51,6 +51,20 @@ namespace UWPCore.Framework.Logging
         /// <summary>
         /// Writes a log line.
         /// </summary>
+        /// <param name="e">The exception.</param>
+        /// <param name="exceptionDescription">The exeption description.</param>
+        public static void WriteLine(Exception e, string exceptionDescription)
+        {
+            WriteLine("EXCEPTION <{0}> {1} {2}\n STACK TRACE {3}", exceptionDescription, e.Message, e.InnerException != null ? " HAS INNER EXCEPTION" : "", e.StackTrace);
+            if (e.InnerException != null)
+            {
+                WriteLine(e.InnerException);
+            }
+        }
+
+        /// <summary>
+        /// Writes a log line.
+        /// </summary>
         /// <param name="format">The format string.</param>
         /// <param name="args">The args.</param>
         public static void WriteLine(string format, params object[] args)

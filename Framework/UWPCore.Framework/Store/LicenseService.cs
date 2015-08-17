@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using UWPCore.Framework.Logging;
 using Windows.ApplicationModel.Store;
 
 namespace UWPCore.Framework.Store
@@ -37,7 +37,7 @@ namespace UWPCore.Framework.Store
             catch (Exception e)
             {
                 // BugSense: Exception from HRESULT: 0xD0000022
-                Debug.WriteLine("Checking product licence failed with error: " + e.Message);
+                Logger.WriteLine(e, "Checking product licence failed");
                 return false;
             }
         }
@@ -99,7 +99,7 @@ namespace UWPCore.Framework.Store
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Loading of products failed with error: " + e.Message);
+                Logger.WriteLine(e, "Loading of products failed");
             }
 
             return productItems;

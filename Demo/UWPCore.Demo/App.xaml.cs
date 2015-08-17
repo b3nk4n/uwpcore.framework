@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -41,7 +39,8 @@ namespace UWPCore.Demo
         {
             if (launchArgs.IsValid)
             {
-                Debug.WriteLine(string.Format("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId));
+                
+                Logger.WriteLine("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
             }
 
             // start the user experience
