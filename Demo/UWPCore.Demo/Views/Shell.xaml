@@ -130,6 +130,17 @@
                         </RadioButton.Tag>
                     </RadioButton>
 
+                    <!-- graphics -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Graphics" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:GraphicsPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource ComputerTheme}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
                     <!-- about -->
                     <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">
                         <RadioButton.CommandParameter>

@@ -1,0 +1,33 @@
+﻿<Page
+    x:Class="UWPCore.Demo.Views.GraphicsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- header -->
+        <uwpcControls:PageHeader Grid.Row="0" Text="Graphics" />
+
+        <!-- content -->
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <TextBox x:Name="TitleTextBox" Header="Tile title" Width="200" HorizontalAlignment="Left" Margin="4" />
+                <TextBox x:Name="SubtitleTextBox" Header="Tile subtitle" Width="200" HorizontalAlignment="Left" Margin="4" />
+                <Button Content="Render to local storage" Click="RenderClicked" MinWidth="100" Margin="4" />
+
+                <Grid x:Name="HiddenRenderContainer">
+                    <!-- used for hidden rendering files that require to be in visual tree -->
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
