@@ -19,33 +19,51 @@
 
         <!-- content -->
         <Grid Grid.Row="1">
-            <StackPanel>
-                <ComboBox x:Name="ToastTemplateComboBox" Header="ToastTemplate" MinWidth="200" Margin="4">
-                    <ComboBoxItem Content="ToastText1" />
-                    <ComboBoxItem Content="ToastText2" />
-                    <ComboBoxItem Content="ToastText3" />
-                    <ComboBoxItem Content="ToastText4" />
-                    <ComboBoxItem Content="ToastImageAndText1" />
-                    <ComboBoxItem Content="ToastImageAndText2" />
-                    <ComboBoxItem Content="ToastImageAndText3" />
-                    <ComboBoxItem Content="ToastImageAndText4" />
-                </ComboBox>
-                <TextBox x:Name="TitleTextBox" Header="Title" Width="200" HorizontalAlignment="Left" Margin="4"
+            <ScrollViewer>
+                <StackPanel>
+                    <ComboBox x:Name="ToastTemplateComboBox" Header="Toast template" MinWidth="200" Margin="4">
+                        <ComboBoxItem Content="ToastText1" />
+                        <ComboBoxItem Content="ToastText2" />
+                        <ComboBoxItem Content="ToastText3" />
+                        <ComboBoxItem Content="ToastText4" />
+                        <ComboBoxItem Content="ToastImageAndText1" />
+                        <ComboBoxItem Content="ToastImageAndText2" />
+                        <ComboBoxItem Content="ToastImageAndText3" />
+                        <ComboBoxItem Content="ToastImageAndText4" />
+                    </ComboBox>
+                    <ComboBox x:Name="TileTemplateComboBox" Header="Tile template" MinWidth="200" Margin="4">
+                        <ComboBoxItem Content="TileSquareBlock" />
+                        <ComboBoxItem Content="TileSquareText01" />
+                        <ComboBoxItem Content="TileSquareText02" />
+                        <ComboBoxItem Content="TileSquareText03" />
+                        <ComboBoxItem Content="TileSquareText04" />
+                    </ComboBox>
+                    <TextBox x:Name="TitleTextBox" Header="Title" Width="200" HorizontalAlignment="Left" Margin="4"
                          Text="Title"/>
-                <TextBox x:Name="Content1TextBox" Header="Content1" Width="200" HorizontalAlignment="Left" Margin="4"
+                    <TextBox x:Name="Content1TextBox" Header="Content1" Width="200" HorizontalAlignment="Left" Margin="4"
                          Text="Content1"/>
-                <TextBox x:Name="Content2TextBox" Header="Content2" Width="200" HorizontalAlignment="Left" Margin="4"
+                    <TextBox x:Name="Content2TextBox" Header="Content2" Width="200" HorizontalAlignment="Left" Margin="4"
                          Text="Content2"/>
-                <TextBox x:Name="ImageUriTextBox" Header="ImageUri" Width="200" HorizontalAlignment="Left" Margin="4"
+                    <TextBox x:Name="Content3TextBox" Header="Content3" Width="200" HorizontalAlignment="Left" Margin="4"
+                         Text="Content3"/>
+                    <TextBox x:Name="Content4TextBox" Header="Content4" Width="200" HorizontalAlignment="Left" Margin="4"
+                         Text="Content4"/>
+                    <TextBox x:Name="ImageUriTextBox" Header="ImageUri" Width="200" HorizontalAlignment="Left" Margin="4"
                          Text="ms-appx:///Assets/StoreLogo.png"/>
-                <TextBox x:Name="TagTextBox" Header="Tag" Width="200" HorizontalAlignment="Left" Margin="4"/>
-                <TextBox x:Name="GroupTextBox" Header="Group" Width="200" HorizontalAlignment="Left" Margin="4"/>
-                <Button x:Name="NotifyButton" Content="Notify" Click="NotifyClicked" MinWidth="200" Margin="4"/>
-                <Button x:Name="ClearHistoryButton" Content="Clear History" Click="ClearHistoryClicked" MinWidth="200" Margin="4"/>
-                <Button x:Name="RemoveByTagButton" Content="Remove by Tag" Click="RemoveByTagClicked" MinWidth="200" Margin="4"/>
-                <Button x:Name="RemoveByGroupButton" Content="Remove by Group" Click="RemoveByGroupClicked" MinWidth="200" Margin="4"/>
-                
-            </StackPanel>
+                    <TextBox x:Name="TagTextBox" Header="Tag" Width="200" HorizontalAlignment="Left" Margin="4"/>
+                    <TextBox x:Name="GroupTextBox" Header="Group" Width="200" HorizontalAlignment="Left" Margin="4"/>
+                    <TextBox x:Name="TileIdTextBox" Header="Tile ID" Width="200" HorizontalAlignment="Left" Margin="4"/>
+                    <Button Content="Notify" Click="NotifyClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Clear History" Click="ClearHistoryClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Remove Toast by Tag" Click="RemoveToastByTagClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Remove Toast by Group" Click="RemoveToastByGroupClicked" MinWidth="200" Margin="4"/>
+
+                    <Button Content="Pin or Update Primary" Click="PinUpdatePrimaryClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Pin or Update Secondary" Click="PinUpdateSecondaryClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Remove Tile" Click="RemoveTileClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Check Tile Exists" Click="CheckTileExistsClicked" MinWidth="200" Margin="4"/>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

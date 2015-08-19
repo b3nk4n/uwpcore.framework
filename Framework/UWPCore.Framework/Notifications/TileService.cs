@@ -1,4 +1,8 @@
-﻿using Windows.UI.Notifications;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
 
 namespace UWPCore.Framework.Notifications
 {
@@ -344,14 +348,45 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileUpdater GetUpdaterForApplication(string applicationId = null)
+        public TileUpdater GetUpdaterForApplication()
         {
-            return TileUpdateManager.CreateTileUpdaterForApplication(applicationId);
+            return TileUpdateManager.CreateTileUpdaterForApplication();
         }
 
         public TileUpdater GetUpdaterForSecondaryTile(string tileId)
         {
             return TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId);
+        }
+
+        public bool Exists(string tileId)
+        {
+            return SecondaryTile.Exists(tileId);
+        }
+
+        public async Task<IReadOnlyList<SecondaryTile>> GetAllSecondaryTilesAsync()
+        {
+            return await SecondaryTile.FindAllAsync();
+        }
+
+        public async Task<SecondaryTile> GetSecondaryTileAsync(string tileId)
+        {
+            var secondaryTiles = await SecondaryTile.FindAllAsync();
+            foreach (var secondaryTile in secondaryTiles)
+            {
+                if (secondaryTile.TileId == tileId)
+                    return secondaryTile;
+            }
+
+            return null;
+        }
+
+        public async Task RemoveAsync(string tileId)
+        {
+            if (Exists(tileId))
+            {
+                var secondaryTile = await GetSecondaryTileAsync(tileId);
+                await secondaryTile.RequestDeleteAsync();
+            }
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Windows.UI.Notifications;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
 
 namespace UWPCore.Framework.Notifications
 {
@@ -279,9 +282,8 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Gets the updater for the applications primary tile.
         /// </summary>
-        /// <param name="applicationId">The application ID that is required for background tasks.</param>
         /// <returns>Returns the tile updater.</returns>
-        TileUpdater GetUpdaterForApplication(string applicationId = null);
+        TileUpdater GetUpdaterForApplication();
 
         /// <summary>
         /// Gets the updater for the secondary tile.
@@ -289,5 +291,31 @@ namespace UWPCore.Framework.Notifications
         /// <param name="tileId">The tile ID.</param>
         /// <returns>Returns the tile updater.</returns>
         TileUpdater GetUpdaterForSecondaryTile(string tileId);
+
+        /// <summary>
+        /// Checks whether the secondary tile exists on the start screen.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        /// <returns>Returns the tile ID.</returns>
+        bool Exists(string tileId);
+
+        /// <summary>
+        /// Gets all secondary tiles.
+        /// </summary>
+        /// <returns>Returns all secondary tiles.</returns>
+        Task<IReadOnlyList<SecondaryTile>> GetAllSecondaryTilesAsync();
+
+        /// <summary>
+        /// Gets the secondary tile.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        /// <returns>Returns the secondary tile.</returns>
+        Task<SecondaryTile> GetSecondaryTileAsync(string tileId);
+
+        /// <summary>
+        /// Removes a secondary tile.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        Task RemoveAsync(string tileId);
     }
 }
