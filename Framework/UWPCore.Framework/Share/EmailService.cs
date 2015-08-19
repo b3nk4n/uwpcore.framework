@@ -10,13 +10,14 @@ namespace UWPCore.Framework.Share
     /// </summary>
     public class EmailService : IEmailService
     {
-        public async void Show(string[] recipientEmails, string emailBody, StorageFile attachmentFile = null)
+        public async void Show(string[] recipients, string subject, string body, StorageFile attachmentFile = null)
         {
             var emailMessage = new EmailMessage();
-            emailMessage.Body = emailBody;
+            emailMessage.Body = body;
+            emailMessage.Subject = subject;
 
             // email recipients
-            foreach (var recipientEmail in recipientEmails)
+            foreach (var recipientEmail in recipients)
             {
                 var email = new EmailRecipient(recipientEmail);
                 emailMessage.To.Add(email);
