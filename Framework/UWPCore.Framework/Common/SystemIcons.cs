@@ -6,6 +6,10 @@ namespace UWPCore.Framework.Common
     /// Proviedes constants to the system icons based on the font MDL2
     /// </summary>
     /// <see cref="http://metronuggets.com/2015/05/18/introducing-mdl2-helpers/"/>
+    /// <remarks>
+    /// Taken from <see cref="http://metronuggets.com/2015/05/18/introducing-mdl2-helpers/"/>.
+    /// Cheetsheet available at <seealso cref="http://modernicons.io/segoe-mdl2/cheatsheet/"/>.
+    /// </remarks>
     public static class SystemIcons
     {
         /// <summary>

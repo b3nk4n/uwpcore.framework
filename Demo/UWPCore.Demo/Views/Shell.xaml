@@ -114,7 +114,18 @@
                             <local:NavType Type="local:SpeechPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Speaker}">
+                            <TextBlock Text="{StaticResource MessageQuote}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
+                    <!-- share -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Share" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:SharePage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource Share}">
                             </TextBlock>
                         </RadioButton.Tag>
                     </RadioButton>
