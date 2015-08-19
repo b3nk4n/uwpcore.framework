@@ -220,7 +220,7 @@ namespace UWPCore.Framework.Notifications
             text = xml.CreateTextNode(content2);
             elements[2].AppendChild(text);
 
-            return new ToastNotification(xml);;
+            return new ToastNotification(xml);
         }
 
         public void Show(ToastNotification toast)

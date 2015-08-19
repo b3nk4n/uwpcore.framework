@@ -141,6 +141,17 @@
                         </RadioButton.Tag>
                     </RadioButton>
 
+                    <!-- mvvm -->
+                    <RadioButton Command="{Binding NavCommand}" Content="MVVM" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:MvvmPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource BoxSmall}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
                     <!-- about -->
                     <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">
                         <RadioButton.CommandParameter>

@@ -1,0 +1,66 @@
+﻿<Page
+    x:Class="UWPCore.Demo.Views.MvvmPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:localViewModels="using:UWPCore.Demo.ViewModels"
+    xmlns:localModels="using:UWPCore.Demo.Models"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <localViewModels:MvvmViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <localModels:ItemModel x:Key="TempItem" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- header -->
+        <uwpcControls:PageHeader Grid.Row="0" Text="MVVM" />
+
+        <!-- content -->
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <ListView>
+                    <ListView x:Name="ItemsList" ItemsSource="{Binding Items}" Margin="4">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Red" Padding="8">
+                                    <TextBlock Text="{Binding Model.Id}" />
+                                    <TextBlock Text="{Binding Model.Name}" />
+                                    <TextBlock Text="{Binding Model.Description}" />
+                                    <StackPanel DataContext="{Binding Model.SubItem}" Margin="0,8,0,0">
+                                        <TextBlock Text="{Binding Title}" />
+                                        <TextBlock Text="{Binding Link}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ListView>
+                <Button Content="Remove selected" Command="{Binding DeleteItemCommand}" CommandParameter="{Binding ElementName=ItemsList, Path=SelectedIndex}"
+                        MinWidth="200"/>
+
+                <StackPanel DataContext="{StaticResource TempItem}">
+                    <TextBox Header="#Id" Text="{Binding Id, Mode=TwoWay}"
+                         Width="200" Margin="4" HorizontalAlignment="Left" />
+                    <TextBox Header="Name" Text="{Binding Name, Mode=TwoWay}"
+                         Width="200" Margin="4" HorizontalAlignment="Left" />
+                    <TextBox Header="Description" Text="{Binding Description, Mode=TwoWay}"
+                         Width="200" Margin="4" HorizontalAlignment="Left" />
+                </StackPanel>
+                <Button Content="Add item" Command="{Binding AddItemCommand}" CommandParameter="{StaticResource TempItem}"
+                        MinWidth="200" Margin="4"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

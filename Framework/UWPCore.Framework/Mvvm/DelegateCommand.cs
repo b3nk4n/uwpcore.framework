@@ -126,7 +126,7 @@ namespace UWPCore.Framework.Mvvm
         /// Data used by the command. If the command does not require data to be passed, this object can be set to null.
         /// </param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
             try
