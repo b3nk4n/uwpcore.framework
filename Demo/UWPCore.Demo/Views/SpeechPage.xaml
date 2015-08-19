@@ -20,7 +20,13 @@
         <!-- content -->
         <Grid Grid.Row="1">
             <StackPanel>
+                <TextBox x:Name="SpeakTextBox" Width="200" HorizontalAlignment="Left" Margin="4" />
                 <Button Content="Speak" Click="SpeakClicked" MinWidth="100" Margin="4"/>
+
+                <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="0,8,0,8" />
+                
+                <Button Content="Recognize UI" Click="RecognizeUIClicked" MinWidth="100" Margin="4"/>
+                <TextBox x:Name="RecognizeTextBox" IsReadOnly="True" Margin="4" Width="200" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap" Height="64" />
             </StackPanel>
         </Grid>
     </Grid>

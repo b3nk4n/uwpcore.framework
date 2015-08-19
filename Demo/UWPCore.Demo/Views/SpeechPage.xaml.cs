@@ -22,7 +22,16 @@ namespace UWPCore.Demo.Views
 
         private async void SpeakClicked(object sender, RoutedEventArgs e)
         {
-            await _speechService.SpeakTextAsync("Hello world!");
+            await _speechService.SpeakTextAsync(SpeakTextBox.Text);
+        }
+
+        private async void RecognizeUIClicked(object sender, RoutedEventArgs e)
+        {
+            var result = await _speechService.RecoginizeUI();
+            if (result != null)
+            {
+                RecognizeTextBox.Text = result.Text;
+            }
         }
     }
 }
