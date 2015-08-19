@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using UWPCore.Framework.Input;
+using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -56,16 +57,21 @@ namespace UWPCore.Framework.Common
             DefaultPage = defaultPage;
             AppAssemblyName = appAssemblyName;
 
-            Resuming += (s, e) => { OnResuming(e); };
+            Resuming += (s, e) =>
+            {
+                Logger.WriteLine("RESUMING");
+                OnResuming(e);
+            };
             Suspending += async (s, e) =>
             {
                 var globalDeferral = e.SuspendingOperation.GetDeferral();
+                Logger.WriteLine("SUSPENDING");
                 try
                 {
                     foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
                     {
                         // date the cache (which marks the date/time it was suspended)
-                        service.Frame.SetFrameState(CACHE_DATE_KEY, DateTime.Now.ToString());
+                        service.FrameFacade.SetFrameState(CACHE_DATE_KEY, DateTime.Now.ToString());
                         // call view model suspend (OnNavigatedfrom)
                         await service.SuspendingAsync();
                     }
@@ -220,7 +226,7 @@ namespace UWPCore.Framework.Common
             // expire state (based on expiry)
             DateTime cacheDate;
             var otherwise = DateTime.MinValue.ToString();
-            if (DateTime.TryParse(navigationService.Frame.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
+            if (DateTime.TryParse(navigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
             {
                 var cacheAge = DateTime.Now.Subtract(cacheDate);
                 if (cacheAge >= CacheMaxDuration)
@@ -228,7 +234,7 @@ namespace UWPCore.Framework.Common
                     // clear state in every nav service in every view
                     foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
                     {
-                        service.Frame.ClearFrameState();
+                        service.FrameFacade.ClearFrameState();
                     }
                 }
             }
@@ -312,7 +318,7 @@ namespace UWPCore.Framework.Common
         private void RaiseBackRequested()
         {
             var args = new HandledEventArgs();
-            foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.Frame))
+            foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.FrameFacade))
             {
                 frame.RaiseBackRequested(args);
                 if (args.Handled)
@@ -331,7 +337,7 @@ namespace UWPCore.Framework.Common
         private void RaiseForwardRequested()
         {
             var args = new HandledEventArgs();
-            foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.Frame))
+            foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.FrameFacade))
             {
                 frame.RaiseForwardRequested(args);
                 if (args.Handled)

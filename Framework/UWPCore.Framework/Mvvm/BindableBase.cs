@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Mvvm
@@ -8,6 +9,7 @@ namespace UWPCore.Framework.Mvvm
     /// An implementation of <see cref="IBindable"/> interface to simplify 
     /// model and view models of the MVVM pattern.
     /// </summary> 
+    [DataContract]
     public abstract class BindableBase : IBindable
     {
         /// <summary>

@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 namespace UWPCore.Framework.Navigation
 {
     /// <summary>
-    /// A facade pattern implementatoin of a <see cref="Frame"/> to simplify its use.
+    /// A facade pattern implementatoin of a <see cref="Windows.UI.Xaml.Controls.Frame"/> to simplify its use.
     /// </summary>
     public class FrameFacade
     {
@@ -21,7 +21,7 @@ namespace UWPCore.Framework.Navigation
         /// <param name="frame">The frame to wrap.</param>
         public FrameFacade(Frame frame)
         {
-            _frame = frame;
+            Frame = frame;
             _navigatedEventHandlers = new List<EventHandler<NavigatedEventArgs>>();
 
             // setup animations
@@ -30,7 +30,7 @@ namespace UWPCore.Framework.Navigation
             var i = new EntranceNavigationTransitionInfo();
             t.DefaultNavigationTransitionInfo = i;
             c.Add(t);
-            _frame.ContentTransitions = c;
+            Frame.ContentTransitions = c;
         }
 
         /// <summary>
@@ -62,20 +62,15 @@ namespace UWPCore.Framework.Navigation
         }
 
         #region State
-
+        
         /// <summary>
         /// Gets the frame state key.
         /// </summary>
         /// <returns>The frame state key.</returns>
         private string GetFrameStateKey()
         {
-            return string.Format("{0}-PageState", FrameId);
+            return string.Format("{0}-FrameState", FrameId);
         }
-
-        /// <summary>
-        /// The frame state container.
-        /// </summary>
-        private Windows.Storage.ApplicationDataContainer frameStateContainer;
 
         /// <summary>
         /// Get or creates the frame state container.
@@ -83,13 +78,9 @@ namespace UWPCore.Framework.Navigation
         /// <returns>A new or reused frame state container.</returns>
         private Windows.Storage.ApplicationDataContainer GetFrameStateContainer()
         {
-            if (frameStateContainer == null)
-            {
-                var data = Windows.Storage.ApplicationData.Current;
-                var key = GetFrameStateKey();
-                frameStateContainer = data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
-            }
-            return frameStateContainer;
+            var data = Windows.Storage.ApplicationData.Current;
+            var key = GetFrameStateKey();
+            return data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
         }
 
         /// <summary>
@@ -136,7 +127,7 @@ namespace UWPCore.Framework.Navigation
         /// <returns>Returns the page state key.</returns>
         private string GetPageStateKey(Type type)
         {
-            return string.Format("{0}", type);
+            return string.Format("{0}-PageState", type);
         }
 
         /// <summary>
@@ -154,6 +145,7 @@ namespace UWPCore.Framework.Navigation
             if (pageStateContainers.ContainsKey(type))
                 return pageStateContainers[type];
             var key = GetPageStateKey(type);
+
             var container = GetFrameStateContainer().CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
             pageStateContainers.Add(type, container.Values);
             return container.Values;
@@ -177,7 +169,7 @@ namespace UWPCore.Framework.Navigation
         /// <summary>
         /// The frame.
         /// </summary>
-        private readonly Frame _frame;
+        public Frame Frame { get; private set; }
 
         /// <summary>
         /// Gets or sets the frame ID.
@@ -185,14 +177,14 @@ namespace UWPCore.Framework.Navigation
         public string FrameId { get; set; } = string.Empty;
 
         /// <summary>
-        /// 
+        /// Navigates to a page.
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="parameter"></param>
+        /// <param name="page">The page type.</param>
+        /// <param name="parameter">The parameter object.</param>
         /// <returns></returns>
-        public bool Navigate(Type page, string parameter)
+        public bool Navigate(Type page, object parameter)
         {
-            return _frame.Navigate(page, parameter);
+            return Frame.Navigate(page, parameter);
         }
 
         /// <summary>
@@ -201,7 +193,7 @@ namespace UWPCore.Framework.Navigation
         /// <param name="state">The navigation state.</param>
         public void SetNavigationState(string state)
         {
-            _frame.SetNavigationState(state);
+            Frame.SetNavigationState(state);
         }
 
         /// <summary>
@@ -210,7 +202,7 @@ namespace UWPCore.Framework.Navigation
         /// <returns>Returns the navigation state.</returns>
         public string GetNavigationState()
         {
-            return _frame.GetNavigationState();
+            return Frame.GetNavigationState();
         }
 
         /// <summary>
@@ -220,7 +212,7 @@ namespace UWPCore.Framework.Navigation
         {
             get
             {
-                return _frame.BackStackDepth;
+                return Frame.BackStackDepth;
             }
         }
 
@@ -231,7 +223,7 @@ namespace UWPCore.Framework.Navigation
         {
             get
             {
-                return _frame.CanGoBack;
+                return Frame.CanGoBack;
             }
         }
 
@@ -243,7 +235,7 @@ namespace UWPCore.Framework.Navigation
         /// </remarks>
         public void GoBack()
         {
-            _frame.GoBack();
+            Frame.GoBack();
         }
 
         /// <summary>
@@ -254,7 +246,7 @@ namespace UWPCore.Framework.Navigation
         {
             var page = CurrentPageType;
             var param = CurrentPageParam;
-            _frame.BackStack.Remove(_frame.BackStack.Last());
+            Frame.BackStack.Remove(Frame.BackStack.Last());
             Navigate(page, param);
         }
 
@@ -265,7 +257,7 @@ namespace UWPCore.Framework.Navigation
         {
             get
             {
-                return _frame.CanGoForward;
+                return Frame.CanGoForward;
             }
         }
 
@@ -277,7 +269,7 @@ namespace UWPCore.Framework.Navigation
         /// </remarks>
         public void GoForward()
         {
-            _frame.GoForward();
+            Frame.GoForward();
         }
 
         /// <summary>
@@ -287,7 +279,7 @@ namespace UWPCore.Framework.Navigation
         {
             get
             {
-                return _frame.Content;
+                return Frame.Content;
             }
         }
 
@@ -308,7 +300,7 @@ namespace UWPCore.Framework.Navigation
         /// <returns>The value.</returns>
         public object GetValue(DependencyProperty dp)
         {
-            return _frame.GetValue(dp);
+            return Frame.GetValue(dp);
         }
 
         /// <summary>
@@ -318,7 +310,7 @@ namespace UWPCore.Framework.Navigation
         /// <param name="value">The value.</param>
         public void SetValue(DependencyProperty dp, object value)
         {
-            _frame.SetValue(dp, value);
+            Frame.SetValue(dp, value);
         }
 
         /// <summary>
@@ -327,7 +319,7 @@ namespace UWPCore.Framework.Navigation
         /// <param name="dp">The dependency property.</param>
         public void ClearValue(DependencyProperty dp)
         {
-            _frame.ClearValue(dp);
+            Frame.ClearValue(dp);
         }
 
         #endregion
@@ -348,7 +340,7 @@ namespace UWPCore.Framework.Navigation
                     return;
                 _navigatedEventHandlers.Add(value);
                 if (_navigatedEventHandlers.Count == 1)
-                    _frame.Navigated += FacadeNavigatedEventHandler;
+                    Frame.Navigated += FacadeNavigatedEventHandler;
             }
 
             remove
@@ -357,7 +349,7 @@ namespace UWPCore.Framework.Navigation
                     return;
                 _navigatedEventHandlers.Remove(value);
                 if (_navigatedEventHandlers.Count == 0)
-                    _frame.Navigated -= FacadeNavigatedEventHandler;
+                    Frame.Navigated -= FacadeNavigatedEventHandler;
             }
         }
 
@@ -393,7 +385,7 @@ namespace UWPCore.Framework.Navigation
                     return;
                 _navigatingEventHandlers.Add(value);
                 if (_navigatingEventHandlers.Count == 1)
-                    _frame.Navigating += FacadeNavigatingCancelEventHandler;
+                    Frame.Navigating += FacadeNavigatingCancelEventHandler;
             }
             remove
             {
@@ -401,7 +393,7 @@ namespace UWPCore.Framework.Navigation
                     return;
                 _navigatingEventHandlers.Remove(value);
                 if (_navigatingEventHandlers.Count == 0)
-                    _frame.Navigating -= FacadeNavigatingCancelEventHandler;
+                    Frame.Navigating -= FacadeNavigatingCancelEventHandler;
             }
         }
 

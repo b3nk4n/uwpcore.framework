@@ -10,7 +10,6 @@ namespace UWPCore.Demo.ViewModels
 
         public SubItemViewModel(SubItemModel subItem)
         {
-            Identifier = Guid.NewGuid().ToString();
             Model = new SubItemModel(subItem);
         }
 

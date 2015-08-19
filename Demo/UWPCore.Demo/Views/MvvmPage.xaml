@@ -14,9 +14,9 @@
         <localViewModels:MvvmViewModel />
     </Page.DataContext>
 
-    <Page.Resources>
+    <!--<Page.Resources>
         <localModels:ItemModel x:Key="TempItem" />
-    </Page.Resources>
+    </Page.Resources>-->
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -30,6 +30,9 @@
         <!-- content -->
         <Grid Grid.Row="1">
             <StackPanel>
+                <Button Content="Go Home" Command="{Binding GoHomeCommand}"
+                        MinWidth="200"/>
+                
                 <ListView>
                     <ListView x:Name="ItemsList" ItemsSource="{Binding Items}" Margin="4">
                         <ListView.ItemTemplate>
@@ -50,15 +53,15 @@
                 <Button Content="Remove selected" Command="{Binding DeleteItemCommand}" CommandParameter="{Binding ElementName=ItemsList, Path=SelectedIndex}"
                         MinWidth="200"/>
 
-                <StackPanel DataContext="{StaticResource TempItem}">
-                    <TextBox Header="#Id" Text="{Binding Id, Mode=TwoWay}"
+                <StackPanel DataContext="{Binding TemporaryItem}">
+                    <TextBox Header="#Id" Text="{Binding Model.Id, Mode=TwoWay}"
                          Width="200" Margin="4" HorizontalAlignment="Left" />
-                    <TextBox Header="Name" Text="{Binding Name, Mode=TwoWay}"
+                    <TextBox Header="Name" Text="{Binding Model.Name, Mode=TwoWay}"
                          Width="200" Margin="4" HorizontalAlignment="Left" />
-                    <TextBox Header="Description" Text="{Binding Description, Mode=TwoWay}"
+                    <TextBox Header="Description" Text="{Binding Model.Description, Mode=TwoWay}"
                          Width="200" Margin="4" HorizontalAlignment="Left" />
                 </StackPanel>
-                <Button Content="Add item" Command="{Binding AddItemCommand}" CommandParameter="{StaticResource TempItem}"
+                <Button Content="Add item" Command="{Binding AddItemCommand}" CommandParameter="{Binding TemporaryItem.Model}"
                         MinWidth="200" Margin="4"/>
             </StackPanel>
         </Grid>
