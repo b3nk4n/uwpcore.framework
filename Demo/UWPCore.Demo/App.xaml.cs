@@ -34,7 +34,9 @@ namespace UWPCore.Demo
 
         public override Task OnInitializeAsync()
         {
+            // remove this line to hide the SplitView-Shell
             Window.Current.Content = new Shell(RootFrame);
+
             return base.OnInitializeAsync();
         }
 
