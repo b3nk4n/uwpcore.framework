@@ -56,5 +56,21 @@ namespace UWPCore.Demo.Views
                 return _deviceInfoService.IsWindows;
             }
         }
+
+        public string ApplicationId
+        {
+            get
+            {
+                return _deviceInfoService.ApplicationId;
+            }
+        }
+
+        public string HardwareId
+        {
+            get
+            {
+                return _deviceInfoService.HardwareId;
+            }
+        }
     }
 }

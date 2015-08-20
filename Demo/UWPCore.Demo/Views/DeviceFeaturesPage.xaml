@@ -44,6 +44,8 @@
                     <TextBlock Width="100">IsWindows:</TextBlock>
                     <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsWindowsStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
                 </StackPanel>
+                <TextBox x:Name="ApplictionIdTextBox" Header="Application ID" Text="{Binding ElementName=This, Path=ApplicationId}" IsReadOnly="True" Width="200" Margin="4" HorizontalAlignment="Left" />
+                <TextBox x:Name="HardwareIdTextBox" Header="Hardware ID" Text="{Binding ElementName=This, Path=HardwareId}" IsReadOnly="True" Width="200" Margin="4" HorizontalAlignment="Left" />
 
             </StackPanel>
         </Grid>

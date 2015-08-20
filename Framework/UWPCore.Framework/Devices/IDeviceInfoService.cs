@@ -14,5 +14,15 @@
         /// Gets whether the device is a desktop/tablet or not.
         /// </summary>
         bool IsWindows { get; }
+
+        /// <summary>
+        /// Gets the hardware ID.
+        /// </summary>
+        string HardwareId { get; }
+
+        /// <summary>
+        /// Gets the application ID.
+        /// </summary>
+        string ApplicationId { get; }
     }
 }
