@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
 namespace UWPCore.Framework.Tasks
@@ -8,6 +9,12 @@ namespace UWPCore.Framework.Tasks
     /// </summary>
     public interface IBackgroundTaskService
     {
+        /// <summary>
+        /// Requests user access for registering background tasks.
+        /// </summary>
+        /// <returns>Returns True for success, else False.</returns>
+        Task<bool> RequestAccessAsync();
+
         /// <summary>
         /// Registers a background task.
         /// </summary>

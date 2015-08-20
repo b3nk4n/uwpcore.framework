@@ -117,6 +117,12 @@
     <Compile Include="SimpleBackgroundTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Framework\UWPCore.Framework\UWPCore.Framework.csproj">
+      <Project>{a730354a-b009-4392-8d04-e065347e548a}</Project>
+      <Name>UWPCore.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -147,7 +147,18 @@
                             <local:NavType Type="local:MvvmPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource BoxSmall}">
+                            <TextBlock Text="{StaticResource ListBlock}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
+                    <!-- tasks -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Tasks" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:TasksPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource OpenInApp}">
                             </TextBlock>
                         </RadioButton.Tag>
                     </RadioButton>

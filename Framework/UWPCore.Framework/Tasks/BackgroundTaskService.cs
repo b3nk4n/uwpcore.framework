@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 
 namespace UWPCore.Framework.Tasks
@@ -8,6 +9,14 @@ namespace UWPCore.Framework.Tasks
     /// </summary>
     public class BackgroundTaskService : IBackgroundTaskService
     {
+        public async Task<bool> RequestAccessAsync()
+        {
+            BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
+
+            return (status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+                status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity);
+        }
+
         public IBackgroundTaskRegistration Register(string taskName, Type taskEntryPoint, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)
         {
             return Register(taskName, taskEntryPoint.FullName, trigger, conditions);
