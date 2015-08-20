@@ -66,6 +66,10 @@ namespace UWPCore.Demo.ViewModels
 
         public override void OnNavigatedTo(string parameter, NavigationMode mode, IDictionary<string, object> state)
         {
+            // no state restore when new or refreshed (after resume) page
+            if (mode == NavigationMode.New || mode == NavigationMode.Refresh)
+                return;
+
             if (state.ContainsKey(TEMPORARY_ITEM_KEY))
             {
                 var deserializedTempItem = _serializationService.DeserializeJson<ItemModel>(state[TEMPORARY_ITEM_KEY] as string); // FIXME: deserialization/ser. done impl. ???
@@ -76,15 +80,7 @@ namespace UWPCore.Demo.ViewModels
         public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
             var serializedTempItem = _serializationService.SerializeJson(TemporaryItem.Model);
-            // TODO: dictionary extension: AddOrReplace(...)
-            if (!state.ContainsKey(TEMPORARY_ITEM_KEY))
-            {
-                state.Add(TEMPORARY_ITEM_KEY, serializedTempItem);
-            } 
-            else
-            {
-                state[TEMPORARY_ITEM_KEY] = serializedTempItem;
-            }
+            state[TEMPORARY_ITEM_KEY] = serializedTempItem;
 
             return base.OnNavigatedFromAsync(state, suspending);
         }
