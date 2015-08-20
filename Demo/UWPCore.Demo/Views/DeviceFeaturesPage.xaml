@@ -34,7 +34,7 @@
                 <Button Content="Vibrate" Click="VibrateClicked" MinWidth="100" Margin="4"/>
                 <Button Content="Stop" Click="StopClicked" MinWidth="100" Margin="4"/>
                 
-                <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="0,8,0,8" />
+                <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="4,8,4,8" />
 
                 <StackPanel Orientation="Horizontal" Margin="4">
                     <TextBlock Width="100">IsPhone:</TextBlock>

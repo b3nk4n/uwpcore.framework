@@ -163,6 +163,17 @@
                         </RadioButton.Tag>
                     </RadioButton>
 
+                    <!-- launch -->
+                    <RadioButton Command="{Binding NavCommand}" Content="Launch" GroupName="Nav">
+                        <RadioButton.CommandParameter>
+                            <local:NavType Type="local:LaunchPage" />
+                        </RadioButton.CommandParameter>
+                        <RadioButton.Tag>
+                            <TextBlock Text="{StaticResource MediaPlay}">
+                            </TextBlock>
+                        </RadioButton.Tag>
+                    </RadioButton>
+
                     <!-- about -->
                     <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">
                         <RadioButton.CommandParameter>

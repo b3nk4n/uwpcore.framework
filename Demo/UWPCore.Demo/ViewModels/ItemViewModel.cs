@@ -1,5 +1,4 @@
-﻿using System;
-using UWPCore.Demo.Models;
+﻿using UWPCore.Demo.Models;
 using UWPCore.Framework.Mvvm;
 
 namespace UWPCore.Demo.ViewModels

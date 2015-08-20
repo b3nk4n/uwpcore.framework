@@ -118,6 +118,7 @@
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
+    <Compile Include="Common\EnumExtensions.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\ILaunchArgs.cs" />
     <Compile Include="Common\LaunchArgs.cs" />
@@ -155,6 +156,8 @@
     <Compile Include="Input\KeyboardController.cs" />
     <Compile Include="Input\KeyboardService.cs" />
     <Compile Include="Launcher\SettingsLauncher.cs" />
+    <Compile Include="Launcher\StoreLauncher.cs" />
+    <Compile Include="Launcher\SystemLauncher.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
@@ -196,6 +199,7 @@
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Compile Include="UI\ColorConverter.cs" />
     <Compile Include="UI\TemplateSelectorBase.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>
   <ItemGroup>

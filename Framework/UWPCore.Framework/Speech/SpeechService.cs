@@ -135,7 +135,7 @@ namespace UWPCore.Framework.Speech
                 // Handle the speech privacy policy error.
                 if ((uint)exception.HResult == HRESULT_PRIVACY_STATEMENT_DECLINED)
                 {
-                    await SettingsLauncher.LaunchPrivacyAccounts();
+                    await SettingsLauncher.LaunchPrivacyAccountsAsync();
                 }
                 else
                 {

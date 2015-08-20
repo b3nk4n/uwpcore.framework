@@ -12,7 +12,7 @@ namespace UWPCore.Framework.Launcher
         /// Launches the privacy acounts settings.
         /// </summary>
         /// <returns>Returns true if successful, else false.</returns>
-        public static async Task<bool> LaunchPrivacyAccounts()
+        public static async Task<bool> LaunchPrivacyAccountsAsync()
         {
             return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-accounts"));
         }
