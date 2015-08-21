@@ -124,6 +124,9 @@
     <Compile Include="Common\LaunchArgs.cs" />
     <Compile Include="Common\SystemIcons.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
+    <Compile Include="Controls\AboutControl.xaml.cs">
+      <DependentUpon>AboutControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\BackAppBarButton.cs" />
     <Compile Include="Controls\BackButton.cs" />
     <Compile Include="Controls\ForwardAppBarButton.cs" />
@@ -211,6 +214,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\AboutControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\PageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

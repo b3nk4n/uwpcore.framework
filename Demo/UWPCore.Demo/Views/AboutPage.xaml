@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcViewModels="using:UWPCore.Framework.ViewModels"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -19,7 +20,23 @@
 
         <!-- content -->
         <Grid Grid.Row="1">
-
+            <uwpcControls:AboutControl>
+                <uwpcControls:AboutControl.DataContext>
+                    <uwpcViewModels:AboutViewModel
+                        AppTitle="UWPCore Demo"
+                        AppDeveloper="Benjamin Sautermeister"
+                        AppDescription="This is a sample app demonstrating various kinds of features of the UWPCore framework."
+                        AppVersion="1.0 Beta"
+                        AppIcon="/Assets/Square150x150Logo.png"
+                        ShowPrivacyInfoText="Privacy info"
+                        SendFeedbackEmailText="Send feedback"
+                        RateAndReviewText="Rate and review"
+                        MoreAppsText="More apps"
+                        PublisherName="Benjamin Sautermeister"
+                        FeedbackToEmail="apps@bsautermeister.de"
+                        PrivacyInfoUri="http://bsautermeister.de/privacy.php"/>
+                </uwpcControls:AboutControl.DataContext>
+            </uwpcControls:AboutControl>
         </Grid>
     </Grid>
 </Page>
