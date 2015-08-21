@@ -13,6 +13,6 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         /// <param name="tile">The tile model to create.</param>
         /// <returns>The tile notification.</returns>
-        TileNotification CreateAdaptiveTile(AdaptiveTile tile)
+        TileNotification CreateAdaptiveTile(AdaptiveTile tile);
     }
 }
