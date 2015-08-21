@@ -358,6 +358,25 @@ namespace UWPCore.Framework.Notifications
             return TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId);
         }
 
+        public async Task<bool> PinSecondaryTileAsync(string tileId)
+        {
+            if(!Exists(tileId))
+            {
+                var tile = new SecondaryTile(tileId); // TODO: overloaded methods for all constructors... (or use properties because there are more options?)
+
+                //var tile2 = new SecondaryTile(tileId)
+                //{
+                //    DisplayName = "Record details",
+                //    Arguments = "123",
+                //    // ...
+                //};
+
+                return await tile.RequestCreateAsync();
+            }
+
+            return false;
+        }
+
         public bool Exists(string tileId)
         {
             return SecondaryTile.Exists(tileId);

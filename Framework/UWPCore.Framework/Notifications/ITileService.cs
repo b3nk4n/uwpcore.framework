@@ -293,6 +293,13 @@ namespace UWPCore.Framework.Notifications
         TileUpdater GetUpdaterForSecondaryTile(string tileId);
 
         /// <summary>
+        /// Creates and pins a secondary tile.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        /// <returns>Returns true for success, else false when the tile already exists or in case of an error.</returns>
+        Task<bool> PinSecondaryTileAsync(string tileId);
+
+        /// <summary>
         /// Checks whether the secondary tile exists on the start screen.
         /// </summary>
         /// <param name="tileId">The tile ID.</param>
