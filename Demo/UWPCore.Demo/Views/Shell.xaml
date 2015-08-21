@@ -8,18 +8,11 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
         <ResourceDictionary>
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Styles/SplitViewStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <Style TargetType="TextBlock" BasedOn="{StaticResource SplitViewTextBlockStyle}" />
-            <Style TargetType="RadioButton" BasedOn="{StaticResource SplitViewRadioButtonStyle}" />
-
         </ResourceDictionary>
-
     </Page.Resources>
 
     <SplitView x:Name="ShellSplitView">
@@ -43,9 +36,11 @@
                         </RadioButton>-->
 
                         <!-- hamburger -->
-                        <RadioButton Checked="DontCheck" Command="{Binding MenuCommand}">
+                        <RadioButton Checked="DontCheck" Command="{Binding MenuCommand}"
+                                     Style="{StaticResource SplitViewRadioButtonStyle}">
                             <RadioButton.Tag>
-                                <TextBlock Text="{StaticResource MenuButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}" />
+                                <TextBlock Text="{StaticResource MenuButtonText}" FontSize="{StaticResource SplitViewLargeNavFontSize}"
+                                           Style="{StaticResource SplitViewTextBlockStyle}"/>
                             </RadioButton.Tag>
                         </RadioButton>
 
@@ -55,132 +50,134 @@
                 <StackPanel x:Name="RadioButtonContainer" Grid.Row="1">
 
                     <!-- home -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Home" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Home" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:MainPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Home}" />
+                            <TextBlock Text="{StaticResource Home}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- audio -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Audio" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Audio" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:AudioPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Sound}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource Sound}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- device features -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Device Features" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Device Features" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:DeviceFeaturesPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Tablet}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource Tablet}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- networking -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Networking" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Networking" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:NetworkingPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Network}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource Network}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- notifications -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Notifications" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Notifications" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:NotificationsPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource MessageProcessing}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource MessageProcessing}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- notifications -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Speech" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Speech" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:SpeechPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource MessageQuote}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource MessageQuote}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- share -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Share" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Share" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:SharePage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Share}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource Share}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- graphics -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Graphics" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Graphics" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:GraphicsPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource ComputerTheme}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource ComputerTheme}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- mvvm -->
-                    <RadioButton Command="{Binding NavCommand}" Content="MVVM" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="MVVM" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:MvvmPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource ListBlock}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource ListBlock}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- tasks -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Tasks" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Tasks" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:TasksPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource OpenInApp}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource OpenInApp}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- launch -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Launch" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Launch" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:LaunchPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource MediaPlay}">
-                            </TextBlock>
+                            <TextBlock Text="{StaticResource MediaPlay}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
                     <!-- about -->
-                    <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="About" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:AboutPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Info}" />
+                            <TextBlock Text="{StaticResource Info}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
@@ -189,12 +186,13 @@
                 <StackPanel Grid.Row="2">
 
                     <!-- settings -->
-                    <RadioButton Command="{Binding NavCommand}" Content="Settings" GroupName="Nav">
+                    <RadioButton Command="{Binding NavCommand}" Content="Settings" GroupName="Nav"
+                                 Style="{StaticResource SplitViewRadioButtonStyle}">
                         <RadioButton.CommandParameter>
                             <local:NavType Type="local:SettingsPage" />
                         </RadioButton.CommandParameter>
                         <RadioButton.Tag>
-                            <TextBlock Text="{StaticResource Setting}" />
+                            <TextBlock Text="{StaticResource Setting}" Style="{StaticResource SplitViewTextBlockStyle}" />
                         </RadioButton.Tag>
                     </RadioButton>
 
