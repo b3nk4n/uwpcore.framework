@@ -1,5 +1,6 @@
 ﻿using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
+using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications
 {
@@ -37,8 +38,7 @@ namespace UWPCore.Framework.Notifications
             var xml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeGlyph);
 
             // transform first letter to lower case
-            var glyphString = glyph.ToString();
-            glyphString = char.ToLowerInvariant(glyphString[0]) + glyphString.Substring(1);
+            var glyphString = glyph.ToString().FirstLetterToLower();
 
             var badgeElement = (XmlElement)xml.SelectSingleNode(BADGE_SELECTOR);
             badgeElement.SetAttribute(VALUE_ATTRIBUTE, glyphString);
