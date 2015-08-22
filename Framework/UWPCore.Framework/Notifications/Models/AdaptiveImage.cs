@@ -18,17 +18,17 @@ namespace UWPCore.Framework.Notifications.Models
         Right
     }
 
+    public enum ImageHintCrop
+    {
+        None,
+        Circle
+    }
+
     public class AdaptiveImage : IAdaptiveVisualChild, IAdaptiveSubGroupChild
     {
         public string Source { get; set; }
         public ImagePlacement? Placement { get; set; }
         public bool? AddImageQuery { get; set; }
-
-        public enum ImageHintCrop
-        {
-            None,
-            Circle
-        }
         public ImageHintCrop? HintCrop { get; set; }
         public string Alt { get; set; }
         public bool? HintRemoveMargin { get; set; }

@@ -3,7 +3,13 @@ using Windows.Data.Xml.Dom;
 
 namespace UWPCore.Framework.Notifications.Models
 {
-    public class AdaptiveTile : IAdaptiveTile
+    /// <summary>
+    /// Model class for an adaptive tile notification.
+    /// </summary>
+    /// <remarks>
+    /// Template schema documented under <see cref="http://blogs.msdn.com/b/tiles_and_toasts/archive/2015/06/30/adaptive-tile-templates-schema-and-documentation.aspx"/>.
+    /// </remarks>
+    public class AdaptiveTile : IAdaptive
     {
         public AdaptiveVisual Visual { get; set; }
 
@@ -14,7 +20,7 @@ namespace UWPCore.Framework.Notifications.Models
 
         public XmlDocument GetXmlDocument()
         {
-            XDocument document = new XDocument(this.GetXElement());
+            XDocument document = new XDocument(GetXElement());
             document.Declaration = new XDeclaration("1.0", "utf-8", "yes");
             var xmlDoc = new XmlDocument();
             var xmlAsString = document.ToString();

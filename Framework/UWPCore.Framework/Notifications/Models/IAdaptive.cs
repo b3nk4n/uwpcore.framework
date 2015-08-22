@@ -2,7 +2,7 @@
 
 namespace UWPCore.Framework.Notifications.Models
 {
-    public interface IAdaptiveTile
+    public interface IAdaptive
     {
         XElement GetXElement();
     }

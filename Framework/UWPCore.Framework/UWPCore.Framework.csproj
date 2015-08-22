@@ -185,9 +185,11 @@
     <Compile Include="Notifications\IBadgeService.cs" />
     <Compile Include="Notifications\ITileService.cs" />
     <Compile Include="Notifications\IToastService.cs" />
+    <Compile Include="Notifications\Models\AdaptiveActions.cs" />
     <Compile Include="Notifications\Models\AdaptiveBinding.cs" />
     <Compile Include="Notifications\Models\AdaptiveGroup.cs" />
-    <Compile Include="Notifications\Models\IAdaptiveTile.cs" />
+    <Compile Include="Notifications\Models\AdaptiveToast.cs" />
+    <Compile Include="Notifications\Models\IAdaptive.cs" />
     <Compile Include="Notifications\Models\AdaptiveImage.cs" />
     <Compile Include="Notifications\Models\IAdaptiveSubGroupChild.cs" />
     <Compile Include="Notifications\Models\IAdaptiveVisualChild.cs" />

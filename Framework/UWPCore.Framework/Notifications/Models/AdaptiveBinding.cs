@@ -19,9 +19,28 @@ namespace UWPCore.Framework.Notifications.Models
         Contact
     }
 
-    public class AdaptiveBinding : AdaptiveVisualBindingBase, IAdaptiveTile
+    /// <summary>
+    /// Tile template name v3.
+    /// </summary>
+    public enum VisualTemplate
     {
-        public string Template { get; set; }
+        TileSmall,
+        TileMedium,
+        TileWide,
+        TileLarge, // Desktop only!
+        ToastGeneric // Toast only template!
+    }
+
+    public class AdaptiveBinding : AdaptiveVisualBindingBase, IAdaptive
+    {
+        /// <summary>
+        /// Gets or sets the tile template name v3.
+        /// </summary>
+        public VisualTemplate Template { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the fallback tile template name v1.
+        /// </summary>
         public string Fallback { get; set; }
 
         public VisualHintTextStacking? HintTextStacking { get; set; }
@@ -61,7 +80,7 @@ namespace UWPCore.Framework.Notifications.Models
         public XElement GetXElement()
         {
             var element = new XElement("binding", GetXAttributes());
-            element.Add(new XAttribute("template", Template));
+            element.Add(new XAttribute("template", Template.ToString()));
             if (HintTextStacking.HasValue)
             {
                 element.Add(new XAttribute("hint-textStacking", HintTextStacking.Value.ToString().FirstLetterToLower()));

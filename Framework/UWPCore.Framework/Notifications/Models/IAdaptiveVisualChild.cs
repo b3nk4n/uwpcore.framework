@@ -3,5 +3,5 @@
     /// <summary>
     /// Marker interface to indicate that the object is a valid child of visual
     /// </summary>
-    public interface IAdaptiveVisualChild : IAdaptiveTile { }
+    public interface IAdaptiveVisualChild : IAdaptive { }
 }

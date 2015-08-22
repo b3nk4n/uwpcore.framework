@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace UWPCore.Framework.Notifications.Models
 {
-    public class AdaptiveVisual : AdaptiveVisualBindingBase, IAdaptiveTile
+    public class AdaptiveVisual : AdaptiveVisualBindingBase, IAdaptive
     {
         public string Version { get; set; }
 
