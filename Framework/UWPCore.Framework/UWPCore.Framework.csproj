@@ -225,6 +225,8 @@
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Compile Include="UI\ColorConverter.cs" />
+    <Compile Include="UI\DialogService.cs" />
+    <Compile Include="UI\IDialogService.cs" />
     <Compile Include="UI\TemplateSelectorBase.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />

@@ -1,6 +1,7 @@
 ﻿using System;
 using UWPCore.Demo.Tasks;
 using UWPCore.Framework.Tasks;
+using UWPCore.Framework.UI;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -14,18 +15,20 @@ namespace UWPCore.Demo.Views
     public sealed partial class TasksPage : Page
     {
         private IBackgroundTaskService _backgroundTaskService;
+        private IDialogService _dialogService;
 
         public TasksPage()
         {
             InitializeComponent();
             _backgroundTaskService = new BackgroundTaskService();
+            _dialogService = new DialogService();
         }
 
         private async void RequestUserAccessClicked(object sender, RoutedEventArgs e)
         {
             bool status = await _backgroundTaskService.RequestAccessAsync();
 
-            await new MessageDialog(status.ToString().ToUpper(), "Information").ShowAsync();
+            await _dialogService.ShowAsync(status.ToString().ToUpper(), "Information");
         }
 
         private void RegisterClicked(object sender, RoutedEventArgs e)
@@ -53,7 +56,7 @@ namespace UWPCore.Demo.Views
 
             var exists = _backgroundTaskService.RegistrationExists(taskName);
 
-            await new MessageDialog(exists.ToString().ToUpper(), "Information").ShowAsync();
+            await _dialogService.ShowAsync(exists.ToString().ToUpper(), "Information");
         }
     }
 }

@@ -114,6 +114,7 @@ namespace UWPCore.Framework.Storage
 
         public async Task<string> ReadFile(string filePath)
         {
+            // TODO: use StorageFile.GetFileFromPathAsync(); which can handle file path?
             var folder = await GetStorageFolder(filePath);
 
             if (folder == null)

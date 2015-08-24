@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UWPCore.Framework.Audio;
 using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Logging;
+using UWPCore.Framework.UI;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Media.SpeechRecognition;
@@ -28,6 +29,11 @@ namespace UWPCore.Framework.Speech
         /// </summary>
         private IAudioService _audioService;
 
+        /// <summary>
+        /// The dialog service.
+        /// </summary>
+        private IDialogService _dialogService;
+
         public SpeechSynthesizer Synthesizer { get; private set; }
 
         public SpeechRecognizer Recognizer { get; private set; }
@@ -40,6 +46,7 @@ namespace UWPCore.Framework.Speech
             Synthesizer = new SpeechSynthesizer();
             Recognizer = new SpeechRecognizer();
             _audioService = new AudioService();
+            _dialogService = new DialogService();
         }
 
         #region Voice Commands
@@ -139,8 +146,7 @@ namespace UWPCore.Framework.Speech
                 }
                 else
                 {
-                    var messageDialog = new Windows.UI.Popups.MessageDialog(exception.Message, "Exception");
-                    await messageDialog.ShowAsync(); // TODO: dialog service?
+                    await _dialogService.ShowAsync(exception.Message, "Exception");
                 }
             }
             return null;

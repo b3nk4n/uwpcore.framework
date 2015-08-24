@@ -1,6 +1,7 @@
 ﻿using System;
 using UWPCore.Framework.Notifications;
 using UWPCore.Framework.Notifications.Models;
+using UWPCore.Framework.UI;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
@@ -19,6 +20,7 @@ namespace UWPCore.Demo.Views
         private IToastService _toastService;
         private ITileService _tileService;
         private IAdaptiveToastService _adaptiveToastService;
+        private IDialogService _dialogService;
 
         public NotificationsPage()
         {
@@ -26,6 +28,7 @@ namespace UWPCore.Demo.Views
             _toastService = new ToastService();
             _tileService = new TileService();
             _adaptiveToastService = new AdaptiveToastService();
+            _dialogService = new DialogService();
         }
 
         #region Toast
@@ -129,7 +132,7 @@ namespace UWPCore.Demo.Views
 
             var exists = _tileService.Exists(tileId);
 
-            await new MessageDialog(exists.ToString().ToUpper(), "Information").ShowAsync();
+            await _dialogService.ShowAsync(exists.ToString().ToUpper(), "Information");
         }
 
         private TileNotification GetTileNotification()

@@ -2,6 +2,7 @@
 using UWPCore.Demo.Controls;
 using UWPCore.Framework.Graphics;
 using UWPCore.Framework.Storage;
+using UWPCore.Framework.UI;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.UI.Popups;
@@ -18,14 +19,16 @@ namespace UWPCore.Demo.Views
     {
         public const string TEST_FILE_NAME = "TestRenderFrameworkElement.png";
 
-        IGraphicsService _graphicsService;
+        private IGraphicsService _graphicsService;
         private IStorageService _storageService;
+        private IDialogService _dialogService;
 
         public GraphicsPage()
         {
             InitializeComponent();
             _graphicsService = new GraphicsService();
             _storageService = new LocalStorageService();
+            _dialogService = new DialogService();
         }
 
         private async void RenderClicked(object sender, RoutedEventArgs e)
@@ -41,12 +44,12 @@ namespace UWPCore.Demo.Views
             renderResult = await _graphicsService.RenderToFileAsync(uiElementToRender, file, BitmapEncoder.PngEncoderId);
 
             // show info about rendered image   
-            await new MessageDialog(
+            await _dialogService.ShowAsync(
                 string.Format("Image resolution: {0}x{1}.\nUse WMPowerTools to verify the rendered file: {2}",
                     renderResult.PixelWidth,
                     renderResult.PixelHeight,
                     TEST_FILE_NAME),
-                "Information").ShowAsync();
+                "Information");
         }
     }
 }
