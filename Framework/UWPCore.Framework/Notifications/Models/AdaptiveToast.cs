@@ -1,6 +1,6 @@
-﻿using System.Xml;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using UWPCore.Framework.Common;
+using Windows.Data.Xml.Dom;
 
 namespace UWPCore.Framework.Notifications.Models
 {

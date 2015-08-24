@@ -1,4 +1,4 @@
-﻿using System.Xml;
+﻿using Windows.Data.Xml.Dom;
 
 namespace UWPCore.Framework.Notifications.Models
 {
