@@ -5,6 +5,9 @@ using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// The branding type for visual elements.
+    /// </summary>
     public enum VisualBranding
     {
         None,
@@ -13,15 +16,45 @@ namespace UWPCore.Framework.Notifications.Models
         NameAndLogo
     }
 
+    /// <summary>
+    /// The base class for adaptive visual binding and visual elements.
+    /// </summary>
     public abstract class AdaptiveVisualBindingBase
     {
+        /// <summary>
+        /// Gets or sets the optional language.
+        /// </summary>
         public string Lang { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional base URI.
+        /// </summary>
         public Uri BaseUri { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional branding type.
+        /// </summary>
         public VisualBranding? Branding { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optinal flag that indicates whether to add image query.
+        /// </summary>
         public bool? AddImageQuery { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional content ID.
+        /// </summary>
         public string ContentId { get; set; }
+
+        /// <summary>
+        /// Gets or sets th eoptional display name.
+        /// </summary>
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Gets the XML attributes.
+        /// </summary>
+        /// <returns>The XML attributes.</returns>
         protected List<XAttribute> GetXAttributes()
         {
             var attributes = new List<XAttribute>();

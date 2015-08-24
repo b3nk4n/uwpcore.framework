@@ -40,7 +40,7 @@ namespace UWPCore.Framework.Notifications.Models
     /// <remarks>
     /// Template schema documented under <see cref="http://blogs.msdn.com/b/tiles_and_toasts/archive/2015/07/02/adaptive-and-interactive-toast-notifications-for-windows-10.aspx"/>.
     /// </remarks>
-    public class AdaptiveToast : IAdaptive
+    public class AdaptiveToast : IAdaptive, IAdaptiveNotification
     {
         /// <summary>
         /// Gets or sets the visual element.

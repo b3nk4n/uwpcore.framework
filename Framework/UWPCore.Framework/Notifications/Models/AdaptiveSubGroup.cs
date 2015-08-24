@@ -5,6 +5,9 @@ using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// The sub group text stacking type.
+    /// </summary>
     public enum SubGroupTextStacking
     {
         Top,
@@ -12,11 +15,14 @@ namespace UWPCore.Framework.Notifications.Models
         Bottom
     }
 
+    /// <summary>
+    /// Class for an adaptive sub group element.
+    /// </summary>
     public class AdaptiveSubGroup : IAdaptiveVisualChild
     {
         private int? _hintWeight;
         /// <summary>
-        /// none|logo|name|nameAndLogo
+        /// Gets or sets the optional hint weight in range of [0-100].
         /// </summary>
         public int? HintWeight
         {
@@ -27,19 +33,25 @@ namespace UWPCore.Framework.Notifications.Models
 
             set
             {
-                if (value >= 0 && value <= 100)
-                {
-                    _hintWeight = value;
-                }
+                if (value < 0)
+                    _hintWeight = 0;
+                else if (value > 100)
+                    _hintWeight = 100;
                 else
-                {
-                    throw new ArgumentOutOfRangeException("HintWeight", "Must in range of [0-100]");
-                }
+                    _hintWeight = value;   
             }
         }
+
+        /// <summary>
+        /// Gets or sets the optional text stacking.
+        /// </summary>
         public SubGroupTextStacking? HintTextStacking { get; set; }
 
-        public List<IAdaptiveSubGroupChild> Children { get; set; }
+        /// <summary>
+        /// Gets or sets the adaptive children elements.
+        /// </summary>
+        public IList<IAdaptiveSubGroupChild> Children { get; set; } = new List<IAdaptiveSubGroupChild>();
+
         public XElement GetXElement()
         {
             var element = new XElement("subgroup");

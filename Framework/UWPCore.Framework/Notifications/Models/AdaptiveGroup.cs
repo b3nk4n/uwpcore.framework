@@ -3,12 +3,16 @@ using System.Xml.Linq;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// Class for adaptive group elements.
+    /// </summary>
     public class AdaptiveGroup : IAdaptiveVisualChild
     {
-        public List<AdaptiveSubGroup> SubGroups
-        {
-            get; set;
-        }
+        /// <summary>
+        /// Gets or sets the sub groups.
+        /// </summary>
+        public IList<AdaptiveSubGroup> SubGroups { get; set; } = new List<AdaptiveSubGroup>();
+
         public XElement GetXElement()
         {
             var element = new XElement("group");

@@ -196,6 +196,7 @@
     <Compile Include="Notifications\Models\IAdaptiveActionsChild.cs" />
     <Compile Include="Notifications\Models\IAdaptive.cs" />
     <Compile Include="Notifications\Models\AdaptiveImage.cs" />
+    <Compile Include="Notifications\Models\IAdaptiveNotification.cs" />
     <Compile Include="Notifications\Models\IAdaptiveSubGroupChild.cs" />
     <Compile Include="Notifications\Models\IAdaptiveVisualChild.cs" />
     <Compile Include="Notifications\Models\AdaptiveSubGroup.cs" />

@@ -1,5 +1,5 @@
-﻿using System.Xml.Linq;
-using Windows.Data.Xml.Dom;
+﻿using System.Xml;
+using System.Xml.Linq;
 
 namespace UWPCore.Framework.Notifications.Models
 {
@@ -9,8 +9,11 @@ namespace UWPCore.Framework.Notifications.Models
     /// <remarks>
     /// Template schema documented under <see cref="http://blogs.msdn.com/b/tiles_and_toasts/archive/2015/06/30/adaptive-tile-templates-schema-and-documentation.aspx"/>.
     /// </remarks>
-    public class AdaptiveTile : IAdaptive
+    public class AdaptiveTile : IAdaptive , IAdaptiveNotification
     {
+        /// <summary>
+        /// Gets or sets the visual element.
+        /// </summary>
         public AdaptiveVisual Visual { get; set; }
 
         public XElement GetXElement()

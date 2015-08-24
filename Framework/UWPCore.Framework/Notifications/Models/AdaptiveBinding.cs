@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// The text stacking types for visual elements.
+    /// </summary>
     public enum VisualHintTextStacking
     {
         Top,
@@ -12,6 +14,9 @@ namespace UWPCore.Framework.Notifications.Models
         Bottom
     }
 
+    /// <summary>
+    /// The presentations types for visual elements.
+    /// </summary>
     public enum VisualHintPresentation
     {
         Photos,
@@ -31,6 +36,9 @@ namespace UWPCore.Framework.Notifications.Models
         ToastGeneric // Toast only template!
     }
 
+    /// <summary>
+    /// Class for adaptive bindings.
+    /// </summary>
     public class AdaptiveBinding : AdaptiveVisualBindingBase, IAdaptive
     {
         /// <summary>
@@ -43,38 +51,55 @@ namespace UWPCore.Framework.Notifications.Models
         /// </summary>
         public string Fallback { get; set; }
 
+        /// <summary>
+        /// Gets or sets the optional text stacking type.
+        /// </summary>
         public VisualHintTextStacking? HintTextStacking { get; set; }
 
+        /// <summary>
+        /// Gets or sets the optional presentation type.
+        /// </summary>
         public VisualHintPresentation? HintPresentation { get; set; }
 
         private int? _hintOverlay;
         /// <summary>
-        /// none|logo|name|nameAndLogo
-        /// </summary>
+        /// Gets or sets the overlay number in range [0-100]. A value of >99 is displayed as 99+.
+        /// </summary>     
         public int? HintOverlay
         {
             get
             {
                 return _hintOverlay;
             }
-
             set
             {
-                if (value >= 0 && value <= 100)
-                {
-                    _hintOverlay = value;
-                }
+                if (value < 0)
+                    _hintOverlay = 0;
+                else if (value > 100)
+                    _hintOverlay = 100;
                 else
-                {
-                    throw new ArgumentOutOfRangeException("HintOverlay", "Must in range of [0-100]");
-                }
+                    _hintOverlay = value;
             }
         }
 
+        /// <summary>
+        /// Gets or sets the first lock detail status.
+        /// </summary>
         public string HintLockDetailedStatus1 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the second lock detail status.
+        /// </summary>
         public string HintLockDetailedStatus2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the third lock detail status.
+        /// </summary>
         public string HintLockDetailedStatus3 { get; set; }
 
+        /// <summary>
+        /// Gets or sets the visual children elements.
+        /// </summary>
         public IList<IAdaptiveVisualChild> Children { get; set; } = new List<IAdaptiveVisualChild>();
 
         public XElement GetXElement()

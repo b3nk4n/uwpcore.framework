@@ -3,14 +3,21 @@ using System.Xml.Linq;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// Class for adaptive visual elements.
+    /// </summary>
     public class AdaptiveVisual : AdaptiveVisualBindingBase, IAdaptive
     {
+        /// <summary>
+        /// Gets or sets the version.
+        /// </summary>
         public string Version { get; set; }
 
-        public List<AdaptiveBinding> Bindings
-        {
-            get; set;
-        }
+        /// <summary>
+        /// Gets or sets the bindings child elements.
+        /// </summary>
+        public IList<AdaptiveBinding> Bindings { get; set; } = new List<AdaptiveBinding>();
+
         public XElement GetXElement()
         {
             var element = new XElement("visual", GetXAttributes());

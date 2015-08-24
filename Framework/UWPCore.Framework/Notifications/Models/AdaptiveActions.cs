@@ -3,11 +3,17 @@ using System.Xml.Linq;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// The actions system command types.
+    /// </summary>
     public enum ActionsHintSystemCommand
     {
         SnoozeAndDismiss
     }
 
+    /// <summary>
+    /// Class for an adaptive actions element.
+    /// </summary>
     public class AdaptiveActions : IAdaptive
     {
         /// <summary>

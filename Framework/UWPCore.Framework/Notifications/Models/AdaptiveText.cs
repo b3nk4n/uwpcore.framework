@@ -3,6 +3,9 @@ using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// the text alignment type.
+    /// </summary>
     public enum TextHintAlign
     {
         Left,
@@ -10,6 +13,9 @@ namespace UWPCore.Framework.Notifications.Models
         Right
     }
 
+    /// <summary>
+    /// The text style type.
+    /// </summary>
     public enum TextStyle
     {
         Caption,
@@ -31,13 +37,39 @@ namespace UWPCore.Framework.Notifications.Models
         HeaderNumber
     }
 
+    /// <summary>
+    /// Class for adaptive text elements.
+    /// </summary>
     public class AdaptiveText : IAdaptiveVisualChild, IAdaptiveSubGroupChild
     {
+        /// <summary>
+        /// Gets or sets the required content to display.
+        /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional flag whether to wrap the text or not.
+        /// </summary>
         public bool? HintWrap { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional maximum number of lines.
+        /// </summary>
         public int? HintMaxLines { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional minimum number of lines.
+        /// </summary>
         public int? HintMinLines { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional text style.
+        /// </summary>
         public TextStyle? HintStyle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the optional text alignment.
+        /// </summary>
         public TextHintAlign? HintAlign { get; set; }
 
         public XElement GetXElement()
