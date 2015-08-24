@@ -35,6 +35,8 @@ namespace UWPCore.Framework.Notifications.Models
     {
         public AdaptiveVisual Visual { get; set; }
 
+        public AdaptiveAudio Audio { get; set; }
+
         public AdaptiveActions Actions { get; set; }
 
         /// <summary>
@@ -69,7 +71,15 @@ namespace UWPCore.Framework.Notifications.Models
 
         public XElement GetXElement()
         {
-            var element = new XElement("toast", new XAttribute("version", "3"), Visual.GetXElement(), Actions.GetXElement());
+            var element = new XElement("toast", new XAttribute("version", "3"), Visual.GetXElement());
+            if (Audio != null)
+            {
+                element.Add(Audio.GetXElement());
+            }
+            if (Actions != null)
+            {
+                element.Add(Actions.GetXElement());
+            }
             if (Scenario.HasValue)
             {
                 element.Add(new XAttribute("scenario", Scenario.ToString().FirstLetterToLower()));
