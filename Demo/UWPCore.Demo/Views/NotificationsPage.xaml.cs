@@ -228,6 +228,65 @@ namespace UWPCore.Demo.Views
             _toastService.Show(toast);
         }
 
+        private void AdaptiveToast2Clicked(object sender, RoutedEventArgs e)
+        {
+            var adaptiveToast = new AdaptiveToast()
+            {
+                Launch = "Lauched by Adaptive toast 2",
+                Visual = new AdaptiveVisual()
+                {
+                    Bindings = {
+                        new AdaptiveBinding()
+                        {
+                            Template = VisualTemplate.ToastGeneric,
+                            Children =
+                            {
+                                new AdaptiveText()
+                                {
+                                    Content = "Benjamin Sautermeister"
+                                },
+                                new AdaptiveText()
+                                {
+                                    Content = "Shall we meet up at 8?",
+                                },
+                                new AdaptiveImage()
+                                {
+                                    Placement = ImagePlacement.AppLogoOverride,
+                                    Source = "/Assets/Images/bug.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                Actions = new AdaptiveActions()
+                {
+                    Children =
+                    {
+                        new AdaptiveInput()
+                        {
+                            Id = "message",
+                            Type = InputType.Text,
+                            PlaceHolderContent = "reply here..."
+                        },
+                        new AdaptiveAction()
+                        {
+                            ActivationType = ToastActivationType.Background,
+                            Content = "reply",
+                            Arguments = "reply"
+                        },
+                        new AdaptiveAction()
+                        {
+                            ActivationType = ToastActivationType.Background,
+                            Content = "video call",
+                            Arguments = "video"
+                        }
+                    }
+                }
+            };
+            var toast = _adaptiveToastService.CreateAdaptiveToast(adaptiveToast);
+            _toastService.Show(toast);
+        }
+
         #endregion
     }
 }

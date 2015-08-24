@@ -160,6 +160,8 @@
   <ItemGroup>
     <Content Include="Assets\Audio\bing.mp3" />
     <Content Include="Assets\Audio\click.wav" />
+    <Content Include="Assets\Images\bug.png" />
+    <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Speech\AdventureWorksCommands.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
