@@ -62,6 +62,8 @@
                     <Button Content="Pin or Update Secondary" Click="PinUpdateSecondaryClicked" MinWidth="200" Margin="4"/>
                     <Button Content="Remove Tile" Click="RemoveTileClicked" MinWidth="200" Margin="4"/>
                     <Button Content="Check Tile Exists" Click="CheckTileExistsClicked" MinWidth="200" Margin="4"/>
+
+                    <Button Content="Adaptive Toast Test 1" Click="AdaptiveToast1Clicked" MinWidth="200" Margin="4"/>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

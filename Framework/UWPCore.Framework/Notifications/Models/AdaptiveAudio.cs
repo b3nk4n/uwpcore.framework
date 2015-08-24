@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Linq;
+using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
@@ -73,11 +74,11 @@ namespace UWPCore.Framework.Notifications.Models
             }
             if (Loop.HasValue)
             {
-                element.Add(new XAttribute("loop", Loop.Value.ToString()));
+                element.Add(new XAttribute("loop", Loop.Value.ToString().FirstLetterToLower()));
             }
             if (Silent.HasValue)
             {
-                element.Add(new XAttribute("silent", Silent.Value.ToString()));
+                element.Add(new XAttribute("silent", Silent.Value.ToString().FirstLetterToLower()));
             }
             return element;
         }

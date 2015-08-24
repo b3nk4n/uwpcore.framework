@@ -1,5 +1,7 @@
 ﻿using System;
 using UWPCore.Framework.Notifications;
+using UWPCore.Framework.Notifications.Models;
+using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -16,12 +18,14 @@ namespace UWPCore.Demo.Views
     {
         private IToastService _toastService;
         private ITileService _tileService;
+        private IAdaptiveToastService _adaptiveToastService;
 
         public NotificationsPage()
         {
             InitializeComponent();
             _toastService = new ToastService();
             _tileService = new TileService();
+            _adaptiveToastService = new AdaptiveToastService();
         }
 
         #region Toast
@@ -158,6 +162,70 @@ namespace UWPCore.Demo.Views
             }
 
             return tile;
+        }
+
+        #endregion
+
+        #region Adaptive Toast
+
+        private void AdaptiveToast1Clicked(object sender, RoutedEventArgs e)
+        {
+            var adaptiveToast = new AdaptiveToast()
+            {
+                Scenario = ToastScenario.Default,
+                Launch = "Lauched by Adaptive toast 1",
+                Duration = ToastDuration.Long,
+                ActivationType = ToastActivationType.Foreground,
+                Visual = new AdaptiveVisual()
+                {
+                    Bindings = {
+                        new AdaptiveBinding()
+                        {
+                            Template = VisualTemplate.ToastGeneric,
+                            Children =
+                            {
+                                new AdaptiveText()
+                                {
+                                    Content = "Header",
+                                    HintStyle = TextStyle.Header,
+                                    HintAlign = TextHintAlign.Center
+                                },
+                                new AdaptiveText()
+                                {
+                                    Content = "This is a sample content line",
+                                    HintStyle = TextStyle.Body,
+                                    HintWrap = true,
+                                },
+                                new AdaptiveText()
+                                {
+                                    Content = "This is a subheader line",
+                                    HintStyle = TextStyle.Subheader,
+                                    HintWrap = true,
+                                },
+                                new AdaptiveText()
+                                {
+                                    Content = "This is a subheader subtle line",
+                                    HintStyle = TextStyle.SubheaderSubtle,
+                                    HintWrap = true,
+                                },
+                                new AdaptiveText()
+                                {
+                                    Content = "Again a header?",
+                                    HintStyle = TextStyle.Header,
+                                    HintAlign = TextHintAlign.Right
+                                },
+                            }
+                        }
+                    }
+                },
+                Audio = new AdaptiveAudio()
+                {
+                    Loop = true,
+                    Source = AdaptiveAudio.NOTIFICATION_LOOPING_CALL5 
+                }
+            };
+            var toast = _adaptiveToastService.CreateAdaptiveToast(adaptiveToast);
+            _toastService.Show(toast);
         }
 
         #endregion

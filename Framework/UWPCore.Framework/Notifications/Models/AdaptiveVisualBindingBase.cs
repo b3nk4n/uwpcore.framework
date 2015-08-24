@@ -47,7 +47,7 @@ namespace UWPCore.Framework.Notifications.Models
         public string ContentId { get; set; }
 
         /// <summary>
-        /// Gets or sets th eoptional display name.
+        /// Gets or sets the optional display name.
         /// </summary>
         public string DisplayName { get; set; }
 
