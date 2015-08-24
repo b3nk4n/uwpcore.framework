@@ -75,7 +75,7 @@ namespace UWPCore.Framework.Notifications.Models
         public string HintLockDetailedStatus2 { get; set; }
         public string HintLockDetailedStatus3 { get; set; }
 
-        public List<IAdaptiveVisualChild> Children { get; set; } = new List<IAdaptiveVisualChild>();
+        public IList<IAdaptiveVisualChild> Children { get; set; } = new List<IAdaptiveVisualChild>();
 
         public XElement GetXElement()
         {

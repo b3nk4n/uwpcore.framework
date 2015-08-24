@@ -4,6 +4,9 @@ using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    /// <summary>
+    /// The toast scenario.
+    /// </summary>
     public enum ToastScenario
     {
         Default,
@@ -12,12 +15,18 @@ namespace UWPCore.Framework.Notifications.Models
         IncomingCall
     }
 
+    /// <summary>
+    /// The toast display duration.
+    /// </summary>
     public enum ToastDuration
     {
         Short,
         Long
     }
 
+    /// <summary>
+    /// The toast activation type.
+    /// </summary>
     public enum ToastActivationType
     {
         Foreground,
@@ -33,10 +42,19 @@ namespace UWPCore.Framework.Notifications.Models
     /// </remarks>
     public class AdaptiveToast : IAdaptive
     {
+        /// <summary>
+        /// Gets or sets the visual element.
+        /// </summary>
         public AdaptiveVisual Visual { get; set; }
 
+        /// <summary>
+        /// Gets or sets the audio element.
+        /// </summary>
         public AdaptiveAudio Audio { get; set; }
 
+        /// <summary>
+        /// Gets or sets the actions element.
+        /// </summary>
         public AdaptiveActions Actions { get; set; }
 
         /// <summary>

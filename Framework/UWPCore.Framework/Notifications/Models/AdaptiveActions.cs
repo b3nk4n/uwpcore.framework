@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace UWPCore.Framework.Notifications.Models
 {
     public enum ActionsHintSystemCommand
     {
-        SnoozeAndDismiss,
-        // TODO: more system commands supported?
+        SnoozeAndDismiss
     }
 
     public class AdaptiveActions : IAdaptive
@@ -17,8 +15,13 @@ namespace UWPCore.Framework.Notifications.Models
         /// Input: A developer can enable users to provide input to an app via a toast notification.
         /// For example, being able to type a reply to an instant message directly inside a toast.
         /// </summary>
-        public List<IAdaptiveActionsChild> Children { get; set; } = new List<IAdaptiveActionsChild>();
+        public IList<IAdaptiveActionsChild> Children { get; set; } = new List<IAdaptiveActionsChild>();
 
+        /// <summary>
+        /// This hint attribute will construct a dropbox for selecting snooze interval, a snooze action, and a dismiss action.
+        /// The snooze and dismiss will all be handled by system (the app will not be activated when the user takes these actions).
+        /// The string displayed for the input and the 2 actions will be properly localized.
+        /// </summary>
         public ActionsHintSystemCommand? HintSystemCommand;
 
         public XElement GetXElement()
