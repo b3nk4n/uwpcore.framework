@@ -287,6 +287,73 @@ namespace UWPCore.Demo.Views
             _toastService.Show(toast);
         }
 
+        private void AdaptiveToast3Clicked(object sender, RoutedEventArgs e)
+        {
+            var adaptiveToast = new AdaptiveToast()
+            {
+                Launch = "Lauched by Adaptive toast 3",
+                Visual = new AdaptiveVisual()
+                {
+                    Bindings = {
+                        new AdaptiveBinding()
+                        {
+                            Template = VisualTemplate.ToastGeneric,
+                            Children =
+                            {
+                                new AdaptiveText()
+                                {
+                                    Content = "This is just a long bla bla text without any content, hopefully not bold like a header.",
+                                    HintStyle = TextStyle.Body
+                                },
+                                new AdaptiveImage()
+                                {
+                                    Placement = ImagePlacement.AppLogoOverride,
+                                    Source = "/Assets/Images/flash.png"
+                                }
+                            }
+                        }
+                    }
+                },
+                Actions = new AdaptiveActions()
+                {
+                    Children =
+                    {
+                        new AdaptiveInput()
+                        {
+                            Id = "time",
+                            Type = InputType.Selection,
+                            DefaultInput = "2",
+                            Selections =
+                            {
+                                new AdaptiveSelection()
+                                {
+                                    Id = "1",
+                                    Content = "First option"
+                                },
+                                new AdaptiveSelection()
+                                {
+                                    Id = "2",
+                                    Content = "Second option (default)"
+                                },
+                                new AdaptiveSelection()
+                                {
+                                    Id = "3",
+                                    Content = "Third option"
+                                }
+                            }
+                        },
+                        new AdaptiveAction()
+                        {
+                            Content = "Go!",
+                            Arguments = "go"
+                        },
+                    }
+                }
+            };
+            var toast = _adaptiveToastService.CreateAdaptiveToast(adaptiveToast);
+            _toastService.Show(toast);
+        }
+
         #endregion
     }
 }
