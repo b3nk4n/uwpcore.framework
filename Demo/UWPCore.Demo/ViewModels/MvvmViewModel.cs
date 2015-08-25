@@ -64,7 +64,7 @@ namespace UWPCore.Demo.ViewModels
             });
         }
 
-        public override void OnNavigatedTo(string parameter, NavigationMode mode, IDictionary<string, object> state)
+        public override void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             // no state restore when new or refreshed (after resume) page
             if (mode == NavigationMode.New || mode == NavigationMode.Refresh)

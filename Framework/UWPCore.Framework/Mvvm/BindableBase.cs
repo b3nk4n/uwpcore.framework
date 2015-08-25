@@ -21,6 +21,7 @@ namespace UWPCore.Framework.Mvvm
         {
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 return;
+
             await WindowWrapper.Current().Dispatcher.DispatchAsync(() =>
             {
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
-using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -121,7 +119,7 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         /// <param name="mode">The navigation mode.</param>
         /// <param name="parameter">The parameter.</param>
-        private void NavigateTo(NavigationMode mode, string parameter)
+        private void NavigateTo(NavigationMode mode, object parameter)
         {
             _lastNavigationParameter = parameter;
             _lastNavigationType = FrameFacade.Content.GetType().FullName;
@@ -165,7 +163,7 @@ namespace UWPCore.Framework.Navigation
         /// <param name="parameter">The parameter.</param>
         /// <param name="size">The prefered windows size.</param>
         /// <returns>The view ID of the new window.</returns>
-        public void OpenAsync(Type page, string parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
+        public void OpenAsync(Type page, object parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
         {
             // FIXME: this will spawn a new window instead of navigating to an existing frame.
             // --> not supported up to now. Have a second look at Template10 until they finised it!
@@ -231,34 +229,54 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         public void SaveNavigationState()
         {
+            // it is possible to close the application before we have navigated and created state
+            if (CurrentPageType == null) return;
+
             var state = FrameFacade.GetPageStateContainer(GetType());
+            if (state == null)
+            {
+                throw new InvalidOperationException("State container is unexpectedly null");
+            }
+
             state[CURRENT_PAGE_TYPE_KEY] = CurrentPageType.ToString();
-            state[CURRENT_PAGE_PARAM_KEY] = CurrentPageParam;
-            state[NAVIGATE_STATE_KEY] = FrameFacade.GetNavigationState();
+            try { state[CURRENT_PAGE_PARAM_KEY] = CurrentPageParam; }
+            catch
+            {
+                throw new Exception("Failed to serialize page parameter, override/implement ToString()");
+            }
+            state[NAVIGATE_STATE_KEY] = FrameFacade?.GetNavigationState();
         }
+
+        public event EventHandler AfterRestoreSavedNavigation;
 
         /// <summary>
         /// Restores the saved navigation state.
         /// </summary>
         /// <returns>Returns True for success, else False.</returns>
-        public bool RestoreSavedNavigationState()
+        public async Task<bool> RestoreSavedNavigationState()
         {
             try
             {
                 var state = FrameFacade.GetPageStateContainer(GetType());
+                if (state == null || !state.Any() || !state.ContainsKey(CURRENT_PAGE_TYPE_KEY))
+                {
+                    return false;
+                }
+                
                 string currentPageType = state[CURRENT_PAGE_TYPE_KEY].ToString();
-                Type pageTypeOfAppAssembly = Type.GetType(currentPageType + ", " + UniversalApp.AppAssemblyName);
+                Type pageTypeOfAppAssembly = Type.GetType(string.Format("{0}, {1}", currentPageType, UniversalApp.AppAssemblyName));
 
                 FrameFacade.CurrentPageType = pageTypeOfAppAssembly;
-                FrameFacade.CurrentPageParam = state[CURRENT_PAGE_PARAM_KEY]?.ToString();
+                FrameFacade.CurrentPageParam = state[CURRENT_PAGE_PARAM_KEY];
                 FrameFacade.SetNavigationState(state[NAVIGATE_STATE_KEY].ToString());
                 NavigateTo(NavigationMode.Refresh, FrameFacade.CurrentPageParam);
+                while (FrameFacade.Content == null) {
+                    await Task.Delay(10);
+                }
+                AfterRestoreSavedNavigation?.Invoke(this, EventArgs.Empty);
                 return true;
             }
-            catch
-            {
-                return false;
-            }
+            catch { return false; }
         }
 
         /// <summary>
@@ -359,7 +377,7 @@ namespace UWPCore.Framework.Navigation
         /// <summary>
         /// Get the current page parameter.
         /// </summary>
-        public string CurrentPageParam
+        public object CurrentPageParam
         {
             get
             {

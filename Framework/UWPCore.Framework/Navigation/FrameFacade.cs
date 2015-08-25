@@ -291,7 +291,7 @@ namespace UWPCore.Framework.Navigation
         /// <summary>
         /// Gets or sets the current page parameter.
         /// </summary>
-        public string CurrentPageParam { get; internal set; }
+        public object CurrentPageParam { get; internal set; }
 
         /// <summary>
         /// Gets the dependency property value of the frame.

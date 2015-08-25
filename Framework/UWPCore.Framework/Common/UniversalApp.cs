@@ -270,7 +270,7 @@ namespace UWPCore.Framework.Common
                 case ApplicationExecutionState.Terminated:
                     {
                         // restore if you need to/can do
-                        var restored = navigationService.RestoreSavedNavigationState();
+                        var restored = await navigationService.RestoreSavedNavigationState();
                         if (!restored)
                         {
                             await OnStartAsync(StartKind.Launch, e, launchArgs);

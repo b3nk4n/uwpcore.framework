@@ -36,6 +36,6 @@ namespace UWPCore.Framework.Navigation
         /// <summary>
         /// Gets or sets the parameter.
         /// </summary>
-        public string Parameter { get; set; }
+        public object Parameter { get; set; }
     }
 }

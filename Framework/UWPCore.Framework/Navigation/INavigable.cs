@@ -29,7 +29,7 @@ namespace UWPCore.Framework.Navigation
         /// <param name="parameter">The parameter.</param>
         /// <param name="mode">The navigation mode.</param>
         /// <param name="state">The state.</param>
-        void OnNavigatedTo(string parameter, NavigationMode mode, IDictionary<string, object> state);
+        void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state);
 
         /// <summary>
         /// Hook method that is called when a page using this view model was navigated from.
