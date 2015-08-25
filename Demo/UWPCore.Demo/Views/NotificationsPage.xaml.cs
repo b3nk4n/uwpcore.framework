@@ -70,28 +70,28 @@ namespace UWPCore.Demo.Views
             switch (selectedToastTemplate)
             {
                 case "ToastText1":
-                    toast = _toastService.CreateToastText01(content1);
+                    toast = _toastService.Factory.CreateToastText01(content1);
                     break;
                 case "ToastText2":
-                    toast = _toastService.CreateToastText02(title, content1);
+                    toast = _toastService.Factory.CreateToastText02(title, content1);
                     break;
                 case "ToastText3":
-                    toast = _toastService.CreateToastText03(title, content1);
+                    toast = _toastService.Factory.CreateToastText03(title, content1);
                     break;
                 case "ToastText4":
-                    toast = _toastService.CreateToastText04(title, content1, content2);
+                    toast = _toastService.Factory.CreateToastText04(title, content1, content2);
                     break;
                 case "ToastImageAndText1":
-                    toast = _toastService.CreateToastImageAndText01(imageUri, content1);
+                    toast = _toastService.Factory.CreateToastImageAndText01(imageUri, content1);
                     break;
                 case "ToastImageAndText2":
-                    toast = _toastService.CreateToastImageAndText02(imageUri, title, content1);
+                    toast = _toastService.Factory.CreateToastImageAndText02(imageUri, title, content1);
                     break;
                 case "ToastImageAndText3":
-                    toast = _toastService.CreateToastImageAndText03(imageUri, title, content1);
+                    toast = _toastService.Factory.CreateToastImageAndText03(imageUri, title, content1);
                     break;
                 case "ToastImageAndText4":
-                    toast = _toastService.CreateToastImageAndText04(imageUri, title, content1, content2);
+                    toast = _toastService.Factory.CreateToastImageAndText04(imageUri, title, content1, content2);
                     break;
             }
 

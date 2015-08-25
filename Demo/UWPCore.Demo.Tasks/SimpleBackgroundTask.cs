@@ -22,7 +22,7 @@ namespace UWPCore.Demo.Tasks
             var deferral = taskInstance.GetDeferral();
 
             // push a toast notification
-            var toast = _toastService.CreateToastText02("SimpleBackgroundTask", DateTime.Now.ToString());
+            var toast = _toastService.Factory.CreateToastText02("SimpleBackgroundTask", DateTime.Now.ToString());
             _toastService.Show(toast);
 
             // just a short delay to simulate some work

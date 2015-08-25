@@ -185,6 +185,7 @@
     <Compile Include="Notifications\IBadgeService.cs" />
     <Compile Include="Notifications\ITileFactory.cs" />
     <Compile Include="Notifications\ITileService.cs" />
+    <Compile Include="Notifications\IToastFactory.cs" />
     <Compile Include="Notifications\IToastService.cs" />
     <Compile Include="Notifications\Models\AdaptiveAction.cs" />
     <Compile Include="Notifications\Models\AdaptiveActions.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Notifications\Models\AdaptiveVisualBindingBase.cs" />
     <Compile Include="Notifications\TileFactory.cs" />
     <Compile Include="Notifications\TileService.cs" />
+    <Compile Include="Notifications\ToastFactory.cs" />
     <Compile Include="Notifications\ToastService.cs" />
     <Compile Include="Primitive\Lazy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
