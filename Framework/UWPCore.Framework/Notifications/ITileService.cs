@@ -380,6 +380,162 @@ namespace UWPCore.Framework.Notifications
         TileNotification CreateTileWideSmallImageAndText05(string text1Large, string text2 = "", string imgUri1 = "");
 
         /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageCollection01(string imgUri1Large, string text1Large, string text2 = "", string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageCollection02(string imgUri1Large, string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageCollection03(string imgUri1Large, string text1Large, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageCollection04(string imgUri1Large, string text1, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <param name="imgUri6NextToText">The image next to text URI, that is not visible on Windows Phone.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageCollection05(string imgUri1Large, string text1Large, string text2 = "", string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "", string imgUri6NextToText = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <param name="imgUri6NextToText">The image next to text URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageCollection06(string imgUri1Large, string text1Large, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "", string imgUri6NextToText = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageAndText01(string imgUri1, string text1);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImageAndText02(string imgUri1, string text1, string text2 = "", string text3 = "", string text4 = "", string text5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImage01(string imgUri1, string text1Large, string text2 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImage02(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImage03(string imgUri1, string text1Large);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImage04(string imgUri1, string text1);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri2NextToText">The image next to text URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImage05(string imgUri1, string text1Large, string text2 = "", string imgUri2NextToText = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="imgUri2NextToText">The image next to text URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWidePeekImage06(string imgUri1, string text1Large, string imgUri2NextToText = "");
+
+        /// <summary>
         /// Gets the updater for the applications primary tile.
         /// </summary>
         /// <returns>Returns the tile updater.</returns>

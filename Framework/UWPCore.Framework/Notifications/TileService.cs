@@ -470,6 +470,232 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
+        public TileNotification CreateTileWidePeekImageCollection01(string imgUri1Large, string text1Large, string text2 = "", string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageCollection01);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1Large;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2;
+            imageNodes[2].Attributes[1].NodeValue = imgUri3;
+            imageNodes[3].Attributes[1].NodeValue = imgUri4;
+            imageNodes[4].Attributes[1].NodeValue = imgUri5;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageCollection02(string imgUri1Large, string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageCollection02);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1Large;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2;
+            imageNodes[2].Attributes[1].NodeValue = imgUri3;
+            imageNodes[3].Attributes[1].NodeValue = imgUri4;
+            imageNodes[4].Attributes[1].NodeValue = imgUri5;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+            textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
+            textNodes[3].AppendChild(xmlTemplate.CreateTextNode(text4));
+            textNodes[4].AppendChild(xmlTemplate.CreateTextNode(text5));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageCollection03(string imgUri1Large, string text1Large, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageCollection03);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1Large;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2;
+            imageNodes[2].Attributes[1].NodeValue = imgUri3;
+            imageNodes[3].Attributes[1].NodeValue = imgUri4;
+            imageNodes[4].Attributes[1].NodeValue = imgUri5;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageCollection04(string imgUri1Large, string text1, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageCollection04);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1Large;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2;
+            imageNodes[2].Attributes[1].NodeValue = imgUri3;
+            imageNodes[3].Attributes[1].NodeValue = imgUri4;
+            imageNodes[4].Attributes[1].NodeValue = imgUri5;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageCollection05(string imgUri1Large, string text1Large, string text2 = "", string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "", string imgUri6NextToText = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageCollection05);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1Large;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2;
+            imageNodes[2].Attributes[1].NodeValue = imgUri3;
+            imageNodes[3].Attributes[1].NodeValue = imgUri4;
+            imageNodes[4].Attributes[1].NodeValue = imgUri5;
+            imageNodes[5].Attributes[1].NodeValue = imgUri6NextToText;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageCollection06(string imgUri1Large, string text1Large, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "", string imgUri6NextToText = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageCollection06);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1Large;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2;
+            imageNodes[2].Attributes[1].NodeValue = imgUri3;
+            imageNodes[3].Attributes[1].NodeValue = imgUri4;
+            imageNodes[4].Attributes[1].NodeValue = imgUri5;
+            imageNodes[5].Attributes[1].NodeValue = imgUri6NextToText;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageAndText01(string imgUri1, string text1)
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageAndText01);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImageAndText02(string imgUri1, string text1, string text2 = "", string text3 = "", string text4 = "", string text5 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImageAndText01);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+            textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
+            textNodes[3].AppendChild(xmlTemplate.CreateTextNode(text4));
+            textNodes[4].AppendChild(xmlTemplate.CreateTextNode(text5));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImage01(string imgUri1, string text1Large, string text2 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImage01);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImage02(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImage02);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+            textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
+            textNodes[3].AppendChild(xmlTemplate.CreateTextNode(text4));
+            textNodes[4].AppendChild(xmlTemplate.CreateTextNode(text5));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImage03(string imgUri1, string text1Large)
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImage03);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImage04(string imgUri1, string text1)
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImage04);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImage05(string imgUri1, string text1Large, string text2 = "", string imgUri2NextToText = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImage03);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2NextToText;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileWidePeekImage06(string imgUri1, string text1Large, string imgUri2NextToText = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileWide310x150PeekImage03);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri1;
+            imageNodes[1].Attributes[1].NodeValue = imgUri2NextToText;
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+
+            return new TileNotification(xmlTemplate);
+        }
+
         public TileUpdater GetUpdaterForApplication()
         {
             return TileUpdateManager.CreateTileUpdaterForApplication();
