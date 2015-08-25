@@ -9,7 +9,7 @@ namespace UWPCore.Framework.Notifications.Models
     /// <remarks>
     /// Template schema documented under <see cref="http://blogs.msdn.com/b/tiles_and_toasts/archive/2015/06/30/adaptive-tile-templates-schema-and-documentation.aspx"/>.
     /// </remarks>
-    public class AdaptiveTile : IAdaptive , IAdaptiveNotification
+    public class AdaptiveTileModel : IAdaptive , IAdaptiveNotification
     {
         /// <summary>
         /// Gets or sets the visual element.

@@ -8,7 +8,7 @@ namespace UWPCore.Framework.Notifications
     /// </summary>
     public class AdaptiveTileFactory : IAdaptiveTileFactory
     {
-        public TileNotification Create(AdaptiveTile tile)
+        public TileNotification Create(AdaptiveTileModel tile)
         {
             return new TileNotification(tile.GetXmlDocument());
         }

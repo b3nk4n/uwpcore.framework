@@ -118,7 +118,7 @@ namespace UWPCore.Demo.Views
         {
             var tileId = TileIdTextBox.Text;
 
-            await _tileService.RemoveAsync(tileId);
+            await _tileService.UnpinAsync(tileId);
         }
 
         private async void CheckTileExistsClicked(object sender, RoutedEventArgs e)
@@ -168,7 +168,7 @@ namespace UWPCore.Demo.Views
 
         private void AdaptiveToast1Clicked(object sender, RoutedEventArgs e)
         {
-            var adaptiveToast = new AdaptiveToast()
+            var adaptiveToast = new AdaptiveToastModel()
             {
                 Scenario = ToastScenario.Default,
                 Launch = "Lauched by Adaptive toast 1",
@@ -229,7 +229,7 @@ namespace UWPCore.Demo.Views
 
         private void AdaptiveToast2Clicked(object sender, RoutedEventArgs e)
         {
-            var adaptiveToast = new AdaptiveToast()
+            var adaptiveToast = new AdaptiveToastModel()
             {
                 Launch = "Lauched by Adaptive toast 2",
                 Visual = new AdaptiveVisual()
@@ -289,7 +289,7 @@ namespace UWPCore.Demo.Views
 
         private void AdaptiveToast3Clicked(object sender, RoutedEventArgs e)
         {
-            var adaptiveToast = new AdaptiveToast()
+            var adaptiveToast = new AdaptiveToastModel()
             {
                 Launch = "Lauched by Adaptive toast 3",
                 Visual = new AdaptiveVisual()

@@ -8,7 +8,7 @@ namespace UWPCore.Framework.Notifications
     /// </summary>
     public class AdaptiveToastFactory : IAdaptiveToastFactory
     {
-        public ToastNotification Create(AdaptiveToast toast)
+        public ToastNotification Create(AdaptiveToastModel toast)
         {
             return new ToastNotification(toast.GetXmlDocument());
         }

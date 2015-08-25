@@ -196,7 +196,7 @@
     <Compile Include="Notifications\Models\AdaptiveGroup.cs" />
     <Compile Include="Notifications\Models\AdaptiveInput.cs" />
     <Compile Include="Notifications\Models\AdaptiveSelection.cs" />
-    <Compile Include="Notifications\Models\AdaptiveToast.cs" />
+    <Compile Include="Notifications\Models\AdaptiveToastModel.cs" />
     <Compile Include="Notifications\Models\IAdaptiveActionsChild.cs" />
     <Compile Include="Notifications\Models\IAdaptive.cs" />
     <Compile Include="Notifications\Models\AdaptiveImage.cs" />
@@ -205,9 +205,10 @@
     <Compile Include="Notifications\Models\IAdaptiveVisualChild.cs" />
     <Compile Include="Notifications\Models\AdaptiveSubGroup.cs" />
     <Compile Include="Notifications\Models\AdaptiveText.cs" />
-    <Compile Include="Notifications\Models\AdaptiveTile.cs" />
+    <Compile Include="Notifications\Models\AdaptiveTileModel.cs" />
     <Compile Include="Notifications\Models\AdaptiveVisual.cs" />
     <Compile Include="Notifications\Models\AdaptiveVisualBindingBase.cs" />
+    <Compile Include="Notifications\Models\SecondaryTileModel.cs" />
     <Compile Include="Notifications\TileFactory.cs" />
     <Compile Include="Notifications\TileService.cs" />
     <Compile Include="Notifications\ToastFactory.cs" />

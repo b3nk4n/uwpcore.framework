@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UWPCore.Framework.Notifications.Models;
+using Windows.Foundation;
 using Windows.UI.Notifications;
+using Windows.UI.Popups;
 using Windows.UI.StartScreen;
 
 namespace UWPCore.Framework.Notifications
@@ -40,23 +43,49 @@ namespace UWPCore.Framework.Notifications
             return TileUpdateManager.CreateTileUpdaterForSecondaryTile(tileId);
         }
 
-        public async Task<bool> PinSecondaryTileAsync(string tileId)
+        public async Task<bool> PinAsync(string tileId, SecondaryTileModel tileModel, string arguments = "")
         {
-            if(!Exists(tileId))
+            if (Exists(tileId))
+                return false;
+
+            var tile = new SecondaryTile(tileId)
             {
-                var tile = new SecondaryTile(tileId); // TODO: overloaded methods for all constructors... (or use properties because there are more options?)
+                Arguments = arguments
+            };
 
-                //var tile2 = new SecondaryTile(tileId)
-                //{
-                //    DisplayName = "Record details",
-                //    Arguments = "123",
-                //    // ...
-                //};
+            tile = UpdateSecondaryTileFromInfos(tile, tileModel);
 
-                return await tile.RequestCreateAsync();
-            }
+            var result = await tile.RequestCreateAsync();
+            return result;
+        }
 
-            return false;
+        public async Task<bool> PinForSelectionAsync(string tileId, SecondaryTileModel tileModel, string arguments = "")
+        {
+            if (Exists(tileId))
+                return false;
+
+            var tile = new SecondaryTile(tileId)
+            {
+                Arguments = arguments
+            };
+
+            tile = UpdateSecondaryTileFromInfos(tile, tileModel);
+
+            var result = await tile.RequestCreateForSelectionAsync(tileModel.Rect(), tileModel.RequestPlacement);
+            return result;
+        }
+
+        public async Task<bool> UpdateAsync(string tileId, SecondaryTileModel tileModel)
+        {
+            if (!Exists(tileId))
+                return false;
+
+            var tile = await GetSecondaryTileAsync(tileId);
+
+            // update tile
+            tile = UpdateSecondaryTileFromInfos(tile, tileModel);
+                
+            return await tile.UpdateAsync();
         }
 
         public bool Exists(string tileId)
@@ -81,13 +110,66 @@ namespace UWPCore.Framework.Notifications
             return null;
         }
 
-        public async Task RemoveAsync(string tileId)
+        public async Task<bool> UnpinAsync(string tileId)
         {
-            if (Exists(tileId))
+            if (!Exists(tileId))
+                return true;
+
+            var secondaryTile = await GetSecondaryTileAsync(tileId);
+            return await secondaryTile.RequestDeleteAsync();
+        }
+
+        public async Task<bool> UnpinForSelectionAsync(string tileId, Rect selection, Placement preferredPlacement = Placement.Above)
+        {
+            if (!Exists(tileId))
+                return true;
+
+            var secondaryTile = await GetSecondaryTileAsync(tileId);
+            return await secondaryTile.RequestDeleteForSelectionAsync(selection, preferredPlacement);
+        }
+
+        private static SecondaryTile UpdateSecondaryTileFromInfos(SecondaryTile tile, SecondaryTileModel tileModel)
+        {
+            if (tileModel.DisplayName != null)
+                tile.DisplayName = tileModel.DisplayName;
+
+            if (tileModel.PhoneticName != null)
+                tile.PhoneticName = tileModel.PhoneticName;
+
+
+            if (tileModel.LockScreenDisplayBadgeAndTileText.HasValue)
+                tile.LockScreenDisplayBadgeAndTileText = tileModel.LockScreenDisplayBadgeAndTileText.Value;
+
+            if (tileModel.LockScreenBadgeLogo != null)
             {
-                var secondaryTile = await GetSecondaryTileAsync(tileId);
-                await secondaryTile.RequestDeleteAsync();
+                tile.LockScreenBadgeLogo = tileModel.LockScreenBadgeLogo;
             }
+
+            tile.VisualElements.BackgroundColor = tileModel.VisualElements.BackgroundColor;
+            tile.VisualElements.ForegroundText = tileModel.VisualElements.ForegroundText;
+            if (tileModel.VisualElements.ShowNameOnSquare150x150Logo.HasValue)
+                tile.VisualElements.ShowNameOnSquare150x150Logo = tileModel.VisualElements.ShowNameOnSquare150x150Logo.Value;
+            if (tileModel.VisualElements.ShowNameOnSquare310x310Logo.HasValue)
+                tile.VisualElements.ShowNameOnSquare310x310Logo = tileModel.VisualElements.ShowNameOnSquare310x310Logo.Value;
+            if (tileModel.VisualElements.ShowNameOnWide310x150Logo.HasValue)
+                tile.VisualElements.ShowNameOnWide310x150Logo = tileModel.VisualElements.ShowNameOnWide310x150Logo.Value;
+
+            if (tileModel.VisualElements.Square150x150Logo != null)
+            {
+                tile.VisualElements.Square150x150Logo = tileModel.VisualElements.Square150x150Logo;
+            }
+
+            if (tileModel.VisualElements.Square310x310Logo != null)
+            {
+                tile.VisualElements.Square310x310Logo = tileModel.VisualElements.Square310x310Logo;
+            }
+
+            if (tileModel.VisualElements.Wide310x150Logo != null)
+            {
+                tile.VisualElements.Wide310x150Logo = tileModel.VisualElements.Wide310x150Logo;
+            }
+
+            return tile;
         }
 
         public ITileFactory Factory

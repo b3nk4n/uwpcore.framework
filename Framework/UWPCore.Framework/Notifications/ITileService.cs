@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UWPCore.Framework.Notifications.Models;
+using Windows.Foundation;
 using Windows.UI.Notifications;
+using Windows.UI.Popups;
 using Windows.UI.StartScreen;
 
 namespace UWPCore.Framework.Notifications
@@ -30,8 +33,27 @@ namespace UWPCore.Framework.Notifications
         /// Creates and pins a secondary tile.
         /// </summary>
         /// <param name="tileId">The tile ID.</param>
+        /// <param name="tileInfo">The secondary tile model.</param>
+        /// <param name="arguments">The optional arguments.</param>
         /// <returns>Returns true for success, else false when the tile already exists or in case of an error.</returns>
-        Task<bool> PinSecondaryTileAsync(string tileId);
+        Task<bool> PinAsync(string tileId, SecondaryTileModel tileInfo, string arguments = "");
+
+        /// <summary>
+        /// Creates and pins a secondary tile.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        /// <param name="tileInfo">The secondary tile model.</param>
+        /// <param name="arguments">The optional arguments.</param>
+        /// <returns>Returns true for success, else false when the tile already exists or in case of an error.</returns>
+        Task<bool> PinForSelectionAsync(string tileId, SecondaryTileModel tileModel, string arguments = "");
+
+        /// <summary>
+        /// Updates a secondary tile.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        /// <param name="tileModel">The secondary tile model.</param>
+        /// <returns>Returns true for success, else false when the tile does not exists or in case of an error.</returns>
+        Task<bool> UpdateAsync(string tileId, SecondaryTileModel tileModel);
 
         /// <summary>
         /// Checks whether the secondary tile exists on the start screen.
@@ -49,15 +71,28 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Gets the secondary tile.
         /// </summary>
+        /// <remarks>
+        /// Secondary tiles have to be pinned before.
+        /// </remarks>
         /// <param name="tileId">The tile ID.</param>
         /// <returns>Returns the secondary tile.</returns>
         Task<SecondaryTile> GetSecondaryTileAsync(string tileId);
 
         /// <summary>
-        /// Removes a secondary tile.
+        /// Unpins a secondary tile.
         /// </summary>
         /// <param name="tileId">The tile ID.</param>
-        Task RemoveAsync(string tileId);
+        /// <returns>Returns True for success, else False.</returns>
+        Task<bool> UnpinAsync(string tileId);
+
+        /// <summary>
+        /// Unpins a secondary tile.
+        /// </summary>
+        /// <param name="tileId">The tile ID.</param>
+        /// <param name="selection">The selection for the flyout.</param>
+        /// <param name="preferredPlacement">The prefered flyout placement.</param>
+        /// <returns>Returns True for success, else False.</returns>
+        Task<bool> UnpinForSelectionAsync(string tileId, Rect selection, Placement preferredPlacement = Placement.Above);
 
         /// <summary>
         /// Gets the tile factory.

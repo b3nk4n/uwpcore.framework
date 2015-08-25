@@ -13,6 +13,6 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         /// <param name="toast">The toast model to create from.</param>
         /// <returns>Returns a toast notification.</returns>
-        ToastNotification Create(AdaptiveToast toast);
+        ToastNotification Create(AdaptiveToastModel toast);
     }
 }
