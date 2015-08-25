@@ -782,7 +782,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text8">The text.</param>
         /// <param name="text9">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeTextList01(string text1Large, string text2, string text3, string text4Large = "", string text5 = "", string text6 = "", string text7Large = "", string text8 = "", string text9 = "");
+        TileNotification CreateTileLargeSquareTextList01(string text1Large, string text2, string text3, string text4Large = "", string text5 = "", string text6 = "", string text7Large = "", string text8 = "", string text9 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -794,7 +794,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeTextList02(string text1, string text2 = "", string text3 = "");
+        TileNotification CreateTileLargeSquareTextList02(string text1, string text2 = "", string text3 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -809,7 +809,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text5Large">The large text.</param>
         /// <param name="text6">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeTextList03(string text1Large, string text2, string text3Large = "", string text4 = "", string text5Large = "", string text6 = "");
+        TileNotification CreateTileLargeSquareTextList03(string text1Large, string text2, string text3Large = "", string text4 = "", string text5Large = "", string text6 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -827,7 +827,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text7">The text.</param>
         /// <param name="text9">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeBlockAndText01(string text1Large, string text8Block, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text9 = "");
+        TileNotification CreateTileLargeSquareBlockAndText01(string text1Large, string text8Block, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text9 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -837,7 +837,7 @@ namespace UWPCore.Framework.Notifications
         /// </remarks>
         /// <param name="imgUri1">The image URI.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImage(string imgUri1);
+        TileNotification CreateTileLargeSquareImage(string imgUri1);
 
         /// <summary>
         /// Creates a tile notification.
@@ -851,7 +851,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri4RightCenter">The right-center image URI.</param>
         /// <param name="imgUri5Right">The right image URI.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageCollection(string imgUri1Large, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
+        TileNotification CreateTileLargeSquareImageCollection(string imgUri1Large, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -867,7 +867,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text6">The text.</param>
         /// <param name="text7">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeBlockAndText02(string text1Block, string text2Large, string text3Large = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "");
+        TileNotification CreateTileLargeSquareBlockAndText02(string text1Block, string text2Large, string text3Large = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -878,7 +878,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri1">The image URI.</param>
         /// <param name="text1">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageAndText01(string imgUri1, string text1);
+        TileNotification CreateTileLargeSquareImageAndText01(string imgUri1, string text1);
 
         /// <summary>
         /// Creates a tile notification.
@@ -890,7 +890,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text1">The text.</param>
         /// <param name="text2">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageAndText02(string imgUri1, string text1, string text2 = "");
+        TileNotification CreateTileLargeSquareImageAndText02(string imgUri1, string text1, string text2 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -901,7 +901,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri1">The image URI.</param>
         /// <param name="text1">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageAndTextOverlay01(string imgUri1, string text1);
+        TileNotification CreateTileLargeSquareImageAndTextOverlay01(string imgUri1, string text1);
 
         /// <summary>
         /// Creates a tile notification.
@@ -913,7 +913,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageAndTextOverlay02(string imgUri1, string text1Large, string text2 = "");
+        TileNotification CreateTileLargeSquareImageAndTextOverlay02(string imgUri1, string text1Large, string text2 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -927,7 +927,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text3">The text.</param>
         /// <param name="text4">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageAndTextOverlay03(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "");
+        TileNotification CreateTileLargeSquareImageAndTextOverlay03(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -942,7 +942,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri4RightCenter">The right-center image URI.</param>
         /// <param name="imgUri5Right">The right image URI.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageCollectionAndText01(string imgUri1Large, string text1, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
+        TileNotification CreateTileLargeSquareImageCollectionAndText01(string imgUri1Large, string text1, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -958,7 +958,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri4RightCenter">The right-center image URI.</param>
         /// <param name="imgUri5Right">The right image URI.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeImageCollectionAndText02(string imgUri1Large, string text1, string text2, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
+        TileNotification CreateTileLargeSquareImageCollectionAndText02(string imgUri1Large, string text1, string text2, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -979,7 +979,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text8">The text.</param>
         /// <param name="text9">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeSmallImagesAndTextList01(string imgUri1, string text1Large, string text2 = "", string text3 = "", string imgUri2 = "", string text4Large = "", string text5 = "", string text6 = "", string imgUri3 = "", string text7Large = "", string text8 = "", string text9 = "");
+        TileNotification CreateTileLargeSquareSmallImagesAndTextList01(string imgUri1, string text1Large, string text2 = "", string text3 = "", string imgUri2 = "", string text4Large = "", string text5 = "", string text6 = "", string imgUri3 = "", string text7Large = "", string text8 = "", string text9 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -994,7 +994,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri3">The image URI.</param>
         /// <param name="text3">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeSmallImagesAndTextList02(string imgUri1, string text1, string imgUri2 = "", string text2 = "", string imgUri3 = "", string text3 = "");
+        TileNotification CreateTileLargeSquareSmallImagesAndTextList02(string imgUri1, string text1, string imgUri2 = "", string text2 = "", string imgUri3 = "", string text3 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -1012,7 +1012,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text5Large">The large text.</param>
         /// <param name="text6">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeSmallImagesAndTextList03(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "");
+        TileNotification CreateTileLargeSquareSmallImagesAndTextList03(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -1030,7 +1030,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text5Large">The large text.</param>
         /// <param name="text6">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeSmallImagesAndTextList04(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "");
+        TileNotification CreateTileLargeSquareSmallImagesAndTextList04(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -1049,7 +1049,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text6">The text.</param>
         /// <param name="text7">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeSmallImagesAndTextList05(string text1Large, string imgUri1, string text2, string text3 = "", string imgUri2 = "", string text4 = "", string text5 = "", string imgUri3 = "", string text6 = "", string text7 = "");
+        TileNotification CreateTileLargeSquareSmallImagesAndTextList05(string text1Large, string imgUri1, string text2, string text3 = "", string imgUri2 = "", string text4 = "", string text5 = "", string imgUri3 = "", string text6 = "", string text7 = "");
 
         /// <summary>
         /// Creates a tile notification.
@@ -1062,9 +1062,7 @@ namespace UWPCore.Framework.Notifications
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
         /// <returns>Returns the tile notification.</returns>
-        TileNotification CreateTileLargeSmallImageAndText01(string imgUri1, string text1Large, string text2 = "", string text3 = "");
-
-        // TODO: WinPhone only tiles
+        TileNotification CreateTileLargeSquareSmallImageAndText01(string imgUri1, string text1Large, string text2 = "", string text3 = "");
 
         /// <summary>
         /// Gets the updater for the applications primary tile.

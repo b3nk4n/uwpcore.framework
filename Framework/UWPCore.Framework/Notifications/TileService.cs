@@ -927,7 +927,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeTextList01(string text1Large, string text2, string text3, string text4Large = "", string text5 = "", string text6 = "", string text7Large = "", string text8 = "", string text9 = "")
+        public TileNotification CreateTileLargeSquareTextList01(string text1Large, string text2, string text3, string text4Large = "", string text5 = "", string text6 = "", string text7Large = "", string text8 = "", string text9 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310TextList01);
 
@@ -945,7 +945,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeTextList02(string text1, string text2 = "", string text3 = "")
+        public TileNotification CreateTileLargeSquareTextList02(string text1, string text2 = "", string text3 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310TextList02);
 
@@ -957,7 +957,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeTextList03(string text1Large, string text2, string text3Large = "", string text4 = "", string text5Large = "", string text6 = "")
+        public TileNotification CreateTileLargeSquareTextList03(string text1Large, string text2, string text3Large = "", string text4 = "", string text5Large = "", string text6 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310TextList03);
 
@@ -972,7 +972,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeBlockAndText01(string text1Large, string text8Block, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text9 = "")
+        public TileNotification CreateTileLargeSquareBlockAndText01(string text1Large, string text8Block, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text9 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310BlockAndText01);
 
@@ -990,7 +990,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImage(string imgUri1)
+        public TileNotification CreateTileLargeSquareImage(string imgUri1)
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310Image);
 
@@ -1000,7 +1000,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageCollection(string imgUri1Large, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "")
+        public TileNotification CreateTileLargeSquareImageCollection(string imgUri1Large, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageCollection);
 
@@ -1014,7 +1014,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeBlockAndText02(string text1Block, string text2Large, string text3Large = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "")
+        public TileNotification CreateTileLargeSquareBlockAndText02(string text1Block, string text2Large, string text3Large = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310BlockAndText02);
 
@@ -1030,7 +1030,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageAndText01(string imgUri1, string text1)
+        public TileNotification CreateTileLargeSquareImageAndText01(string imgUri1, string text1)
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageAndText01);
 
@@ -1043,7 +1043,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageAndText02(string imgUri1, string text1, string text2 = "")
+        public TileNotification CreateTileLargeSquareImageAndText02(string imgUri1, string text1, string text2 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageAndText02);
 
@@ -1057,7 +1057,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageAndTextOverlay01(string imgUri1, string text1)
+        public TileNotification CreateTileLargeSquareImageAndTextOverlay01(string imgUri1, string text1)
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageAndTextOverlay01);
 
@@ -1070,7 +1070,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageAndTextOverlay02(string imgUri1, string text1Large, string text2 = "")
+        public TileNotification CreateTileLargeSquareImageAndTextOverlay02(string imgUri1, string text1Large, string text2 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageAndTextOverlay02);
 
@@ -1084,7 +1084,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageAndTextOverlay03(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "")
+        public TileNotification CreateTileLargeSquareImageAndTextOverlay03(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageAndTextOverlay03);
 
@@ -1100,7 +1100,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageCollectionAndText01(string imgUri1Large, string text1, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "")
+        public TileNotification CreateTileLargeSquareImageCollectionAndText01(string imgUri1Large, string text1, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageCollectionAndText01);
 
@@ -1117,7 +1117,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeImageCollectionAndText02(string imgUri1Large, string text1, string text2, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "")
+        public TileNotification CreateTileLargeSquareImageCollectionAndText02(string imgUri1Large, string text1, string text2, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310ImageCollectionAndText02);
 
@@ -1135,7 +1135,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeSmallImagesAndTextList01(string imgUri1, string text1Large, string text2 = "", string text3 = "", string imgUri2 = "", string text4Large = "", string text5 = "", string text6 = "", string imgUri3 = "", string text7Large = "", string text8 = "", string text9 = "")
+        public TileNotification CreateTileLargeSquareSmallImagesAndTextList01(string imgUri1, string text1Large, string text2 = "", string text3 = "", string imgUri2 = "", string text4Large = "", string text5 = "", string text6 = "", string imgUri3 = "", string text7Large = "", string text8 = "", string text9 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310SmallImagesAndTextList01);
 
@@ -1158,7 +1158,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeSmallImagesAndTextList02(string imgUri1, string text1, string imgUri2 = "", string text2 = "", string imgUri3 = "", string text3 = "")
+        public TileNotification CreateTileLargeSquareSmallImagesAndTextList02(string imgUri1, string text1, string imgUri2 = "", string text2 = "", string imgUri3 = "", string text3 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310SmallImagesAndTextList02);
 
@@ -1175,7 +1175,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeSmallImagesAndTextList03(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "")
+        public TileNotification CreateTileLargeSquareSmallImagesAndTextList03(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310SmallImagesAndTextList03);
 
@@ -1195,7 +1195,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeSmallImagesAndTextList04(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "")
+        public TileNotification CreateTileLargeSquareSmallImagesAndTextList04(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310SmallImagesAndTextList04);
 
@@ -1215,7 +1215,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeSmallImagesAndTextList05(string text1Large, string imgUri1, string text2, string text3 = "", string imgUri2 = "", string text4 = "", string text5 = "", string imgUri3 = "", string text6 = "", string text7 = "")
+        public TileNotification CreateTileLargeSquareSmallImagesAndTextList05(string text1Large, string imgUri1, string text2, string text3 = "", string imgUri2 = "", string text4 = "", string text5 = "", string imgUri3 = "", string text6 = "", string text7 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310SmallImagesAndTextList05);
 
@@ -1236,7 +1236,7 @@ namespace UWPCore.Framework.Notifications
             return new TileNotification(xmlTemplate);
         }
 
-        public TileNotification CreateTileLargeSmallImageAndText01(string imgUri1, string text1Large, string text2 = "", string text3 = "")
+        public TileNotification CreateTileLargeSquareSmallImageAndText01(string imgUri1, string text1Large, string text2 = "", string text3 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare310x310SmallImageAndText01);
 
