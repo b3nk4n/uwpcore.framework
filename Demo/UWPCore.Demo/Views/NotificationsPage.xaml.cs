@@ -148,19 +148,19 @@ namespace UWPCore.Demo.Views
             switch (selectedTileTemplate)
             {
                 case "TileSquareBlock":
-                    tile = _tileService.CreateTileSquareBlock(title, content1);
+                    tile = _tileService.Factory.CreateTileSquareBlock(title, content1);
                     break;
                 case "TileSquareText01":
-                    tile = _tileService.CreateTileSquareText01(title, content1, content2, content3);
+                    tile = _tileService.Factory.CreateTileSquareText01(title, content1, content2, content3);
                     break;
                 case "TileSquareText02":
-                    tile = _tileService.CreateTileSquareText02(title, content1);
+                    tile = _tileService.Factory.CreateTileSquareText02(title, content1);
                     break;
                 case "TileSquareText03":
-                    tile = _tileService.CreateTileSquareText03(content1, content2, content3, content4);
+                    tile = _tileService.Factory.CreateTileSquareText03(content1, content2, content3, content4);
                     break;
                 case "TileSquareText04":
-                    tile = _tileService.CreateTileSquareText04(content1);
+                    tile = _tileService.Factory.CreateTileSquareText04(content1);
                     break;
             }
 
