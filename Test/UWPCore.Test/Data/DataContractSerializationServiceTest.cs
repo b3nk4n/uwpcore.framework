@@ -57,7 +57,6 @@ namespace UWPCore.Test.Data
             Assert.AreEqual(_testPerson1.Address.City, deserializedPerson.Address.City);
             Assert.AreEqual(_testPerson1.Address.Street, deserializedPerson.Address.Street);
             Assert.AreEqual(_testPerson1.Address.StreetNumber, deserializedPerson.Address.StreetNumber);
-            // TODO: reduce this assert code by overriding Equals/HashCode method. Is there an auto generator?
         }
 
         [TestMethod]
@@ -71,7 +70,6 @@ namespace UWPCore.Test.Data
             Assert.AreEqual(_testPerson1.Address.City, deserializedPerson.Address.City);
             Assert.AreEqual(_testPerson1.Address.Street, deserializedPerson.Address.Street);
             Assert.AreEqual(_testPerson1.Address.StreetNumber, deserializedPerson.Address.StreetNumber);
-            // TODO: reduce this assert code by overriding Equals/HashCode method. Is there an auto generator?
         }
 
         [TestCleanup]

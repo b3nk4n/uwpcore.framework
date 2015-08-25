@@ -165,47 +165,49 @@ namespace UWPCore.Framework.Navigation
         /// <param name="parameter">The parameter.</param>
         /// <param name="size">The prefered windows size.</param>
         /// <returns>The view ID of the new window.</returns>
-        public async Task<int> OpenAsync(Type page, string parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
+        public void OpenAsync(Type page, string parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
         {
-            // TODO: this will spawn a new window instead of navigating to an existing frame.
+            // FIXME: this will spawn a new window instead of navigating to an existing frame.
+            // --> not supported up to now. Have a second look at Template10 until they finised it!
+            throw new NotImplementedException();
 
-            var coreView = CoreApplication.CreateNewView();
-            ApplicationView view = null;
-            var create = new Action(() =>
-            {
-                // setup content
-                var frame = new Frame();
-                frame.NavigationFailed += (s, e) => { Debugger.Break(); };
-                frame.Navigate(page, parameter);
+            //var coreView = CoreApplication.CreateNewView();
+            //ApplicationView view = null;
+            //var create = new Action(() =>
+            //{
+            //    // setup content
+            //    var frame = new Frame();
+            //    frame.NavigationFailed += (s, e) => { Debugger.Break(); };
+            //    frame.Navigate(page, parameter);
 
-                // create window
-                var window = Window.Current;
-                window.Content = frame;
+            //    // create window
+            //    var window = Window.Current;
+            //    window.Content = frame;
 
-                // setup view/collapse
-                view = ApplicationView.GetForCurrentView();
-                Windows.Foundation.TypedEventHandler<ApplicationView, ApplicationViewConsolidatedEventArgs> consolidated = null;
-                consolidated = new Windows.Foundation.TypedEventHandler<ApplicationView, ApplicationViewConsolidatedEventArgs>((s, e) =>
-                {
-                    (s as ApplicationView).Consolidated -= consolidated;
-                    if (CoreApplication.GetCurrentView().IsMain)
-                        return;
-                    try { window.Close(); }
-                    finally { CoreApplication.GetCurrentView().CoreWindow.Activate(); }
-                });
-                view.Consolidated += consolidated;
-            });
+            //    // setup view/collapse
+            //    view = ApplicationView.GetForCurrentView();
+            //    Windows.Foundation.TypedEventHandler<ApplicationView, ApplicationViewConsolidatedEventArgs> consolidated = null;
+            //    consolidated = new Windows.Foundation.TypedEventHandler<ApplicationView, ApplicationViewConsolidatedEventArgs>((s, e) =>
+            //    {
+            //        (s as ApplicationView).Consolidated -= consolidated;
+            //        if (CoreApplication.GetCurrentView().IsMain)
+            //            return;
+            //        try { window.Close(); }
+            //        finally { CoreApplication.GetCurrentView().CoreWindow.Activate(); }
+            //    });
+            //    view.Consolidated += consolidated;
+            //});
 
-            // execute create
-            await WindowWrapper.Current().Dispatcher.DispatchAsync(create);
+            //// execute create
+            //await WindowWrapper.Current().Dispatcher.DispatchAsync(create);
 
-            // show view
-            if (await ApplicationViewSwitcher.TryShowAsStandaloneAsync(view.Id, size))
-            {
-                // change focus
-                await ApplicationViewSwitcher.SwitchAsync(view.Id);
-            }
-            return view.Id;
+            //// show view
+            //if (await ApplicationViewSwitcher.TryShowAsStandaloneAsync(view.Id, size))
+            //{
+            //    // change focus
+            //    await ApplicationViewSwitcher.SwitchAsync(view.Id);
+            //}
+            //return view.Id;
         }
 
         /// <summary>

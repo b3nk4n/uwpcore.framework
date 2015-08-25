@@ -2,6 +2,7 @@
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
+using UWPCore.Framework.Logging;
 using UWPCore.Framework.Storage;
 
 namespace UWPCore.Framework.Data
@@ -36,15 +37,21 @@ namespace UWPCore.Framework.Data
 
         public async Task CompressAsync(string path, string name = null)
         {
-            if (!String.IsNullOrEmpty(Path.GetExtension(path)))
-                return; // TODO LOG Need to be folder.
+            if (!string.IsNullOrEmpty(Path.GetExtension(path)))
+            {
+                Logger.WriteLine("Path need to be a folder.");
+                return;
+            }
 
             if (!await _localStorageService.ContainsDirectory(path))
-                return; // TODO LOG Folder does not exist.
+            {
+                Logger.WriteLine("Folder does not exist.");
+                return;
+            }
 
             var zipPath = Path.ChangeExtension(path, ".zip");
 
-            if (!String.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name))
             {
                 var root = Path.GetDirectoryName(zipPath);
 
@@ -72,7 +79,10 @@ namespace UWPCore.Framework.Data
         {
             var zipFile = await _localStorageService.GetFileAsync(path);
             if (zipFile == null)
-                return; // TODO LOG file does not exist.
+            {
+                Logger.WriteLine("File does not exist.");
+                return;
+            }
 
             using (var ostream = await zipFile.OpenStreamForReadAsync())
             {
@@ -84,14 +94,14 @@ namespace UWPCore.Framework.Data
                         var unzipPath = Path.Combine(root, zipArchiveEntry.FullName);   // Replace folder name by name.
 
                         // TODO: Fix bug with path renameing!!
-                        if (!String.IsNullOrEmpty(name))
+                        if (!string.IsNullOrEmpty(name))
                         {
                             var substring = unzipPath.Remove(0, Path.GetFileNameWithoutExtension(path).Length + 1);
                             unzipPath = Path.Combine(name, substring);
                         }
 
                         // Create relative path and test if file has extension.
-                        if (String.IsNullOrEmpty(Path.GetExtension(unzipPath)))
+                        if (string.IsNullOrEmpty(Path.GetExtension(unzipPath)))
                         {
                             await _localStorageService.CreateOrReplaceFolderAsync(unzipPath);
                         }
@@ -124,7 +134,7 @@ namespace UWPCore.Framework.Data
             foreach (var folder in folders)
             {
                 var entry = Path.Combine(path, folder.Name);    // Create a new entry to append to archive.
-                zipArchive.CreateEntry(String.Format("{0}\\", entry));
+                zipArchive.CreateEntry(string.Format("{0}\\", entry));
 
                 await CompressRecursive(zipArchive, root, entry);
             }

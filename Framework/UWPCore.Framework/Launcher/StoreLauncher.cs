@@ -25,7 +25,28 @@ namespace UWPCore.Framework.Launcher
         Health,
         [Display(Name = "Health+%26+fitness")]
         HealthFitness,
-        // TODO: add all other product categories...
+        Social,
+        Photos,
+        Games,
+        Security,
+        Tools,
+        [Display(Name = "Music+%26+videos")]
+        MusicVideos,
+        Entertainment,
+        Finance,
+        [Display(Name = "News+%26+weather")]
+        NewsWeather,
+        Shopping,
+        [Display(Name = "Food+%26+dining")]
+        FoodDining,
+        Travel,
+        Sports,
+        Education,
+        Lifestyle,
+        Government,
+        Business,
+        [Display(Name = "Books+%26+reference")]
+        BooksReference
     }
 
     /// <summary>

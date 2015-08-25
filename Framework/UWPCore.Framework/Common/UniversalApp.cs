@@ -289,7 +289,6 @@ namespace UWPCore.Framework.Common
             // Hook up the default Back handler
             SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
             {
-                // TODO: handled=true canisn't true at end of backstack
                 if (navigationService.CanGoBack)
                 {
                     args.Handled = true;
