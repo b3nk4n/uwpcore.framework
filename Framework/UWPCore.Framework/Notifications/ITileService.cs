@@ -277,7 +277,107 @@ namespace UWPCore.Framework.Notifications
         /// <returns>Returns the tile notification.</returns>
         TileNotification CreateTileWideBlockAndText02(string text1, string text2Block = "", string text3UnderBlock = "");
 
-        // TODO: implement create methods for all other templates. Add <remarks> to those that are not supported in Windows Phone...
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideImage(string imgUri1);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="imgUri4">The image URI.</param>
+        /// <param name="imgUri5">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideImageCollection(string imgUri1, string imgUri2 = "", string imgUri3 = "", string imgUri4 = "", string imgUri5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideImageAndText01(string imgUri1, string text1 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI, that is NOT shown on Windows Phone.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideImageAndText02(string imgUri1, string text1 = "", string text2 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="text1Large">The text.</param>
+        /// <param name="imgUri1">The image URI, that is NOT shown on Windows Phone.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideSmallImageAndText01(string text1Large, string imgUri1 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="imgUri1">The image URI, that is NOT shown on Windows Phone.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideSmallImageAndText02(string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string imgUri1 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="text1">The text.</param>
+        /// <param name="imgUri1">The image URI, that is NOT shown on Windows Phone.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideSmallImageAndText03(string text1, string imgUri1 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="text1Large">The text.</param>
+        /// <param name="text2">The content text.</param>
+        /// <param name="imgUri1">The image URI, that is NOT shown on Windows Phone.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideSmallImageAndText04(string text1Large, string text2 = "", string imgUri1 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Image is NOT show in windows phone.
+        /// </remarks>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The content text.</param>
+        /// <param name="imgUri1">The image URI, that is NOT shown on Windows Phone.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileWideSmallImageAndText05(string text1Large, string text2 = "", string imgUri1 = "");
 
         /// <summary>
         /// Gets the updater for the applications primary tile.
