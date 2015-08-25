@@ -63,5 +63,10 @@ namespace UWPCore.Framework.Notifications
         /// Gets the tile factory.
         /// </summary>
         ITileFactory Factory { get; }
+
+        /// <summary>
+        /// Gets the adaptive tile factory.
+        /// </summary>
+        IAdaptiveTileFactory AdaptiveFactory { get; }
     }
 }

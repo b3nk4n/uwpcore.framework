@@ -16,7 +16,6 @@ namespace UWPCore.Demo.Views
     {
         private IToastService _toastService;
         private ITileService _tileService;
-        private IAdaptiveToastService _adaptiveToastService;
         private IDialogService _dialogService;
 
         public NotificationsPage()
@@ -24,7 +23,6 @@ namespace UWPCore.Demo.Views
             InitializeComponent();
             _toastService = new ToastService();
             _tileService = new TileService();
-            _adaptiveToastService = new AdaptiveToastService();
             _dialogService = new DialogService();
         }
 
@@ -224,7 +222,8 @@ namespace UWPCore.Demo.Views
                     Source = AdaptiveAudio.NOTIFICATION_LOOPING_CALL5 
                 }
             };
-            var toast = _adaptiveToastService.CreateAdaptiveToast(adaptiveToast);
+
+            var toast = _toastService.AdaptiveFactory.Create(adaptiveToast);
             _toastService.Show(toast);
         }
 
@@ -283,7 +282,8 @@ namespace UWPCore.Demo.Views
                     }
                 }
             };
-            var toast = _adaptiveToastService.CreateAdaptiveToast(adaptiveToast);
+
+            var toast = _toastService.AdaptiveFactory.Create(adaptiveToast);
             _toastService.Show(toast);
         }
 
@@ -350,7 +350,8 @@ namespace UWPCore.Demo.Views
                     }
                 }
             };
-            var toast = _adaptiveToastService.CreateAdaptiveToast(adaptiveToast);
+
+            var toast = _toastService.AdaptiveFactory.Create(adaptiveToast);
             _toastService.Show(toast);
         }
 

@@ -41,5 +41,10 @@ namespace UWPCore.Framework.Notifications
         /// Gets the toast factory.
         /// </summary>
         IToastFactory Factory { get; }
+
+        /// <summary>
+        /// Gets the adaptive factory
+        /// </summary>
+        IAdaptiveToastFactory AdaptiveFactory { get; }
     }
 }

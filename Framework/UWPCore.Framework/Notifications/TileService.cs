@@ -14,14 +14,20 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// The tile factory.
         /// </summary>
-        private ITileFactory _tileFacoty;
+        private ITileFactory _tileFactory;
+
+        /// <summary>
+        /// The adaptive tile factory.
+        /// </summary>
+        private IAdaptiveTileFactory _adaptiveTileFactory;
 
         /// <summary>
         /// Creates a TileService instance.
         /// </summary>
         public TileService()
         {
-            _tileFacoty = new TileFactory();
+            _tileFactory = new TileFactory();
+            _adaptiveTileFactory = new AdaptiveTileFactory();
         }
 
         public TileUpdater GetUpdaterForApplication()
@@ -88,7 +94,15 @@ namespace UWPCore.Framework.Notifications
         {
             get
             {
-                return _tileFacoty;
+                return _tileFactory;
+            }
+        }
+
+        public IAdaptiveTileFactory AdaptiveFactory
+        {
+            get
+            {
+                return _adaptiveTileFactory;
             }
         }
     }

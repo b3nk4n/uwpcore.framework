@@ -16,11 +16,17 @@ namespace UWPCore.Framework.Notifications
         private IToastFactory _toastFactory;
 
         /// <summary>
+        /// The adaptive toast factory.
+        /// </summary>
+        private IAdaptiveToastFactory _adaptiveToastFactory;
+
+        /// <summary>
         /// Creates a ToastService instance.
         /// </summary>
         public ToastService()
         {
             _toastFactory = new ToastFactory();
+            _adaptiveToastFactory = new AdaptiveToastFactory();
         }
 
         public void Show(ToastNotification toast)
@@ -54,6 +60,14 @@ namespace UWPCore.Framework.Notifications
             get
             {
                 return _toastFactory;
+            }
+        }
+
+        public IAdaptiveToastFactory AdaptiveFactory
+        {
+            get
+            {
+                return _adaptiveToastFactory;
             }
         }
     }

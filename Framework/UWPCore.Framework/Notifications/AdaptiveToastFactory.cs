@@ -3,13 +3,14 @@ using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
 {
-    public class AdaptiveToastService : IAdaptiveToastService
+    /// <summary>
+    /// Factory class to create adaptive toast notifications.
+    /// </summary>
+    public class AdaptiveToastFactory : IAdaptiveToastFactory
     {
-        public ToastNotification CreateAdaptiveToast(AdaptiveToast toast)
+        public ToastNotification Create(AdaptiveToast toast)
         {
             return new ToastNotification(toast.GetXmlDocument());
         }
-
-        // TODO: implement adatpive toast service
     }
 }

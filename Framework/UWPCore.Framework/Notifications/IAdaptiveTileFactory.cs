@@ -4,15 +4,15 @@ using Windows.UI.Notifications;
 namespace UWPCore.Framework.Notifications
 {
     /// <summary>
-    /// Interface for an adaptive tile service.
+    /// Interface for an adaptive tile factory.
     /// </summary>
-    public interface IAdaptiveTileService
+    public interface IAdaptiveTileFactory
     {
         /// <summary>
-        /// Creates a simple adaptive tile.
+        /// Creates an adaptive tile.
         /// </summary>
         /// <param name="tile">The tile model to create.</param>
         /// <returns>The tile notification.</returns>
-        TileNotification CreateAdaptiveTile(AdaptiveTile tile);
+        TileNotification Create(AdaptiveTile tile);
     }
 }
