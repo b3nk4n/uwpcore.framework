@@ -539,6 +539,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -555,6 +558,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -580,6 +586,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1">The text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -597,6 +606,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1">The text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -625,6 +637,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -650,6 +665,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1">The text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -678,6 +696,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -703,6 +724,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1">The text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -731,6 +755,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2Large">The large text.</param>
         /// <param name="text3Large">The large text.</param>
@@ -742,6 +769,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -757,6 +787,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1">The text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3">The text.</param>
@@ -766,6 +799,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text2">The text.</param>
         /// <param name="text3Large">The large text.</param>
@@ -778,6 +814,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="text1Large">The large text.</param>
         /// <param name="text8Block">The block text.</param>
         /// <param name="text2">The text.</param>
@@ -793,6 +832,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="imgUri1">The image URI.</param>
         /// <returns>Returns the tile notification.</returns>
         TileNotification CreateTileLargeImage(string imgUri1);
@@ -800,6 +842,9 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a tile notification.
         /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
         /// <param name="imgUri1Large">The large image URI.</param>
         /// <param name="imgUri2Left">The left image URI.</param>
         /// <param name="imgUri3LeftCenter">The left-center image URI.</param>
@@ -807,7 +852,220 @@ namespace UWPCore.Framework.Notifications
         /// <param name="imgUri5Right">The right image URI.</param>
         /// <returns>Returns the tile notification.</returns>
         TileNotification CreateTileLargeImageCollection(string imgUri1Large, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
-        
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="text1Block">The block text.</param>
+        /// <param name="text2Large">The large text.</param>
+        /// <param name="text3Large">The large text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeBlockAndText02(string text1Block, string text2Large, string text3Large = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageAndText01(string imgUri1, string text1);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageAndText02(string imgUri1, string text1, string text2 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageAndTextOverlay01(string imgUri1, string text1);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageAndTextOverlay02(string imgUri1, string text1Large, string text2 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageAndTextOverlay03(string imgUri1, string text1Large, string text2 = "", string text3 = "", string text4 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="imgUri2Left">The left image URI.</param>
+        /// <param name="imgUri3LeftCenter">The left-center image URI.</param>
+        /// <param name="imgUri4RightCenter">The right-center image URI.</param>
+        /// <param name="imgUri5Right">The right image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageCollectionAndText01(string imgUri1Large, string text1, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri2Left">The left image URI.</param>
+        /// <param name="imgUri3LeftCenter">The left-center image URI.</param>
+        /// <param name="imgUri4RightCenter">The right-center image URI.</param>
+        /// <param name="imgUri5Right">The right image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageCollectionAndText02(string imgUri1Large, string text1, string text2, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="text4Large">The large text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="text7Large">The large text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSmallImagesAndTextList01(string imgUri1, string text1Large, string text2 = "", string text3 = "", string imgUri2 = "", string text4Large = "", string text5 = "", string text6 = "", string imgUri3 = "", string text7Large = "", string text8 = "", string text9 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="text3">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSmallImagesAndTextList02(string imgUri1, string text1, string imgUri2 = "", string text2 = "", string imgUri3 = "", string text3 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="text3Large">The large text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="text5Large">The large text.</param>
+        /// <param name="text6">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSmallImagesAndTextList03(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="text3Large">The large text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="text5Large">The large text.</param>
+        /// <param name="text6">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSmallImagesAndTextList04(string imgUri1, string text1Large, string text2 = "", string imgUri2 = "", string text3Large = "", string text4 = "", string imgUri3 = "", string text5Large = "", string text6 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="imgUri2">The image URI.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="imgUri3">The image URI.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSmallImagesAndTextList05(string text1Large, string imgUri1, string text2, string text3 = "", string imgUri2 = "", string text4 = "", string text5 = "", string imgUri3 = "", string text6 = "", string text7 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <remarks>
+        /// Large tiles are NOT supported in Windows Phone.
+        /// </remarks>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSmallImageAndText01(string imgUri1, string text1Large, string text2 = "", string text3 = "");
+
+        // TODO: WinPhone only tiles
+
         /// <summary>
         /// Gets the updater for the applications primary tile.
         /// </summary>
