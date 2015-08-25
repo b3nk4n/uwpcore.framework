@@ -535,6 +535,279 @@ namespace UWPCore.Framework.Notifications
         /// <returns>Returns the tile notification.</returns>
         TileNotification CreateTileWidePeekImage06(string imgUri1, string text1Large, string imgUri2NextToText = "");
 
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText01(string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <param name="text12">The text.</param>
+        /// <param name="text13">The text.</param>
+        /// <param name="text14">The text.</param>
+        /// <param name="text15">The text.</param>
+        /// <param name="text16">The text.</param>
+        /// <param name="text17">The text.</param>
+        /// <param name="text18">The text.</param>
+        /// <param name="text19">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText02(string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "", string text12 = "", string text13 = "", string text14 = "", string text15 = "", string text16 = "", string text17 = "", string text18 = "", string text19 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText03(string text1, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <param name="text12">The text.</param>
+        /// <param name="text13">The text.</param>
+        /// <param name="text14">The text.</param>
+        /// <param name="text15">The text.</param>
+        /// <param name="text16">The text.</param>
+        /// <param name="text17">The text.</param>
+        /// <param name="text18">The text.</param>
+        /// <param name="text19">The text.</param>
+        /// <param name="text20">The text.</param>
+        /// <param name="text21">The text.</param>
+        /// <param name="text22">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText04(string text1, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "", string text12 = "", string text13 = "", string text14 = "", string text15 = "", string text16 = "", string text17 = "", string text18 = "", string text19 = "", string text20 = "", string text21 = "", string text22 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <param name="text12">The text.</param>
+        /// <param name="text13">The text.</param>
+        /// <param name="text14">The text.</param>
+        /// <param name="text15">The text.</param>
+        /// <param name="text16">The text.</param>
+        /// <param name="text17">The text.</param>
+        /// <param name="text18">The text.</param>
+        /// <param name="text19">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText05(string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "", string text12 = "", string text13 = "", string text14 = "", string text15 = "", string text16 = "", string text17 = "", string text18 = "", string text19 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <param name="text12">The text.</param>
+        /// <param name="text13">The text.</param>
+        /// <param name="text14">The text.</param>
+        /// <param name="text15">The text.</param>
+        /// <param name="text16">The text.</param>
+        /// <param name="text17">The text.</param>
+        /// <param name="text18">The text.</param>
+        /// <param name="text19">The text.</param>
+        /// <param name="text20">The text.</param>
+        /// <param name="text21">The text.</param>
+        /// <param name="text22">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText06(string text1, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "", string text12 = "", string text13 = "", string text14 = "", string text15 = "", string text16 = "", string text17 = "", string text18 = "", string text19 = "", string text20 = "", string text21 = "", string text22 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <param name="text12">The text.</param>
+        /// <param name="text13">The text.</param>
+        /// <param name="text14">The text.</param>
+        /// <param name="text15">The text.</param>
+        /// <param name="text16">The text.</param>
+        /// <param name="text17">The text.</param>
+        /// <param name="text18">The text.</param>
+        /// <param name="text19">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText07(string text1Large, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "", string text12 = "", string text13 = "", string text14 = "", string text15 = "", string text16 = "", string text17 = "", string text18 = "", string text19 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <param name="text10">The text.</param>
+        /// <param name="text11">The text.</param>
+        /// <param name="text12">The text.</param>
+        /// <param name="text13">The text.</param>
+        /// <param name="text14">The text.</param>
+        /// <param name="text15">The text.</param>
+        /// <param name="text16">The text.</param>
+        /// <param name="text17">The text.</param>
+        /// <param name="text18">The text.</param>
+        /// <param name="text19">The text.</param>
+        /// <param name="text20">The text.</param>
+        /// <param name="text21">The text.</param>
+        /// <param name="text22">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText08(string text1, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text8 = "", string text9 = "", string text10 = "", string text11 = "", string text12 = "", string text13 = "", string text14 = "", string text15 = "", string text16 = "", string text17 = "", string text18 = "", string text19 = "", string text20 = "", string text21 = "", string text22 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2Large">The large text.</param>
+        /// <param name="text3Large">The large text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeSquareText09(string text1Large, string text2Large = "", string text3Large = "", string text4 = "", string text5 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4Large">The large text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7Large">The large text.</param>
+        /// <param name="text8">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeTextList01(string text1Large, string text2, string text3, string text4Large = "", string text5 = "", string text6 = "", string text7Large = "", string text8 = "", string text9 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1">The text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeTextList02(string text1, string text2 = "", string text3 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3Large">The large text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5Large">The large text.</param>
+        /// <param name="text6">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeTextList03(string text1Large, string text2, string text3Large = "", string text4 = "", string text5Large = "", string text6 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text8Block">The block text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <param name="text4">The text.</param>
+        /// <param name="text5">The text.</param>
+        /// <param name="text6">The text.</param>
+        /// <param name="text7">The text.</param>
+        /// <param name="text9">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeBlockAndText01(string text1Large, string text8Block, string text2 = "", string text3 = "", string text4 = "", string text5 = "", string text6 = "", string text7 = "", string text9 = "");
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImage(string imgUri1);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri1Large">The large image URI.</param>
+        /// <param name="imgUri2Left">The left image URI.</param>
+        /// <param name="imgUri3LeftCenter">The left-center image URI.</param>
+        /// <param name="imgUri4RightCenter">The right-center image URI.</param>
+        /// <param name="imgUri5Right">The right image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileLargeImageCollection(string imgUri1Large, string imgUri2Left = "", string imgUri3LeftCenter = "", string imgUri4RightCenter = "", string imgUri5Right = "");
+        
         /// <summary>
         /// Gets the updater for the applications primary tile.
         /// </summary>
