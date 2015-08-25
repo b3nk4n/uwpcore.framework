@@ -1065,6 +1065,40 @@ namespace UWPCore.Framework.Notifications
         TileNotification CreateTileLargeSquareSmallImageAndText01(string imgUri1, string text1Large, string text2 = "", string text3 = "");
 
         /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="imgUri">The image URI.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileSmallSquareImage(string imgUri);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="iconUri">The badge icon.</param>
+        /// <param name="value">The badge value.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileSmallSquareIconWithBadge(string iconUri, int value);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="iconUri">The badge icon.</param>
+        /// <param name="value">The badge value.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileSquareIconWithBadge(string iconUri, int value);
+
+        /// <summary>
+        /// Creates a tile notification.
+        /// </summary>
+        /// <param name="iconUri">The badge icon.</param>
+        /// <param name="value">The badge value.</param>
+        /// <param name="text1Large">The large text.</param>
+        /// <param name="text2">The text.</param>
+        /// <param name="text3">The text.</param>
+        /// <returns>Returns the tile notification.</returns>
+        TileNotification CreateTileSquareIconWithBadge(string iconUri, int value, string text1Large = "", string text2 = "", string text3 = "");
+
+        /// <summary>
         /// Gets the updater for the applications primary tile.
         /// </summary>
         /// <returns>Returns the tile updater.</returns>

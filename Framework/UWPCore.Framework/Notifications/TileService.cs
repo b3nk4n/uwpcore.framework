@@ -24,6 +24,11 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         private const string IMAGE_NODE = "image";
 
+        /// <summary>
+        /// The badge node (in Windows Phone only templates).
+        /// </summary>
+        private const string BADGE_NODE = "badge";
+
         public TileNotification CreateTileSquareBlock(string text1Block, string text2 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Block);
@@ -1247,6 +1252,69 @@ namespace UWPCore.Framework.Notifications
             textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
             textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
             textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileSmallSquareImage(string imgUri)
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare71x71Image);
+
+            var imageNodes = xmlTemplate.GetElementsByTagName(IMAGE_NODE);
+            imageNodes[0].Attributes[1].NodeValue = imgUri;
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileSmallSquareIconWithBadge(string iconUri, int value)
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare71x71IconWithBadge);
+
+            var displayValue = value;
+            if (displayValue < 0)
+                displayValue = 0;
+            else if (displayValue > 100)
+                displayValue = 100;
+
+            var badgeNodes = xmlTemplate.GetElementsByTagName(BADGE_NODE);
+            badgeNodes[0].Attributes[1].NodeValue = displayValue.ToString();
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileSquareIconWithBadge(string iconUri, int value)
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150IconWithBadge);
+
+            var displayValue = value;
+            if (displayValue < 0)
+                displayValue = 0;
+            else if (displayValue > 100)
+                displayValue = 100;
+
+            var badgeNodes = xmlTemplate.GetElementsByTagName(BADGE_NODE);
+            badgeNodes[0].Attributes[1].NodeValue = displayValue.ToString();
+
+            return new TileNotification(xmlTemplate);
+        }
+
+        public TileNotification CreateTileSquareIconWithBadge(string iconUri, int value, string text1Large = "", string text2 = "", string text3 = "")
+        {
+            var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150IconWithBadge);
+
+            var textNodes = xmlTemplate.GetElementsByTagName(TEXT_NODE);
+            textNodes[0].AppendChild(xmlTemplate.CreateTextNode(text1Large));
+            textNodes[1].AppendChild(xmlTemplate.CreateTextNode(text2));
+            textNodes[2].AppendChild(xmlTemplate.CreateTextNode(text3));
+
+            var displayValue = value;
+            if (displayValue < 0)
+                displayValue = 0;
+            else if (displayValue > 100)
+                displayValue = 100;
+
+            var badgeNodes = xmlTemplate.GetElementsByTagName(BADGE_NODE);
+            badgeNodes[0].Attributes[1].NodeValue = displayValue.ToString();
 
             return new TileNotification(xmlTemplate);
         }
