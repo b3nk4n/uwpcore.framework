@@ -179,9 +179,11 @@
     <Compile Include="Networking\NetworkInfoService.cs" />
     <Compile Include="Notifications\AdaptiveTileService.cs" />
     <Compile Include="Notifications\AdaptiveToastService.cs" />
+    <Compile Include="Notifications\BadgeFactory.cs" />
     <Compile Include="Notifications\BadgeService.cs" />
     <Compile Include="Notifications\IAdaptiveTileService.cs" />
     <Compile Include="Notifications\IAdaptiveToastService.cs" />
+    <Compile Include="Notifications\IBadgeFactory.cs" />
     <Compile Include="Notifications\IBadgeService.cs" />
     <Compile Include="Notifications\ITileFactory.cs" />
     <Compile Include="Notifications\ITileService.cs" />

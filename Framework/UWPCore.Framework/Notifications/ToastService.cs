@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using Windows.Data.Xml.Dom;
-using Windows.UI.Notifications;
+﻿using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
 {

@@ -1,6 +1,4 @@
-﻿using Windows.Data.Xml.Dom;
-using Windows.UI.Notifications;
-using UWPCore.Framework.Common;
+﻿using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
 {
@@ -10,40 +8,16 @@ namespace UWPCore.Framework.Notifications
     public class BadgeService : IBadgeService
     {
         /// <summary>
-        /// The badge node selector. 
+        /// The badge factory.
         /// </summary>
-        private const string BADGE_SELECTOR = "/badge";
+        private IBadgeFactory _badgeFactory;
 
         /// <summary>
-        /// The badge value attribute.
+        /// Creates a BadgeService instance.
         /// </summary>
-        private const string VALUE_ATTRIBUTE = "value";
-
-        public BadgeNotification CreateBadgeNumber(int value)
+        public BadgeService()
         {
-            // ensure no negative value
-            if (value < 0)
-                value = 0;
-
-            var xml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeNumber);
-
-            var badgeElement = (XmlElement)xml.SelectSingleNode(BADGE_SELECTOR);
-            badgeElement.SetAttribute(VALUE_ATTRIBUTE, value.ToString());
-
-            return new BadgeNotification(xml);
-        }
-
-        public BadgeNotification CreateBadgeNumber(BadgeGlyphIcon glyph)
-        {
-            var xml = BadgeUpdateManager.GetTemplateContent(BadgeTemplateType.BadgeGlyph);
-
-            // transform first letter to lower case
-            var glyphString = glyph.ToString().FirstLetterToLower();
-
-            var badgeElement = (XmlElement)xml.SelectSingleNode(BADGE_SELECTOR);
-            badgeElement.SetAttribute(VALUE_ATTRIBUTE, glyphString);
-
-            return new BadgeNotification(xml);
+            _badgeFactory = new BadgeFactory();
         }
 
         public BadgeUpdater GetBadgeUpdaterForApplication(string applicationId = null)
@@ -54,6 +28,14 @@ namespace UWPCore.Framework.Notifications
         public BadgeUpdater GetBadgeUpdaterForSecondaryTile(string tileId)
         {
             return BadgeUpdateManager.CreateBadgeUpdaterForSecondaryTile(tileId);
+        }
+
+        public IBadgeFactory Factory
+        {
+            get
+            {
+                return _badgeFactory;
+            }
         }
     }
 }

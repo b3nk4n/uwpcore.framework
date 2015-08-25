@@ -1,10 +1,7 @@
-﻿using System;
-using UWPCore.Framework.Notifications;
+﻿using UWPCore.Framework.Notifications;
 using UWPCore.Framework.Notifications.Models;
 using UWPCore.Framework.UI;
-using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
