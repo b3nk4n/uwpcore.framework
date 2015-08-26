@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
@@ -97,28 +98,28 @@ namespace UWPCore.Framework.Storage
         /// </summary>
         /// <param name="filePath">Path of file to get.</param>
         /// <returns>Returns file or null if file does not exist.</returns>
-        Task<StorageFile> GetFileAsync(string filePath);
+        Task<IStorageFile> GetFileAsync(string filePath);
 
         /// <summary>
         /// Get a list of files async.
         /// </summary>
         /// <param name="filePath">Folder path to list of containing files.</param>
         /// <returns>Returns list of storage files.</returns>
-        Task<IReadOnlyList<StorageFile>> GetFilesAsync(string filePath);
+        Task<IReadOnlyList<IStorageFile>> GetFilesAsync(string filePath);
 
         /// <summary>
         /// Create or get a file async.
         /// </summary>
         /// <param name="filePath">Path of file to create or get.</param>
         /// <returns>The async result that contains the storage file.</returns>
-        Task<StorageFile> CreateOrGetFileAsync(string filePath);
+        Task<IStorageFile> CreateOrGetFileAsync(string filePath);
 
         /// <summary>
         /// Create or replace a file async.
         /// </summary>
         /// <param name="filePath">Path of file to create or replace.</param>
         /// <returns>The async result that contains the storage file.</returns>
-        Task<StorageFile> CreateOrReplaceFileAsync(string filePath);
+        Task<IStorageFile> CreateOrReplaceFileAsync(string filePath);
 
         /// <summary>
         /// Delete a file async.
@@ -131,29 +132,29 @@ namespace UWPCore.Framework.Storage
         /// Get a folder async.
         /// </summary>
         /// <param name="path">Folder path of folder to get.</param>
-        /// <returns>Returns folder or null if folder does not exist.</returns>
-        Task<StorageFolder> GetFolderAsync(string path);
+        /// <returns>Returns folder or NULL if folder does not exist.</returns>
+        Task<IStorageFolder> GetFolderAsync(string path);
 
         /// <summary>
         /// Get a list of folders async.
         /// </summary>
         /// <param name="path">Path to list of containing folder.</param>
         /// <returns>Returns list of storage folders.</returns>
-        Task<IReadOnlyList<StorageFolder>> GetFoldersAsync(string path);
+        Task<IReadOnlyList<IStorageFolder>> GetFoldersAsync(string path);
 
         /// <summary>
         /// Create or get a folder async.
         /// </summary>
         /// <param name="path">Path of folder to create or get.</param>
-        /// <returns>The async result that contais the storage folder.</returns>
-        Task<StorageFolder> CreateOrGetFolderAsync(string path);
+        /// <returns>Returns folder or NULL if folder does not exist.</returns>
+        Task<IStorageFolder> CreateOrGetFolderAsync(string path);
 
         /// <summary>
         /// Create or replace a folder async.
         /// </summary>
         /// <param name="path">Path of folder to create or replace.</param>
-        /// <returns>The async result rhat contains the storage folder.</returns>
-        Task<StorageFolder> CreateOrReplaceFolderAsync(string path);
+        /// <returns>Returns folder or NULL if folder does not exist.</returns>
+        Task<IStorageFolder> CreateOrReplaceFolderAsync(string path);
 
         /// <summary>
         /// Delete a folder async.
@@ -161,6 +162,20 @@ namespace UWPCore.Framework.Storage
         /// <param name="path">Path to folder to delete.</param>
         /// <returns>Task to wait for.</returns>
         Task DeleteFolderAsync(string path);
+
+        /// <summary>
+        /// Gets a file from local application package.
+        /// </summary>
+        /// <param name="uri">The file URI, where <see cref="IOConstants.APPX_SCHEME"/> has to be included.</param>
+        /// <returns>Returns folder or NULL if file does not exist.</returns>
+        Task<IStorageFile> GetFileFromApplicationAsync(Uri uri);
+
+        /// <summary>
+        /// Gets a file from local application package.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>Returns folder or NULL if file does not exist.</returns>
+        Task<IStorageFile> GetFileFromApplicationAsync(string filePath);
     }
 
 }

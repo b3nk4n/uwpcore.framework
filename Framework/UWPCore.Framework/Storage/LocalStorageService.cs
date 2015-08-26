@@ -38,7 +38,8 @@ namespace UWPCore.Framework.Storage
 
         public async Task WriteFile(string filePath, string data)
         {
-            var folder = await GetStorageFolder(filePath);
+            var folder = await CreateOrGetFolderAsync(filePath);
+            //var folder = await GetStorageFolder(filePath);
 
             if (folder == null)
                 return;
@@ -54,7 +55,8 @@ namespace UWPCore.Framework.Storage
 
         public async Task<bool> WriteFile(string filePath, Stream data)
         {
-            var folder = await GetStorageFolder(filePath);
+            var folder = await CreateOrGetFolderAsync(filePath);
+            //var folder = await GetStorageFolder(filePath);
 
             if (folder == null)
                 return false;
@@ -68,7 +70,7 @@ namespace UWPCore.Framework.Storage
             var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
             using (var outputStream = stream.GetOutputStreamAt(0))
             {
-                var dataWriter = new Windows.Storage.Streams.DataWriter(outputStream);
+                var dataWriter = new DataWriter(outputStream);
                 using (var inputStream = data.AsInputStream())
                 {
                     var dataReader = new DataReader(inputStream);
@@ -102,11 +104,13 @@ namespace UWPCore.Framework.Storage
 
         public async Task<bool> WriteFile(IStorageFile file, WriteableBitmap image)
         {
-            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-            using (var outputStream = stream.GetOutputStreamAt(0))
+            using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
             {
-                var dataWriter = new DataWriter(outputStream);
-                dataWriter.WriteBuffer(image.PixelBuffer);
+                using (var outputStream = stream.GetOutputStreamAt(0))
+                {
+                    var dataWriter = new DataWriter(outputStream);
+                    dataWriter.WriteBuffer(image.PixelBuffer);
+                }
             }
 
             return true;
@@ -122,6 +126,7 @@ namespace UWPCore.Framework.Storage
 
             try
             {
+                var path = Path.GetFileName(filePath);
                 var storageFile = await folder.GetFileAsync(Path.GetFileName(filePath));
                 return await ReadFile(storageFile);
             }
@@ -160,7 +165,7 @@ namespace UWPCore.Framework.Storage
             return folder != null;
         }
 
-        public async Task<StorageFile> GetFileAsync(string filePath)
+        public async Task<IStorageFile> GetFileAsync(string filePath)
         {
             if (await ContainsFile(filePath))
             {
@@ -170,7 +175,7 @@ namespace UWPCore.Framework.Storage
             return null;
         }
 
-        public async Task<IReadOnlyList<StorageFile>> GetFilesAsync(string filePath)
+        public async Task<IReadOnlyList<IStorageFile>> GetFilesAsync(string filePath)
         {
             var folder = await GetFolderAsync(filePath);
             if (folder != null)
@@ -181,20 +186,26 @@ namespace UWPCore.Framework.Storage
             return null;
         }
 
-        public async Task<StorageFile> CreateOrGetFileAsync(string filePath)
+        public async Task<IStorageFile> CreateOrGetFileAsync(string filePath)
         {
+            // ensure to use backslash paths to support subfolder paths
+            filePath = filePath.Replace('/', '\\');
+
             try
             {
                 return await RootFolder.CreateFileAsync(filePath, CreationCollisionOption.OpenIfExists);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }
         }
 
-        public async Task<StorageFile> CreateOrReplaceFileAsync(string filePath)
+        public async Task<IStorageFile> CreateOrReplaceFileAsync(string filePath)
         {
+            // ensure to use backslash paths to support subfolder paths
+            filePath = filePath.Replace('/', '\\');
+
             try
             {
                 return await RootFolder.CreateFileAsync(filePath, CreationCollisionOption.ReplaceExisting);
@@ -223,7 +234,7 @@ namespace UWPCore.Framework.Storage
             }
         }
 
-        public async Task<StorageFolder> GetFolderAsync(string path)
+        public async Task<IStorageFolder> GetFolderAsync(string path)
         {
             if (await ContainsDirectory(path))
             {
@@ -233,7 +244,7 @@ namespace UWPCore.Framework.Storage
             return null;
         }
 
-        public async Task<IReadOnlyList<StorageFolder>> GetFoldersAsync(string path)
+        public async Task<IReadOnlyList<IStorageFolder>> GetFoldersAsync(string path)
         {
             var folder = await GetFolderAsync(path);
             if (folder != null)
@@ -244,13 +255,23 @@ namespace UWPCore.Framework.Storage
             return null;
         }
 
-        public async Task<StorageFolder> CreateOrGetFolderAsync(string path)
+        public async Task<IStorageFolder> CreateOrGetFolderAsync(string path)
         {
+            if (string.IsNullOrEmpty(Path.GetDirectoryName(path)))
+                return RootFolder;
+
+            path = Path.GetDirectoryName(path);
+
             return await RootFolder.CreateFolderAsync(path, CreationCollisionOption.OpenIfExists);
         }
 
-        public async Task<StorageFolder> CreateOrReplaceFolderAsync(string path)
+        public async Task<IStorageFolder> CreateOrReplaceFolderAsync(string path)
         {
+            if (string.IsNullOrEmpty(Path.GetDirectoryName(path)))
+                return RootFolder;
+
+            path = Path.GetDirectoryName(path);
+
             return await RootFolder.CreateFolderAsync(path, CreationCollisionOption.ReplaceExisting);
         }
 
@@ -269,6 +290,27 @@ namespace UWPCore.Framework.Storage
             {
                 // NOP
             }
+        }
+
+        public async Task<IStorageFile> GetFileFromApplicationAsync(Uri uri)
+        {
+            try
+            {
+                return await StorageFile.GetFileFromApplicationUriAsync(uri);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public async Task<IStorageFile> GetFileFromApplicationAsync(string filePath)
+        {
+            // ensure the path has an appx URI scheme
+            if (!filePath.StartsWith(IOConstants.APPX_SCHEME))
+                filePath = IOConstants.APPX_SCHEME + filePath;
+
+            return await GetFileFromApplicationAsync(new Uri(filePath));
         }
 
         #endregion
@@ -301,7 +343,7 @@ namespace UWPCore.Framework.Storage
             }
             return currentFolder;
         }
-
+        
         #endregion
     }
 

@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using UWPCore.Framework.Storage;
 
@@ -20,7 +22,7 @@ namespace UWPCore.Test.Storage
         /// <summary>
         /// The used test folder name in root folder.
         /// </summary>
-        public const string TEST_FOLDER = "test_folder";
+        public const string TEST_FOLDER = "test_folder/";
 
         /// <summary>
         /// The used nested test folder path starting from root folder.
@@ -104,9 +106,9 @@ namespace UWPCore.Test.Storage
         [TestMethod]
         public async Task TestDoesNotContainNonExisingDirectory()
         {
-            var dirExists1 = await _storageService.ContainsDirectory(@"NonexistingDir");
-            var dirExists2 = await _storageService.ContainsDirectory(@"/NonexistingDirRooted");
-            var dirExists3 = await _storageService.ContainsDirectory(@"NonexistingDir/NonExistingSubDir");
+            var dirExists1 = await _storageService.ContainsDirectory(@"NonexistingDir/");
+            var dirExists2 = await _storageService.ContainsDirectory(@"/NonexistingDirRooted/");
+            var dirExists3 = await _storageService.ContainsDirectory(@"NonexistingDir/NonExistingSubDir/");
 
             Assert.IsFalse(dirExists1);
             Assert.IsFalse(dirExists2);
@@ -151,7 +153,7 @@ namespace UWPCore.Test.Storage
             var folder = await _storageService.CreateOrGetFolderAsync(TEST_FOLDER);
 
             Assert.IsNotNull(folder);
-            Assert.AreEqual(TEST_FOLDER, folder.Name);
+            Assert.AreEqual(Path.GetDirectoryName(TEST_FOLDER), folder.Name);
         }
 
         [TestMethod]
@@ -160,30 +162,49 @@ namespace UWPCore.Test.Storage
             var folder = await _storageService.CreateOrGetFolderAsync(TEST_FOLDER_NESTED);
 
             Assert.IsNotNull(folder);
-            Assert.AreEqual(TEST_FOLDER, folder.Name);
+            Assert.AreEqual(Path.GetDirectoryName(TEST_FOLDER), folder.Name);
         }
 
         [TestMethod]
         public async Task TestCreateNestedDirectoriesAndDeleteAllFromTheMiddle()
         {
-            var folder = await _storageService.CreateOrGetFolderAsync("f1/f2/f3");
+            var folder = await _storageService.CreateOrGetFolderAsync("f1/f2/f3/");
 
             Assert.IsNotNull(folder);
             Assert.AreEqual("f3", folder.Name);
 
-            var containsFolderF2 = await _storageService.ContainsDirectory("f1/f2");
+            var containsFolderF2 = await _storageService.ContainsDirectory("f1/f2/");
 
             Assert.IsTrue(containsFolderF2);
 
-            await _storageService.DeleteFolderAsync("f1/f2");
+            await _storageService.DeleteFolderAsync("f1/f2/");
 
-            var containsFolderF1 = await _storageService.ContainsDirectory("f1");
-            containsFolderF2 = await _storageService.ContainsDirectory("f1/f2");
-            var containsFolderF3 = await _storageService.ContainsDirectory("f1/f2/f3");
+            var containsFolderF1 = await _storageService.ContainsDirectory("f1/");
+            containsFolderF2 = await _storageService.ContainsDirectory("f1/f2/");
+            var containsFolderF3 = await _storageService.ContainsDirectory("f1/f2/f3/");
 
             Assert.IsTrue(containsFolderF1);
             Assert.IsFalse(containsFolderF2);
             Assert.IsFalse(containsFolderF3);
+        }
+
+        [TestMethod]
+        public async Task TestGetFileFromApplicationUri()
+        {
+            string filePath = IOConstants.APPX_SCHEME + "/Assets/StoreLogo.png";
+            var file = await _storageService.GetFileFromApplicationAsync(new Uri(filePath));
+
+            Assert.IsNotNull(file);
+            Assert.AreEqual("StoreLogo.png", file.Name);
+        }
+
+        [TestMethod]
+        public async Task TestGetFileFromApplicationPath()
+        {
+            var file = await _storageService.GetFileFromApplicationAsync("/Assets/StoreLogo.png");
+
+            Assert.IsNotNull(file);
+            Assert.AreEqual("StoreLogo.png", file.Name);
         }
 
         [TestCleanup]

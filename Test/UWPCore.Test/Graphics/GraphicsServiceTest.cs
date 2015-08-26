@@ -30,15 +30,16 @@ namespace UWPCore.Test.Graphics
         public async Task TestRenderUIElement()
         {
             var file = await _storageService.CreateOrGetFileAsync(TEST_FILE_PATH);
-            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-            
-            RenderTargetBitmap res = await _graphicsService.RenderToStreamAsync(new SampleControl300(), stream, BitmapEncoder.PngEncoderId);
+            using (var stream = await file.OpenAsync(FileAccessMode.ReadWrite))
+            {
+                RenderTargetBitmap res = await _graphicsService.RenderToStreamAsync(new SampleControl300(), stream, BitmapEncoder.PngEncoderId);
 
-            var pixels = await res.GetPixelsAsync();
+                var pixels = await res.GetPixelsAsync();
 
-            Assert.IsNotNull(res);
-            Assert.AreEqual(300, res.PixelHeight);
-            Assert.AreEqual(300, res.PixelWidth);
+                Assert.IsNotNull(res);
+                Assert.AreEqual(300, res.PixelHeight);
+                Assert.AreEqual(300, res.PixelWidth);
+            }    
         }
 
         [TestCleanup]
