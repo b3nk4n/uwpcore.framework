@@ -72,7 +72,7 @@ namespace UWPCore.Demo.ViewModels
 
             if (state.ContainsKey(TEMPORARY_ITEM_KEY))
             {
-                var deserializedTempItem = _serializationService.DeserializeJson<ItemModel>(state[TEMPORARY_ITEM_KEY] as string); // FIXME: deserialization/ser. done impl. ???
+                var deserializedTempItem = _serializationService.DeserializeJson<ItemModel>(state[TEMPORARY_ITEM_KEY] as string); // TODO: FIXME: deserialization/ser. done impl. ???
                 TemporaryItem = new ItemViewModel(deserializedTempItem);
             }
         }

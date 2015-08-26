@@ -82,7 +82,7 @@ namespace UWPCore.Framework.Storage
                     {
                         dataWriter.WriteBuffer(buffer);
 
-                        if (buffer.Length != 1024) // FIXME: how to detect the end of the stream?
+                        if (buffer.Length != 1024) // TODO: FIXME: how to detect the end of the stream?
                             break;
                     }
                 }

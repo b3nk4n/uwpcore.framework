@@ -125,7 +125,7 @@ namespace UWPCore.Framework.Navigation
             _lastNavigationType = FrameFacade.Content.GetType().FullName;
 
             // clears the frame state when a page is newly navigated
-            /*if (mode == NavigationMode.New) // FIXME: is it to much to clear state frame every NEW-navigation. Remember: because there is no FrameID (up to now), we have
+            /*if (mode == NavigationMode.New) // TODO: FIXME: is it to much to clear state frame every NEW-navigation. Remember: because there is no FrameID (up to now), we have
             {
                 //FrameFacade.ClearPageState((FrameFacade.Content as Page).GetType()); // only this page state, not all page states (which caused error sometimes for the second navigateTo:New, but load state method was called properly)
                 //FrameFacade.ClearFrameState(); // original Template 10
@@ -165,7 +165,7 @@ namespace UWPCore.Framework.Navigation
         /// <returns>The view ID of the new window.</returns>
         public void OpenAsync(Type page, object parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
         {
-            // FIXME: this will spawn a new window instead of navigating to an existing frame.
+            // TODO: FIXME: this will spawn a new window instead of navigating to an existing frame.
             // --> not supported up to now. Have a second look at Template10 until they finised it!
             throw new NotImplementedException();
 
@@ -335,7 +335,7 @@ namespace UWPCore.Framework.Navigation
             FrameFacade.Frame.BackStack.Clear();
         }
 
-        public void Resuming(){ } // FIXME: not referenced and empty. Delete? Check again after some more progress in Template10!
+        public void Resuming(){ } // TODO: FIXME: not referenced and empty. Delete? Check again after some more progress in Template10!
 
         /// <summary>
         /// When suspending, it saves the navigation state and fires the navigate from event.

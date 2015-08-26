@@ -21,6 +21,8 @@ namespace UWPCore.Framework.Audio
         /// </summary>
         public const string VISUAL_TREE_NAME = "__mediaElement";
 
+        private IStorageService _storageService;
+
         /// <summary>
         /// The media element to play audio.
         /// </summary>
@@ -29,10 +31,18 @@ namespace UWPCore.Framework.Audio
         /// </remarks>
         private MediaElement _mediaElement = new MediaElement();
 
+        /// <summary>
+        /// Creates an AudioService instance.
+        /// </summary>
+        public AudioService()
+        {
+            _storageService = new LocalStorageService();
+        }
+
         public async Task PlayAsync(string path)
         {
-            var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri(string.Format("{0}/{1}", IOConstants.APPX_SCHEME, path)));
-            var stream = await storageFile.OpenReadAsync(); // TODO: move these 2 lines to StorageService
+            var storageFile = await _storageService.GetFileFromApplicationAsync(path);
+            var stream = await storageFile.OpenReadAsync(); // TODO: FIXME how to close the open stream?
             PlayFromStream(stream);
         }
 

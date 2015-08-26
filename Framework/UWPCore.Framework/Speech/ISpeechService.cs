@@ -24,8 +24,8 @@ namespace UWPCore.Framework.Speech
         /// <summary>
         /// Installs void commands from a Command Definition (VCD) XML file.
         /// </summary>
-        /// <param name="voiceCommandSetsUri">The path to the voice commands file.</param>
-        void InstallCommandSets(Uri voiceCommandSetsUri);
+        /// <param name="packageFilePath">The path to the voice commands file in the application package.</param>
+        Task InstallCommandSets(string packageFilePath);
 
         /// <summary>
         /// Gets the voice commands from start up arguments.

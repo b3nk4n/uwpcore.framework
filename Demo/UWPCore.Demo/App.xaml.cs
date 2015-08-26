@@ -21,9 +21,6 @@ namespace UWPCore.Demo
         {
             InitializeComponent();
 
-            _speechService = new SpeechService();
-            _speechService.InstallCommandSets(new Uri("ms-appx:///Assets/Speech/AdventureWorksCommands.xml"));
-
             ShowShellBackButton = true;
 
             // initialize Microsoft Application Insights
@@ -32,12 +29,15 @@ namespace UWPCore.Demo
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
         }
 
-        public override Task OnInitializeAsync()
+        public async override Task OnInitializeAsync()
         {
             // remove this line to hide the SplitView-Shell
             Window.Current.Content = new Shell(RootFrame);
 
-            return base.OnInitializeAsync();
+            _speechService = new SpeechService();
+            await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
+
+            await base.OnInitializeAsync();
         }
 
         public override void OnPrelaunch()

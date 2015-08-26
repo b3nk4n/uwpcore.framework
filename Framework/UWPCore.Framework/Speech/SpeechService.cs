@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 using UWPCore.Framework.Audio;
 using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Logging;
+using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.VoiceCommands;
 using Windows.Media.SpeechRecognition;
 using Windows.Media.SpeechSynthesis;
+using Windows.Storage;
 
 namespace UWPCore.Framework.Speech
 {
@@ -34,6 +36,11 @@ namespace UWPCore.Framework.Speech
         /// </summary>
         private IDialogService _dialogService;
 
+        /// <summary>
+        /// The storage service.
+        /// </summary>
+        private IStorageService _storageService;
+
         public SpeechSynthesizer Synthesizer { get; private set; }
 
         public SpeechRecognizer Recognizer { get; private set; }
@@ -47,18 +54,19 @@ namespace UWPCore.Framework.Speech
             Recognizer = new SpeechRecognizer();
             _audioService = new AudioService();
             _dialogService = new DialogService();
+            _storageService = new LocalStorageService();
         }
 
         #region Voice Commands
 
-        public async void InstallCommandSets(Uri voiceCommandSetsUri)
+        public async Task InstallCommandSets(string packageFilePath)
         {
             //if (!_hasInstalledCommands)
             {
                 try
                 {
-                    var storageFile = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(voiceCommandSetsUri); // TODO: use storage service
-                    await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile);
+                    var storageFile = await _storageService.GetFileFromApplicationAsync(packageFilePath);
+                    await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile as StorageFile);
 
                     //_hasInstalledCommands = true;
                 }
@@ -131,7 +139,7 @@ namespace UWPCore.Framework.Speech
                 //Recognizer.Constraints.Add(webSearchGrammar);
 
                 // Compile the dictation grammar by default.
-                await Recognizer.CompileConstraintsAsync(); // FIXME: is this call required? Each time?
+                await Recognizer.CompileConstraintsAsync(); // TODO: FIXME: is this call required? Each time?
 
                 // Start recognition.
                 SpeechRecognitionResult speechRecognitionResult = await Recognizer.RecognizeWithUIAsync();
