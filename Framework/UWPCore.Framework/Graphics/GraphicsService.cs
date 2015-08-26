@@ -56,7 +56,7 @@ namespace UWPCore.Framework.Graphics
             }
             catch (Exception e)
             {
-                Logger.WriteLine(e, "Rendering image failed");
+                Logger.WriteLine(e, "Rendering image failed. Forgot to add the image to the visual tree?");
                 return null;
             }
         }

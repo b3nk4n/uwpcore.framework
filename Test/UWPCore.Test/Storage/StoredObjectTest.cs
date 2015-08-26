@@ -1,5 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+using System.Threading.Tasks;
 using UWPCore.Framework.Storage;
+using UWPCore.Test.UnitTestFramework;
+using Windows.UI;
+using Windows.UI.Xaml.Media;
 
 namespace UWPCore.Test.Storage
 {
