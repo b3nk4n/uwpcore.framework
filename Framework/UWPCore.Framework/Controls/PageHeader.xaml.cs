@@ -2,7 +2,7 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace UWPCore.Demo.Controls
+namespace UWPCore.Framework.Controls
 {
     /// <summary>
     /// The default page header of a UWP app, that supports nested titles or command bars.
@@ -18,12 +18,12 @@ namespace UWPCore.Demo.Controls
 
             Loaded += (s, a) =>
             {
-                AppShell.Current.TogglePaneButtonRectChanged += Current_TogglePaneButtonSizeChanged;
-                titleBar.Margin = new Thickness(AppShell.Current.TogglePaneButtonRect.Right, 0, 0, 0);
+                ShellBase.Current.TogglePaneButtonRectChanged += Current_TogglePaneButtonSizeChanged;
+                titleBar.Margin = new Thickness(ShellBase.Current.TogglePaneButtonRect.Right, 0, 0, 0);
             };
         }
 
-        private void Current_TogglePaneButtonSizeChanged(AppShell sender, Rect e)
+        private void Current_TogglePaneButtonSizeChanged(ShellBase sender, Rect e)
         {
             titleBar.Margin = new Thickness(e.Right, 0, 0, 0);
         }

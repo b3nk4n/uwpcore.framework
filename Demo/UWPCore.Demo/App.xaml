@@ -9,9 +9,7 @@
     <uwpcCommon:UniversalApp.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/SystemIcons.xaml" />-->
-
-                <ResourceDictionary Source="Styles/Styles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/ShellStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </uwpcCommon:UniversalApp.Resources>

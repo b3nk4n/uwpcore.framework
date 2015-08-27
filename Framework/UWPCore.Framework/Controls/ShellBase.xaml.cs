@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
-using UWPCore.Framework.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
@@ -11,18 +9,19 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
-namespace UWPCore.Demo
+namespace UWPCore.Framework.Controls
 {
     /// <summary>
-    /// The "chrome" layer of the app that provides top-level navigation with
+    /// The base class "chrome" layer of the app that provides top-level navigation with
     /// proper keyboarding navigation.
     /// </summary>
-    public sealed partial class AppShell : Page
+    public abstract partial class ShellBase : Page
     {
         /// <summary>
         /// The declared top level navigation items.
         /// </summary>
-        private List<NavMenuItem> navlist = new List<NavMenuItem>(
+        private IEnumerable<NavMenuItem> _navList;
+        /*private List<NavMenuItem> navlist = new List<NavMenuItem>(
             new[]
             {
                 new NavMenuItem()
@@ -103,12 +102,14 @@ namespace UWPCore.Demo
                     Label = "Settings",
                     DestinationPage = typeof(SettingsPage)
                 },
-            });
+            });*/
+
+        public abstract IEnumerable<NavMenuItem> GetNavigationItems();
 
         /// <summary>
         /// Singlton access to the current app shell.
         /// </summary>
-        public static AppShell Current = null;
+        public static ShellBase Current = null;
 
         /// <summary>
         /// The root frame, which is the same as in the navigation service.
@@ -121,7 +122,7 @@ namespace UWPCore.Demo
         /// provide the nav menu list with the data to display.
         /// </summary>
         /// <param name="frame">The root frame of the application.</param>
-        public AppShell(Frame frame)
+        public ShellBase(Frame frame)
         {
             InitializeComponent();
             RootSplitView.Content = frame;
@@ -140,7 +141,8 @@ namespace UWPCore.Demo
                 BackButton.Visibility = Visibility.Collapsed;
             }
 
-            NavMenuList.ItemsSource = navlist;
+            _navList = GetNavigationItems();
+            NavMenuList.ItemsSource = _navList;
         }
 
         /// <summary>
@@ -258,14 +260,14 @@ namespace UWPCore.Demo
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                var item = (from p in navlist where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
+                var item = (from p in _navList where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
                 if (item == null && AppFrame.BackStackDepth > 0)
                 {
                     // In cases where a page drills into sub-pages then we'll highlight the most recent
                     // navigation menu item that appears in the BackStack
                     foreach (var entry in AppFrame.BackStack.Reverse())
                     {
-                        item = (from p in navlist where p.DestinationPage == entry.SourcePageType select p).SingleOrDefault();
+                        item = (from p in _navList where p.DestinationPage == entry.SourcePageType select p).SingleOrDefault();
                         if (item != null)
                             break;
                     }
@@ -314,7 +316,7 @@ namespace UWPCore.Demo
         /// An event to notify listeners when the hamburger button may occlude other content in the app.
         /// The custom "PageHeader" user control is using this.
         /// </summary>
-        public event TypedEventHandler<AppShell, Rect> TogglePaneButtonRectChanged;
+        public event TypedEventHandler<ShellBase, Rect> TogglePaneButtonRectChanged;
 
         /// <summary>
         /// Callback when the SplitView's Pane is toggled open or close.  When the Pane is not visible
