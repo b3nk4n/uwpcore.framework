@@ -17,9 +17,6 @@
       <Item> New York </Item>
     </PhraseList>
 
-    <PhraseTopic Label="newDestination" Scenario="Search">
-      <Subject>City/State</Subject>
-    </PhraseTopic>
   </CommandSet>
 
   <!-- Other CommandSets for other languages -->
