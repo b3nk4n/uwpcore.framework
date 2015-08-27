@@ -5,7 +5,7 @@
     xmlns:local="using:UWPCore.Demo.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcControls="using:UWPCore.Demo.Controls"
     xmlns:localViewModels="using:UWPCore.Demo.ViewModels"
     xmlns:localModels="using:UWPCore.Demo.Models"
     mc:Ignorable="d">
@@ -14,25 +14,23 @@
         <localViewModels:MvvmViewModel />
     </Page.DataContext>
 
-    <!--<Page.Resources>
-        <localModels:ItemModel x:Key="TempItem" />
-    </Page.Resources>-->
-
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- header -->
-        <uwpcControls:PageHeader Grid.Row="0" Text="MVVM" />
+        <uwpcControls:PageHeader>
+            <uwpcControls:PageHeader.HeaderContent>
+                <TextBlock Text="MVVM" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcControls:PageHeader.HeaderContent>
+        </uwpcControls:PageHeader>
 
-        <!-- content -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <StackPanel>
                 <Button Content="Go Home" Command="{Binding GoHomeCommand}"
                         MinWidth="200"/>
-                
+
                 <ListView>
                     <ListView x:Name="ItemsList" ItemsSource="{Binding Items}" Margin="4">
                         <ListView.ItemTemplate>

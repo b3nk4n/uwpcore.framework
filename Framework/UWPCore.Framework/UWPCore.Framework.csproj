@@ -128,13 +128,6 @@
     <Compile Include="Controls\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\BackAppBarButton.cs" />
-    <Compile Include="Controls\BackButton.cs" />
-    <Compile Include="Controls\ForwardAppBarButton.cs" />
-    <Compile Include="Controls\ForwardButton.cs" />
-    <Compile Include="Controls\PageHeader.xaml.cs">
-      <DependentUpon>PageHeader.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Converters\BooleanNegationConverter.cs" />
     <Compile Include="Converters\BooleanToBrushConverter.cs" />
     <Compile Include="Converters\BooleanToDoubleConverter.cs" />
@@ -248,10 +241,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\AboutControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\PageHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

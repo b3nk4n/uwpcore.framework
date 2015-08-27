@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Mvvm;
+using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace UWPCore.Demo.Views
 {
+    [Deprecated("Use AppShell instead! Temporary kept for reference of navigation internals.", DeprecationType.Deprecate, 1)]
     public sealed partial class Shell : Page
     {
         public Shell(Frame frame)

@@ -5,20 +5,22 @@
     xmlns:local="using:UWPCore.Demo.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcControls="using:UWPCore.Demo.Controls"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- header -->
-        <uwpcControls:PageHeader Grid.Row="0" Text="Share" />
+        <uwpcControls:PageHeader>
+            <uwpcControls:PageHeader.HeaderContent>
+                <TextBlock Text="SHARE" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcControls:PageHeader.HeaderContent>
+        </uwpcControls:PageHeader>
 
-        <!-- content -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <StackPanel>
                 <TextBox x:Name="RecipientsTextBox" Header="Recipients (seperate by comma)" Margin="4" />
                 <TextBox x:Name="SubjectTextBox" Header="Subject" Margin="4" />

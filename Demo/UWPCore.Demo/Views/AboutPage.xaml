@@ -6,20 +6,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcDemoControls="using:UWPCore.Demo.Controls"
     xmlns:uwpcViewModels="using:UWPCore.Framework.ViewModels"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- header -->
-        <uwpcControls:PageHeader Grid.Row="0" Text="About" />
+        <uwpcDemoControls:PageHeader>
+            <uwpcDemoControls:PageHeader.HeaderContent>
+                <TextBlock Text="ABOUT" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcDemoControls:PageHeader.HeaderContent>
+        </uwpcDemoControls:PageHeader>
 
-        <!-- content -->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <uwpcControls:AboutControl>
                 <uwpcControls:AboutControl.DataContext>
                     <uwpcViewModels:AboutViewModel

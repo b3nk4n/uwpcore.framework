@@ -195,7 +195,7 @@ namespace UWPCore.Framework.Storage
             {
                 return await RootFolder.CreateFileAsync(filePath, CreationCollisionOption.OpenIfExists);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

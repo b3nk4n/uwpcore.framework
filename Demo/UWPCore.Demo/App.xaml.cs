@@ -32,7 +32,8 @@ namespace UWPCore.Demo
         public async override Task OnInitializeAsync()
         {
             // remove this line to hide the SplitView-Shell
-            Window.Current.Content = new Shell(RootFrame);
+            //Window.Current.Content = new Shell(RootFrame);
+            Window.Current.Content = new AppShell(RootFrame);
 
             _speechService = new SpeechService();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
