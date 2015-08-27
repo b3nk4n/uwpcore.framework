@@ -34,7 +34,52 @@ namespace UWPCore.Demo
         public async override Task OnInitializeAsync()
         {
             // remove this line to hide the SplitView-Shell
-            var navigationList = new[]
+            Window.Current.Content = new AppShell(RootFrame, GetNavigationMenuItems());
+
+            _speechService = new SpeechService();
+            await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
+
+            await base.OnInitializeAsync();
+        }
+
+        public override void OnPrelaunch()
+        {
+            // handle prelaunch
+        }
+
+        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs)
+        {
+            // check lauch arguments
+            if (launchArgs.IsValid)
+            { 
+                Logger.WriteLine("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+            }
+
+            // check voice commands
+            var command = _speechService.GetVoiceCommand(args);
+            if (command != null)
+            {
+                switch(command.CommandName)
+                {
+                    case "showTripToDestination":
+                        string destination = command.Interpretations["destination"];
+                        Logger.WriteLine("Command: {0}, Text {1}, Interpretation: {2}", command.CommandName, command.Text, destination);
+                        break;
+                }
+            }
+
+            // start the user experience
+            NavigationService.Navigate(DefaultPage);
+            return Task.FromResult<object>(null);
+        }
+
+        /// <summary>
+        /// Gets the navigation menu items.
+        /// </summary>
+        /// <returns>The navigation menu items.</returns>
+        private static NavMenuItem[] GetNavigationMenuItems()
+        {
+            return new[]
             {
                 new NavMenuItem()
                 {
@@ -115,43 +160,6 @@ namespace UWPCore.Demo
                     DestinationPage = typeof(SettingsPage)
                 }
             };
-            Window.Current.Content = new AppShell(RootFrame, navigationList);
-
-            _speechService = new SpeechService();
-            await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
-
-            await base.OnInitializeAsync();
-        }
-
-        public override void OnPrelaunch()
-        {
-            // handle prelaunch
-        }
-
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs)
-        {
-            // check lauch arguments
-            if (launchArgs.IsValid)
-            { 
-                Logger.WriteLine("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
-            }
-
-            // check voice commands
-            var command = _speechService.GetVoiceCommand(args);
-            if (command != null)
-            {
-                switch(command.CommandName)
-                {
-                    case "showTripToDestination":
-                        string destination = command.Interpretations["destination"];
-                        Logger.WriteLine("Command: {0}, Text {1}, Interpretation: {2}", command.CommandName, command.Text, destination);
-                        break;
-                }
-            }
-
-            // start the user experience
-            NavigationService.Navigate(DefaultPage);
-            return Task.FromResult<object>(null);
         }
     }
 }
