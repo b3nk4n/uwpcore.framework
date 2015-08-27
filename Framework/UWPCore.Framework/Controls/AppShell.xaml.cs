@@ -15,101 +15,17 @@ namespace UWPCore.Framework.Controls
     /// The base class "chrome" layer of the app that provides top-level navigation with
     /// proper keyboarding navigation.
     /// </summary>
-    public abstract partial class ShellBase : Page
+    public partial class AppShell : Page
     {
         /// <summary>
-        /// The declared top level navigation items.
+        /// The declared top level navigation items list.
         /// </summary>
-        private IEnumerable<NavMenuItem> _navList;
-        /*private List<NavMenuItem> navlist = new List<NavMenuItem>(
-            new[]
-            {
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Home,
-                    Label = "Home",
-                    DestinationPage = typeof(MainPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Audio,
-                    Label = "Audio",
-                    DestinationPage = typeof(AudioPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Keyboard,
-                    Label = "Device Features",
-                    DestinationPage = typeof(DeviceFeaturesPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.TwoBars,
-                    Label = "Networking",
-                    DestinationPage = typeof(NetworkingPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Message,
-                    Label = "Notifications",
-                    DestinationPage = typeof(NotificationsPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.People,
-                    Label = "Speech",
-                    DestinationPage = typeof(SpeechPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Shuffle,
-                    Label = "Share",
-                    DestinationPage = typeof(SharePage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.FontColor,
-                    Label = "Graphics",
-                    DestinationPage = typeof(GraphicsPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Document,
-                    Label = "MVVM",
-                    DestinationPage = typeof(MvvmPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Clock,
-                    Label = "Tasks",
-                    DestinationPage = typeof(TasksPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Play,
-                    Label = "Tasks",
-                    DestinationPage = typeof(LaunchPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = Symbol.Help,
-                    Label = "About",
-                    DestinationPage = typeof(AboutPage)
-                },
-                new NavMenuItem() // TODO: make it possible to stack navItems/links to the bottom
-                {
-                    Symbol = Symbol.Setting,
-                    Label = "Settings",
-                    DestinationPage = typeof(SettingsPage)
-                },
-            });*/
-
-        public abstract IEnumerable<NavMenuItem> GetNavigationItems();
+        public IEnumerable<NavMenuItem> NavigationItems { get; private set; }
 
         /// <summary>
         /// Singlton access to the current app shell.
         /// </summary>
-        public static ShellBase Current = null;
+        public static AppShell Current = null;
 
         /// <summary>
         /// The root frame, which is the same as in the navigation service.
@@ -122,7 +38,7 @@ namespace UWPCore.Framework.Controls
         /// provide the nav menu list with the data to display.
         /// </summary>
         /// <param name="frame">The root frame of the application.</param>
-        public ShellBase(Frame frame)
+        public AppShell(Frame frame, IEnumerable<NavMenuItem> navigationItems)
         {
             InitializeComponent();
             RootSplitView.Content = frame;
@@ -141,8 +57,8 @@ namespace UWPCore.Framework.Controls
                 BackButton.Visibility = Visibility.Collapsed;
             }
 
-            _navList = GetNavigationItems();
-            NavMenuList.ItemsSource = _navList;
+            NavigationItems = navigationItems;
+            NavMenuList.ItemsSource = NavigationItems;
         }
 
         /// <summary>
@@ -260,14 +176,14 @@ namespace UWPCore.Framework.Controls
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                var item = (from p in _navList where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
+                var item = (from p in NavigationItems where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
                 if (item == null && AppFrame.BackStackDepth > 0)
                 {
                     // In cases where a page drills into sub-pages then we'll highlight the most recent
                     // navigation menu item that appears in the BackStack
                     foreach (var entry in AppFrame.BackStack.Reverse())
                     {
-                        item = (from p in _navList where p.DestinationPage == entry.SourcePageType select p).SingleOrDefault();
+                        item = (from p in NavigationItems where p.DestinationPage == entry.SourcePageType select p).SingleOrDefault();
                         if (item != null)
                             break;
                     }
@@ -316,7 +232,7 @@ namespace UWPCore.Framework.Controls
         /// An event to notify listeners when the hamburger button may occlude other content in the app.
         /// The custom "PageHeader" user control is using this.
         /// </summary>
-        public event TypedEventHandler<ShellBase, Rect> TogglePaneButtonRectChanged;
+        public event TypedEventHandler<AppShell, Rect> TogglePaneButtonRectChanged;
 
         /// <summary>
         /// Callback when the SplitView's Pane is toggled open or close.  When the Pane is not visible
