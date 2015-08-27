@@ -22,12 +22,12 @@ namespace UWPCore.Demo.Views
 
         private async void PlayMp3Clicked(object sender, RoutedEventArgs e)
         {
-            await _audioService.PlayAsync("Assets/Audio/bing.mp3");
+            await _audioService.PlayAsync("/Assets/Audio/bing.mp3");
         }
 
         private async void PlayWavClicked(object sender, RoutedEventArgs e)
         {
-            await _audioService.PlayAsync("Assets/Audio/click.wav");
+            await _audioService.PlayAsync("/Assets/Audio/click.wav");
         }
 
         private void StopClicked(object sender, RoutedEventArgs e)

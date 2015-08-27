@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UWPCore.Framework.Logging;
 using UWPCore.Framework.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
@@ -42,7 +43,11 @@ namespace UWPCore.Framework.Audio
         public async Task PlayAsync(string path)
         {
             var storageFile = await _storageService.GetFileFromApplicationAsync(path);
-            var stream = await storageFile.OpenReadAsync(); // TODO: FIXME how to close the open stream?
+
+            if (storageFile == null)
+                    return;
+
+            var stream = await storageFile.OpenReadAsync();
             PlayFromStream(stream);
         }
 
