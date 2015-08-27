@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace UWPCore.Demo.Controls
+namespace UWPCore.Framework.Controls
 {
     /// <summary>
     /// A specialized ListView to represent the items in the navigation menu.
@@ -257,5 +257,42 @@ namespace UWPCore.Demo.Controls
                 ItemsPanelRoot.SetValue(HorizontalAlignmentProperty, HorizontalAlignment.Left);
             }
         }
+    }
+
+    /// <summary>
+    /// Data to represent an item in the nav menu.
+    /// </summary>
+    public class NavMenuItem
+    {
+        /// <summary>
+        /// Gets or sets label to display.
+        /// </summary>
+        public string Label { get; set; }
+
+        /// <summary>
+        /// Gets or sets the symbol.
+        /// </summary>
+        public Symbol Symbol { get; set; }
+
+        /// <summary>
+        /// Gets the symbol character.
+        /// </summary>
+        public char SymbolAsChar
+        {
+            get
+            {
+                return (char)Symbol;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the destinatoin page.
+        /// </summary>
+        public Type DestinationPage { get; set; }
+
+        /// <summary>
+        /// Gets or sets the navigation parameter.
+        /// </summary>
+        public object Parameter { get; set; }
     }
 }

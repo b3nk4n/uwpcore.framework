@@ -102,7 +102,6 @@
     <Compile Include="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NavMenuListView.cs" />
     <Compile Include="Controls\PageHeader.xaml.cs">
       <DependentUpon>PageHeader.xaml</DependentUpon>
     </Compile>
@@ -111,7 +110,6 @@
     </Compile>
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\SubItemModel.cs" />
-    <Compile Include="NavMenuItem.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MvvmViewModel.cs" />
     <Compile Include="ViewModels\SubItemViewModel.cs" />

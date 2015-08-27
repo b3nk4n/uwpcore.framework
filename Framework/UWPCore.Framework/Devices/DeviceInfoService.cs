@@ -93,7 +93,8 @@ namespace UWPCore.Framework.Devices
             byte[] bytes = new byte[hardwareId.Length];
             dataReader.ReadBytes(bytes);
 
-            return BitConverter.ToString(bytes);
+            _hardwareId = BitConverter.ToString(bytes);
+            return _hardwareId;
         }
     }
 }

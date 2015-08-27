@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UWPCore.Demo.Controls;
 using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI.Xaml;
@@ -29,79 +29,79 @@ namespace UWPCore.Demo
                 {
                     Symbol = Symbol.Home,
                     Label = "Home",
-                    DestPage = typeof(MainPage)
+                    DestinationPage = typeof(MainPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Audio,
                     Label = "Audio",
-                    DestPage = typeof(AudioPage)
+                    DestinationPage = typeof(AudioPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Keyboard,
                     Label = "Device Features",
-                    DestPage = typeof(DeviceFeaturesPage)
+                    DestinationPage = typeof(DeviceFeaturesPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.TwoBars,
                     Label = "Networking",
-                    DestPage = typeof(NetworkingPage)
+                    DestinationPage = typeof(NetworkingPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Message,
                     Label = "Notifications",
-                    DestPage = typeof(NotificationsPage)
+                    DestinationPage = typeof(NotificationsPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.People,
                     Label = "Speech",
-                    DestPage = typeof(SpeechPage)
+                    DestinationPage = typeof(SpeechPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Shuffle,
                     Label = "Share",
-                    DestPage = typeof(SharePage)
+                    DestinationPage = typeof(SharePage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.FontColor,
                     Label = "Graphics",
-                    DestPage = typeof(GraphicsPage)
+                    DestinationPage = typeof(GraphicsPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Document,
                     Label = "MVVM",
-                    DestPage = typeof(MvvmPage)
+                    DestinationPage = typeof(MvvmPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Clock,
                     Label = "Tasks",
-                    DestPage = typeof(TasksPage)
+                    DestinationPage = typeof(TasksPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Play,
                     Label = "Tasks",
-                    DestPage = typeof(LaunchPage)
+                    DestinationPage = typeof(LaunchPage)
                 },
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Help,
                     Label = "About",
-                    DestPage = typeof(AboutPage)
+                    DestinationPage = typeof(AboutPage)
                 },
                 new NavMenuItem() // TODO: make it possible to stack navItems/links to the bottom
                 {
                     Symbol = Symbol.Setting,
                     Label = "Settings",
-                    DestPage = typeof(SettingsPage)
+                    DestinationPage = typeof(SettingsPage)
                 },
             });
 
@@ -234,18 +234,18 @@ namespace UWPCore.Demo
 
             if (item != null)
             {
-                if (item.DestPage != null &&
-                    item.DestPage != AppFrame.CurrentSourcePageType)
+                if (item.DestinationPage != null &&
+                    item.DestinationPage != AppFrame.CurrentSourcePageType)
                 {
                     var nav = (Application.Current as UniversalApp).NavigationService;
 
                     // when we nav home, clear history
-                    if (item.DestPage.Equals((Application.Current as UniversalApp).DefaultPage))
+                    if (item.DestinationPage.Equals((Application.Current as UniversalApp).DefaultPage))
                         nav.ClearHistory();
 
                     // navigate only to new pages
-                    if (nav.CurrentPageType != null && nav.CurrentPageType != item.DestPage)
-                        nav.Navigate(item.DestPage, item.Arguments);
+                    if (nav.CurrentPageType != null && nav.CurrentPageType != item.DestinationPage)
+                        nav.Navigate(item.DestinationPage, item.Parameter);
                 }
             }
         }
@@ -258,14 +258,14 @@ namespace UWPCore.Demo
         {
             if (e.NavigationMode == NavigationMode.Back)
             {
-                var item = (from p in navlist where p.DestPage == e.SourcePageType select p).SingleOrDefault();
+                var item = (from p in navlist where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
                 if (item == null && AppFrame.BackStackDepth > 0)
                 {
                     // In cases where a page drills into sub-pages then we'll highlight the most recent
                     // navigation menu item that appears in the BackStack
                     foreach (var entry in AppFrame.BackStack.Reverse())
                     {
-                        item = (from p in navlist where p.DestPage == entry.SourcePageType select p).SingleOrDefault();
+                        item = (from p in navlist where p.DestinationPage == entry.SourcePageType select p).SingleOrDefault();
                         if (item != null)
                             break;
                     }
