@@ -96,6 +96,7 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\EnumExtensionsTest.cs" />
     <Compile Include="Converters\BooleanNegationConverterTest.cs" />
     <Compile Include="Data\DataContractSerializationServiceTest.cs" />
     <Compile Include="Graphics\Controls\SampleControl300.xaml.cs">
