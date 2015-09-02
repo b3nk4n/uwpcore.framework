@@ -1,4 +1,5 @@
 ﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -12,6 +13,20 @@ namespace UWPCore.Demo.Views
         public SettingsPage()
         {
             InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            SampleToggleSwitch.IsOn = AppSettings.SettingsSampleToggleSwitch.Value;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom(e);
+
+            AppSettings.SettingsSampleToggleSwitch.Value = SampleToggleSwitch.IsOn;
         }
     }
 }

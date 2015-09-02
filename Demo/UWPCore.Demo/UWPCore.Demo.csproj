@@ -99,6 +99,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppSettings.cs" />
     <Compile Include="Controls\TileSquareMedium.xaml.cs">
       <DependentUpon>TileSquareMedium.xaml</DependentUpon>
     </Compile>

@@ -21,7 +21,17 @@
         </uwpcControls:PageHeader>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            
+            <StackPanel>
+                <ToggleSwitch x:Name="SampleToggleSwitch" Header="Toggle settings" Margin="4" />
+                <!--<ComboBox x:Name="SampleComboBox" Header="ComboBox setting" Margin="4">
+                    <ComboBoxItem>
+                        <ComboBoxItem.Content>
+                            --><!--TODO: 1. bind to enum?, 2. static enum values --><!--
+                        </ComboBoxItem.Content>
+                    </ComboBoxItem>
+                </ComboBox>-->
+            </StackPanel>
+
         </Grid>
     </Grid>
 </Page>
