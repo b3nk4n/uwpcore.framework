@@ -9,15 +9,17 @@ namespace UWPCore.Demo.Views
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
-        public EnumSource<SettingsEnum> EnumSource { get; private set; } = new EnumSource<SettingsEnum>(); // TODO: possible to use in other control than combobox? Rename to ComboBox(Enum)Source?
+        public EnumSource<SettingsEnum> ComboBoxEnumSource { get; private set; } = new EnumSource<SettingsEnum>();
 
-        public RadioButtonSource<string> RadioButtonSource { get; private set; } // TODO: possible to use other type than string???
+        public EnumSource<SettingsEnum> ListBoxEnumSource { get; private set; } = new EnumSource<SettingsEnum>();
+
+        public RadioButtonStringSource RadioButtonSource { get; private set; }
 
         public SettingsPage()
         {
             InitializeComponent();
 
-            RadioButtonSource = new RadioButtonSource<string>(RadioButtonContainer);
+            RadioButtonSource = new RadioButtonStringSource(RadioButtonContainer);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -25,7 +27,8 @@ namespace UWPCore.Demo.Views
             base.OnNavigatedTo(e);
 
             SampleToggleSwitch.IsOn = AppSettings.SettingsSampleBoolean.Value;
-            EnumSource.SelectedValue = AppSettings.SettingsSampleEnum.Value;
+            ComboBoxEnumSource.SelectedValue = AppSettings.SettingsSampleComboBoxEnum.Value;
+            ListBoxEnumSource.SelectedValue = AppSettings.SettingsSampleListBoxEnum.Value;
             SampleSlider.Value = AppSettings.SettingsSampleInteger.Value;
             SampleCheckBox.IsChecked = AppSettings.SettingsSampleNullableBoolean.Value;
             RadioButtonSource.SelectedValue = AppSettings.SettingsSampleString.Value;
@@ -36,12 +39,12 @@ namespace UWPCore.Demo.Views
             base.OnNavigatedFrom(e);
 
             AppSettings.SettingsSampleBoolean.Value = SampleToggleSwitch.IsOn;
-            AppSettings.SettingsSampleEnum.Value = EnumSource.SelectedValue;
+            AppSettings.SettingsSampleComboBoxEnum.Value = ComboBoxEnumSource.SelectedValue;
+            AppSettings.SettingsSampleListBoxEnum.Value = ListBoxEnumSource.SelectedValue;
             AppSettings.SettingsSampleInteger.Value = (int)SampleSlider.Value;
             AppSettings.SettingsSampleNullableBoolean.Value = SampleCheckBox.IsChecked;
             AppSettings.SettingsSampleString.Value = RadioButtonSource.SelectedValue;
         }
-
-        
+     
     }
 }

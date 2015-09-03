@@ -7,8 +7,7 @@ namespace UWPCore.Framework.Data
     /// String data source to select and retrieve RadioButton values of a groupe very easily.
     /// The value of each RadioButton is stored in the <see cref="FrameworkElement.Tag"/>.
     /// </summary>
-    /// <typeparam name="T">The data type.</typeparam>
-    public sealed class RadioButtonSource<T>
+    public sealed class RadioButtonStringSource
     {
         /// <summary>
         /// The radio button container panel.
@@ -19,7 +18,7 @@ namespace UWPCore.Framework.Data
         /// Creates a RadioButtonSource instance.
         /// </summary>
         /// <param name="radioButtonContainer">The radio button container panel.</param>
-        public RadioButtonSource(Panel radioButtonContainer)
+        public RadioButtonStringSource(Panel radioButtonContainer)
         {
             _container = radioButtonContainer;
         }
@@ -27,18 +26,18 @@ namespace UWPCore.Framework.Data
         /// <summary>
         /// Gets or sets the <see cref="FrameworkElement.Tag"/> value of the selected radio button.
         /// </summary>
-        public T SelectedValue
+        public string SelectedValue
         {
             get
             {
                 var checkedButton = _container.Children.OfType<RadioButton>()
                                                 .FirstOrDefault(r => r.IsChecked.Value);
-                return (T)checkedButton.Tag;
+                return (string)checkedButton.Tag;
             }
             set
             {
                 var checkedButton = _container.Children.OfType<RadioButton>()
-                                                  .FirstOrDefault(r => ((T)r.Tag).Equals(value));
+                                                  .FirstOrDefault(r => ((string)r.Tag).Equals(value));
                 checkedButton.IsChecked = true;
             }
         }

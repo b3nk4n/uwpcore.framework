@@ -11,7 +11,9 @@ namespace UWPCore.Demo
     {
         public static StoredObjectBase<bool> SettingsSampleBoolean = new LocalObject<bool>("sampleBoolean", false);
 
-        public static StoredObjectBase<string> SettingsSampleEnum = new LocalObject<string>("sampleEnum", SettingsEnum.Settings3.ToString());
+        public static StoredObjectBase<string> SettingsSampleComboBoxEnum = new LocalObject<string>("sampleComboEnum", SettingsEnum.Settings3.ToString());
+
+        public static StoredObjectBase<string> SettingsSampleListBoxEnum = new LocalObject<string>("sampleListEnum", SettingsEnum.Settings3.ToString());
 
         public static StoredObjectBase<int> SettingsSampleInteger = new LocalObject<int>("sampleInteger", 0);
 
