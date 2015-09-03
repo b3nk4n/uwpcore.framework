@@ -152,5 +152,4 @@ namespace UWPCore.Framework.Storage
 
         #endregion
     }
-
 }

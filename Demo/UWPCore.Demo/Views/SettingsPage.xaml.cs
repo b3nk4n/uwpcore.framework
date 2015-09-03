@@ -1,7 +1,6 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using UWPCore.Framework.Data;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace UWPCore.Demo.Views
 {
@@ -10,6 +9,8 @@ namespace UWPCore.Demo.Views
     /// </summary>
     public sealed partial class SettingsPage : Page
     {
+        public EnumSource<SettingsEnum> EnumSource { get; private set; } = new EnumSource<SettingsEnum>();
+
         public SettingsPage()
         {
             InitializeComponent();
@@ -19,14 +20,16 @@ namespace UWPCore.Demo.Views
         {
             base.OnNavigatedTo(e);
 
-            SampleToggleSwitch.IsOn = AppSettings.SettingsSampleToggleSwitch.Value;
+            SampleToggleSwitch.IsOn = AppSettings.SettingsSampleBoolean.Value;
+            EnumSource.SelectItem(AppSettings.SettingsSampleEnum.Value);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
 
-            AppSettings.SettingsSampleToggleSwitch.Value = SampleToggleSwitch.IsOn;
+            AppSettings.SettingsSampleBoolean.Value = SampleToggleSwitch.IsOn;
+            AppSettings.SettingsSampleEnum.Value = EnumSource.SelectedItem.ToString();
         }
     }
 }

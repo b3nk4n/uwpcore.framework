@@ -6,7 +6,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcConverters="using:UWPCore.Framework.Converters"
+    xmlns:root="using:UWPCore.Demo"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <uwpcConverters:EnumDisplayValueConverter x:Key="EnumDisplayValueConv" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -23,13 +29,14 @@
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <StackPanel>
                 <ToggleSwitch x:Name="SampleToggleSwitch" Header="Toggle settings" Margin="4" />
-                <!--<ComboBox x:Name="SampleComboBox" Header="ComboBox setting" Margin="4">
-                    <ComboBoxItem>
-                        <ComboBoxItem.Content>
-                            --><!--TODO: 1. bind to enum?, 2. static enum values --><!--
-                        </ComboBoxItem.Content>
-                    </ComboBoxItem>
-                </ComboBox>-->
+                <ComboBox x:Name="SampleComboBox" Header="ComboBox setting" Margin="4" ItemsSource="{x:Bind EnumSource.ItemsSource}"
+                          SelectedItem="{x:Bind EnumSource.SelectedItem, Mode=TwoWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource EnumDisplayValueConv}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
 
         </Grid>

@@ -141,11 +141,13 @@
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="Converters\EnumDisplayValueConverter.cs" />
     <Compile Include="Converters\StringCaseConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />
     <Compile Include="Converters\StringToListConverter.cs" />
     <Compile Include="Converters\TimeToShapeConverter.cs" />
     <Compile Include="Data\DataContractSerializationService.cs" />
+    <Compile Include="Data\EnumSource.cs" />
     <Compile Include="Data\ICompressionService.cs" />
     <Compile Include="Data\ISerializationService.cs" />
     <Compile Include="Data\ZipArchiveService.cs" />
