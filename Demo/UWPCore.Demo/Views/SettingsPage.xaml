@@ -40,6 +40,8 @@
                 </ComboBox>
                 
                 <Slider x:Name="SampleSlider" Header="Slider setting" Margin="4" Minimum="0" Maximum="100" StepFrequency="1" />
+                
+                <CheckBox x:Name="SampleCheckBox" Content="CheckBox setting" Margin="4" />
             </StackPanel>
 
         </Grid>

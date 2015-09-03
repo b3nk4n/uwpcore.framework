@@ -14,6 +14,8 @@ namespace UWPCore.Demo
         public static StoredObjectBase<string> SettingsSampleEnum = new LocalObject<string>("sampleEnum", SettingsEnum.Settings3.ToString());
 
         public static StoredObjectBase<int> SettingsSampleInteger = new LocalObject<int>("sampleInteger", 0);
+
+        public static StoredObjectBase<bool?> SettingsSampleNullableBoolean = new LocalObject<bool?>("sampleNullableBoolean", null);
     }
 
     public enum SettingsEnum
