@@ -3,17 +3,17 @@
 namespace UWPCore.Framework.Storage
 {
     /// <summary>
-    /// Encapsulates a key/value pair stored in isolated storage.
+    /// Encapsulates a key/value pair stored in a data container.
     /// </summary>
     /// <typeparam name="T">The type to store</typeparam>
-    public class StoredObject<T>
+    public abstract class StoredObjectBase<T>
     {
         #region Members
 
         /// <summary>
-        /// The local settings data container.
+        /// The settings data container.
         /// </summary>
-        ApplicationDataContainer _localSettings = ApplicationData.Current.LocalSettings;
+        ApplicationDataContainer _dataContainer;
 
         /// <summary>
         /// The current value.
@@ -45,10 +45,12 @@ namespace UWPCore.Framework.Storage
         /// <summary>
         /// Creates a new StoredObject instance.
         /// </summary>
+        /// <param name="dataContainer">The data container to use.</param>
         /// <param name="key">The stored ojects key.</param>
         /// <param name="defaultValue">The default value.</param>
-        public StoredObject(string key, T defaultValue)
+        public StoredObjectBase(ApplicationDataContainer dataContainer, string key, T defaultValue)
         {
+            _dataContainer = dataContainer;
             _key = key;
             _defaultValue = defaultValue;
 
@@ -65,7 +67,7 @@ namespace UWPCore.Framework.Storage
         /// </summary>
         public void Delete()
         {
-            _localSettings.Values.Remove(_key);
+            _dataContainer.Values.Remove(_key);
         }
 
         /// <summary>
@@ -103,7 +105,7 @@ namespace UWPCore.Framework.Storage
                     object outValue = _defaultValue;
 
                     // load the value
-                    if (_localSettings.Values.TryGetValue(_key, out outValue))
+                    if (_dataContainer.Values.TryGetValue(_key, out outValue))
                     {
                         _value = (T)outValue;
                     }
@@ -123,7 +125,7 @@ namespace UWPCore.Framework.Storage
                     return;
 
                 // store the value in isolated storage
-                _localSettings.Values[_key] = value;
+                _dataContainer.Values[_key] = value;
                 _value = value;
             }
         }

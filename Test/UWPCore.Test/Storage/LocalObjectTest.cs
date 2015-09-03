@@ -1,19 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using System.Threading.Tasks;
 using UWPCore.Framework.Storage;
-using UWPCore.Test.UnitTestFramework;
-using Windows.UI;
-using Windows.UI.Xaml.Media;
 
 namespace UWPCore.Test.Storage
 {
     [TestClass]
-    public class StoredObjectTest
+    public class LocalObjectTest
     {
         /// <summary>
         /// The used test key.
         /// </summary>
-        private const string TEST_KEY = "test_key";
+        private const string TEST_KEY = "test_local_key";
 
         /// <summary>
         /// The used default value.
@@ -23,12 +19,12 @@ namespace UWPCore.Test.Storage
         /// <summary>
         /// The system under test.
         /// </summary>
-        private StoredObject<string> _storedObject;
+        private StoredObjectBase<string> _storedObject;
 
         [TestInitialize]
         public void Initialize()
         {
-            _storedObject = new StoredObject<string>(TEST_KEY, DEFAULT_VALUE);
+            _storedObject = new LocalObject<string>(TEST_KEY, DEFAULT_VALUE);
         }
 
         [TestMethod]
