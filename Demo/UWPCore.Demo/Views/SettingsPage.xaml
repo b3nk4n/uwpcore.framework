@@ -42,6 +42,14 @@
                 <Slider x:Name="SampleSlider" Header="Slider setting" Margin="4" Minimum="0" Maximum="100" StepFrequency="1" />
                 
                 <CheckBox x:Name="SampleCheckBox" Content="CheckBox setting" Margin="4" />
+
+                <StackPanel x:Name="RadioButtonContainer" Margin="4">
+                    <TextBlock Text="RadioButton String setting" />
+                    <RadioButton Content="A" GroupName="G1" Tag="settingsA" />
+                    <RadioButton Content="B" GroupName="G1" Tag="settingsB"/>
+                    <RadioButton Content="C" GroupName="G1" Tag="settingsC"/>
+                </StackPanel>
+                
             </StackPanel>
 
         </Grid>

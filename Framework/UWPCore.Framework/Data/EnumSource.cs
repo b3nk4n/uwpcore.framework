@@ -8,7 +8,7 @@ namespace UWPCore.Framework.Data
     /// Enum data source to make bingings to enums much more easy.
     /// </summary>
     /// <typeparam name="T">The enum type.</typeparam>
-    public sealed class EnumSource<T>
+    public sealed class EnumSource<T> where T : struct, IConvertible
     {
         /// <summary>
         /// Gets or sets the selected enum value.
@@ -18,11 +18,19 @@ namespace UWPCore.Framework.Data
         /// <summary>
         /// Gets or sets the selected value for storage.
         /// </summary>
+        /// <remarks>
+        /// We use string values here, because <see cref="Windows.Storage.ApplicationDataContainer"/>
+        /// does not suppoert enum values.
+        /// </remarks>
         public string SelectedValue
         {
             get
             {
                 return SelectedItem.ToString();
+            }
+            set
+            {
+                SelectedItem = (T)Enum.Parse(typeof(T), value);
             }
         }
 
@@ -35,19 +43,6 @@ namespace UWPCore.Framework.Data
             {
                 return EnumExtensions.GetAsList<T>();
             }
-        }
-
-        /// <summary>
-        /// Selects an item from an enum string value.
-        /// </summary>
-        /// <remarks>
-        /// We use string values here, because <see cref="Windows.Storage.ApplicationDataContainer"/>
-        /// does not suppoert enum values.
-        /// </remarks>
-        /// <param name="enumValue">The enum string value.</param>
-        public void SelectValue(string enumValue)
-        {
-            SelectedItem = (T)Enum.Parse(typeof(T), enumValue);
         }
     }
 }

@@ -16,6 +16,12 @@ namespace UWPCore.Demo
         public static StoredObjectBase<int> SettingsSampleInteger = new LocalObject<int>("sampleInteger", 0);
 
         public static StoredObjectBase<bool?> SettingsSampleNullableBoolean = new LocalObject<bool?>("sampleNullableBoolean", null);
+
+        public static StoredObjectBase<string> SettingsSampleString = new LocalObject<string>("sampleString", SETTINGS_B);
+
+        public const string SETTINGS_A = "settingsA";
+        public const string SETTINGS_B = "settingsB";
+        public const string SETTINGS_C = "settingsC";
     }
 
     public enum SettingsEnum

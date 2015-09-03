@@ -150,6 +150,7 @@
     <Compile Include="Data\EnumSource.cs" />
     <Compile Include="Data\ICompressionService.cs" />
     <Compile Include="Data\ISerializationService.cs" />
+    <Compile Include="Data\RadioButtonSource.cs" />
     <Compile Include="Data\ZipArchiveService.cs" />
     <Compile Include="Devices\DeviceInfoService.cs" />
     <Compile Include="Devices\IDeviceInfoService.cs" />
