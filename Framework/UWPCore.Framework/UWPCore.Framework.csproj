@@ -228,8 +228,12 @@
     <Compile Include="Storage\IStorageService.cs" />
     <Compile Include="Storage\LocalObject.cs" />
     <Compile Include="Storage\LocalStorageService.cs" />
+    <Compile Include="Storage\RoamingStorageService.cs" />
+    <Compile Include="Storage\SharedLocalStorageService.cs" />
+    <Compile Include="Storage\StorageServiceBase.cs" />
     <Compile Include="Storage\RoamingObject.cs" />
     <Compile Include="Storage\StoredObjectBase.cs" />
+    <Compile Include="Storage\TemporaryStorageService.cs" />
     <Compile Include="Store\ILicenseService.cs" />
     <Compile Include="Store\LicenseService.cs" />
     <Compile Include="Store\ProductItem.cs" />
