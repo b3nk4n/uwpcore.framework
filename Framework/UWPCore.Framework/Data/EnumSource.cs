@@ -16,6 +16,17 @@ namespace UWPCore.Framework.Data
         public object SelectedItem { get; set; }
 
         /// <summary>
+        /// Gets or sets the selected value for storage.
+        /// </summary>
+        public string SelectedValue
+        {
+            get
+            {
+                return SelectedItem.ToString();
+            }
+        }
+
+        /// <summary>
         /// Gets the enum items as a list.
         /// </summary>
         public IList<T> ItemsSource
@@ -27,14 +38,14 @@ namespace UWPCore.Framework.Data
         }
 
         /// <summary>
-        /// Selects an item from a string.
+        /// Selects an item from an enum string value.
         /// </summary>
         /// <remarks>
         /// We use string values here, because <see cref="Windows.Storage.ApplicationDataContainer"/>
         /// does not suppoert enum values.
         /// </remarks>
         /// <param name="enumValue">The enum string value.</param>
-        public void SelectItem(string enumValue)
+        public void SelectValue(string enumValue)
         {
             SelectedItem = (T)Enum.Parse(typeof(T), enumValue);
         }
