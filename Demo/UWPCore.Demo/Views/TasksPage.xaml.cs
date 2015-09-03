@@ -1,9 +1,7 @@
-﻿using System;
-using UWPCore.Demo.Tasks;
+﻿using UWPCore.Demo.Tasks;
 using UWPCore.Framework.Tasks;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel.Background;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 

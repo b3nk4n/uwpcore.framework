@@ -9,9 +9,9 @@ namespace UWPCore.Demo
     /// </summary>
     public static class AppSettings
     {
-        public static LocalObject<bool> SettingsSampleBoolean = new LocalObject<bool>("sampleBoolean", false);
+        public static StoredObjectBase<bool> SettingsSampleBoolean = new LocalObject<bool>("sampleBoolean", false);
 
-        public static LocalObject<string> SettingsSampleEnum = new LocalObject<string>("sampleEnum", SettingsEnum.Settings3.ToString());
+        public static StoredObjectBase<string> SettingsSampleEnum = new LocalObject<string>("sampleEnum", SettingsEnum.Settings3.ToString());
     }
 
     public enum SettingsEnum

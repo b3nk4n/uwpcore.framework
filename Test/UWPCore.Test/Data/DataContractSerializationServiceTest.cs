@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using System.Diagnostics;
 using System.Runtime.Serialization;
 using UWPCore.Framework.Data;
 

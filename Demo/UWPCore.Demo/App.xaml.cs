@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using UWPCore.Demo.Views;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Controls;

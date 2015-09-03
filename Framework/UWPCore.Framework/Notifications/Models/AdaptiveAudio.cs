@@ -1,5 +1,4 @@
-﻿using System;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models

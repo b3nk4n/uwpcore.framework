@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UWPCore.Framework.Common
+﻿namespace UWPCore.Framework.Common
 {
     /// <summary>
     /// The launch arguments.

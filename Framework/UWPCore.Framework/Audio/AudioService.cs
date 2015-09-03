@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using UWPCore.Framework.Logging;
 using UWPCore.Framework.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;

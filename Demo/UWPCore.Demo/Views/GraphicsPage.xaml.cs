@@ -1,11 +1,8 @@
-﻿using System;
-using UWPCore.Demo.Controls;
+﻿using UWPCore.Demo.Controls;
 using UWPCore.Framework.Graphics;
 using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.Graphics.Imaging;
-using Windows.Storage;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
