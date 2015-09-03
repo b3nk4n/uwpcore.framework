@@ -143,7 +143,7 @@ namespace UWPCore.Demo
                 new NavMenuItem()
                 {
                     Symbol = Symbol.Play,
-                    Label = "Tasks",
+                    Label = "Launcher",
                     DestinationPage = typeof(LaunchPage)
                 },
                 new NavMenuItem()

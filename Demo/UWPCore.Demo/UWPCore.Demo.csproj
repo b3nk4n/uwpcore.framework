@@ -153,6 +153,8 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
     <None Include="UWPCore.Demo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
