@@ -21,7 +21,7 @@ namespace UWPCore.Framework.Controls
     {
         public AboutControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

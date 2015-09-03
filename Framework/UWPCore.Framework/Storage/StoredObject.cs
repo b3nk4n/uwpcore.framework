@@ -74,7 +74,7 @@ namespace UWPCore.Framework.Storage
         /// <returns>The stored objects string.</returns>
         public override string ToString()
         {
-            return this._key
+            return _key
                 + " with value: " + _value.ToString()
                 + ", default value: " + _defaultValue.ToString();
         }
@@ -84,7 +84,7 @@ namespace UWPCore.Framework.Storage
         /// </summary>
         public void Invalidate()
         {
-            this._needRefresh = true;
+            _needRefresh = true;
         }
 
         #endregion

@@ -21,7 +21,7 @@ namespace UWPCore.Test.Graphics.Controls
     {
         public SampleControl300()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }
