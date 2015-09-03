@@ -22,6 +22,7 @@ namespace UWPCore.Demo.Views
 
             SampleToggleSwitch.IsOn = AppSettings.SettingsSampleBoolean.Value;
             EnumSource.SelectValue(AppSettings.SettingsSampleEnum.Value);
+            SampleSlider.Value = AppSettings.SettingsSampleInteger.Value;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -30,6 +31,7 @@ namespace UWPCore.Demo.Views
 
             AppSettings.SettingsSampleBoolean.Value = SampleToggleSwitch.IsOn;
             AppSettings.SettingsSampleEnum.Value = EnumSource.SelectedValue;
+            AppSettings.SettingsSampleInteger.Value = (int)SampleSlider.Value;
         }
     }
 }
