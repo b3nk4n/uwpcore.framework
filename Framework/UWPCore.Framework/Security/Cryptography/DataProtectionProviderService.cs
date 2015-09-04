@@ -78,7 +78,7 @@ namespace UWPCore.Framework.Security.Cryptography
                 // Encode value
                 value = CryptographicBuffer.ConvertBinaryToString(encoding, unprotectedData);
             }
-            catch(Exception e)
+            catch(Exception)
             {
 
             }
@@ -116,7 +116,7 @@ namespace UWPCore.Framework.Security.Cryptography
                 await provider.UnprotectStreamAsync(source, destination);
                 await destination.FlushAsync();
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 
             }
