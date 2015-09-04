@@ -214,8 +214,7 @@ namespace UWPCore.Framework.Common
             };
             RootFrame.Navigated += (s, args) =>
             {
-                SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                    (ShowShellBackButton && RootFrame.CanGoBack) ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+                UpdateShellBackButton();
             };
 
             // setup default view
@@ -271,7 +270,11 @@ namespace UWPCore.Framework.Common
                     {
                         // restore if you need to/can do
                         var restored = await navigationService.RestoreSavedNavigationState();
-                        if (!restored)
+                        if (restored)
+                        {
+                            UpdateShellBackButton();
+                        }
+                        else
                         {
                             await OnStartAsync(StartKind.Launch, e, launchArgs);
                         }
@@ -306,6 +309,15 @@ namespace UWPCore.Framework.Common
 
             // Hook up keyboard and house Forward handler
             keyboard.AfterForwardGesture = () => RaiseForwardRequested();
+        }
+
+        /// <summary>
+        /// Updates the shells back button visibility.
+        /// </summary>
+        private void UpdateShellBackButton()
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                                (ShowShellBackButton && RootFrame.CanGoBack) ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
         /// <summary>
