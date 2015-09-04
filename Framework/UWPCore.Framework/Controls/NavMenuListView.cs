@@ -1,4 +1,5 @@
 ﻿using System;
+using UWPCore.Framework.Common;
 using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -270,20 +271,9 @@ namespace UWPCore.Framework.Controls
         public string Label { get; set; }
 
         /// <summary>
-        /// Gets or sets the symbol.
+        /// Gets or sets the symbol character.
         /// </summary>
-        public Symbol Symbol { get; set; }
-
-        /// <summary>
-        /// Gets the symbol character.
-        /// </summary>
-        public char SymbolAsChar
-        {
-            get
-            {
-                return (char)Symbol;
-            }
-        }
+        public char Symbol { get; set; }
 
         /// <summary>
         /// Gets or sets the destinatoin page.

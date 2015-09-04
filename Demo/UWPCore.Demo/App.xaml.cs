@@ -90,79 +90,79 @@ namespace UWPCore.Demo
             {
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Home,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Home),
                     Label = "Home",
                     DestinationPage = typeof(MainPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Audio,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Audio),
                     Label = "Audio",
                     DestinationPage = typeof(AudioPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Keyboard,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Keyboard),
                     Label = "Device Features",
                     DestinationPage = typeof(DeviceFeaturesPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.TwoBars,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.TwoBars),
                     Label = "Networking",
                     DestinationPage = typeof(NetworkingPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Message,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Message),
                     Label = "Notifications",
                     DestinationPage = typeof(NotificationsPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.People,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.People),
                     Label = "Speech",
                     DestinationPage = typeof(SpeechPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Shuffle,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Shuffle),
                     Label = "Share",
                     DestinationPage = typeof(SharePage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.FontColor,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.FontColor),
                     Label = "Graphics",
                     DestinationPage = typeof(GraphicsPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Document,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Document),
                     Label = "MVVM",
                     DestinationPage = typeof(MvvmPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Clock,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Clock),
                     Label = "Tasks",
                     DestinationPage = typeof(TasksPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Play,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Play),
                     Label = "Launcher",
                     DestinationPage = typeof(LaunchPage)
                 },
                 new NavMenuItem()
                 {
-                    Symbol = Symbol.Help,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Help),
                     Label = "About",
                     DestinationPage = typeof(AboutPage)
                 },
                 new NavMenuItem() // TODO: make it possible to stack navItems/links to the bottom
                 {
-                    Symbol = Symbol.Setting,
+                    Symbol = SystemIcons.Chars.FromSymbol(Symbol.Setting),
                     Label = "Settings",
                     DestinationPage = typeof(SettingsPage)
                 }
