@@ -3,8 +3,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace UWPCore.Demo.Views
 {
     /// <summary>
@@ -43,7 +41,10 @@ namespace UWPCore.Demo.Views
 
         private void VibrateClicked(object sender, RoutedEventArgs e)
         {
-            _vibrateService.Vibrate(500);
+            int duration = 0;
+            int.TryParse(VibrationDurationTextBox.Text, out duration);
+
+            _vibrateService.Vibrate(duration);
         }
 
         private void StopClicked(object sender, RoutedEventArgs e)
