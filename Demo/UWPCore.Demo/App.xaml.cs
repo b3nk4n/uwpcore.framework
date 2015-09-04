@@ -8,6 +8,8 @@ using UWPCore.Framework.Speech;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI;
+using UWPCore.Framework.Devices;
 
 namespace UWPCore.Demo
 {
@@ -16,7 +18,9 @@ namespace UWPCore.Demo
     /// </summary>
     sealed partial class App : UniversalApp
     {
-        SpeechService _speechService;
+        ISpeechService _speechService;
+
+        IStatusBarService _statusBarService;
 
         public App() : base(typeof(MainPage), AppBackButtonBehaviour.Terminate, "UWPCore.Demo")
         {
@@ -32,13 +36,17 @@ namespace UWPCore.Demo
 
         public async override Task OnInitializeAsync()
         {
+            await base.OnInitializeAsync();
+
             // remove this line to hide the SplitView-Shell
             Window.Current.Content = new AppShell(RootFrame, GetNavigationMenuItems());
 
             _speechService = new SpeechService();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
 
-            await base.OnInitializeAsync();
+            _statusBarService = new StatusBarService();
+            var color = (Color)Current.Resources["SystemChromeMediumColor"];
+            _statusBarService.BackgroundColor = color;
         }
 
         public override void OnPrelaunch()
