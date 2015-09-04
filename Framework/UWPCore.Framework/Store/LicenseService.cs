@@ -51,7 +51,7 @@ namespace UWPCore.Framework.Store
 #if DEBUG
                 await CurrentAppSimulator.RequestProductPurchaseAsync(productId);
 #else
-                await CurrentApp.RequestProductPurchaseAsync(productId, false);
+                await CurrentApp.RequestProductPurchaseAsync(productId);
 #endif
                 return true;
             }
