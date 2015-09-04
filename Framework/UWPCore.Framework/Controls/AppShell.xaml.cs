@@ -18,6 +18,11 @@ namespace UWPCore.Framework.Controls
     public partial class AppShell : Page
     {
         /// <summary>
+        /// The value where the adaptive UI chagnes its state.
+        /// </summary>
+        private const int ADAPTIVE_UI_TRIGGER_WIDTH = 720;
+
+        /// <summary>
         /// The declared top level navigation items list.
         /// </summary>
         public IEnumerable<NavMenuItem> NavigationItems { get; private set; }
@@ -44,11 +49,23 @@ namespace UWPCore.Framework.Controls
             RootSplitView.Content = frame;
             _rootFrame = frame;
 
+            _rootFrame.Navigating += OnNavigatingToPage;
+            _rootFrame.Navigated += OnNavigatedToPage;
+
             Loaded += (sender, args) =>
             {
                 Current = this;
 
                 TogglePaneButton.Focus(FocusState.Programmatic);
+            };
+
+            SizeChanged += (s, e) =>
+            {
+                // manually update toggle pane button size when the size was changted to small mode.
+                if (e.NewSize.Width <= ADAPTIVE_UI_TRIGGER_WIDTH)
+                {
+                    CheckTogglePaneButtonSizeChanged();
+                }
             };
 
             // If on a phone device that has hardware buttons then we hide the app's back button.
@@ -252,8 +269,9 @@ namespace UWPCore.Framework.Controls
             if (RootSplitView.DisplayMode == SplitViewDisplayMode.Inline ||
                 RootSplitView.DisplayMode == SplitViewDisplayMode.Overlay)
             {
-                var transform = TogglePaneButton.TransformToVisual(this);
-                var rect = transform.TransformBounds(new Rect(0, 0, TogglePaneButton.ActualWidth, TogglePaneButton.ActualHeight));
+                //var transform = TogglePaneButton.TransformToVisual(this);
+                //var rect = transform.TransformBounds(new Rect(0, 0, TogglePaneButton.ActualWidth, TogglePaneButton.ActualHeight));
+                var rect = new Rect(0, 0, TogglePaneButton.ActualWidth, TogglePaneButton.ActualHeight);
                 TogglePaneButtonRect = rect;
             }
             else
