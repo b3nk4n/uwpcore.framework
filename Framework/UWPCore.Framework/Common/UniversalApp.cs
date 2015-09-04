@@ -273,6 +273,9 @@ namespace UWPCore.Framework.Common
                         if (restored)
                         {
                             UpdateShellBackButton();
+
+                            // refresh current page to fire all navigation events
+                            navigationService.Refresh();
                         }
                         else
                         {

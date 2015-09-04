@@ -101,19 +101,8 @@ namespace UWPCore.Framework.Controls
                 else if (i == index)
                 {
                     lvi.IsSelected = true;
+                    // do not break to ensure everything else is unselected
                 }
-            }
-        }
-
-        /// <summary>
-        /// Unselect all menu items of the list.
-        /// </summary>
-        public void UnselectAll()
-        {
-            for (int i = 0; i < Items.Count; i++)
-            {
-                var lvi = (ListViewItem)ContainerFromIndex(i);
-                lvi.IsSelected = false;
             }
         }
 

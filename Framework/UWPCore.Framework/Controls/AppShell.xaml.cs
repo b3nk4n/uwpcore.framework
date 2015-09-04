@@ -24,7 +24,7 @@ namespace UWPCore.Framework.Controls
         /// <summary>
         /// The declared top level navigation items list.
         /// </summary>
-        public IEnumerable<NavMenuItem> NavigationItems { get; private set; }
+        public IList<NavMenuItem> NavigationItems { get; private set; }
 
         /// <summary>
         /// Singlton access to the current app shell.
@@ -69,12 +69,17 @@ namespace UWPCore.Framework.Controls
                 }
             };
 
-            NavigationItems = navigationItems;
+            NavigationItems = new List<NavMenuItem>(navigationItems);
             NavMenuList.ItemsSource = navigationItems;
 
             if (bottomDockedNavigationItems != null || bottomDockedNavigationItems.Count() > 0)
             {
                 NavMenuListBottomDock.ItemsSource = bottomDockedNavigationItems;
+
+                foreach (var item in bottomDockedNavigationItems)
+                {
+                    NavigationItems.Add(item);
+                }
             }
             else
             {
@@ -171,9 +176,6 @@ namespace UWPCore.Framework.Controls
                 if (item.DestinationPage != null &&
                     item.DestinationPage != AppFrame.CurrentSourcePageType)
                 {
-                    NavMenuList.UnselectAll();
-                    NavMenuListBottomDock.UnselectAll();
-
                     var nav = (Application.Current as UniversalApp).NavigationService;
 
                     // when we nav home, clear history
@@ -193,9 +195,10 @@ namespace UWPCore.Framework.Controls
         /// </summary>
         private void OnNavigatingToPage(object sender, NavigatingCancelEventArgs e)
         {
+            var item = (from p in NavigationItems where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
+
             if (e.NavigationMode == NavigationMode.Back)
             {
-                var item = (from p in NavigationItems where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
                 if (item == null && AppFrame.BackStackDepth > 0)
                 {
                     // In cases where a page drills into sub-pages then we'll highlight the most recent
@@ -207,23 +210,36 @@ namespace UWPCore.Framework.Controls
                             break;
                     }
                 }
-
-                var container = (ListViewItem)NavMenuList.ContainerFromItem(item);
-
-                // While updating the selection state of the item prevent it from taking keyboard focus.  If a
-                // user is invoking the back button via the keyboard causing the selected nav menu item to change
-                // then focus will remain on the back button.
-                if (container != null)
-                    container.IsTabStop = false;
-
-                NavMenuList.UnselectAll();
-                NavMenuListBottomDock.UnselectAll();
-
-                NavMenuList.SetSelectedItem(container);
-
-                if (container != null)
-                    container.IsTabStop = true;
             }
+
+            ListViewItem container = GetContainerFromItem(item);
+
+            // While updating the selection state of the item prevent it from taking keyboard focus.  If a
+            // user is invoking the back button via the keyboard causing the selected nav menu item to change
+            // then focus will remain on the back button.
+            if (container != null)
+                container.IsTabStop = false;
+
+            NavMenuList.SetSelectedItem(container);
+            NavMenuListBottomDock.SetSelectedItem(container);
+
+            if (container != null)
+                container.IsTabStop = true;
+        }
+
+        /// <summary>
+        /// Gets the container from the given navigation item, either from the main list or the bottom dock.
+        /// </summary>
+        /// <param name="item">THe navigation menu item.</param>
+        /// <returns>The list view item container.</returns>
+        private ListViewItem GetContainerFromItem(NavMenuItem item)
+        {
+            var container = (ListViewItem)NavMenuList.ContainerFromItem(item);
+            
+            if (container == null)
+                container = (ListViewItem)NavMenuListBottomDock.ContainerFromItem(item);
+
+            return container;
         }
 
         private void OnNavigatedToPage(object sender, NavigationEventArgs e)
