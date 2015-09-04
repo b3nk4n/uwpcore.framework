@@ -271,9 +271,20 @@ namespace UWPCore.Framework.Controls
         public string Label { get; set; }
 
         /// <summary>
-        /// Gets or sets the symbol character.
+        /// Gets or sets the symbol.
         /// </summary>
-        public char Symbol { get; set; }
+        public GlyphIcons Symbol { get; set; }
+
+        /// <summary>
+        /// Gets the symbol as character.
+        /// </summary>
+        public char SymbolChar
+        {
+            get
+            {
+                return (char)Symbol;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the destinatoin page.

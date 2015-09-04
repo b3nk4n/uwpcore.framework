@@ -119,6 +119,7 @@
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
+    <Compile Include="Common\GlyphIcons.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\ILaunchArgs.cs" />
     <Compile Include="Common\LaunchArgs.cs" />
