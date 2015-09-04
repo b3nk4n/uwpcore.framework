@@ -18,11 +18,6 @@ namespace UWPCore.Framework.Controls
     public partial class AppShell : Page
     {
         /// <summary>
-        /// The value where the adaptive UI chagnes its state.
-        /// </summary>
-        private const int ADAPTIVE_UI_TRIGGER_WIDTH = 720;
-
-        /// <summary>
         /// The declared top level navigation items list.
         /// </summary>
         public IList<NavMenuItem> NavigationItems { get; private set; }
@@ -63,11 +58,8 @@ namespace UWPCore.Framework.Controls
 
             SizeChanged += (s, e) =>
             {
-                // manually update toggle pane button size when the size was changted to small mode.
-                if (e.NewSize.Width <= ADAPTIVE_UI_TRIGGER_WIDTH)
-                {
-                    CheckTogglePaneButtonSizeChanged();
-                }
+                // update the button size when the frame size changes, due to possible changes of the adaptive UI
+                CheckTogglePaneButtonSizeChanged();
             };
 
             NavigationItems = new List<NavMenuItem>(navigationItems);
@@ -311,8 +303,6 @@ namespace UWPCore.Framework.Controls
             if (RootSplitView.DisplayMode == SplitViewDisplayMode.Inline ||
                 RootSplitView.DisplayMode == SplitViewDisplayMode.Overlay)
             {
-                //var transform = TogglePaneButton.TransformToVisual(this);
-                //var rect = transform.TransformBounds(new Rect(0, 0, TogglePaneButton.ActualWidth, TogglePaneButton.ActualHeight));
                 var rect = new Rect(0, 0, TogglePaneButton.ActualWidth, TogglePaneButton.ActualHeight);
                 TogglePaneButtonRect = rect;
             }
