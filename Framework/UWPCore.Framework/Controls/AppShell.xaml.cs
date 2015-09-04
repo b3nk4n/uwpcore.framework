@@ -70,12 +70,6 @@ namespace UWPCore.Framework.Controls
                 }
             };
 
-            // If on a phone device that has hardware buttons then we hide the app's back button.
-            if (ApiInformation.IsTypePresent("Windows.Phone.UI.Input.HardwareButtons"))
-            {
-                BackButton.Visibility = Visibility.Collapsed;
-            }
-
             NavigationItems = navigationItems;
             NavMenuList.ItemsSource = navigationItems;
 
@@ -143,12 +137,6 @@ namespace UWPCore.Framework.Controls
         }
 
         #region BackRequested Handlers
-
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            bool ignored = false;
-            BackRequested(ref ignored);
-        }
 
         /// <summary>
         /// Gest a hold of the current frame so that we can inspect the app back stack.
