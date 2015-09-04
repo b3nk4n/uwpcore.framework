@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UWPCore.Framework.Common;
 using Windows.Foundation;
@@ -195,7 +196,7 @@ namespace UWPCore.Framework.Controls
         /// </summary>
         private void OnNavigatingToPage(object sender, NavigatingCancelEventArgs e)
         {
-            var item = (from p in NavigationItems where p.DestinationPage == e.SourcePageType select p).SingleOrDefault();
+            var item = GetNavigationItem(e.SourcePageType);
 
             if (e.NavigationMode == NavigationMode.Back)
             {
@@ -205,14 +206,14 @@ namespace UWPCore.Framework.Controls
                     // navigation menu item that appears in the BackStack
                     foreach (var entry in AppFrame.BackStack.Reverse())
                     {
-                        item = (from p in NavigationItems where p.DestinationPage == entry.SourcePageType select p).SingleOrDefault();
+                        item = GetNavigationItem(entry.SourcePageType);
                         if (item != null)
                             break;
                     }
                 }
             }
 
-            ListViewItem container = GetContainerFromItem(item);
+            var container = GetContainerFromItem(item);
 
             // While updating the selection state of the item prevent it from taking keyboard focus.  If a
             // user is invoking the back button via the keyboard causing the selected nav menu item to change
@@ -230,14 +231,21 @@ namespace UWPCore.Framework.Controls
         /// <summary>
         /// Gets the container from the given navigation item, either from the main list or the bottom dock.
         /// </summary>
-        /// <param name="item">THe navigation menu item.</param>
+        /// <remarks>
+        /// UpdateLayout is invoked to make sure the containers are available even when the ListView was not rendered.
+        /// </remarks>
+        /// <param name="item">The navigation menu item.</param>
         /// <returns>The list view item container.</returns>
         private ListViewItem GetContainerFromItem(NavMenuItem item)
         {
+            NavMenuList.UpdateLayout();
             var container = (ListViewItem)NavMenuList.ContainerFromItem(item);
             
             if (container == null)
+            {
+                NavMenuListBottomDock.UpdateLayout();
                 container = (ListViewItem)NavMenuListBottomDock.ContainerFromItem(item);
+            }   
 
             return container;
         }
@@ -280,9 +288,18 @@ namespace UWPCore.Framework.Controls
         /// Callback when the SplitView's Pane is toggled open or close.  When the Pane is not visible
         /// then the floating hamburger may be occluding other content in the app unless it is aware.
         /// </summary>
-        private void TogglePaneButton_Checked(object sender, RoutedEventArgs e)
+        private void TogglePaneButton_Unchecked(object sender, RoutedEventArgs e)
         {
             CheckTogglePaneButtonSizeChanged();
+        }
+
+        private void TogglePaneButton_Checked(object sender, RoutedEventArgs e)
+        {
+            // update selected item when toggle changes (also happens when split view opens after windows resize)
+            var item = GetNavigationItem(_rootFrame.CurrentSourcePageType);
+            var container = GetContainerFromItem(item);
+            NavMenuList.SetSelectedItem(container);
+            NavMenuListBottomDock.SetSelectedItem(container);
         }
 
         /// <summary>
@@ -310,6 +327,16 @@ namespace UWPCore.Framework.Controls
                 // handler(this, this.TogglePaneButtonRect);
                 handler.DynamicInvoke(this, TogglePaneButtonRect);
             }
+        }
+
+        /// <summary>
+        /// Gets the navigation item of the given page type.
+        /// </summary>
+        /// <param name="pageType">The page type.</param>
+        /// <returns>Returns the navigation item.</returns>
+        private NavMenuItem GetNavigationItem(Type pageType)
+        {
+            return (from p in NavigationItems where p.DestinationPage == pageType select p).SingleOrDefault();
         }
 
         /// <summary>
