@@ -4,7 +4,7 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage.Streams;
 
-namespace UWPCore.Framework.Security.Cryptography.DataProtection
+namespace UWPCore.Framework.Security.Cryptography
 {
     /// <summary>
     /// The data protection service use the data protection provider to protect data. 

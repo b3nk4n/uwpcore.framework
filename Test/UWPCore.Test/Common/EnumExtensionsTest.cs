@@ -1,9 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using UWPCore.Framework.Common;
 
-namespace UWPCore.Test.Common
+namespace UWPCore.Framework.Common
 {
     [TestClass]
     public class EnumExtensionsTest

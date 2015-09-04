@@ -2,9 +2,8 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using UWPCore.Framework.Storage;
 
-namespace UWPCore.Test.Storage
+namespace UWPCore.Framework.Storage
 {
     [TestClass]
     public class LocalStorageServiceTest

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 
-namespace UWPCore.Test.UnitTestFramework
+namespace UWPCore.Framework.UnitTestFramework
 {
     /// <summary>
     /// Attribute that allows to run the non-async test in the UI thread.

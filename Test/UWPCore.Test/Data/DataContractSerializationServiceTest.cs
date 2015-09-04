@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System.Runtime.Serialization;
-using UWPCore.Framework.Data;
 
-namespace UWPCore.Test.Data
+namespace UWPCore.Framework.Data
 {
     [TestClass]
     public class DataContractSerializationServiceTest

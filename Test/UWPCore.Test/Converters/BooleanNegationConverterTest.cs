@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UWPCore.Framework.Converters;
 using Windows.UI.Xaml.Data;
 
-namespace UWPCore.Test.Converters
+namespace UWPCore.Framework.Converters
 {
     [TestClass]
     public class BooleanNegationConverterTest

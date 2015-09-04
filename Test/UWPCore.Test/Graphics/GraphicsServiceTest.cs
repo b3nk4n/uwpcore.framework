@@ -1,16 +1,15 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UWPCore.Framework.Graphics;
 using UWPCore.Framework.Storage;
-using UWPCore.Test.Graphics.Controls;
 using Windows.Graphics.Imaging;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
+using UWPCore.Framework.Graphics.Controls;
 
-namespace UWPCore.Test.Graphics
+namespace UWPCore.Framework.Graphics
 {
     [TestClass]
     public class GraphicsServiceTest

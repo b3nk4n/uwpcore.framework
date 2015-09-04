@@ -2,7 +2,7 @@
 using Windows.Security.Cryptography;
 using Windows.Storage.Streams;
 
-namespace UWPCore.Framework.Security.Cryptography.DataProtection
+namespace UWPCore.Framework.Security.Cryptography
 {
     interface IDataProtectionProviderService
     {

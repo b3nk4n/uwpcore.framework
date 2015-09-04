@@ -4,7 +4,7 @@ using Windows.Storage.Streams;
 using Windows.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace UWPCore.Framework.Security.Cryptography.DataProtection
+namespace UWPCore.Framework.Security.Cryptography
 {
     [TestClass]
     public class DataProtectionProviderServiceTest

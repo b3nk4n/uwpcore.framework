@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using UWPCore.Framework.Storage;
 
-namespace UWPCore.Test.Storage
+namespace UWPCore.Framework.Storage
 {
     [TestClass]
     public class LocalObjectTest
