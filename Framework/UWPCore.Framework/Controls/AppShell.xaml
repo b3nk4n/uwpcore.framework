@@ -64,24 +64,44 @@
                    IsTabStop="False">
             <SplitView.Pane>
                 <!-- A custom ListView to display the items in the pane.  The automation Name is set in the ContainerContentChanging event. -->
-                <controls:NavMenuListView x:Name="NavMenuList"
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <controls:NavMenuListView x:Name="NavMenuList" Grid.Row="0"
                                           TabIndex="3"
                                           Margin="0,48,0,0"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
                                           ItemInvoked="NavMenuList_ItemInvoked">
-                    <controls:NavMenuListView.Header>
-                        <!-- Using this custom back navigation button until the system-provided back button is enabled. -->
-                        <Button x:Name="BackButton"
+                        <controls:NavMenuListView.Header>
+                            <!-- Using this custom back navigation button until the system-provided back button is enabled. -->
+                            <Button x:Name="BackButton"
                                 TabIndex="2"
                                 Style="{StaticResource NavigationBackButtonStyle}"
                                 IsEnabled="{Binding AppFrame.CanGoBack, ElementName=Root}"
                                 Width="{Binding ItemsPanelRoot.Width, ElementName=NavMenuList}"
                                 HorizontalAlignment="{Binding ItemsPanelRoot.HorizontalAlignment, ElementName=NavMenuList}"
                                 Click="BackButton_Click"/>
-                    </controls:NavMenuListView.Header>
-                </controls:NavMenuListView>
+                        </controls:NavMenuListView.Header>
+                    </controls:NavMenuListView>
+
+
+                    <StackPanel Grid.Row="1">
+                        <Rectangle x:Name="NavMenuSeperator" Height="1" Fill="{StaticResource SystemControlHighlightListLowBrush}" />
+                        
+                        <controls:NavMenuListView x:Name="NavMenuListBottomDock"
+                                          TabIndex="3"
+                                          ContainerContentChanging="NavMenuItemContainerContentChanging"
+                                          ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
+                                          ItemTemplate="{StaticResource NavMenuItemTemplate}"
+                                          ItemInvoked="NavMenuList_ItemInvoked">
+                        </controls:NavMenuListView>
+                    </StackPanel>
+                    
+                </Grid>
             </SplitView.Pane>
             
             <!-- Content is added at startup in code... -->

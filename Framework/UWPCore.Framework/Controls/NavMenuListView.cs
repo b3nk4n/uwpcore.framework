@@ -106,6 +106,18 @@ namespace UWPCore.Framework.Controls
         }
 
         /// <summary>
+        /// Unselect all menu items of the list.
+        /// </summary>
+        public void UnselectAll()
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                var lvi = (ListViewItem)ContainerFromIndex(i);
+                lvi.IsSelected = false;
+            }
+        }
+
+        /// <summary>
         /// Occurs when an item has been selected
         /// </summary>
         public event EventHandler<ListViewItem> ItemInvoked;
@@ -212,6 +224,11 @@ namespace UWPCore.Framework.Controls
             }
         }
 
+        /// <summary>
+        /// Invokes an item when it was clicked.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event args.</param>
         private void ItemClickedHandler(object sender, ItemClickEventArgs e)
         {
             // Triggered when the item is selected using something other than a keyboard

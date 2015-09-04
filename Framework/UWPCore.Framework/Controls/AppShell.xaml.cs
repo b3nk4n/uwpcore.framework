@@ -43,7 +43,9 @@ namespace UWPCore.Framework.Controls
         /// provide the nav menu list with the data to display.
         /// </summary>
         /// <param name="frame">The root frame of the application.</param>
-        public AppShell(Frame frame, IEnumerable<NavMenuItem> navigationItems)
+        /// <param name="navigationItems">The navigation items.</param>
+        /// <param name="bottomDockedNavigationItems">The optional navigation items that are docked at the bottom.</param>
+        public AppShell(Frame frame, IEnumerable<NavMenuItem> navigationItems, IEnumerable<NavMenuItem> bottomDockedNavigationItems = null)
         {
             InitializeComponent();
             RootSplitView.Content = frame;
@@ -75,7 +77,17 @@ namespace UWPCore.Framework.Controls
             }
 
             NavigationItems = navigationItems;
-            NavMenuList.ItemsSource = NavigationItems;
+            NavMenuList.ItemsSource = navigationItems;
+
+            if (bottomDockedNavigationItems != null || bottomDockedNavigationItems.Count() > 0)
+            {
+                NavMenuListBottomDock.ItemsSource = bottomDockedNavigationItems;
+            }
+            else
+            {
+                NavMenuSeperator.Visibility = Visibility.Collapsed;
+            }
+                
         }
 
         /// <summary>
@@ -172,6 +184,9 @@ namespace UWPCore.Framework.Controls
                 if (item.DestinationPage != null &&
                     item.DestinationPage != AppFrame.CurrentSourcePageType)
                 {
+                    NavMenuList.UnselectAll();
+                    NavMenuListBottomDock.UnselectAll();
+
                     var nav = (Application.Current as UniversalApp).NavigationService;
 
                     // when we nav home, clear history
@@ -211,9 +226,16 @@ namespace UWPCore.Framework.Controls
                 // While updating the selection state of the item prevent it from taking keyboard focus.  If a
                 // user is invoking the back button via the keyboard causing the selected nav menu item to change
                 // then focus will remain on the back button.
-                if (container != null) container.IsTabStop = false;
+                if (container != null)
+                    container.IsTabStop = false;
+
+                NavMenuList.UnselectAll();
+                NavMenuListBottomDock.UnselectAll();
+
                 NavMenuList.SetSelectedItem(container);
-                if (container != null) container.IsTabStop = true;
+
+                if (container != null)
+                    container.IsTabStop = true;
             }
         }
 

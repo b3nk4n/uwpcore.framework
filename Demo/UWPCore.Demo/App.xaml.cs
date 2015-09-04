@@ -7,7 +7,6 @@ using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Speech;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI;
 using UWPCore.Framework.Devices;
 
@@ -39,7 +38,10 @@ namespace UWPCore.Demo
             await base.OnInitializeAsync();
 
             // remove this line to hide the SplitView-Shell
-            Window.Current.Content = new AppShell(RootFrame, GetNavigationMenuItems());
+            Window.Current.Content = new AppShell(
+                RootFrame,
+                GetNavigationMenuItems(),
+                GetBottomDockedNavigationMenuItems());
 
             _speechService = new SpeechService();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
@@ -153,14 +155,25 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.MediaPlay,
                     Label = "Launcher",
                     DestinationPage = typeof(LaunchPage)
-                },
+                }
+            };
+        }
+
+        /// <summary>
+        /// Gets the navigation menu items that are docked at the bottom.
+        /// </summary>
+        /// <returns>The navigation menu items.</returns>
+        private static NavMenuItem[] GetBottomDockedNavigationMenuItems()
+        {
+            return new[]
+            {
                 new NavMenuItem()
                 {
                     Symbol = GlyphIcons.Info,
                     Label = "About",
                     DestinationPage = typeof(AboutPage)
                 },
-                new NavMenuItem() // TODO: make it possible to stack navItems/links to the bottom
+                new NavMenuItem()
                 {
                     Symbol = GlyphIcons.Setting,
                     Label = "Settings",
