@@ -13,6 +13,19 @@ namespace UWPCore.Framework.ViewModels
     public class AboutViewModel : ViewModelBase
     {
         /// <summary>
+        /// The share content service.
+        /// </summary>
+        private IShareContentService _shareContentService;
+
+        /// <summary>
+        /// Creates a AboutViewModel instance.
+        /// </summary>
+        public AboutViewModel()
+        {
+            _shareContentService = new ShareContentService();
+        }
+
+        /// <summary>
         /// Gets or sets the app title.
         /// </summary>
         public string AppTitle { get { return _appTitle; } set { Set(ref _appTitle, value); } }
@@ -63,6 +76,11 @@ namespace UWPCore.Framework.ViewModels
         public string PublisherName { get; set; }
 
         /// <summary>
+        /// Gets or sets the share app text.
+        /// </summary>
+        public string ShareAppUri { get; set; }
+
+        /// <summary>
         /// Gets or sets the privacy info text.
         /// </summary>
         public string ShowPrivacyInfoText { get; set; }
@@ -83,9 +101,9 @@ namespace UWPCore.Framework.ViewModels
         public string MoreAppsText { get; set; }
 
         /// <summary>
-        /// Gets or sets the share app text.
+        /// Gets or sets the optional share app format-text. It requries 1 placeholder!
         /// </summary>
-        public string ShareAppText { get; set; }
+        public string ShareAppTextFormat { get; set; } = "Check out {0} for Windows 10 Mobile:";
 
         /// <summary>
         /// Gets the command to show the privacy info.
@@ -137,7 +155,9 @@ namespace UWPCore.Framework.ViewModels
         DelegateCommand _shareAppCommand = default(DelegateCommand);
         private void ExecuteShareApp()
         {
-            // TODO: share app
+            // we do not need a translation here I guess...
+            var shareTitle = string.Format(ShareAppTextFormat, AppTitle);
+            _shareContentService.ShareWebLink(shareTitle, new Uri(ShareAppUri));
         }
     }
 }

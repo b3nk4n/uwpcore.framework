@@ -35,7 +35,8 @@
                         SendFeedbackEmailText="Send feedback"
                         RateAndReviewText="Rate and review"
                         MoreAppsText="More apps"
-                        ShareAppText="Share"
+                        ShareAppTextFormat="Share"
+                        ShareAppUri="http://www.windowsphone.com/s?appid=92740dff-b2e1-4813-b08b-c6429df03356"
                         PublisherName="Benjamin Sautermeister"
                         FeedbackToEmail="apps@bsautermeister.de"
                         PrivacyInfoUri="http://bsautermeister.de/privacy.php"/>

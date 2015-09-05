@@ -224,6 +224,8 @@
     <Compile Include="Security\Cryptography\IDataProtectionProviderService.cs" />
     <Compile Include="Share\EmailService.cs" />
     <Compile Include="Share\IEmailService.cs" />
+    <Compile Include="Share\IShareContentService.cs" />
+    <Compile Include="Share\ShareContentService.cs" />
     <Compile Include="Speech\IRecognitionResult.cs" />
     <Compile Include="Speech\ISpeechService.cs" />
     <Compile Include="Speech\RecognitionResult.cs" />
