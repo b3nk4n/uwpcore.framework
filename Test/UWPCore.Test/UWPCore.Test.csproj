@@ -7,7 +7,7 @@
     <ProjectGuid>{543D7DD8-5779-4C37-AC6D-4BCACCFD6544}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UWPCore.Framework</RootNamespace>
+    <RootNamespace>UWPCore.Test</RootNamespace>
     <AssemblyName>UWPCore.Test</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
@@ -105,6 +105,7 @@
     <Compile Include="Graphics\GraphicsServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Cryptography\DataProtectionProviderServiceTest.cs" />
+    <Compile Include="Security\Cryptography\Aes256ServiceTest.cs" />
     <Compile Include="Storage\RoamingObjectTest.cs" />
     <Compile Include="Storage\LocalStorageServiceTest.cs" />
     <Compile Include="Storage\LocalObjectTest.cs" />
