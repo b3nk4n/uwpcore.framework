@@ -26,7 +26,7 @@
                 <uwpcControls:AboutControl Margin="16">
                     <uwpcControls:AboutControl.DataContext>
                         <uwpcViewModels:AboutViewModel
-                        AppTitle="UWPCore Demo"
+                        AppTitle="UWPCore Demo App"
                         AppDeveloper="Benjamin Sautermeister"
                         AppDescription="This is a sample app demonstrating the core features of the UWPCore development acceleration framework for Windows Universal Platform."
                         AppVersion="Version 1.0b"

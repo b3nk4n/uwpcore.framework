@@ -246,7 +246,10 @@ namespace UWPCore.Framework.Navigation
         {
             var page = CurrentPageType;
             var param = CurrentPageParam;
-            Frame.BackStack.Remove(Frame.BackStack.Last());
+
+            if (Frame.BackStack.Count > 0)
+                Frame.BackStack.Remove(Frame.BackStack.Last());
+
             Navigate(page, param);
         }
 
