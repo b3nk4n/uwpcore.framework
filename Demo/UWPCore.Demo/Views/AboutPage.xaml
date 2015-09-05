@@ -22,23 +22,26 @@
         </uwpcControls:PageHeader>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <uwpcControls:AboutControl>
-                <uwpcControls:AboutControl.DataContext>
-                    <uwpcViewModels:AboutViewModel
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <uwpcControls:AboutControl Margin="16">
+                    <uwpcControls:AboutControl.DataContext>
+                        <uwpcViewModels:AboutViewModel
                         AppTitle="UWPCore Demo"
                         AppDeveloper="Benjamin Sautermeister"
-                        AppDescription="This is a sample app demonstrating various kinds of features of the UWPCore framework."
-                        AppVersion="1.0 Beta"
+                        AppDescription="This is a sample app demonstrating the core features of the UWPCore development acceleration framework for Windows Universal Platform."
+                        AppVersion="Version 1.0b"
                         AppIcon="/Assets/Square150x150Logo.png"
                         ShowPrivacyInfoText="Privacy info"
                         SendFeedbackEmailText="Send feedback"
                         RateAndReviewText="Rate and review"
                         MoreAppsText="More apps"
+                        ShareAppText="Share"
                         PublisherName="Benjamin Sautermeister"
                         FeedbackToEmail="apps@bsautermeister.de"
                         PrivacyInfoUri="http://bsautermeister.de/privacy.php"/>
-                </uwpcControls:AboutControl.DataContext>
-            </uwpcControls:AboutControl>
+                    </uwpcControls:AboutControl.DataContext>
+                </uwpcControls:AboutControl>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </Page>

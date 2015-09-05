@@ -9,19 +9,37 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/SystemIcons.xaml"/>
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/CommonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <StackPanel>
-            <TextBlock Text="{Binding AppTitle}" FontFamily="Arial" Margin="4" />
-            <TextBlock Text="{Binding AppDeveloper}" Margin="4" />
-            <TextBlock Text="{Binding AppVersion}" Margin="4" />
-            <TextBlock Text="{Binding AppDescription}" Margin="4" />
-            <Border Background="{StaticResource SystemControlBackgroundAccentBrush}" Height="120" Width="120">
-                <Image Source="{Binding AppIcon}" Margin="4" />
-            </Border>
-            <Button Content="{Binding ShowPrivacyInfoText}" Command="{Binding ShowPrivacyInfoCommand}" Margin="4" />
-            <Button Content="{Binding RateAndReviewText}" Command="{Binding RateAndReviewCommand}" Margin="4" />
-            <Button Content="{Binding MoreAppsText}" Command="{Binding MoreAppsCommand}" Margin="4" />
-            <Button Content="{Binding SendFeedbackEmailText}" Command="{Binding SendFeedbackEmailCommand}" Margin="4" />
+            <StackPanel Orientation="Horizontal">
+                <Border Background="{StaticResource SystemControlBackgroundAccentBrush}" Margin="8" Height="112" Width="112">
+                    <Image Source="{Binding AppIcon}" />
+                </Border>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding AppTitle}" Style="{StaticResource TitleTextBlockStyle}" Margin="8" />
+                    <TextBlock Text="{Binding AppDeveloper}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="8,0,8,0" />
+                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="8,0,8,8" />
+                </StackPanel>
+            </StackPanel>
+
+            <TextBlock Text="{Binding AppDescription}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" TextWrapping="Wrap" MaxWidth="520" HorizontalAlignment="Left" Margin="8" />
+
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{StaticResource Star}" ToolTipService.ToolTip="{Binding RateAndReviewText}" Command="{Binding RateAndReviewCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8" />
+                <Button Content="{StaticResource Bag}" ToolTipService.ToolTip="{Binding MoreAppsText}" Command="{Binding MoreAppsCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8" />
+                <Button Content="{StaticResource Share}" ToolTipService.ToolTip="{Binding ShareAppText}" Command="{Binding ShareAppCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8" />
+                <Button Content="{StaticResource EmailReply}" ToolTipService.ToolTip="{Binding SendFeedbackEmailText}" Command="{Binding SendFeedbackEmailCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8" />
+                <Button Content="{StaticResource Unlock}" ToolTipService.ToolTip="{Binding ShowPrivacyInfoText}" Command="{Binding ShowPrivacyInfoCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8" />
+            </StackPanel>
         </StackPanel>
         
     </Grid>

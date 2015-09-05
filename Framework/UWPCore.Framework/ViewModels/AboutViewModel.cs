@@ -83,6 +83,11 @@ namespace UWPCore.Framework.ViewModels
         public string MoreAppsText { get; set; }
 
         /// <summary>
+        /// Gets or sets the share app text.
+        /// </summary>
+        public string ShareAppText { get; set; }
+
+        /// <summary>
         /// Gets the command to show the privacy info.
         /// </summary>
         public DelegateCommand ShowPrivacyInfoCommand { get { return _showPrivacyInfoCommand ?? (_showPrivacyInfoCommand = new DelegateCommand(ExecuteShowPrivacyInfo)); } }
@@ -123,6 +128,16 @@ namespace UWPCore.Framework.ViewModels
         private async void ExecuteMoreApps()
         {
             await StoreLauncher.LaunchSearchAppsByPublisherAsync(PublisherName);
+        }
+
+        /// <summary>
+        /// Gets the command to share the app.
+        /// </summary>
+        public DelegateCommand ShareAppCommand { get { return _shareAppCommand ?? (_shareAppCommand = new DelegateCommand(ExecuteShareApp)); } }
+        DelegateCommand _shareAppCommand = default(DelegateCommand);
+        private void ExecuteShareApp()
+        {
+            // TODO: share app
         }
     }
 }
