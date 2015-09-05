@@ -167,6 +167,7 @@
     <Compile Include="Launcher\StoreLauncher.cs" />
     <Compile Include="Launcher\SystemLauncher.cs" />
     <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Models\ContributorModel.cs" />
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Mvvm\IBindable.cs" />

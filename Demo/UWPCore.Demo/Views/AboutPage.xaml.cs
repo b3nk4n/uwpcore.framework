@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using UWPCore.Framework.ViewModels;
+using Windows.UI.Xaml.Controls;
 
 namespace UWPCore.Demo.Views
 {

@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
     xmlns:uwpcViewModels="using:UWPCore.Framework.ViewModels"
+    xmlns:uwpcModels="using:UWPCore.Framework.Models"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -26,7 +27,7 @@
                 <uwpcControls:AboutControl Margin="16">
                     <uwpcControls:AboutControl.DataContext>
                         <uwpcViewModels:AboutViewModel
-                        AppTitle="UWPCore Demo App"
+                        AppTitle="UWPCore"
                         AppDeveloper="Benjamin Sautermeister"
                         AppDescription="This is a sample app demonstrating the core features of the UWPCore development acceleration framework for Windows Universal Platform."
                         AppVersion="Version 1.0b"
@@ -39,7 +40,13 @@
                         ShareAppUri="http://www.windowsphone.com/s?appid=92740dff-b2e1-4813-b08b-c6429df03356"
                         PublisherName="Benjamin Sautermeister"
                         FeedbackToEmail="apps@bsautermeister.de"
-                        PrivacyInfoUri="http://bsautermeister.de/privacy.php"/>
+                        PrivacyInfoUri="http://bsautermeister.de/privacy.php">
+                            <uwpcViewModels:AboutViewModel.Contributors>
+                                <uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/uk-circle.png" />
+                                <uwpcModels:ContributorModel Title="Vorname Nachname" Icon="/Assets/Images/germany-circle.png" />
+                                <uwpcModels:ContributorModel Title="Nombre Apellido" Icon="/Assets/Images/mexico-circle.png" />
+                            </uwpcViewModels:AboutViewModel.Contributors>
+                        </uwpcViewModels:AboutViewModel>
                     </uwpcControls:AboutControl.DataContext>
                 </uwpcControls:AboutControl>
             </ScrollViewer>

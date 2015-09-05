@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using UWPCore.Framework.Launcher;
+using UWPCore.Framework.Models;
 using UWPCore.Framework.Mvvm;
 using UWPCore.Framework.Share;
 using Windows.UI.Xaml.Media;
@@ -10,7 +12,7 @@ namespace UWPCore.Framework.ViewModels
     /// The view model for the default <see cref="Controls.AboutControl"/>.
     /// </summary>
     // TODO: because this is a static view model, it would be sufficient to use standard properties here...
-    public class AboutViewModel : ViewModelBase
+    public sealed class AboutViewModel : ViewModelBase
     {
         /// <summary>
         /// The share content service.
@@ -23,6 +25,12 @@ namespace UWPCore.Framework.ViewModels
         public AboutViewModel()
         {
             _shareContentService = new ShareContentService();
+
+            Contributors.CollectionChanged += (s, e) =>
+            {
+                // updates the contributors visibility
+                HasContributors = Contributors.Count > 0;
+            };
         }
 
         /// <summary>
@@ -106,6 +114,17 @@ namespace UWPCore.Framework.ViewModels
         public string ShareAppTextFormat { get; set; } = "Check out {0} for Windows 10 Mobile:";
 
         /// <summary>
+        /// Gets or sets the contributors.
+        /// </summary>
+        public ContributorModelList Contributors { get; private set; } = new ContributorModelList();
+
+        /// <summary>
+        /// Gets whether there are contributors to display.
+        /// </summary>
+        public bool HasContributors { get { return _hasContributors; } set { Set(ref _hasContributors, value); } }
+        private bool _hasContributors;
+
+        /// <summary>
         /// Gets the command to show the privacy info.
         /// </summary>
         public DelegateCommand ShowPrivacyInfoCommand { get { return _showPrivacyInfoCommand ?? (_showPrivacyInfoCommand = new DelegateCommand(ExecuteShowPrivacyInfo)); } }
@@ -160,4 +179,9 @@ namespace UWPCore.Framework.ViewModels
             _shareContentService.ShareWebLink(shareTitle, new Uri(ShareAppUri));
         }
     }
+
+    /// <summary>
+    /// Implemented an own class because XAML can not handle generics.
+    /// </summary>
+    public sealed class ContributorModelList : ObservableCollection<ContributorModel> { }
 }

@@ -5,6 +5,7 @@
     xmlns:local="using:UWPCore.Framework.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcConverters="using:UWPCore.Framework.Converters"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -15,6 +16,8 @@
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/SystemIcons.xaml"/>
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/CommonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <uwpcConverters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConv" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -25,21 +28,34 @@
                     <Image Source="{Binding AppIcon}" />
                 </Border>
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="{Binding AppTitle}" Style="{StaticResource TitleTextBlockStyle}" MaxWidth="142" Margin="8" />
-                    <TextBlock Text="{Binding AppDeveloper}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="8,0,8,0" />
-                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="8,0,8,8" />
+                    <TextBlock Text="{Binding AppTitle}" Style="{StaticResource TitleTextBlockStyle}" MaxWidth="142" Margin="0,8,8,8" />
+                    <TextBlock Text="{Binding AppDeveloper}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="0,0,8,0" />
+                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="0,0,8,8" />
                 </StackPanel>
             </StackPanel>
 
-            <TextBlock Text="{Binding AppDescription}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" TextWrapping="Wrap" MaxWidth="520" HorizontalAlignment="Left" Margin="8" />
+            <TextBlock Text="{Binding AppDescription}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" TextWrapping="Wrap" MaxWidth="520" HorizontalAlignment="Left" Margin="8,16" />
 
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" Margin="0,8">
                 <Button Content="{StaticResource Star}" ToolTipService.ToolTip="{Binding RateAndReviewText}" Command="{Binding RateAndReviewCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8,8,4,8" />
                 <Button Content="{StaticResource Bag}" ToolTipService.ToolTip="{Binding MoreAppsText}" Command="{Binding MoreAppsCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8" />
                 <Button Content="{StaticResource Share}" ToolTipService.ToolTip="{Binding ShareAppText}" Command="{Binding ShareAppCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8" />
                 <Button Content="{StaticResource EmailReply}" ToolTipService.ToolTip="{Binding SendFeedbackEmailText}" Command="{Binding SendFeedbackEmailCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8" />
-                <Button Content="{StaticResource Unlock}" ToolTipService.ToolTip="{Binding ShowPrivacyInfoText}" Command="{Binding ShowPrivacyInfoCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8,8,8" />
+                <Button Content="{StaticResource Lock}" ToolTipService.ToolTip="{Binding ShowPrivacyInfoText}" Command="{Binding ShowPrivacyInfoCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8,8,8" />
             </StackPanel>
+
+            <TextBlock Text="Contributors:" Style="{StaticResource SubtitleTextBlockStyle}" Visibility="{Binding HasContributors, Converter={StaticResource BoolToVisibilityConv}}" Margin="8,16,8,8" />
+
+            <ItemsControl ItemsSource="{Binding Contributors}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Icon}" Width="32" Height="32" Margin="8" />
+                            <TextBlock Text="{Binding Title}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" VerticalAlignment="Center" Margin="8" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
         
     </Grid>
