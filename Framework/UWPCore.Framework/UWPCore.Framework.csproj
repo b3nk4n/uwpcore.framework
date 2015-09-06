@@ -155,8 +155,10 @@
     <Compile Include="Data\RadioButtonStringSource.cs" />
     <Compile Include="Data\ZipArchiveService.cs" />
     <Compile Include="Devices\DeviceInfoService.cs" />
+    <Compile Include="Devices\DisplayService.cs" />
     <Compile Include="Devices\IDeviceInfoService.cs" />
     <Compile Include="Devices\IDeviceService.cs" />
+    <Compile Include="Devices\IDisplayService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
     <Compile Include="Graphics\GraphicsService.cs" />
