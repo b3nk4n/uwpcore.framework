@@ -35,6 +35,31 @@
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Uid="Welcome" Text="Design time welcome..."/>
+
+            <ItemsControl VerticalAlignment="Top">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <uwpcControls:WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <Button Content="Wraped" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped like Magic" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped so cool!" Margin="4" />
+                <Button Content="Wraped" Margin="4" />
+                <Button Content="Wraped Button" Margin="4" />
+                <Button Content="Wraped awesomely.." Margin="4" />
+            </ItemsControl>
+            
         </Grid>
     </Grid>
 </Page>
