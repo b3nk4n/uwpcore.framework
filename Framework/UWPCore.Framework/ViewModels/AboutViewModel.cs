@@ -109,6 +109,11 @@ namespace UWPCore.Framework.ViewModels
         public string MoreAppsText { get; set; }
 
         /// <summary>
+        /// Gets or sets the share app text.
+        /// </summary>
+        public string ShareAppText { get; set; }
+
+        /// <summary>
         /// Gets or sets the optional share app format-text. It requries 1 placeholder!
         /// </summary>
         public string ShareAppTextFormat { get; set; } = "Check out {0} for Windows 10 Mobile:";
