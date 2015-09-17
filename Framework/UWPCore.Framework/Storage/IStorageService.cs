@@ -122,6 +122,24 @@ namespace UWPCore.Framework.Storage
         Task<IStorageFile> CreateOrReplaceFileAsync(string filePath);
 
         /// <summary>
+        /// Creates a temporary file.
+        /// </summary>
+        /// <param name="extension">The file extension.</param>
+        /// <returns>Returns the temporary file.</returns>
+        Task<IStorageFile> CreateTempFileAsync(string extension = ".tmp");
+
+        /// <summary>
+        /// Creates a unique file name given the parameters.
+        /// Note the theoretical race condition since
+        /// the file name is only guaranteed to be unique at the point it is generated.
+        /// </summary>
+        /// <param name="extension">The file extension.</param>
+        /// <param name="prefix">The prefix name.</param>
+        /// <param name="suffix">The suffix name.</param>
+        /// <returns>Returns the temp file name.</returns>
+        Task<string> CreateTempFileNameAsync(string extension = ".tmp", string prefix = "", string suffix = "");
+
+        /// <summary>
         /// Delete a file async.
         /// </summary>
         /// <param name="path">Path of file to delete.</param>

@@ -211,6 +211,60 @@ namespace UWPCore.Framework.Storage
             }
         }
 
+        public async Task<IStorageFile> CreateTempFileAsync(string extension = ".tmp")
+        {
+            var fileName = await CreateTempFileNameAsync(
+                extension,
+                DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss.ffffff"));
+
+            var file = await RootFolder.CreateFileAsync(
+                fileName,
+                CreationCollisionOption.GenerateUniqueName);
+
+            return file;
+        }
+
+        public async Task<string> CreateTempFileNameAsync(string extension = ".tmp", string prefix = "", string suffix = "")
+        {
+            string fileName;
+
+            if (string.IsNullOrEmpty(extension))
+            {
+                extension = ".tmp";
+            }
+            else if (extension[0] != '.')
+            {
+                extension = string.Format(".{0}", extension);
+            }
+
+            // Try no random numbers
+            if (!string.IsNullOrEmpty(prefix) &&
+                !string.IsNullOrEmpty(prefix))
+            {
+                fileName = string.Format(
+                    "{0}{1}{2}",
+                    prefix,
+                    suffix,
+                    extension);
+                if (!await ContainsFile(fileName))
+                {
+                    return fileName;
+                }
+            }
+
+            do
+            {
+                fileName = string.Format(
+                    "{0}{1}{2}{3}",
+                    prefix,
+                    Guid.NewGuid(),
+                    suffix,
+                    extension);
+            } while (await ContainsFile(fileName));
+
+            return fileName;
+        }
+
         public async Task DeleteFileAsync(string filePath)
         {
             try

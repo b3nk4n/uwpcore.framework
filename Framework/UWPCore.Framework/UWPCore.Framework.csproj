@@ -184,7 +184,9 @@
     <Compile Include="Networking\HttpService.cs" />
     <Compile Include="Networking\IHttpService.cs" />
     <Compile Include="Networking\INetworkInfoService.cs" />
+    <Compile Include="Networking\IWebDownloadService.cs" />
     <Compile Include="Networking\NetworkInfoService.cs" />
+    <Compile Include="Networking\WebDownloadService.cs" />
     <Compile Include="Notifications\AdaptiveTileFactory.cs" />
     <Compile Include="Notifications\AdaptiveToastFactory.cs" />
     <Compile Include="Notifications\BadgeFactory.cs" />
