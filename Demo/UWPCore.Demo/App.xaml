@@ -11,6 +11,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/ShellStyles.xaml"/>
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/SystemIcons.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/CommonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </uwpcCommon:UniversalApp.Resources>

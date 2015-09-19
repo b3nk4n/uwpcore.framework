@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="UWPCore.Demo.Views.AccountsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uwpcControls:PageHeader>
+            <uwpcControls:PageHeader.HeaderContent>
+                <TextBlock Text="ACCOUNTS" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcControls:PageHeader.HeaderContent>
+        </uwpcControls:PageHeader>
+
+        <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
+            <ScrollViewer>
+                <StackPanel>
+                    <TextBlock Text="First name" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
+                    <TextBlock x:Name="FirstNameTextBox" Margin="4"  />
+
+                    <TextBlock Text="Last name" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
+                    <TextBlock x:Name="LastNameTextBox" Margin="4"  />
+
+                    <TextBlock Text="Full name" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
+                    <TextBlock x:Name="FullNameTextBox" Margin="4"  />
+
+                    <TextBlock Text="Profile picture" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
+                    <Image x:Name="ProfilePicture64Image" Width="64" Height="64" HorizontalAlignment="Left" Margin="4" />
+                    <Image x:Name="ProfilePicture208Image" Width="208" Height="208" HorizontalAlignment="Left" Margin="4" />
+                    <Image x:Name="ProfilePicture424Image" Width="424" Height="424" HorizontalAlignment="Left" Margin="4" />
+                    <Image x:Name="ProfilePicture1080Image" Width="540" Height="540" HorizontalAlignment="Left" Margin="4" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

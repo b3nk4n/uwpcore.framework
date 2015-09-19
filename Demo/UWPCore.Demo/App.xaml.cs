@@ -155,6 +155,12 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.MediaPlay,
                     Label = "Launcher",
                     DestinationPage = typeof(LaunchPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Account,
+                    Label = "Accounts",
+                    DestinationPage = typeof(AccountsPage)
                 }
             };
         }
