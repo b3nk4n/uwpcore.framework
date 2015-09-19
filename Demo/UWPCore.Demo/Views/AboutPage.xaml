@@ -30,7 +30,7 @@
                         AppTitle="UWPCore"
                         AppDeveloper="Benjamin Sautermeister"
                         AppDescription="This is a sample app demonstrating the core features of the UWPCore development acceleration framework for Windows Universal Platform."
-                        AppVersion="Version 1.0b"
+                        AppVersion="Version 1.1b"
                         AppIcon="/Assets/Square150x150Logo.png"
                         ShowPrivacyInfoText="Privacy info"
                         SendFeedbackEmailText="Send feedback"
