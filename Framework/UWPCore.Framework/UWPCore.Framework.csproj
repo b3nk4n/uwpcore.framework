@@ -251,8 +251,8 @@
     <Compile Include="Store\ILicenseService.cs" />
     <Compile Include="Store\LicenseService.cs" />
     <Compile Include="Store\ProductItem.cs" />
-    <Compile Include="System\IUserInfoService.cs" />
-    <Compile Include="System\UserInfoService.cs" />
+    <Compile Include="Accounts\IUserInfoService.cs" />
+    <Compile Include="Accounts\UserInfoService.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Compile Include="UI\ColorConverter.cs" />

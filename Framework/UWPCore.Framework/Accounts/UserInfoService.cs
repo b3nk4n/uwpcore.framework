@@ -4,7 +4,7 @@ using Windows.System;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace UWPCore.Framework.System
+namespace UWPCore.Framework.Accounts
 {
     /// <summary>
     /// Service class to recieve user information about the current user.

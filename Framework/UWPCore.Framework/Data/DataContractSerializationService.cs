@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace UWPCore.Framework.Data
 {
@@ -62,7 +63,7 @@ namespace UWPCore.Framework.Data
         {
             using (var memStream = new MemoryStream())
             {
-                byte[] encodedData = System.Text.Encoding.UTF8.GetBytes(data);
+                byte[] encodedData = Encoding.UTF8.GetBytes(data);
                 memStream.Write(encodedData, 0, encodedData.Length);
                 memStream.Seek(0, SeekOrigin.Begin);
                 return DeserializeXML<T>(memStream);
@@ -105,7 +106,7 @@ namespace UWPCore.Framework.Data
         {
             using (var memStream = new MemoryStream())
             {
-                byte[] encodedData = System.Text.Encoding.UTF8.GetBytes(data);
+                byte[] encodedData = Encoding.UTF8.GetBytes(data);
                 memStream.Write(encodedData, 0, encodedData.Length);
                 memStream.Seek(0, SeekOrigin.Begin);
                 return DeserializeJson<T>(memStream);
