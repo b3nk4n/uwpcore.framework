@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FB9126B6-9918-4377-AB9B-B4262E8FE749}</ProjectGuid>
-    <OutputType>winmdobj</OutputType>
+    <ProjectGuid>{BA67D18A-A5F3-4101-B29C-A4237303959D}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UWPCore.Demo.Tasks</RootNamespace>
-    <AssemblyName>UWPCore.Demo.Tasks</AssemblyName>
+    <RootNamespace>UWPCore.Demo.Common</RootNamespace>
+    <AssemblyName>UWPCore.Demo.Common</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -16,7 +16,6 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <AllowCrossPlatformRetargeting>false</AllowCrossPlatformRetargeting>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -112,20 +111,13 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SimpleBackgroundTask.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Framework\UWPCore.Framework\UWPCore.Framework.csproj">
-      <Project>{a730354a-b009-4392-8d04-e065347e548a}</Project>
-      <Name>UWPCore.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UWPCore.Demo.Common\UWPCore.Demo.Common.csproj">
-      <Project>{ba67d18a-a5f3-4101-b29c-a4237303959d}</Project>
-      <Name>UWPCore.Demo.Common</Name>
-    </ProjectReference>
+    <Content Include="Properties\UWPCore.Demo.Common.rd.xml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

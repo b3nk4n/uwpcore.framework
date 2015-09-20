@@ -256,6 +256,10 @@
       <Project>{a730354a-b009-4392-8d04-e065347e548a}</Project>
       <Name>UWPCore.Framework</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UWPCore.Demo.Common\UWPCore.Demo.Common.csproj">
+      <Project>{ba67d18a-a5f3-4101-b29c-a4237303959d}</Project>
+      <Name>UWPCore.Demo.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UWPCore.Demo.Tasks\UWPCore.Demo.Tasks.csproj">
       <Project>{fb9126b6-9918-4377-ab9b-b4262e8fe749}</Project>
       <Name>UWPCore.Demo.Tasks</Name>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UWPCore.Framework.Common;
 using UWPCore.Framework.Notifications;
 using Windows.ApplicationModel.Background;
 
@@ -12,6 +13,8 @@ namespace UWPCore.Demo.Tasks
     {
         private IToastService _toastService;
 
+        private Localizer _localizer = new Localizer("UWPCore.Demo.Common");
+
         public SimpleBackgroundTask()
         {
             _toastService = new ToastService();
@@ -22,7 +25,7 @@ namespace UWPCore.Demo.Tasks
             var deferral = taskInstance.GetDeferral();
 
             // push a toast notification
-            var toast = _toastService.Factory.CreateToastText02("SimpleBackgroundTask", DateTime.Now.ToString());
+            var toast = _toastService.Factory.CreateToastText02(_localizer.Get("Welcome.Text"), DateTime.Now.ToString());
             _toastService.Show(toast);
 
             // just a short delay to simulate some work

@@ -34,7 +34,7 @@
         </CommandBar>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Uid="Welcome" Text="Design time welcome..."/>
+            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" x:Uid="/UWPCore.Demo.Common/Resources/Welcome" Text="Design time welcome..."/>
 
             <ItemsControl VerticalAlignment="Top">
                 <ItemsControl.ItemsPanel>
