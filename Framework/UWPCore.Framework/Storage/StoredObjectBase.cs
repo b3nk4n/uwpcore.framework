@@ -56,6 +56,14 @@ namespace UWPCore.Framework.Storage
 
             // load the value
             _value = Value;
+
+            if (dataContainer.Locality == ApplicationDataLocality.Roaming)
+            {
+                ApplicationData.Current.DataChanged += (data, obj) =>
+                {
+                    Invalidate();
+                };
+            }
         }
 
         #endregion

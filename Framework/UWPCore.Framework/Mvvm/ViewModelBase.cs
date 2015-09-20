@@ -25,6 +25,7 @@ namespace UWPCore.Framework.Mvvm
 
         /// <summary>
         /// Hook method that is called when a page using this view model was navigated to.
+        /// NOTE: This method is called BEFORE OnNavigatedTo() of the next page, but after OnNavigatingTo()!
         /// </summary>
         /// <param name="parameter">The parameter.</param>
         /// <param name="mode">The navigation mode.</param>
