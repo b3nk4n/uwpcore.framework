@@ -123,6 +123,7 @@
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\ILaunchArgs.cs" />
     <Compile Include="Common\LaunchArgs.cs" />
+    <Compile Include="Common\Localizer.cs" />
     <Compile Include="Common\StringExtensions.cs" />
     <Compile Include="Common\SystemIcons.cs" />
     <Compile Include="Common\WindowWrapper.cs" />

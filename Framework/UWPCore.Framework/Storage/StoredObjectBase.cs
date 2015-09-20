@@ -5,6 +5,11 @@ namespace UWPCore.Framework.Storage
     /// <summary>
     /// Encapsulates a key/value pair stored in a data container.
     /// </summary>
+    /// <remarks>
+    /// Things to remember:
+    /// - The name of each setting can be 255 characters in length at most. Each setting can be up to 8K bytes in size and each composite setting can be up to 64K bytes in size.
+    /// - DateTime is NOT working, but DateTimeOffset
+    /// </remarks>
     /// <typeparam name="T">The type to store</typeparam>
     public abstract class StoredObjectBase<T>
     {
