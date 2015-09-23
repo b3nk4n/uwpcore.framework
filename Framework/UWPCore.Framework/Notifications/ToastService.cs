@@ -1,4 +1,6 @@
-﻿using Windows.UI.Notifications;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
 {
@@ -53,6 +55,24 @@ namespace UWPCore.Framework.Notifications
         public void RemoveFromHistory(string tag, string group)
         {
             ToastNotificationManager.History.Remove(tag, group);
+        }
+
+        public IEnumerable<ToastNotification> GetByTagFromHistory(string tag)
+        {
+            return ToastNotificationManager.History.GetHistory().Where(t => t.Tag == tag);
+        }
+
+        public IEnumerable<ToastNotification> GetByGroupFromHistory(string group)
+        {
+            return ToastNotificationManager.History.GetHistory().Where(t => t.Group == group);
+        }
+
+        public IReadOnlyList<ToastNotification> History
+        {
+            get
+            {
+                return ToastNotificationManager.History.GetHistory();
+            }
         }
 
         public IToastFactory Factory

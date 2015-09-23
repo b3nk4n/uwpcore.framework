@@ -1,4 +1,5 @@
-﻿using Windows.UI.Notifications;
+﻿using System.Collections.Generic;
+using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
 {
@@ -36,6 +37,25 @@ namespace UWPCore.Framework.Notifications
         /// <param name="tag">The toast tag name.</param>
         /// <param name="group">The toast group name.</param>
         void RemoveFromHistory(string tag, string group);
+
+        /// <summary>
+        /// Gets the notifications from the action center.
+        /// </summary>
+        /// <param name="tag">The tag name.</param>
+        /// <returns>Returns the notifications that match this criteria.</returns>
+        IEnumerable<ToastNotification> GetByTagFromHistory(string tag);
+
+        /// <summary>
+        /// Gets the notifications from the action center.
+        /// </summary>
+        /// <param name="group">The group name.</param>
+        /// <returns>Returns the notifications that match this criteria.</returns>
+        IEnumerable<ToastNotification> GetByGroupFromHistory(string group);
+
+        /// <summary>
+        /// Gets all notifications from the action center.
+        /// </summary>
+        IReadOnlyList<ToastNotification> History { get; }
 
         /// <summary>
         /// Gets the toast factory.
