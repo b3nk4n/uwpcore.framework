@@ -31,6 +31,16 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         private const string SRC_ATTRIBUTE = "src";
 
+        /// <summary>
+        /// Creates a ToastFactory instance.
+        /// </summary>
+        /// <remarks>
+        /// Is internal, because the instance of the <see cref="IToastFactory"/> implementations should be used.
+        /// </remarks>
+        internal ToastFactory()
+        {
+        }
+
         public ToastNotification CreateToastText01(string content, string arg = null)
         {
             // build toast

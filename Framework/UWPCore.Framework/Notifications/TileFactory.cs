@@ -25,6 +25,16 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         private const string BADGE_NODE = "badge";
 
+        /// <summary>
+        /// Creates a TileFactory instance.
+        /// </summary>
+        /// <remarks>
+        /// Is internal, because the instance of the <see cref="ITileService"/> implementations should be used.
+        /// </remarks>
+        internal TileFactory()
+        {
+        }
+
         public TileNotification CreateTileSquareBlock(string text1Block, string text2 = "")
         {
             var xmlTemplate = TileUpdateManager.GetTemplateContent(TileTemplateType.TileSquare150x150Block);
