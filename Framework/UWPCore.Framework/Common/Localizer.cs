@@ -28,7 +28,8 @@ namespace UWPCore.Framework.Common
             if (assemblyName == null)
                 _resourceLoader = ResourceLoader.GetForCurrentView();
             else
-                _resourceLoader = ResourceLoader.GetForCurrentView(assemblyName + "/Resources");
+                //_resourceLoader = ResourceLoader.GetForCurrentView(assemblyName + "/Resources"); // not working on background thread
+                _resourceLoader = ResourceLoader.GetForViewIndependentUse(assemblyName + "/Resources");
         }
 
         /// <summary>
