@@ -28,6 +28,7 @@ namespace UWPCore.Framework.Notifications.Models
         /// <summary>
         /// Gets or sets the optional imageUri that is used to provide an image icon for this action
         /// to display inside the button alone with the text content.
+        /// Attention: Is requried, when <see cref="HintInputId"/> is used.
         /// </summary>
         public string ImageUri { get; set; }
 
@@ -35,6 +36,7 @@ namespace UWPCore.Framework.Notifications.Models
         /// This is specifically used for the quick reply scenario.
         /// The value needs to be the id of the input element desired to be associated with.
         /// In mobile and desktop, this will put the button right next to the input box.
+        /// Attention: Requires to set the <see cref="ImageUri"/> property.
         /// </summary>
         public string HintInputId { get; set; }
 

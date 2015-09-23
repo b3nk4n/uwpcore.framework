@@ -31,7 +31,8 @@ namespace UWPCore.Framework.Notifications.Models
     {
         Foreground,
         Background,
-        Protocol
+        Protocol,
+        System
     }
 
     /// <summary>
