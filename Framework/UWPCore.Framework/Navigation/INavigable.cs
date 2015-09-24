@@ -16,7 +16,7 @@ namespace UWPCore.Framework.Navigation
         /// <remarks>
         /// This identifier is used by the navigation service for (re)storing the view model.
         /// </remarks>
-        string Identifier { get; set; }
+        //string Identifier { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation service.

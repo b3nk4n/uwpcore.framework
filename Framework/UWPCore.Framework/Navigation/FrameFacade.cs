@@ -44,7 +44,16 @@ namespace UWPCore.Framework.Navigation
         /// <param name="args">The handled event args.</param>
         public void RaiseBackRequested(HandledEventArgs args)
         {
-            BackRequested?.Invoke(this, args);
+            if (BackRequested == null)
+            {
+                args.Handled = Frame.BackStackDepth > 0;
+                if (args.Handled)
+                    GoBack();
+            }
+            else
+            {
+                BackRequested?.Invoke(this, args);
+            }
         }
 
         /// <summary>
@@ -58,7 +67,16 @@ namespace UWPCore.Framework.Navigation
         /// <param name="args">The handled event args.</param>
         public void RaiseForwardRequested(HandledEventArgs args)
         {
-            ForwardRequested?.Invoke(this, args);
+            if (ForwardRequested == null)
+            {
+                args.Handled = Frame.ForwardStack.Count > 0;
+                if (args.Handled)
+                    GoForward();
+            }
+            else
+            {
+                ForwardRequested?.Invoke(this, args);
+            }
         }
 
         #region State
@@ -73,14 +91,23 @@ namespace UWPCore.Framework.Navigation
         }
 
         /// <summary>
+        /// The frame state containers data container.
+        /// </summary>
+        private Windows.Storage.ApplicationDataContainer _frameStateContainer;
+
+        /// <summary>
         /// Get or creates the frame state container.
         /// </summary>
         /// <returns>A new or reused frame state container.</returns>
         private Windows.Storage.ApplicationDataContainer GetFrameStateContainer()
         {
+            if(_frameStateContainer != null)
+                return _frameStateContainer;
+
             var data = Windows.Storage.ApplicationData.Current;
             var key = GetFrameStateKey();
-            return data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
+            _frameStateContainer = data.LocalSettings.CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
+            return _frameStateContainer;
         }
 
         /// <summary>
@@ -144,8 +171,8 @@ namespace UWPCore.Framework.Navigation
         {
             if (pageStateContainers.ContainsKey(type))
                 return pageStateContainers[type];
-            var key = GetPageStateKey(type);
 
+            var key = GetPageStateKey(type);
             var container = GetFrameStateContainer().CreateContainer(key, Windows.Storage.ApplicationDataCreateDisposition.Always);
             pageStateContainers.Add(type, container.Values);
             return container.Values;
@@ -244,13 +271,35 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         public void Refresh()
         {
-            var page = CurrentPageType;
-            var param = CurrentPageParam;
+            try
+            {
+                // this only works for apps using serializable types
+                var state = Frame.GetNavigationState();
+                Frame.SetNavigationState(state);
+            }
+            catch (Exception)
+            {
+                if (Frame.CanGoBack)
+                {
+                    Frame.GoBack();
+                    Frame.GoForward();
+                }
+                else if (Frame.CanGoForward)
+                {
+                    Frame.GoForward();
+                    Frame.GoBack();
+                }
+                else
+                {
+                    var page = CurrentPageType;
+                    var param = CurrentPageParam;
 
-            if (Frame.BackStack.Count > 0)
-                Frame.BackStack.Remove(Frame.BackStack.Last());
+                    if (Frame.BackStack.Count > 0)
+                        Frame.BackStack.Remove(Frame.BackStack.Last());
 
-            Navigate(page, param);
+                    Navigate(page, param);
+                }
+            }
         }
 
         /// <summary>
@@ -369,7 +418,7 @@ namespace UWPCore.Framework.Navigation
                 handler(this, args);
             }
             CurrentPageType = e.SourcePageType;
-            CurrentPageParam = e.Parameter as String;
+            CurrentPageParam = e.Parameter;
         }
 
         /// <summary>

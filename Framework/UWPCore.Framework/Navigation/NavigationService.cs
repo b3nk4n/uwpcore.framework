@@ -2,8 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
+using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation
@@ -44,10 +47,15 @@ namespace UWPCore.Framework.Navigation
         private string _lastNavigationType;
 
         /// <summary>
+        /// The dispatcher of this navigation service instance.
+        /// </summary>
+        public DispatcherWrapper Dispatcher { get { return WindowWrapper.Current(this).Dispatcher; } }
+
+        /// <summary>
         /// Creates a NavigationService instance.
         /// </summary>
         /// <param name="frame">The page frame.</param>
-        public NavigationService(Frame frame)
+        internal NavigationService(Frame frame)
         {
             FrameFacade = new FrameFacade(frame);
             FrameFacade.Navigating += async (s, e) =>
@@ -107,7 +115,7 @@ namespace UWPCore.Framework.Navigation
                 var dataContext = page.DataContext as INavigable;
                 if (dataContext != null)
                 {
-                    dataContext.Identifier = string.Format("Page-{0}", FrameFacade.BackStackDepth);
+                    //dataContext.Identifier = string.Format("Page-{0}", FrameFacade.BackStackDepth);
                     var pageState = FrameFacade.GetPageStateContainer(page.GetType());
                     await dataContext.OnNavigatedFromAsync(pageState, suspending);
                 }
@@ -124,36 +132,33 @@ namespace UWPCore.Framework.Navigation
             _lastNavigationParameter = parameter;
             _lastNavigationType = FrameFacade.Content.GetType().FullName;
 
-            // clears the frame state when a page is newly navigated
-            /*if (mode == NavigationMode.New) // TODO: FIXME: is it to much to clear state frame every NEW-navigation. Remember: because there is no FrameID (up to now), we have
+            // clears the frame state when a page is newwly navigated (not just refreshed or back navigated)
+            if (mode == NavigationMode.New)
             {
-                //FrameFacade.ClearPageState((FrameFacade.Content as Page).GetType()); // only this page state, not all page states (which caused error sometimes for the second navigateTo:New, but load state method was called properly)
-                //FrameFacade.ClearFrameState(); // original Template 10
-            }*/
-            // --> let ViewModel OnNavigateTo descide whether to load the state or not (because the method gets a NavigationMode parameter!) 
+                FrameFacade.ClearFrameState();
+            }
 
             var page = FrameFacade.Content as Page;
             if (page != null)
             {
+                if (page.DataContext == null)
+                {
+                    // to support dependency injection, but keeping it optional.
+                    var viewmodel = UniversalApp.Current.ResolveForPage(page.GetType(), this);
+                    if (viewmodel != null)
+                        page.DataContext = viewmodel;
+                }
+
                 // call viewmodel
                 var dataContext = page.DataContext as INavigable;
                 if (dataContext != null)
                 {
-                    if (dataContext.Identifier != null
-                        && (mode == NavigationMode.Forward || mode == NavigationMode.Back))
-                    {
-                        // don't call load if cached && navigating back/forward
-                        return;
-                    }
-                    else
-                    {
-                        // prepare for state load
-                        dataContext.NavigationService = this;
-                        var pageState = FrameFacade.GetPageStateContainer(page.GetType());
-                        dataContext.OnNavigatedTo(parameter, mode, pageState);
-                    }
+                    // prepare for state load
+                    dataContext.NavigationService = this;
+                    var pageState = FrameFacade.GetPageStateContainer(page.GetType());
+                    dataContext.OnNavigatedTo(parameter, mode, pageState);
                 }
-             }
+            }
         }
 
         /// <summary>
@@ -161,51 +166,30 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         /// <param name="page">The page type.</param>
         /// <param name="parameter">The parameter.</param>
+        /// <param name="title">The window title.</param>
         /// <param name="size">The prefered windows size.</param>
         /// <returns>The view ID of the new window.</returns>
-        public void OpenAsync(Type page, object parameter = null, ViewSizePreference size = ViewSizePreference.UseHalf)
+        public async Task OpenAsync(Type page, object parameter = null, string title = null, ViewSizePreference size = ViewSizePreference.UseHalf)
         {
-            // TODO: FIXME: this will spawn a new window instead of navigating to an existing frame.
-            // --> not supported up to now. Have a second look at Template10 until they finised it!
-            throw new NotImplementedException();
+            var currentView = ApplicationView.GetForCurrentView();
+            title = title ?? currentView.Title;
 
-            //var coreView = CoreApplication.CreateNewView();
-            //ApplicationView view = null;
-            //var create = new Action(() =>
-            //{
-            //    // setup content
-            //    var frame = new Frame();
-            //    frame.NavigationFailed += (s, e) => { Debugger.Break(); };
-            //    frame.Navigate(page, parameter);
+            var newView = CoreApplication.CreateNewView();
+            var dispatcher = new DispatcherWrapper(newView.Dispatcher);
+            await dispatcher.DispatchAsync(async () =>
+            {
+                var newWindow = Window.Current;
+                var newAppView = ApplicationView.GetForCurrentView();
+                newAppView.Title = title;
 
-            //    // create window
-            //    var window = Window.Current;
-            //    window.Content = frame;
+                var frame = UniversalApp.Current.NavigationServiceFactory(UniversalApp.BackButton.Ignore, UniversalApp.ExistingContent.Exclude);
+                frame.Navigate(page, parameter);
+                newWindow.Content = frame.FrameFacade.Frame;
+                newWindow.Activate();
 
-            //    // setup view/collapse
-            //    view = ApplicationView.GetForCurrentView();
-            //    Windows.Foundation.TypedEventHandler<ApplicationView, ApplicationViewConsolidatedEventArgs> consolidated = null;
-            //    consolidated = new Windows.Foundation.TypedEventHandler<ApplicationView, ApplicationViewConsolidatedEventArgs>((s, e) =>
-            //    {
-            //        (s as ApplicationView).Consolidated -= consolidated;
-            //        if (CoreApplication.GetCurrentView().IsMain)
-            //            return;
-            //        try { window.Close(); }
-            //        finally { CoreApplication.GetCurrentView().CoreWindow.Activate(); }
-            //    });
-            //    view.Consolidated += consolidated;
-            //});
-
-            //// execute create
-            //await WindowWrapper.Current().Dispatcher.DispatchAsync(create);
-
-            //// show view
-            //if (await ApplicationViewSwitcher.TryShowAsStandaloneAsync(view.Id, size))
-            //{
-            //    // change focus
-            //    await ApplicationViewSwitcher.SwitchAsync(view.Id);
-            //}
-            //return view.Id;
+                await ApplicationViewSwitcher
+                    .TryShowAsStandaloneAsync(newAppView.Id, ViewSizePreference.Default, currentView.Id, size);
+            });
         }
 
         /// <summary>
@@ -227,10 +211,11 @@ namespace UWPCore.Framework.Navigation
         /// <summary>
         /// Save the navigation state.
         /// </summary>
-        public void SaveNavigationState()
+        public void SaveNavigation()
         {
             // it is possible to close the application before we have navigated and created state
-            if (CurrentPageType == null) return;
+            if (CurrentPageType == null)
+                return;
 
             var state = FrameFacade.GetPageStateContainer(GetType());
             if (state == null)
@@ -247,13 +232,13 @@ namespace UWPCore.Framework.Navigation
             state[NAVIGATE_STATE_KEY] = FrameFacade?.GetNavigationState();
         }
 
-        public event EventHandler AfterRestoreSavedNavigation;
+        public event TypedEventHandler<Type> AfterRestoreSavedNavigation;
 
         /// <summary>
         /// Restores the saved navigation state.
         /// </summary>
         /// <returns>Returns True for success, else False.</returns>
-        public async Task<bool> RestoreSavedNavigationState()
+        public bool RestoreSavedNavigation()
         {
             try
             {
@@ -270,10 +255,10 @@ namespace UWPCore.Framework.Navigation
                 FrameFacade.CurrentPageParam = state[CURRENT_PAGE_PARAM_KEY];
                 FrameFacade.SetNavigationState(state[NAVIGATE_STATE_KEY].ToString());
                 NavigateTo(NavigationMode.Refresh, FrameFacade.CurrentPageParam);
-                while (FrameFacade.Content == null) {
-                    await Task.Delay(10);
-                }
-                AfterRestoreSavedNavigation?.Invoke(this, EventArgs.Empty);
+
+                while (FrameFacade.Frame.Content == null) { /* wait */ }
+
+                AfterRestoreSavedNavigation?.Invoke(this, FrameFacade.CurrentPageType);
                 return true;
             }
             catch { return false; }
@@ -342,7 +327,7 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         public async Task SuspendingAsync()
         {
-            SaveNavigationState();
+            SaveNavigation();
             await NavigateFromAsync(true);
         }
 

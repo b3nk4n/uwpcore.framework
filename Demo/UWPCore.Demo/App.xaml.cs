@@ -33,9 +33,10 @@ namespace UWPCore.Demo
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
         }
 
-        public async override Task OnInitializeAsync()
+
+        public async override Task OnInitializeAsync(IActivatedEventArgs args)
         {
-            await base.OnInitializeAsync();
+            await base.OnInitializeAsync(args);
 
             // remove this line to hide the SplitView-Shell
             Window.Current.Content = new AppShell(
@@ -49,11 +50,6 @@ namespace UWPCore.Demo
             _statusBarService = new StatusBarService();
             var color = (Color)Current.Resources["SystemChromeMediumColor"];
             _statusBarService.BackgroundColor = color;
-        }
-
-        public override void OnPrelaunch()
-        {
-            // handle prelaunch
         }
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs)

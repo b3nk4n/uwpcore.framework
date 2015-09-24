@@ -124,8 +124,11 @@
     <Compile Include="Common\ILaunchArgs.cs" />
     <Compile Include="Common\LaunchArgs.cs" />
     <Compile Include="Common\Localizer.cs" />
+    <Compile Include="Common\StateItem.cs" />
+    <Compile Include="Common\StateItems.cs" />
     <Compile Include="Common\StringExtensions.cs" />
     <Compile Include="Common\SystemIcons.cs" />
+    <Compile Include="Common\TypedEventHandler.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
     <Compile Include="Controls\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UWPCore.Framework.Common;
 using UWPCore.Framework.Navigation;
 using Windows.UI.Xaml.Navigation;
 
@@ -16,12 +17,16 @@ namespace UWPCore.Framework.Mvvm
         /// <remarks>
         /// This identifier is used by the navigation service for (re)storing the view model.
         /// </remarks>
-        public string Identifier { get; set; }
+        //public string Identifier { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation service.
         /// </summary>
         public NavigationService NavigationService { get; set; }
+
+        public DispatcherWrapper Dispatcher { get { return Common.WindowWrapper.Current(NavigationService)?.Dispatcher; } }
+
+        public StateItems SessionState { get { return UniversalApp.Current.SessionState; } }
 
         /// <summary>
         /// Hook method that is called when a page using this view model was navigated to.
