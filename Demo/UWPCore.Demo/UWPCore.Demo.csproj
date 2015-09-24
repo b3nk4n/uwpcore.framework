@@ -170,6 +170,7 @@
     <Content Include="Assets\Images\bug.png" />
     <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Images\germany-circle.png" />
+    <Content Include="Assets\Images\LockScreen.png" />
     <Content Include="Assets\Images\mexico-circle.png" />
     <Content Include="Assets\Images\uk-circle.png" />
     <Content Include="Assets\Speech\AdventureWorksCommands.xml" />

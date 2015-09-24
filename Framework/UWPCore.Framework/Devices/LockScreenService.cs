@@ -11,6 +11,9 @@ namespace UWPCore.Framework.Devices
     /// <summary>
     /// Service class to access lock screen functions.
     /// </summary>
+    /// <remarks>
+    /// Might require the "Picture Library Access" capability when <see cref="GetImageStream()"/> is used, but the stream was set by a different app.
+    /// </remarks>
     public class LockScreenService : ILockScreenService
     {
         public async Task<bool> SetImageAsync(IStorageFile file)
@@ -44,7 +47,7 @@ namespace UWPCore.Framework.Devices
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteLine(ex, "Could not set the lock screen image file.");
+                    Logger.WriteLine(ex, "Could not set the lock screen image stream.");
                     return false;
                 }
 
@@ -82,7 +85,7 @@ namespace UWPCore.Framework.Devices
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteLine(ex, "Could not set the lock screen image file.");
+                    Logger.WriteLine(ex, "Could not get the lock screen image file URI. Keep in mind this function is not allowed when using image streams.");
                     return null;
                 }
 
