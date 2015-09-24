@@ -70,6 +70,7 @@ namespace UWPCore.Framework.Common
             Current = this;
 
             DefaultPage = defaultPage;
+            BackButtonBehaviour = backButtonBehaviour;
             AppAssemblyName = appAssemblyName;
 
             Resuming += (s, e) =>
@@ -216,13 +217,6 @@ namespace UWPCore.Framework.Common
         /// <param name="e">The launch activated event args.</param>
         private async void InternalLaunchAsync(ILaunchActivatedEventArgs e)
         {
-            // first handle prelaunch, which will not continue
-            if ((e.Kind == ActivationKind.Launch) && ((e as LaunchActivatedEventArgs)?.PrelaunchActivated ?? false))
-            {
-                //OnPrelaunch();
-                return;
-            }
-
             // now handle normal activation
             UIElement splashScreen = default(UIElement);
             if (SplashFactory != null)
@@ -232,14 +226,17 @@ namespace UWPCore.Framework.Common
             }
 
             // setup frame
-            RootFrame = new Frame
+            if (RootFrame == null)
             {
-                Language = ApplicationLanguages.Languages[0]
-            };
-            RootFrame.Navigated += (s, args) =>
-            {
-                UpdateShellBackButton();
-            };
+                RootFrame = new Frame
+                {
+                    Language = ApplicationLanguages.Languages[0]
+                };
+                RootFrame.Navigated += (s, args) =>
+                {
+                    UpdateShellBackButton();
+                };
+            }
 
             // setup default view
             var view = WindowWrapper.ActiveWrappers.First();

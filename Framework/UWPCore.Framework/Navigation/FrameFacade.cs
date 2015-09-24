@@ -271,35 +271,13 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         public void Refresh()
         {
-            try
-            {
-                // this only works for apps using serializable types
-                var state = Frame.GetNavigationState();
-                Frame.SetNavigationState(state);
-            }
-            catch (Exception)
-            {
-                if (Frame.CanGoBack)
-                {
-                    Frame.GoBack();
-                    Frame.GoForward();
-                }
-                else if (Frame.CanGoForward)
-                {
-                    Frame.GoForward();
-                    Frame.GoBack();
-                }
-                else
-                {
-                    var page = CurrentPageType;
-                    var param = CurrentPageParam;
+            var page = CurrentPageType;
+            var param = CurrentPageParam;
 
-                    if (Frame.BackStack.Count > 0)
-                        Frame.BackStack.Remove(Frame.BackStack.Last());
+            if (Frame.BackStack.Count > 0)
+                Frame.BackStack.Remove(Frame.BackStack.Last());
 
-                    Navigate(page, param);
-                }
-            }
+            Navigate(page, param);
         }
 
         /// <summary>

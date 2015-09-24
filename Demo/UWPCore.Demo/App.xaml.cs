@@ -25,24 +25,25 @@ namespace UWPCore.Demo
         {
             InitializeComponent();
 
-            ShowShellBackButton = true;
-
             // initialize Microsoft Application Insights
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
                 Microsoft.ApplicationInsights.WindowsCollectors.Metadata |
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
         }
 
-
         public async override Task OnInitializeAsync(IActivatedEventArgs args)
         {
             await base.OnInitializeAsync(args);
 
-            // remove this line to hide the SplitView-Shell
-            Window.Current.Content = new AppShell(
-                RootFrame,
-                GetNavigationMenuItems(),
-                GetBottomDockedNavigationMenuItems());
+            // only add it
+            if (args.PreviousExecutionState != ApplicationExecutionState.Running &&
+                args.PreviousExecutionState != ApplicationExecutionState.Suspended)
+            {
+                Window.Current.Content = new AppShell(
+                    RootFrame,
+                    GetNavigationMenuItems(),
+                    GetBottomDockedNavigationMenuItems());
+            }
 
             _speechService = new SpeechService();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
@@ -64,7 +65,7 @@ namespace UWPCore.Demo
             var command = _speechService.GetVoiceCommand(args);
             if (command != null)
             {
-                switch(command.CommandName)
+                switch (command.CommandName)
                 {
                     case "showTripToDestination":
                         string destination = command.Interpretations["destination"];
