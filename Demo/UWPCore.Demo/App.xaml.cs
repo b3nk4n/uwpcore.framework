@@ -21,7 +21,7 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.Terminate, "UWPCore.Demo")
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, "UWPCore.Demo")
         {
             InitializeComponent();
 
