@@ -160,7 +160,9 @@
     <Compile Include="Devices\IDeviceInfoService.cs" />
     <Compile Include="Devices\IDeviceService.cs" />
     <Compile Include="Devices\IDisplayService.cs" />
+    <Compile Include="Devices\ILockScreenService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
+    <Compile Include="Devices\LockScreenService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
     <Compile Include="Graphics\GraphicsService.cs" />
     <Compile Include="Graphics\IGraphicsService.cs" />

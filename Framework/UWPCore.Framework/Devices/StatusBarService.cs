@@ -17,6 +17,7 @@ namespace UWPCore.Framework.Devices
 
         /// <summary>
         /// Creates a StatusBarService instance.
+        /// Remember: Do NOT create this service in any constructor, which will lead to a AccessViolationException.
         /// </summary>
         public StatusBarService()
         {
