@@ -307,8 +307,6 @@ namespace UWPCore.Framework.Common
                             }
                             else
                             {
-                                UpdateShellBackButton();
-
                                 // refresh current page to fire all navigation events
                                 navigationService.Refresh();
                             }
@@ -320,6 +318,8 @@ namespace UWPCore.Framework.Common
                         break;
                     }
             }
+
+            //UpdateShellBackButton();
 
             // if the user didn't already set custom content use rootframe
             if (Window.Current.Content == splashScreen) { Window.Current.Content = RootFrame; }
@@ -605,6 +605,7 @@ namespace UWPCore.Framework.Common
         }
 
         public const string DefaultTileID = "App";
+
         public void UpdateShellBackButton()
         {
             // show the shell back only if there is anywhere to go in the default frame

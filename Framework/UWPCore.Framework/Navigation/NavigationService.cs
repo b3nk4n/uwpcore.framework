@@ -205,7 +205,15 @@ namespace UWPCore.Framework.Navigation
             if (page.FullName.Equals(_lastNavigationType)
                 && parameter == _lastNavigationParameter)
                 return false;
-            return FrameFacade.Navigate(page, parameter);
+
+            var result = FrameFacade.Navigate(page, parameter);
+
+            if (page == UniversalApp.Current.DefaultPage)
+            {
+                ClearHistory();
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -318,6 +326,9 @@ namespace UWPCore.Framework.Navigation
         public void ClearHistory()
         {
             FrameFacade.Frame.BackStack.Clear();
+
+            // force update the shell back button after the history was cleared
+            UniversalApp.Current.UpdateShellBackButton();
         }
 
         public void Resuming(){ } // TODO: FIXME: not referenced and empty. Delete? Check again after some more progress in Template10!
