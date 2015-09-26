@@ -158,6 +158,12 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.Account,
                     Label = "Accounts",
                     DestinationPage = typeof(AccountsPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.ArrowRight,
+                    Label = "Navigation",
+                    DestinationPage = typeof(NavigationPage1)
                 }
             };
         }

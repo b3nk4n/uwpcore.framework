@@ -265,7 +265,7 @@ namespace UWPCore.Framework.Common
 
             // create launch argmunets
             ILaunchArgs launchArgs;
-            if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId))
+            if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId)) // TODO: LauchArgs vs. DetermineStartCause(e) ?!
             {
                 launchArgs = new LaunchArgs(e.Arguments, e.TileId);
             }
@@ -286,7 +286,7 @@ namespace UWPCore.Framework.Common
                         await OnStartAsync(StartKind.Launch, e, launchArgs);
                         break;
                     }
-                case ApplicationExecutionState.ClosedByUser:
+                case ApplicationExecutionState.ClosedByUser: // TODO: do not restore navigation state after closed by user (windows app: X)
                 case ApplicationExecutionState.Terminated:
                     {
                         /*

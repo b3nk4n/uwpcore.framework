@@ -110,6 +110,7 @@
     <Compile Include="Models\SubItemModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MvvmViewModel.cs" />
+    <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\SubItemViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
@@ -128,6 +129,12 @@
     </Compile>
     <Compile Include="Views\MvvmPage.xaml.cs">
       <DependentUpon>MvvmPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavigationPage2.xaml.cs">
+      <DependentUpon>NavigationPage2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavigationPage1.xaml.cs">
+      <DependentUpon>NavigationPage1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NetworkingPage.xaml.cs">
       <DependentUpon>NetworkingPage.xaml</DependentUpon>
@@ -216,6 +223,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MvvmPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavigationPage2.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NavigationPage1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
