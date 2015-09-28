@@ -28,7 +28,6 @@ namespace UWPCore.Framework.Common
             if (assemblyName == null)
                 _resourceLoader = ResourceLoader.GetForCurrentView();
             else
-                //_resourceLoader = ResourceLoader.GetForCurrentView(assemblyName + "/Resources"); // not working on background thread
                 _resourceLoader = ResourceLoader.GetForViewIndependentUse(assemblyName + "/Resources");
         }
 
@@ -39,7 +38,10 @@ namespace UWPCore.Framework.Common
         /// <returns>Returns the string resource.</returns>
         public string Get(string resource)
         {
-            return _resourceLoader.GetString(resource);
+            // allow dot-style resource keys as defined in the resw. files
+            var resourceKey = resource.Replace('.', '/');
+
+            return _resourceLoader.GetString(resourceKey);
         }
 
         /// <summary>
