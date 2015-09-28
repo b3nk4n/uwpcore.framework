@@ -1,10 +1,10 @@
 ﻿using UWPCore.Demo.Controls;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Graphics;
 using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.Graphics.Imaging;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPCore.Demo.Views
@@ -12,7 +12,7 @@ namespace UWPCore.Demo.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class GraphicsPage : Page
+    public sealed partial class GraphicsPage : UniversalPage
     {
         public const string TEST_FILE_NAME = "TestRenderFrameworkElement.png";
 

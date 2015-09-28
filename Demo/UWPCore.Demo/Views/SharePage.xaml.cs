@@ -1,14 +1,14 @@
 ﻿using System;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Share;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace UWPCore.Demo.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SharePage : Page
+    public sealed partial class SharePage : UniversalPage
     {
         private IEmailService _emailService;
 

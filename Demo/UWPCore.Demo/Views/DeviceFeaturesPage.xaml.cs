@@ -1,8 +1,8 @@
-﻿using UWPCore.Framework.Devices;
+﻿using UWPCore.Framework.Controls;
+using UWPCore.Framework.Devices;
 using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
@@ -11,7 +11,7 @@ namespace UWPCore.Demo.Views
     /// <summary>
     /// Demo page for testing device dependent features.
     /// </summary>
-    public sealed partial class DeviceFeaturesPage : Page
+    public sealed partial class DeviceFeaturesPage : UniversalPage
     {
         private IVibrateService _vibrateService;
 

@@ -21,9 +21,9 @@ namespace UWPCore.Demo.ViewModels
             Logger.WriteLine("VIEWMODEL - OnNavigatingFrom");
         }
 
-        public override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
+        public async override Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending)
         {
-            return base.OnNavigatedFromAsync(state, suspending);
+            await base.OnNavigatedFromAsync(state, suspending);
             Logger.WriteLine("VIEWMODEL - OnNavigatedFromAsync");
         }
     }

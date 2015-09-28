@@ -1,4 +1,5 @@
 ﻿using System;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Launcher;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -8,7 +9,7 @@ namespace UWPCore.Demo.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class LaunchPage : Page
+    public sealed partial class LaunchPage : UniversalPage
     {
         public LaunchPage()
         {

@@ -129,6 +129,7 @@
     <Compile Include="Common\StringExtensions.cs" />
     <Compile Include="Common\SystemIcons.cs" />
     <Compile Include="Common\TypedEventHandler.cs" />
+    <Compile Include="Controls\UniversalPage.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
     <Compile Include="Controls\AboutControl.xaml.cs">
       <DependentUpon>AboutControl.xaml</DependentUpon>

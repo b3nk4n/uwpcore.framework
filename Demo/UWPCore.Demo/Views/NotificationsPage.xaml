@@ -1,4 +1,4 @@
-﻿<Page
+﻿<uwpcControls:UniversalPage
     x:Class="UWPCore.Demo.Views.NotificationsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -72,4 +72,4 @@
             </ScrollViewer>
         </Grid>
     </Grid>
-</Page>
+</uwpcControls:UniversalPage>

@@ -1,12 +1,12 @@
-﻿using UWPCore.Framework.Networking;
-using Windows.UI.Xaml.Controls;
+﻿using UWPCore.Framework.Controls;
+using UWPCore.Framework.Networking;
 
 namespace UWPCore.Demo.Views
 {
     /// <summary>
     /// The demo page for networking stuff.
     /// </summary>
-    public sealed partial class NetworkingPage : Page
+    public sealed partial class NetworkingPage : UniversalPage
     {
         private INetworkInfoService _networkInfoService;
 

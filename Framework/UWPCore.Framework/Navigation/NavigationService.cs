@@ -6,7 +6,6 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation
@@ -58,21 +57,13 @@ namespace UWPCore.Framework.Navigation
         internal NavigationService(Frame frame)
         {
             FrameFacade = new FrameFacade(frame);
-            FrameFacade.Navigating += async (s, e) =>
-            {
-                if (e.Suspending)
-                    return;
-
-                // allow the viewmodel to cancel navigation
-                e.Cancel = !NavigatingFrom(false);
-                if (!e.Cancel)
-                {
-                    await NavigateFromAsync(false);
-                }
-            };
             FrameFacade.Navigated += (s, e) =>
             {
-                NavigateTo(e.NavigationMode, e.Parameter);
+                // KEEP THIS EVENT REGISTERED: without having this empty event registered, for whatever reason no navigation takes place
+                // Navigation method calls are moved to UniversalPage, to ensure the call order of ViewModel navigation events is aligned
+                // with the one of a Page.
+
+                // TODO: why is it required to register this empty event?
             };
         }
 
@@ -81,7 +72,7 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         /// <param name="suspending">The suspending flag.</param>
         /// <returns>Returns True when navigating from is ok, else False when to cancel.</returns>
-        bool NavigatingFrom(bool suspending)
+        internal bool NavigatingFrom(bool suspending)
         {
             var page = FrameFacade.Content as Page;
             if (page != null)
@@ -106,7 +97,7 @@ namespace UWPCore.Framework.Navigation
         /// Navigate from that is called after navigation.
         /// </summary>
         /// <param name="suspending">The suspending flag.</param>
-        private async Task NavigateFromAsync(bool suspending)
+        internal async Task NavigateFromAsync(bool suspending)
         {
             var page = FrameFacade.Content as Page;
             if (page != null)
@@ -115,7 +106,6 @@ namespace UWPCore.Framework.Navigation
                 var dataContext = page.DataContext as INavigable;
                 if (dataContext != null)
                 {
-                    //dataContext.Identifier = string.Format("Page-{0}", FrameFacade.BackStackDepth);
                     var pageState = FrameFacade.GetPageStateContainer(page.GetType());
                     await dataContext.OnNavigatedFromAsync(pageState, suspending);
                 }
@@ -127,12 +117,12 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         /// <param name="mode">The navigation mode.</param>
         /// <param name="parameter">The parameter.</param>
-        private void NavigateTo(NavigationMode mode, object parameter)
+        internal void NavigateTo(NavigationMode mode, object parameter)
         {
             _lastNavigationParameter = parameter;
             _lastNavigationType = FrameFacade.Content.GetType().FullName;
 
-            // clears the frame state when a page is newwly navigated (not just refreshed or back navigated)
+            // clears the frame state when a page is newly navigated (not just refreshed or back navigated)
             if (mode == NavigationMode.New)
             {
                 FrameFacade.ClearFrameState();

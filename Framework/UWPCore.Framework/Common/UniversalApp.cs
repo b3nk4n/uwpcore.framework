@@ -281,12 +281,12 @@ namespace UWPCore.Framework.Common
                 case ApplicationExecutionState.NotRunning:
                 case ApplicationExecutionState.Running:
                 case ApplicationExecutionState.Suspended:
+                case ApplicationExecutionState.ClosedByUser:
                     {
                         // launch if not restored
                         await OnStartAsync(StartKind.Launch, e, launchArgs);
                         break;
                     }
-                case ApplicationExecutionState.ClosedByUser: // TODO: do not restore navigation state after closed by user (windows app: X)
                 case ApplicationExecutionState.Terminated:
                     {
                         /*
