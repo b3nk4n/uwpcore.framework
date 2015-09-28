@@ -168,11 +168,7 @@ namespace UWPCore.Framework.Controls
                 if (item.DestinationPage != null &&
                     item.DestinationPage != AppFrame.CurrentSourcePageType)
                 {
-                    var nav = (Application.Current as UniversalApp).NavigationService;
-
-                    // when we nav home, clear history
-                    if (item.DestinationPage.Equals((Application.Current as UniversalApp).DefaultPage)) // TODO: remove because redundant
-                        nav.ClearHistory();
+                    var nav = UniversalApp.Current.NavigationService;
 
                     // navigate only to new pages
                     if (nav.CurrentPageType != null && nav.CurrentPageType != item.DestinationPage)
