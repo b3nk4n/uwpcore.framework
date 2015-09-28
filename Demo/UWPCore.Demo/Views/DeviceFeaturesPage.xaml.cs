@@ -53,7 +53,7 @@ namespace UWPCore.Demo.Views
 
         private void VibrateClicked(object sender, RoutedEventArgs e)
         {
-            int duration = 0;
+            int duration = 100;
             int.TryParse(VibrationDurationTextBox.Text, out duration);
 
             _vibrateService.Vibrate(duration);

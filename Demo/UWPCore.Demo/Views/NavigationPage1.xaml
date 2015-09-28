@@ -26,9 +26,11 @@
         </uwpcControls:PageHeader>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <StackPanel>
-                <Button Content="Go to subpage" Margin="4" Click="GoToSubpageClicked" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <TextBox x:Name="ParamterTextBox" Header="Parameter text" Width="200" Margin="4" />
+                <Button Content="Go to subpage" Margin="4" VerticalAlignment="Bottom" Click="GoToSubpageClicked" />
             </StackPanel>
+
             <TextBlock Text="Take a look at the logging output..." VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" />
         </Grid>
     </Grid>

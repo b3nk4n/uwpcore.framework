@@ -38,7 +38,8 @@ namespace UWPCore.Demo.Views
 
         private void GoToSubpageClicked(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(typeof(NavigationPage2));
+            var parameter = ParamterTextBox.Text;
+            NavigationService.Navigate(typeof(NavigationPage2), parameter);
         }
     }
 }

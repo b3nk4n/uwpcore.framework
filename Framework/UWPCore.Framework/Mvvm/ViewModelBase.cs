@@ -24,7 +24,7 @@ namespace UWPCore.Framework.Mvvm
         /// </summary>
         public NavigationService NavigationService { get; set; }
 
-        public DispatcherWrapper Dispatcher { get { return Common.WindowWrapper.Current(NavigationService)?.Dispatcher; } }
+        public DispatcherWrapper Dispatcher { get { return WindowWrapper.Current(NavigationService)?.Dispatcher; } }
 
         public StateItems SessionState { get { return UniversalApp.Current.SessionState; } }
 

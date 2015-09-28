@@ -12,7 +12,7 @@ namespace UWPCore.Demo.ViewModels
         public override void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             base.OnNavigatedTo(parameter, mode, state);
-            Logger.WriteLine("VIEWMODEL - OnNavigatedTo");
+            Logger.WriteLine("VIEWMODEL - OnNavigatedTo (param: " + parameter + ")");
         }
 
         public override void OnNavigatingFrom(NavigatingEventArgs args)
@@ -26,5 +26,8 @@ namespace UWPCore.Demo.ViewModels
             await base.OnNavigatedFromAsync(state, suspending);
             Logger.WriteLine("VIEWMODEL - OnNavigatedFromAsync");
         }
+
+        public string Parameter { get { return _parameter; } set { Set(ref _parameter, value); } }
+        private string _parameter = string.Empty;
     }
 }
