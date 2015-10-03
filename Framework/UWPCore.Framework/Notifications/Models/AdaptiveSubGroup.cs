@@ -7,7 +7,7 @@ namespace UWPCore.Framework.Notifications.Models
     /// <summary>
     /// The sub group text stacking type.
     /// </summary>
-    public enum SubGroupTextStacking
+    public enum SubGroupTextStacking // TODO: remove, because redundant with VisualHintTextStacking
     {
         Top,
         Center,

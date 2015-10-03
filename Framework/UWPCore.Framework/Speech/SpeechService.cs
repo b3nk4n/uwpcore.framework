@@ -41,17 +41,42 @@ namespace UWPCore.Framework.Speech
         /// </summary>
         private IStorageService _storageService;
 
-        public SpeechSynthesizer Synthesizer { get; private set; }
+        /// <summary>
+        /// Gets the lazily created synthesizer instance.
+        /// </summary>
+        public SpeechSynthesizer Synthesizer
+        {
+            get
+            {
+                if (_snythesizer == null)
+                    _snythesizer = new SpeechSynthesizer();
+                return _snythesizer;
+            }
+        }
+        private SpeechSynthesizer _snythesizer;
 
-        public SpeechRecognizer Recognizer { get; private set; }
+        /// <summary>
+        /// Gets the lazily created recognizer instance.
+        /// </summary>
+        /// <remarks>
+        /// Created lazily to be able to use this serivce without Microphone capability.
+        /// </remarks>
+        public SpeechRecognizer Recognizer
+        {
+            get
+            {
+                if (_recognizer == null)
+                    _recognizer = new SpeechRecognizer();
+                return _recognizer;
+            }
+        }
+        private SpeechRecognizer _recognizer;
 
         /// <summary>
         /// Creates a SpeechService instance.
         /// </summary>
         public SpeechService()
         {
-            Synthesizer = new SpeechSynthesizer();
-            Recognizer = new SpeechRecognizer();
             _audioService = new AudioService();
             _dialogService = new DialogService();
             _storageService = new LocalStorageService();
