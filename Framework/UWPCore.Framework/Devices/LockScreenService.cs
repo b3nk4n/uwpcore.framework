@@ -30,7 +30,6 @@ namespace UWPCore.Framework.Devices
                     Logger.WriteLine(ex, "Could not set the lock screen image file.");
                     return false;
                 }
-
             }
 
             return false;
@@ -50,7 +49,6 @@ namespace UWPCore.Framework.Devices
                     Logger.WriteLine(ex, "Could not set the lock screen image stream.");
                     return false;
                 }
-
             }
 
             return false;
@@ -69,7 +67,6 @@ namespace UWPCore.Framework.Devices
                     Logger.WriteLine(ex, "Could not acces the lock screen image stream.");
                     return null;
                 }
-
             }
 
             return null;
@@ -88,7 +85,6 @@ namespace UWPCore.Framework.Devices
                     Logger.WriteLine(ex, "Could not get the lock screen image file URI. Keep in mind this function is not allowed when using image streams.");
                     return null;
                 }
-
             }
 
             return null;
