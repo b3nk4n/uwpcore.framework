@@ -14,6 +14,7 @@ namespace UWPCore.Framework.Devices
     /// <remarks>
     /// Might require the "Picture Library Access" capability when <see cref="GetImageStream()"/> is used, but the stream was set by a different app.
     /// </remarks>
+    [Obsolete("Use UWPCore.Framework.Devices.PersonalizationService instead.")]
     public class LockScreenService : ILockScreenService
     {
         public async Task<bool> SetImageAsync(IStorageFile file)

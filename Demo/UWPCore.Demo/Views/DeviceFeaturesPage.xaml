@@ -54,8 +54,7 @@
 
                     <TextBox x:Name="LockScreenImageTextBox" Header="Lockscreen image path" Text="ms-appx:///Assets/Images/LockScreen.png" Width="200" HorizontalAlignment="Left" Margin="4" />
                     <Button Content="Set lockscreen" Click="SetLockScreenClicked" MinWidth="200" Margin="4"/>
-                    <Button Content="Get lockscreen URI" Click="GetLockScreenUriClicked" MinWidth="200" Margin="4"/>
-                    <Button Content="Get lockscreen Image" Click="GetLockscreenImageClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Set wallpaper" Click="SetWallpaperClicked" MinWidth="200" Margin="4"/>
 
                     <Image x:Name="LockScreenImage" Width="300" Margin="4" HorizontalAlignment="Left" />
 

@@ -21,7 +21,7 @@ namespace UWPCore.Demo.Views
 
         private IStorageService _storageService;
 
-        private ILockScreenService _lockScreenService;
+        private IPersonalizationService _personalizationService;
 
         private IDialogService _dialogService;
 
@@ -33,7 +33,7 @@ namespace UWPCore.Demo.Views
             _deviceInfoService = new DeviceInfoService();
             _statusBarService = new StatusBarService();
             _storageService = new LocalStorageService();
-            _lockScreenService = new LockScreenService();
+            _personalizationService = new PersonalizationService();
             _dialogService = new DialogService();
         }
 
@@ -111,29 +111,17 @@ namespace UWPCore.Demo.Views
             var file = await _storageService.GetFileFromApplicationAsync(lockScreenImagePath);
 
             if (file != null)
-                await _lockScreenService.SetImageAsync(file);
+                await _personalizationService.SetLockScreenAsync(file);
         }
 
-        private async void GetLockScreenUriClicked(object sender, RoutedEventArgs e)
+        private async void SetWallpaperClicked(object sender, RoutedEventArgs e)
         {
-            var uri = _lockScreenService.GetImageUri();
+            var lockScreenImagePath = LockScreenImageTextBox.Text;
 
-            if (uri != null)
-            {
-                await _dialogService.ShowAsync(uri.AbsolutePath, "Info");
-            }
-        }
+            var file = await _storageService.GetFileFromApplicationAsync(lockScreenImagePath);
 
-        private void GetLockscreenImageClicked(object sender, RoutedEventArgs e)
-        {
-            var imageStream = _lockScreenService.GetImageStream();
-            
-            if (imageStream != null)
-            {
-                var imageSource = new BitmapImage();
-                imageSource.SetSource(imageStream);
-                LockScreenImage.Source = imageSource;
-            }
+            if (file != null)
+                await _personalizationService.SetWallpaperAsync(file);
         }
     }
 }
