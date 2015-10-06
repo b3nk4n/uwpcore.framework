@@ -146,6 +146,8 @@ namespace UWPCore.Framework.Common
         /// </summary>
         public bool ShowShellBackButton { get; set; } = true;
 
+        private KeyboardService _keyboardService;
+
         #endregion
 
         #region activated
@@ -236,6 +238,43 @@ namespace UWPCore.Framework.Common
                 {
                     UpdateShellBackButton();
                 };
+
+                // register back button
+                SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
+                {
+                    var handled = false;
+                    if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+                    {
+                        if (NavigationService.CanGoBack)
+                        {
+                            handled = true;
+                        }
+                        else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                        {
+                            args.Handled = true;
+                            Current.Exit();
+                        }
+                    }
+                    else
+                    {
+                        handled = !NavigationService.CanGoBack;
+                    }
+
+                    args.Handled = handled;
+                    RaiseBackRequested(ref handled);
+                };
+
+                // hook up keyboard and mouse Back handler
+                _keyboardService = new KeyboardService();
+                _keyboardService.AfterBackGesture = () =>
+                {
+                    //the result is no matter
+                    var handled = false;
+                    RaiseBackRequested(ref handled);
+                };
+
+                // Hook up keyboard and house Forward handler
+                _keyboardService.AfterForwardGesture = RaiseForwardRequested;
             }
 
             // setup default view
@@ -319,144 +358,12 @@ namespace UWPCore.Framework.Common
                     }
             }
 
-            //UpdateShellBackButton();
-
             // if the user didn't already set custom content use rootframe
             if (Window.Current.Content == splashScreen) { Window.Current.Content = RootFrame; }
             if (Window.Current.Content == null) { Window.Current.Content = RootFrame; }
 
             // ensure active
             Window.Current.Activate();
-
-            // Hook up the default Back handler
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
-            {
-                var handled = false;
-                if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
-                {
-                    if (NavigationService.CanGoBack)
-                    {
-                        handled = true;
-                    }
-                    else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
-                    {
-                        args.Handled = true;
-                        Current.Exit();
-                    }
-                }
-                else
-                {
-                    handled = !NavigationService.CanGoBack;
-                }
-
-                args.Handled = handled;
-                RaiseBackRequested(ref handled);
-            };
-
-            // Hook up keyboard and mouse Back handler
-            var keyboard = new KeyboardService();
-            keyboard.AfterBackGesture = () =>
-            {
-                //the result is no matter
-                var handled = false;
-                RaiseBackRequested(ref handled);
-            };
-
-            // Hook up keyboard and house Forward handler
-            keyboard.AfterForwardGesture = RaiseForwardRequested;
-
-
-
-
-
-
-            //if (e.PreviousExecutionState != ApplicationExecutionState.Running)
-            //{
-            //    await InitializeFrameAsync(e);
-            //}
-
-            //// create launch argmunets
-            //ILaunchArgs launchArgs;
-            //if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId))
-            //{
-            //    launchArgs = new LaunchArgs(e.Arguments, e.TileId);
-            //}
-            //else
-            //{
-            //    launchArgs = new LaunchArgs();
-            //}
-
-            //// okay, now handle launch
-            //switch (e.PreviousExecutionState)
-            //{
-            //    //case ApplicationExecutionState.ClosedByUser:
-            //    case ApplicationExecutionState.Terminated:
-            //        {
-            //            /*
-            //                Restore state if you need to/can do.
-            //                Remember that only the primary tile should restore.
-            //                (this includes toast with no data payload)
-            //                The rest are already providing a nav path.
-            //                In the event that the cache has expired, attempting to restore
-            //                from state will fail because of missing values. 
-            //                This is okay & by design.
-            //            */
-            //            if (DetermineStartCause(e) == AdditionalKinds.Primary)
-            //            {
-            //                var restored = NavigationService.RestoreSavedNavigation();
-            //                if (!restored)
-            //                {
-            //                    await OnStartAsync(StartKind.Launch, e, launchArgs);
-            //                }
-            //            }
-            //            else
-            //            {
-            //                await OnStartAsync(StartKind.Launch, e, launchArgs);
-            //            }
-            //            break;
-            //        }
-            //    default:
-            //        {
-            //            // launch if not restored
-            //            await OnStartAsync(StartKind.Launch, e, launchArgs);
-            //            break;
-            //        }
-            //}
-
-            //// ensure active (this will hide any custom splashscreen)
-            //Window.Current.Activate();
-
-            //// Hook up the default Back handler
-            //SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
-            //{
-            //    var handled = false;
-            //    if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
-            //    {
-            //        if (NavigationService.CanGoBack)
-            //        {
-            //            handled = true;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        handled = !NavigationService.CanGoBack;
-            //    }
-
-            //    args.Handled = handled;
-            //    RaiseBackRequested(ref handled);
-            //};
-
-            //// Hook up keyboard and mouse Back handler
-            //var keyboard = new KeyboardService();
-            //keyboard.AfterBackGesture = () =>
-            //{
-            //    //the result is no matter
-            //    var handled = false;
-            //    RaiseBackRequested(ref handled);
-            //};
-
-            //// Hook up keyboard and mouse Forward handler
-            //keyboard.AfterForwardGesture = RaiseForwardRequested;
         }
 
         /// <summary>
