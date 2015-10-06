@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using UWPCore.Framework.Common;
 using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Models;
 using UWPCore.Framework.Mvvm;
@@ -36,8 +37,7 @@ namespace UWPCore.Framework.ViewModels
         /// <summary>
         /// Gets or sets the app title.
         /// </summary>
-        public string AppTitle { get { return _appTitle; } set { Set(ref _appTitle, value); } }
-        private string _appTitle;
+        public string AppTitle { get { return AppInfo.AppTitle; } }
 
         /// <summary>
         /// Gets or sets the app developer name.
@@ -48,8 +48,12 @@ namespace UWPCore.Framework.ViewModels
         /// <summary>
         /// Gets or sets the app version.
         /// </summary>
-        public string AppVersion { get { return _appVersion; } set { Set(ref _appVersion, value); } }
-        private string _appVersion;
+        public string AppVersion { get { return VersionPrefixFormat + AppInfo.Version; } }
+
+        /// <summary>
+        /// Gets or sets the app version prefix
+        /// </summary>
+        public string VersionPrefixFormat { get; set; } = "Version ";
 
         /// <summary>
         /// Gets or sets the app description.
@@ -72,21 +76,6 @@ namespace UWPCore.Framework.ViewModels
         /// Gets or sets the email address where to send the feedback emails.
         /// </summary>
         public string FeedbackToEmail { get; set; }
-
-        /// <summary>
-        /// Gets or sets the apps product ID.
-        /// </summary>
-        public string AppProductId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the apps publisher name in Windows Store.
-        /// </summary>
-        public string PublisherName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the share app text.
-        /// </summary>
-        public string ShareAppUri { get; set; }
 
         /// <summary>
         /// Gets or sets the privacy info text.
@@ -116,7 +105,7 @@ namespace UWPCore.Framework.ViewModels
         /// <summary>
         /// Gets or sets the optional share app format-text. It requries 1 placeholder!
         /// </summary>
-        public string ShareAppTextFormat { get; set; } = "Check out {0} for Windows 10 Mobile:";
+        public string ShareAppTextFormat { get; set; } = "Check out {0} for Windows 10";
 
         /// <summary>
         /// Gets or sets the contributors.
@@ -159,7 +148,7 @@ namespace UWPCore.Framework.ViewModels
         DelegateCommand _rateAndReviewCommand = default(DelegateCommand);
         private async void ExecuteRateAndReview()
         {
-            await StoreLauncher.LaunchReviewAsync(AppProductId);
+            await StoreLauncher.LaunchReviewAsync(AppInfo.ProductId);
         }
 
         /// <summary>
@@ -169,7 +158,7 @@ namespace UWPCore.Framework.ViewModels
         DelegateCommand _moreAppsCommand = default(DelegateCommand);
         private async void ExecuteMoreApps()
         {
-            await StoreLauncher.LaunchSearchAppsByPublisherAsync(PublisherName);
+            await StoreLauncher.LaunchSearchAppsByPublisherAsync(AppInfo.PublisherName);
         }
 
         /// <summary>
@@ -181,7 +170,7 @@ namespace UWPCore.Framework.ViewModels
         {
             // we do not need a translation here I guess...
             var shareTitle = string.Format(ShareAppTextFormat, AppTitle);
-            _shareContentService.ShareWebLink(shareTitle, new Uri(ShareAppUri));
+            _shareContentService.ShareWebLink(shareTitle, AppInfo.StoreLink);
         }
     }
 
