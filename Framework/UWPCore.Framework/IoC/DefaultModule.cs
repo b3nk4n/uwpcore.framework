@@ -37,7 +37,7 @@ namespace UWPCore.Framework.IoC
             Bind<IDeviceInfoService>().To<DeviceInfoService>().InSingletonScope();
             Bind<IDisplayService>().To<DisplayService>().InSingletonScope();
             Bind<IPersonalizationService>().To<PersonalizationService>().InSingletonScope();
-            Bind<IStatusBarService>().To<StatusBarService>().InTransientScope();
+            Bind<IStatusBarService>().To<StatusBarService>().InSingletonScope();
             Bind<IVibrateService>().To<VibrateService>().InSingletonScope();
 
             // Graphics
@@ -47,9 +47,9 @@ namespace UWPCore.Framework.IoC
             // TODO: introduce INavigationService interface?
 
             // Networking
-            Bind<IHttpService>().To<HttpService>();
+            Bind<IHttpService>().To<HttpService>(); // no singleton, because each has its own HTTP headers and session
             Bind<INetworkInfoService>().To<NetworkInfoService>().InSingletonScope();
-            Bind<IWebDownloadService>().To<WebDownloadService>();
+            Bind<IWebDownloadService>().To<WebDownloadService>(); // no singleton, because each has its own HTTP headers and session
 
             // Notifications
             Bind<IAdaptiveTileFactory>().To<AdaptiveTileFactory>().InSingletonScope();
@@ -66,7 +66,7 @@ namespace UWPCore.Framework.IoC
 
             // Share
             Bind<IEmailService>().To<EmailService>().InSingletonScope();
-            Bind<IShareContentService>().To<ShareContentService>();
+            Bind<IShareContentService>().To<ShareContentService>(); // no singleton, because temporary fields are used 
 
             // Speech
             Bind<ISpeechService>().To<SpeechService>().InSingletonScope();
