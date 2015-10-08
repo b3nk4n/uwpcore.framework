@@ -280,6 +280,7 @@
     <Compile Include="Devices\IStatusBarService.cs" />
     <Compile Include="Devices\StatusBarService.cs" />
     <Compile Include="UI\TemplateSelectorBase.cs" />
+    <Compile Include="UI\Triggers\OrientationTrigger.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>
