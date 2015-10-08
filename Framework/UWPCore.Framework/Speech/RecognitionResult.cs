@@ -4,6 +4,7 @@ using Windows.Media.SpeechRecognition;
 
 namespace UWPCore.Framework.Speech
 {
+    // TODO: comments
     public class RecognitionResult : IRecognitionResult
     {
         public string Text { get; private set; }

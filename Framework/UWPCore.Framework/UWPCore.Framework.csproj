@@ -177,11 +177,14 @@
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardController.cs" />
     <Compile Include="Input\KeyboardService.cs" />
+    <Compile Include="IoC\IInjector.cs" />
+    <Compile Include="IoC\Injector.cs" />
     <Compile Include="Launcher\SettingsLauncher.cs" />
     <Compile Include="Launcher\StoreLauncher.cs" />
     <Compile Include="Launcher\SystemLauncher.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Models\ContributorModel.cs" />
+    <Compile Include="IoC\DefaultModule.cs" />
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Mvvm\IBindable.cs" />
@@ -249,8 +252,12 @@
     <Compile Include="Speech\ISpeechService.cs" />
     <Compile Include="Speech\RecognitionResult.cs" />
     <Compile Include="Speech\SpeechService.cs" />
+    <Compile Include="Storage\ILocalStorageService.cs" />
     <Compile Include="Storage\IOConstants.cs" />
+    <Compile Include="Storage\IRoamingStorageService.cs" />
+    <Compile Include="Storage\ISharedLocalStorageService.cs" />
     <Compile Include="Storage\IStorageService.cs" />
+    <Compile Include="Storage\ITemporaryStorageService.cs" />
     <Compile Include="Storage\LocalObject.cs" />
     <Compile Include="Storage\LocalStorageService.cs" />
     <Compile Include="Storage\RoamingStorageService.cs" />
@@ -264,6 +271,7 @@
     <Compile Include="Store\ProductItem.cs" />
     <Compile Include="Accounts\IUserInfoService.cs" />
     <Compile Include="Accounts\UserInfoService.cs" />
+    <Compile Include="Tasks\BackgroundTaskBase.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
     <Compile Include="UI\ColorConverter.cs" />

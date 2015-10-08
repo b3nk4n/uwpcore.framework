@@ -1,4 +1,5 @@
 ﻿using UWPCore.Framework.Audio;
+using UWPCore.Framework.Common;
 using UWPCore.Framework.Controls;
 using Windows.UI.Xaml;
 
@@ -15,7 +16,7 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
 
-            _audioService = new AudioService();
+            _audioService = UniversalApp.Injector.Get<IAudioService>();
         }
 
         private async void PlayMp3Clicked(object sender, RoutedEventArgs e)

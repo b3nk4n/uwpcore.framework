@@ -19,7 +19,7 @@ namespace UWPCore.Demo.Views
 
         private IStatusBarService _statusBarService;
 
-        private IStorageService _storageService;
+        private IStorageService _localStorageService;
 
         private IPersonalizationService _personalizationService;
 
@@ -29,12 +29,12 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
 
-            _vibrateService = new VibrateService();
-            _deviceInfoService = new DeviceInfoService();
-            _statusBarService = new StatusBarService();
-            _storageService = new LocalStorageService();
-            _personalizationService = new PersonalizationService();
-            _dialogService = new DialogService();
+            _vibrateService = Injector.Get<IVibrateService>();
+            _deviceInfoService = Injector.Get<IDeviceInfoService>();
+            _statusBarService = Injector.Get<IStatusBarService>();
+            _localStorageService = Injector.Get<ILocalStorageService>();
+            _personalizationService = Injector.Get<IPersonalizationService>();
+            _dialogService = Injector.Get<IDialogService>();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
@@ -108,7 +108,7 @@ namespace UWPCore.Demo.Views
         {
             var lockScreenImagePath = LockScreenImageTextBox.Text;
 
-            var file = await _storageService.GetFileFromApplicationAsync(lockScreenImagePath);
+            var file = await _localStorageService.GetFileFromApplicationAsync(lockScreenImagePath);
 
             if (file != null)
                 await _personalizationService.SetLockScreenAsync(file);
@@ -118,7 +118,7 @@ namespace UWPCore.Demo.Views
         {
             var lockScreenImagePath = LockScreenImageTextBox.Text;
 
-            var file = await _storageService.GetFileFromApplicationAsync(lockScreenImagePath);
+            var file = await _localStorageService.GetFileFromApplicationAsync(lockScreenImagePath);
 
             if (file != null)
                 await _personalizationService.SetWallpaperAsync(file);

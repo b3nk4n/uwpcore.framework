@@ -5,7 +5,7 @@ namespace UWPCore.Framework.Storage
     /// <summary>
     /// The storage service class for raoming app data.
     /// </summary>
-    public sealed class RoamingStorageService : StorageServiceBase
+    public sealed class RoamingStorageService : StorageServiceBase, IRoamingStorageService
     {
         /// <summary>
         /// Creates a RoamingStorageService instance.

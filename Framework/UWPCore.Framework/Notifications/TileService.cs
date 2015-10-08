@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Notifications.Models;
@@ -27,10 +28,11 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a TileService instance.
         /// </summary>
-        public TileService()
+        [Inject]
+        public TileService(ITileFactory tileFactory, IAdaptiveTileFactory adaptiveTileFactory)
         {
-            _tileFactory = new TileFactory();
-            _adaptiveTileFactory = new AdaptiveTileFactory();
+            _tileFactory = tileFactory;
+            _adaptiveTileFactory = adaptiveTileFactory;
         }
 
         public TileUpdater GetUpdaterForApplication()
@@ -116,6 +118,11 @@ namespace UWPCore.Framework.Notifications
                 return true;
 
             var secondaryTile = await GetSecondaryTileAsync(tileId);
+
+            // in case the tileId was empty
+            if (secondaryTile == null)
+                return false;
+
             return await secondaryTile.RequestDeleteAsync();
         }
 
@@ -125,6 +132,11 @@ namespace UWPCore.Framework.Notifications
                 return true;
 
             var secondaryTile = await GetSecondaryTileAsync(tileId);
+
+            // in case the tileId was empty
+            if (secondaryTile == null)
+                return false;
+
             return await secondaryTile.RequestDeleteForSelectionAsync(selection, preferredPlacement);
         }
 

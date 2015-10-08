@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Ninject.Modules;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using UWPCore.Framework.Input;
+using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using Windows.ApplicationModel;
@@ -21,9 +23,14 @@ namespace UWPCore.Framework.Common
     {
         #region dependency injection
 
-        public virtual T Resolve<T>(Type type) { return default(T); }
+        public virtual T Resolve<T>(Type type) { return default(T); } // TODO: remove because we use Ninject?
 
-        public virtual INavigable ResolveForPage(Type page, NavigationService navigationService) { return null; }
+        public virtual INavigable ResolveForPage(Type page, NavigationService navigationService) { return null; } // TODO remove because we use Ninject?
+
+        /// <summary>
+        /// Gets the inversion of control container.
+        /// </summary>
+        public static IInjector Injector { get; private set; }
 
         #endregion
 
@@ -65,13 +72,14 @@ namespace UWPCore.Framework.Common
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
         /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
         /// <param name="appAssemblyName">The applicatoins assembly name implememnted by the framework user.</param>
-        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, string appAssemblyName)
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, string appAssemblyName, params NinjectModule[] modules)
         {
             Current = this;
 
             DefaultPage = defaultPage;
             BackButtonBehaviour = backButtonBehaviour;
-            AppAssemblyName = appAssemblyName;
+            AppAssemblyName = appAssemblyName; // TODO: auto resove assembly/package name here?
+            Injector = new Injector(modules);
 
             Resuming += (s, e) =>
             {

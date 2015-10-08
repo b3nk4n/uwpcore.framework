@@ -19,7 +19,7 @@ namespace UWPCore.Framework.Devices
     {
         public async Task<bool> SetImageAsync(IStorageFile file)
         {
-            if (ApiInformation.IsApiContractPresent("Windows.System.UserProfile.UserProfileLockScreenContract", 1))
+            if (IsSupported)
             {
                 try
                 {
@@ -38,7 +38,7 @@ namespace UWPCore.Framework.Devices
 
         public async Task<bool> SetImageAsync(IRandomAccessStream stream)
         {
-            if (ApiInformation.IsApiContractPresent("Windows.System.UserProfile.UserProfileLockScreenContract", 1))
+            if (IsSupported)
             {
                 try
                 {
@@ -57,7 +57,7 @@ namespace UWPCore.Framework.Devices
 
         public IRandomAccessStream GetImageStream()
         {
-            if (ApiInformation.IsApiContractPresent("Windows.System.UserProfile.UserProfileLockScreenContract", 1))
+            if (IsSupported)
             {
                 try
                 {
@@ -75,7 +75,7 @@ namespace UWPCore.Framework.Devices
 
         public Uri GetImageUri()
         {
-            if (ApiInformation.IsApiContractPresent("Windows.System.UserProfile.UserProfileLockScreenContract", 1))
+            if (IsSupported)
             {
                 try
                 {
@@ -89,6 +89,14 @@ namespace UWPCore.Framework.Devices
             }
 
             return null;
+        }
+
+        public bool IsSupported
+        {
+            get
+            {
+                return ApiInformation.IsApiContractPresent("Windows.System.UserProfile.UserProfileLockScreenContract", 1);
+            }
         }
     }
 }

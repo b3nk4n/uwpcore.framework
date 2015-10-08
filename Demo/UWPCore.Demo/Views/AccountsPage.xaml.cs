@@ -15,7 +15,7 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
 
-            _userInfoService = new UserInfoService();
+            _userInfoService = Injector.Get<IUserInfoService>();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

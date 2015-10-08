@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Threading.Tasks;
 using UWPCore.Framework.Audio;
+using UWPCore.Framework.Common;
 using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Storage;
@@ -37,9 +39,9 @@ namespace UWPCore.Framework.Speech
         private IDialogService _dialogService;
 
         /// <summary>
-        /// The storage service.
+        /// The local storage service.
         /// </summary>
-        private IStorageService _storageService;
+        private IStorageService _localStorageService;
 
         /// <summary>
         /// Gets the lazily created synthesizer instance.
@@ -75,11 +77,12 @@ namespace UWPCore.Framework.Speech
         /// <summary>
         /// Creates a SpeechService instance.
         /// </summary>
-        public SpeechService()
+        [Inject]
+        public SpeechService(IAudioService audioService, IDialogService dialogService, ILocalStorageService localStorageService)
         {
-            _audioService = new AudioService();
-            _dialogService = new DialogService();
-            _storageService = new LocalStorageService();
+            _audioService = audioService;
+            _dialogService = dialogService;
+            _localStorageService = localStorageService;
         }
 
         #region Voice Commands
@@ -90,7 +93,7 @@ namespace UWPCore.Framework.Speech
             {
                 try
                 {
-                    var storageFile = await _storageService.GetFileFromApplicationAsync(packageFilePath);
+                    var storageFile = await _localStorageService.GetFileFromApplicationAsync(packageFilePath);
                     await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile as StorageFile);
 
                     //_hasInstalledCommands = true;

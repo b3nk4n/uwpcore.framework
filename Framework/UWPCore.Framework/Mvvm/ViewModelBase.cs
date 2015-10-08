@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.IoC;
 using UWPCore.Framework.Navigation;
 using Windows.UI.Xaml.Navigation;
 
@@ -12,12 +13,15 @@ namespace UWPCore.Framework.Mvvm
     public abstract class ViewModelBase : BindableBase, INavigable
     {
         /// <summary>
-        /// Gets or sets the identifier of the view model.
+        /// Gets the injector.
         /// </summary>
-        /// <remarks>
-        /// This identifier is used by the navigation service for (re)storing the view model.
-        /// </remarks>
-        //public string Identifier { get; set; }
+        public IInjector Injector
+        {
+            get
+            {
+                return UniversalApp.Injector;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the navigation service.

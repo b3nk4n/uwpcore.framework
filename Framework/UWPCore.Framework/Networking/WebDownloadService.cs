@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UWPCore.Framework.Storage;
@@ -20,9 +21,10 @@ namespace UWPCore.Framework.Networking
         /// <summary>
         /// Creates a WebDownloadService instance.
         /// </summary>
-        public WebDownloadService()
+        [Inject]
+        public WebDownloadService(ILocalStorageService localStorageService)
         {
-            _storageService = new LocalStorageService();
+            _storageService = localStorageService;
         }
 
         public async Task<IStorageFile> DownloadAsync(Uri fileUri, string fileName = null, NameCollisionOption option = NameCollisionOption.GenerateUniqueName)

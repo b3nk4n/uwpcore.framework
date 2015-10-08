@@ -15,7 +15,7 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
 
-            _speechService = new SpeechService();
+            _speechService = Injector.Get<ISpeechService>();
         }
 
         private async void SpeakClicked(object sender, RoutedEventArgs e)

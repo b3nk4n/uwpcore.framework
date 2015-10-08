@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI;
 using UWPCore.Framework.Devices;
+using UWPCore.Framework.IoC;
 
 namespace UWPCore.Demo
 {
@@ -21,7 +22,7 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, "UWPCore.Demo")
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, "UWPCore.Demo", new DefaultModule())
         {
             InitializeComponent();
 
@@ -45,10 +46,10 @@ namespace UWPCore.Demo
                     GetBottomDockedNavigationMenuItems());
             }
 
-            _speechService = new SpeechService();
+            _speechService = Injector.Get<ISpeechService>();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
 
-            _statusBarService = new StatusBarService();
+            _statusBarService = Injector.Get<IStatusBarService>();
             var color = (Color)Current.Resources["SystemChromeMediumColor"];
             _statusBarService.BackgroundColor = color;
         }

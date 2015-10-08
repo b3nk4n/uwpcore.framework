@@ -14,7 +14,7 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
 
-            _networkInfoService = new NetworkInfoService();
+            _networkInfoService = Injector.Get<INetworkInfoService>();
         }
 
         public bool InternetStatus

@@ -31,7 +31,7 @@ namespace UWPCore.Demo.ViewModels
 
         public MvvmViewModel()
         {
-            _serializationService = new DataContractSerializationService();
+            _serializationService = Injector.Get<ISerializationService>();
                  
             Items = new ObservableCollection<ItemViewModel>();
             InitializeCommands();

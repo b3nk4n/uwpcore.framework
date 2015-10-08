@@ -17,15 +17,15 @@ namespace UWPCore.Demo.Views
         public const string TEST_FILE_NAME = "TestRenderFrameworkElement.png";
 
         private IGraphicsService _graphicsService;
-        private IStorageService _storageService;
+        private IStorageService _localStorageService;
         private IDialogService _dialogService;
 
         public GraphicsPage()
         {
             InitializeComponent();
-            _graphicsService = new GraphicsService();
-            _storageService = new LocalStorageService();
-            _dialogService = new DialogService();
+            _graphicsService = Injector.Get<IGraphicsService>();
+            _localStorageService = Injector.Get<ILocalStorageService>();
+            _dialogService = Injector.Get<IDialogService>();
         }
 
         private async void RenderClicked(object sender, RoutedEventArgs e)
@@ -36,7 +36,7 @@ namespace UWPCore.Demo.Views
             HiddenRenderContainer.Children.Add(uiElementToRender);
             // TODO: is there a way that rendering of a UI element not requires to add it to the visual tree? Or is there a nice way to hide these UI elements?
 
-            var file = await _storageService.CreateOrGetFileAsync(TEST_FILE_NAME);
+            var file = await _localStorageService.CreateOrGetFileAsync(TEST_FILE_NAME);
             RenderTargetBitmap renderResult;
             renderResult = await _graphicsService.RenderToFileAsync(uiElementToRender, file, BitmapEncoder.PngEncoderId);
 

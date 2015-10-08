@@ -5,7 +5,7 @@ namespace UWPCore.Framework.Storage
     /// <summary>
     /// The storage service class for local app data.
     /// </summary>
-    public sealed class LocalStorageService : StorageServiceBase
+    public sealed class LocalStorageService : StorageServiceBase, ILocalStorageService
     {
         /// <summary>
         /// Creates a LocalStorageService instance.

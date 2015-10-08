@@ -6,13 +6,8 @@ namespace UWPCore.Framework.Devices
     /// <summary>
     /// Service interface to access user personalization settings.
     /// </summary>
-    public interface IPersonalizationService
+    public interface IPersonalizationService : IDeviceService
     {
-        /// <summary>
-        /// Gets whether this service is supported on the current device.
-        /// </summary>
-        bool IsSupported { get; }
-
         /// <summary>
         /// Sets the lock screen image.
         /// </summary>

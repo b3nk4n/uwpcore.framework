@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.IoC;
 using UWPCore.Framework.Notifications;
 using Windows.ApplicationModel.Background;
 
@@ -17,7 +18,8 @@ namespace UWPCore.Demo.Tasks
 
         public SimpleBackgroundTask()
         {
-            _toastService = new ToastService();
+            Injector Injector = new Injector(new DefaultModule());
+            _toastService = Injector.Get<IToastService>();
         }
 
         public async void Run(IBackgroundTaskInstance taskInstance)

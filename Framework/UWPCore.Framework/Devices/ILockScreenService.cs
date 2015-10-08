@@ -8,7 +8,7 @@ namespace UWPCore.Framework.Devices
     /// <summary>
     /// Service interface to access lock screen functions.
     /// </summary>
-    public interface ILockScreenService
+    public interface ILockScreenService : IDeviceService
     {
         /// <summary>
         /// Sets the lockscreen image.

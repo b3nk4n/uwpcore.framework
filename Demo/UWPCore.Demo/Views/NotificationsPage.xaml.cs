@@ -20,9 +20,9 @@ namespace UWPCore.Demo.Views
         public NotificationsPage()
         {
             InitializeComponent();
-            _toastService = new ToastService();
-            _tileService = new TileService();
-            _dialogService = new DialogService();
+            _toastService = Injector.Get<IToastService>();
+            _tileService = Injector.Get<ITileService>();
+            _dialogService = Injector.Get<IDialogService>();
         }
 
         #region Toast

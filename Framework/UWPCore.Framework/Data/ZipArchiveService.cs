@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
@@ -26,9 +27,10 @@ namespace UWPCore.Framework.Data
         /// <summary>
         /// Initialize object.
         /// </summary>
-        public ZipArchiveService()
+        [Inject]
+        public ZipArchiveService(ILocalStorageService localStorageService)
         {
-            _localStorageService = new LocalStorageService();
+            _localStorageService = localStorageService;
         }
 
         #endregion

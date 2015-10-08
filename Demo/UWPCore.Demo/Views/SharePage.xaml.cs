@@ -15,7 +15,8 @@ namespace UWPCore.Demo.Views
         public SharePage()
         {
             InitializeComponent();
-            _emailService = new EmailService();
+
+            _emailService = Injector.Get<IEmailService>();
         }
 
         private void SendEmailClicked(object sender, RoutedEventArgs e)

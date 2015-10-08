@@ -1,4 +1,5 @@
 ﻿using UWPCore.Framework.Common;
+using UWPCore.Framework.IoC;
 using UWPCore.Framework.Navigation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -42,6 +43,17 @@ namespace UWPCore.Framework.Controls
             get
             {
                 return UniversalApp.Current.NavigationService;
+            }
+        }
+
+        /// <summary>
+        /// Gets the injector.
+        /// </summary>
+        public IInjector Injector
+        {
+            get
+            {
+                return UniversalApp.Injector;
             }
         }
     }

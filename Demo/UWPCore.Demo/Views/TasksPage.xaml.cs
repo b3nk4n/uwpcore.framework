@@ -18,8 +18,8 @@ namespace UWPCore.Demo.Views
         public TasksPage()
         {
             InitializeComponent();
-            _backgroundTaskService = new BackgroundTaskService();
-            _dialogService = new DialogService();
+            _backgroundTaskService = Injector.Get<IBackgroundTaskService>();
+            _dialogService = Injector.Get<IDialogService>();
         }
 
         private async void RequestUserAccessClicked(object sender, RoutedEventArgs e)
