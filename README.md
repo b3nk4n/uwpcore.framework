@@ -11,3 +11,7 @@ The framworks navigation system is inspired by [Template 10](https://github.com/
 
 * Repo owner is Benjamin Sautermeister
 * Supporting developer is Patrick Mutter
+
+### Is there any documentation? ###
+
+Check out the [WIKI](https://bitbucket.org/bsautermeister/uwpcore.framework/wiki/)!
