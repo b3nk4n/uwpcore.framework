@@ -1,29 +1,13 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+The UWPCore Framework is a development acceleration framework for the Universal Windows Platform. It is a collection of best practices and reusable services to simplify the development for Windows 10 apps.
 
-### What is this repository for? ###
+### Is the framework inspired by another one? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+The framworks navigation system is inspired by [Template 10](https://github.com/Windows-XAML/Template10) by Jerry Nixon. 
 
-### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+### Who are the developers of this framework? ###
 
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+* Repo owner is Benjamin Sautermeister
+* Supporting developer is Patrick Mutter
