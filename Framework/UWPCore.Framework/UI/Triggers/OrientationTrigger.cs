@@ -6,6 +6,10 @@ namespace UWPCore.Framework.UI.Triggers
     /// <summary>
     /// A simple orientation state trigger.
     /// </summary>
+    /// <remarks>
+    /// For more (advanced) triggers, check out: https://github.com/dotMorten/WindowsStateTriggers
+    /// PM> Install-Package WindowsStateTriggers
+    /// </remarks>
     public class OrientationTrigger : StateTriggerBase
     {
         /// <summary>
