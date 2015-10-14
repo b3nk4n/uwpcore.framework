@@ -1,6 +1,7 @@
 ﻿using Ninject.Modules;
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using UWPCore.Framework.Input;
 using UWPCore.Framework.IoC;
@@ -63,15 +64,18 @@ namespace UWPCore.Framework.Common
         /// </summary>
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
         /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
-        /// <param name="appAssemblyName">The applicatoins assembly name implememnted by the framework user.</param>
-        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, string appAssemblyName, params NinjectModule[] modules)
+        /// <param name="modules">The ninject modules.</param>
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, params NinjectModule[] modules)
         {
             Current = this;
-
             DefaultPage = defaultPage;
             BackButtonBehaviour = backButtonBehaviour;
-            AppAssemblyName = appAssemblyName; // TODO: auto resove assembly/package name here?
-            Injector = new Injector(modules);
+            AppAssemblyName = GetType().GetTypeInfo().Assembly.GetName().Name;
+
+            if (modules == null)
+                Injector = new Injector(new DefaultModule());
+            else
+                Injector = new Injector(modules);
 
             Resuming += (s, e) =>
             {
