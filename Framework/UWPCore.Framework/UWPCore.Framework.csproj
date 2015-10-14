@@ -243,6 +243,7 @@
     <Compile Include="Storage\IStorageService.cs" />
     <Compile Include="Storage\LocalObject.cs" />
     <Compile Include="Storage\LocalStorageService.cs" />
+    <Compile Include="Storage\OneDriveStorageService.cs" />
     <Compile Include="Storage\RoamingStorageService.cs" />
     <Compile Include="Storage\SharedLocalStorageService.cs" />
     <Compile Include="Storage\StorageServiceBase.cs" />
