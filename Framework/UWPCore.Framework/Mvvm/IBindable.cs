@@ -28,6 +28,6 @@ namespace UWPCore.Framework.Mvvm
         /// support CallerMemberName.</param>
         /// <returns>True if the value was changed, false if the existing value matched the
         /// desired value.</returns>
-        void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null);
+        bool Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null);
     }
 }

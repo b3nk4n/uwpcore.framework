@@ -28,12 +28,14 @@ namespace UWPCore.Framework.Mvvm
             });
         }
  
-        public void Set<T>(ref T storage, T value, [CallerMemberName()]string propertyName = null)
+        public bool Set<T>(ref T storage, T value, [CallerMemberName()]string propertyName = null)
         {
             if (Equals(storage, value))
-                return;
+                return false;
             storage = value;
             RaisePropertyChanged(propertyName);
+
+            return true;
         }
     }
 }
