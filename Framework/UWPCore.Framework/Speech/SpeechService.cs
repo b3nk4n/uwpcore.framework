@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using UWPCore.Framework.Audio;
-using UWPCore.Framework.Common;
 using UWPCore.Framework.Launcher;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Storage;

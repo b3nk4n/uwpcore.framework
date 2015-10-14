@@ -131,14 +131,6 @@ namespace UWPCore.Framework.Navigation
             var page = FrameFacade.Content as Page;
             if (page != null)
             {
-                if (page.DataContext == null)
-                {
-                    // to support dependency injection, but keeping it optional.
-                    var viewmodel = UniversalApp.Current.ResolveForPage(page.GetType(), this);
-                    if (viewmodel != null)
-                        page.DataContext = viewmodel;
-                }
-
                 // call viewmodel
                 var dataContext = page.DataContext as INavigable;
                 if (dataContext != null)

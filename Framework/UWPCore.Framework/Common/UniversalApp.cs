@@ -21,18 +21,10 @@ namespace UWPCore.Framework.Common
     /// </summary>
     public abstract class UniversalApp : Application
     {
-        #region dependency injection
-
-        public virtual T Resolve<T>(Type type) { return default(T); } // TODO: remove because we use Ninject?
-
-        public virtual INavigable ResolveForPage(Type page, NavigationService navigationService) { return null; } // TODO remove because we use Ninject?
-
         /// <summary>
         /// Gets the inversion of control container.
         /// </summary>
         public static IInjector Injector { get; private set; }
-
-        #endregion
 
         public static new UniversalApp Current { get; private set; }
 
@@ -132,6 +124,7 @@ namespace UWPCore.Framework.Common
         {
             // because it is protected, we can safely assume it will ref the first view
             get { return WindowWrapper.ActiveWrappers.First().NavigationServices.First(); }
+            //get { return new NavigationService(RootFrame); }
         }
 
         /// <summary>
@@ -191,8 +184,20 @@ namespace UWPCore.Framework.Common
         /// <param name="e">The event args.</param>
         private async Task InternalActivatedAsync(IActivatedEventArgs e)
         {
+            // sometimes activate requires a frame to be built, such as after a launch using a toast notification
+            if (Window.Current.Content == null)
+            {
+                InitRootFrameAndNavigation();
+            }
+
             // onstart is shared with activate and launch
             await OnStartAsync(StartKind.Activate, e);
+
+            // if the user didn't already set custom content use rootframe
+            if (Window.Current.Content == null)
+            {
+                Window.Current.Content = RootFrame;
+            }
 
             // ensure active (this will hide any custom splashscreen)
             Window.Current.Activate();
@@ -235,6 +240,89 @@ namespace UWPCore.Framework.Common
                 Window.Current.Content = splashScreen;
             }
 
+            InitRootFrameAndNavigation();
+
+            // expire state (based on expiry)
+            DateTime cacheDate;
+            var otherwise = DateTime.MinValue.ToString();
+            if (DateTime.TryParse(NavigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
+            {
+                var cacheAge = DateTime.Now.Subtract(cacheDate);
+                if (cacheAge >= CacheMaxDuration)
+                {
+                    // clear state in every nav service in every view
+                    foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
+                    {
+                        service.FrameFacade.ClearFrameState();
+                    }
+                }
+            }
+            else
+            {
+                // no date, also fine...
+            }
+
+            // the user may override to set custom content
+            await OnInitializeAsync(e);
+
+            switch (e.PreviousExecutionState)
+            {
+                case ApplicationExecutionState.NotRunning:
+                case ApplicationExecutionState.Running:
+                case ApplicationExecutionState.Suspended:
+                case ApplicationExecutionState.ClosedByUser:
+                    {
+                        // launch if not restored
+                        await OnStartAsync(StartKind.Launch, e);
+                        break;
+                    }
+                case ApplicationExecutionState.Terminated:
+                    {
+                        /*
+                            Restore state if you need to/can do.
+                            Remember that only the primary tile should restore.
+                            (this includes toast with no data payload)
+                            The rest are already providing a nav path.
+                            In the event that the cache has expired, attempting to restore
+                            from state will fail because of missing values. 
+                            This is okay & by design.
+                        */
+                        if (DetermineStartCause(e) == AdditionalKinds.Primary || DetermineStartCause(e) == AdditionalKinds.Toast)
+                        {
+                            var restored = NavigationService.RestoreSavedNavigation();
+                            if (!restored)
+                            {
+                                await OnStartAsync(StartKind.Launch, e);
+                            }
+                            else
+                            {
+                                // refresh current page to fire all navigation events
+                                NavigationService.Refresh();
+                            }
+                        }
+                        else
+                        {
+                            await OnStartAsync(StartKind.Launch, e);
+                        }
+                        break;
+                    }
+            }
+
+            // if the user didn't already set custom content use rootframe
+            if (Window.Current.Content == null || Window.Current.Content == splashScreen)
+            {
+                Window.Current.Content = RootFrame;
+            }
+
+            // ensure active
+            Window.Current.Activate();
+        }
+
+        /// <summary>
+        /// Inits the root frame and the navigation.
+        /// </summary>
+        private void InitRootFrameAndNavigation()
+        {
             // setup frame
             if (RootFrame == null)
             {
@@ -289,88 +377,7 @@ namespace UWPCore.Framework.Common
             var view = WindowWrapper.ActiveWrappers.First();
             var navigationService = new NavigationService(RootFrame);
             view.NavigationServices.Add(navigationService);
-
-            // expire state (based on expiry)
-            DateTime cacheDate;
-            var otherwise = DateTime.MinValue.ToString();
-            if (DateTime.TryParse(navigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
-            {
-                var cacheAge = DateTime.Now.Subtract(cacheDate);
-                if (cacheAge >= CacheMaxDuration)
-                {
-                    // clear state in every nav service in every view
-                    foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
-                    {
-                        service.FrameFacade.ClearFrameState();
-                    }
-                }
-            }
-            else
-            {
-                // no date, also fine...
-            }
-
-            // the user may override to set custom content
-            await OnInitializeAsync(e);
-            switch (e.PreviousExecutionState)
-            {
-                case ApplicationExecutionState.NotRunning:
-                case ApplicationExecutionState.Running:
-                case ApplicationExecutionState.Suspended:
-                case ApplicationExecutionState.ClosedByUser:
-                    {
-                        // launch if not restored
-                        await OnStartAsync(StartKind.Launch, e);
-                        break;
-                    }
-                case ApplicationExecutionState.Terminated:
-                    {
-                        /*
-                            Restore state if you need to/can do.
-                            Remember that only the primary tile should restore.
-                            (this includes toast with no data payload)
-                            The rest are already providing a nav path.
-                            In the event that the cache has expired, attempting to restore
-                            from state will fail because of missing values. 
-                            This is okay & by design.
-                        */
-                        if (DetermineStartCause(e) == AdditionalKinds.Primary)
-                        {
-                            var restored = NavigationService.RestoreSavedNavigation();
-                            if (!restored)
-                            {
-                                await OnStartAsync(StartKind.Launch, e);
-                            }
-                            else
-                            {
-                                // refresh current page to fire all navigation events
-                                navigationService.Refresh();
-                            }
-                        }
-                        else
-                        {
-                            await OnStartAsync(StartKind.Launch, e);
-                        }
-                        break;
-                    }
-            }
-
-            // if the user didn't already set custom content use rootframe
-            if (Window.Current.Content == splashScreen) { Window.Current.Content = RootFrame; }
-            if (Window.Current.Content == null) { Window.Current.Content = RootFrame; }
-
-            // ensure active
-            Window.Current.Activate();
         }
-
-        /// <summary>
-        /// Updates the shells back button visibility.
-        /// </summary>
-        //private void UpdateShellBackButton()
-        //{
-        //    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-        //                        (ShowShellBackButton && RootFrame.CanGoBack) ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
-        //}
 
         /// <summary>
         /// Default Hardware/Shell Back handler overrides standard Back behavior 
