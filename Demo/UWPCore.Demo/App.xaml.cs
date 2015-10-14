@@ -54,12 +54,20 @@ namespace UWPCore.Demo
             _statusBarService.BackgroundColor = color;
         }
 
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs)
+        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // check lauch arguments
-            if (launchArgs.IsValid)
-            { 
-                Logger.WriteLine("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+            var launchArgs = args as ILaunchActivatedEventArgs;
+            if (launchArgs != null)
+            {
+                if (args.Kind == ActivationKind.Launch)
+                {
+                    Logger.WriteLine("Started with TILE and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+                }
+                if (args.Kind == ActivationKind.ToastNotification)
+                {
+                    Logger.WriteLine("Started with TOAST and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+                }
             }
 
             // check voice commands

@@ -192,7 +192,7 @@ namespace UWPCore.Framework.Common
         private async Task InternalActivatedAsync(IActivatedEventArgs e)
         {
             // onstart is shared with activate and launch
-            await OnStartAsync(StartKind.Activate, e, new LaunchArgs());
+            await OnStartAsync(StartKind.Activate, e);
 
             // ensure active (this will hide any custom splashscreen)
             Window.Current.Activate();
@@ -310,17 +310,6 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
-            // create launch argmunets
-            ILaunchArgs launchArgs;
-            if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId)) // TODO: LauchArgs vs. DetermineStartCause(e) ?!
-            {
-                launchArgs = new LaunchArgs(e.Arguments, e.TileId);
-            }
-            else
-            {
-                launchArgs = new LaunchArgs();
-            }
-
             // the user may override to set custom content
             await OnInitializeAsync(e);
             switch (e.PreviousExecutionState)
@@ -331,7 +320,7 @@ namespace UWPCore.Framework.Common
                 case ApplicationExecutionState.ClosedByUser:
                     {
                         // launch if not restored
-                        await OnStartAsync(StartKind.Launch, e, launchArgs);
+                        await OnStartAsync(StartKind.Launch, e);
                         break;
                     }
                 case ApplicationExecutionState.Terminated:
@@ -350,7 +339,7 @@ namespace UWPCore.Framework.Common
                             var restored = NavigationService.RestoreSavedNavigation();
                             if (!restored)
                             {
-                                await OnStartAsync(StartKind.Launch, e, launchArgs);
+                                await OnStartAsync(StartKind.Launch, e);
                             }
                             else
                             {
@@ -360,7 +349,7 @@ namespace UWPCore.Framework.Common
                         }
                         else
                         {
-                            await OnStartAsync(StartKind.Launch, e, launchArgs);
+                            await OnStartAsync(StartKind.Launch, e);
                         }
                         break;
                     }
@@ -430,8 +419,7 @@ namespace UWPCore.Framework.Common
         /// </summary>
         /// <param name="startKind">The start up kind.</param>
         /// <param name="args">The activated event args.</param>
-        /// <param name="launchArgs">The optional launch args, which can be NULL.</param>
-        public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs);
+        public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args);
 
         /// <summary>
         /// The hook method to perform some initialization work, such as registering

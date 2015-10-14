@@ -123,8 +123,6 @@
     <Compile Include="Common\EnumExtensions.cs" />
     <Compile Include="Common\GlyphIcons.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
-    <Compile Include="Common\ILaunchArgs.cs" />
-    <Compile Include="Common\LaunchArgs.cs" />
     <Compile Include="Common\Localizer.cs" />
     <Compile Include="Common\StateItem.cs" />
     <Compile Include="Common\StateItems.cs" />
