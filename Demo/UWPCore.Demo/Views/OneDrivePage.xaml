@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="UWPCore.Demo.Views.OneDrivePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uwpcControls:PageHeader>
+            <uwpcControls:PageHeader.HeaderContent>
+                <TextBlock Text="OneDrive" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcControls:PageHeader.HeaderContent>
+        </uwpcControls:PageHeader>
+
+        <!-- SignUp Pane-->
+        <Grid Grid.Row="1"              
+              EntranceNavigationTransitionInfo.IsTargetElement="True"
+              Visibility="{Binding SignUpPaneVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ProgressBar Grid.Row="0" 
+                         IsIndeterminate="{Binding SignInIsIndeterminate}" />
+            <Grid Grid.Row="1" 
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           HorizontalAlignment="Center"
+                           Text="{Binding SignInStatusText}" TextWrapping="Wrap"/>
+                <Button Grid.Row="1" 
+                        Content="Retry" 
+                        HorizontalAlignment="Center" Width="75" Margin="0,10"
+                        Command="{Binding SignUpRetryCommand}"/>
+            </Grid>
+        </Grid>
+
+        <!-- Upload and Download Pane -->
+        <Grid Grid.Row="1"              
+              EntranceNavigationTransitionInfo.IsTargetElement="True">
+            <StackPanel>
+                <TextBlock Text="CREATE BACKUP"/>
+                <TextBlock>
+                    <Run Text="Path:"/>
+                    <Run Text="{Binding UploadPath}"/>
+                </TextBlock>
+                <TextBox Text="{Binding UploadName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <TextBlock Text="{Binding UploadValidationText}"/>
+                <Button Content="Upload" Command="{Binding UploadCommand}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
