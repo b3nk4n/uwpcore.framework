@@ -1,5 +1,5 @@
-﻿using UWPCore.Framework.Data;
-using Windows.UI.Xaml.Controls;
+﻿using UWPCore.Framework.Controls;
+using UWPCore.Framework.Data;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Demo.Views
@@ -7,7 +7,7 @@ namespace UWPCore.Demo.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsPage : Page
+    public sealed partial class SettingsPage : UniversalPage
     {
         public EnumSource<SettingsEnum> ComboBoxEnumSource { get; private set; } = new EnumSource<SettingsEnum>();
 

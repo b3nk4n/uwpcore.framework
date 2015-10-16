@@ -28,9 +28,9 @@
                     <Image Source="{Binding AppIcon}" />
                 </Border>
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="{Binding AppTitle}" Style="{StaticResource TitleTextBlockStyle}" MaxWidth="142" Margin="0,8,8,8" />
-                    <TextBlock Text="{Binding AppDeveloper}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="0,0,8,0" />
-                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="0,0,8,8" />
+                    <TextBlock Text="{Binding AppTitle}" Style="{StaticResource TitleTextBlockStyle}" MaxWidth="142" HorizontalAlignment="Left" Margin="8,8,8,8" />
+                    <TextBlock Text="{Binding AppDeveloper}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="8,0,8,0" />
+                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="8,0,8,8" />
                 </StackPanel>
             </StackPanel>
 

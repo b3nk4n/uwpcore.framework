@@ -46,7 +46,6 @@ namespace UWPCore.Framework.Controls
             RootSplitView.Content = frame;
             _rootFrame = frame;
 
-            _rootFrame.Navigating += OnNavigatingToPage;
             _rootFrame.Navigated += OnNavigatedToPage;
 
             Loaded += (sender, args) =>
@@ -169,55 +168,13 @@ namespace UWPCore.Framework.Controls
                 if (item.DestinationPage != null &&
                     item.DestinationPage != AppFrame.CurrentSourcePageType)
                 {
-                    var nav = (Application.Current as UniversalApp).NavigationService;
-
-                    // when we nav home, clear history
-                    if (item.DestinationPage.Equals((Application.Current as UniversalApp).DefaultPage))
-                        nav.ClearHistory();
+                    var nav = UniversalApp.Current.NavigationService;
 
                     // navigate only to new pages
                     if (nav.CurrentPageType != null && nav.CurrentPageType != item.DestinationPage)
                         nav.Navigate(item.DestinationPage, item.Parameter);
                 }
             }
-        }
-
-        /// <summary>
-        /// Ensures the nav menu reflects reality when navigation is triggered outside of
-        /// the nav menu buttons.
-        /// </summary>
-        private void OnNavigatingToPage(object sender, NavigatingCancelEventArgs e)
-        {
-            var item = GetNavigationItem(e.SourcePageType);
-
-            if (e.NavigationMode == NavigationMode.Back)
-            {
-                if (item == null && AppFrame.BackStackDepth > 0)
-                {
-                    // In cases where a page drills into sub-pages then we'll highlight the most recent
-                    // navigation menu item that appears in the BackStack
-                    foreach (var entry in AppFrame.BackStack.Reverse())
-                    {
-                        item = GetNavigationItem(entry.SourcePageType);
-                        if (item != null)
-                            break;
-                    }
-                }
-            }
-
-            var container = GetContainerFromItem(item);
-
-            // While updating the selection state of the item prevent it from taking keyboard focus.  If a
-            // user is invoking the back button via the keyboard causing the selected nav menu item to change
-            // then focus will remain on the back button.
-            if (container != null)
-                container.IsTabStop = false;
-
-            NavMenuList.SetSelectedItem(container);
-            NavMenuListBottomDock.SetSelectedItem(container);
-
-            if (container != null)
-                container.IsTabStop = true;
         }
 
         /// <summary>
@@ -244,12 +201,46 @@ namespace UWPCore.Framework.Controls
 
         private void OnNavigatedToPage(object sender, NavigationEventArgs e)
         {
-            // After a successful navigation set keyboard focus to the loaded page
+            var item = GetNavigationItem(e.SourcePageType);
+
+            item = SelectNavigationItem(item);
+
+            // after a successful navigation set keyboard focus to the loaded page
             if (e.Content is Page && e.Content != null)
             {
                 var control = (Page)e.Content;
                 control.Loaded += Page_Loaded;
             }
+        }
+
+        private NavMenuItem SelectNavigationItem(NavMenuItem item)
+        {
+            if (item == null && AppFrame.BackStackDepth > 0)
+            {
+                // in cases where a page drills into sub-pages then we'll highlight the most recent
+                // navigation menu item that appears in the BackStack
+                foreach (var entry in AppFrame.BackStack.Reverse())
+                {
+                    item = GetNavigationItem(entry.SourcePageType);
+                    if (item != null)
+                        break;
+                }
+            }
+
+            var container = GetContainerFromItem(item);
+
+            // while updating the selection state of the item prevent it from taking keyboard focus.  If a
+            // user is invoking the back button via the keyboard causing the selected nav menu item to change
+            // then focus will remain on the back button.
+            if (container != null)
+                container.IsTabStop = false;
+
+            NavMenuList.SetSelectedItem(container);
+            NavMenuListBottomDock.SetSelectedItem(container);
+
+            if (container != null)
+                container.IsTabStop = true;
+            return item;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

@@ -54,10 +54,16 @@ namespace UWPCore.Framework.Data
 
         public T DeserializeXML<T>(Stream stream)
         {
-            var serializer = new DataContractSerializer(typeof(T));
-            var result = (T)serializer.ReadObject(stream);
-            return result;
-        }
+            try
+            {
+                var serializer = new DataContractSerializer(typeof(T));
+                return (T)serializer.ReadObject(stream);
+            }
+            catch (SerializationException)
+            {
+                return default(T);
+            }
+}
 
         public T DeserializeXML<T>(string data)
         {
@@ -97,9 +103,15 @@ namespace UWPCore.Framework.Data
 
         public T DeserializeJson<T>(Stream stream)
         {
-            var serializer = new DataContractJsonSerializer(typeof(T));
-            var result = (T)serializer.ReadObject(stream);
-            return result;
+            try
+            {
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                return (T)serializer.ReadObject(stream);
+            }
+            catch (SerializationException)
+            {
+                return default(T);
+            }
         }
 
         public T DeserializeJson<T>(string data)

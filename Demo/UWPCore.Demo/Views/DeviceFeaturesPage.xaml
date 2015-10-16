@@ -1,4 +1,4 @@
-﻿<Page
+﻿<uwpcControls:UniversalPage
     x:Class="UWPCore.Demo.Views.DeviceFeaturesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,9 +10,9 @@
     x:Name="This"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <uwpcControls:UniversalPage.Resources>
         <uwpcConverters:BooleanToBrushConverter x:Key="BoolToBrushConv" />
-    </Page.Resources>
+    </uwpcControls:UniversalPage.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -27,29 +27,39 @@
         </uwpcControls:PageHeader>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Width="100">Support:</TextBlock>
-                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=Status, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
-                </StackPanel>
-                <TextBox Header="Duration" x:Name="VibrationDurationTextBox" Width="100" HorizontalAlignment="Left" Text="500" Margin="4" />
-                <Button Content="Vibrate" Click="VibrateClicked" MinWidth="100" Margin="4"/>
-                <Button Content="Stop" Click="StopClicked" MinWidth="100" Margin="4"/>
-                
-                <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="4,8,4,8" />
+            <ScrollViewer VerticalScrollBarVisibility ="Auto">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Width="100">Support:</TextBlock>
+                        <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=Status, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
+                    </StackPanel>
+                    <TextBox Header="Duration" x:Name="VibrationDurationTextBox" Width="200" HorizontalAlignment="Left" Text="500" Margin="4" />
+                    <Button Content="Vibrate" Click="VibrateClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Stop" Click="StopClicked" MinWidth="200" Margin="4"/>
 
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Width="100">IsPhone:</TextBlock>
-                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsPhoneStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="4">
-                    <TextBlock Width="100">IsWindows:</TextBlock>
-                    <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsWindowsStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
-                </StackPanel>
-                <TextBox x:Name="ApplictionIdTextBox" Header="Application ID" Text="{Binding ElementName=This, Path=ApplicationId}" IsReadOnly="True" Width="200" Margin="4" HorizontalAlignment="Left" />
-                <TextBox x:Name="HardwareIdTextBox" Header="Hardware ID" Text="{Binding ElementName=This, Path=HardwareId}" IsReadOnly="True" Width="200" Margin="4" HorizontalAlignment="Left" />
+                    <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="4,8,4,8" />
 
-            </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Width="100">IsPhone:</TextBlock>
+                        <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsPhoneStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="4">
+                        <TextBlock Width="100">IsWindows:</TextBlock>
+                        <Rectangle Height="16" Width="16" Fill="{Binding ElementName=This, Path=IsWindowsStatus, Converter={StaticResource BoolToBrushConv}, ConverterParameter=#0F0;#F00}"/>
+                    </StackPanel>
+                    <TextBox x:Name="ApplictionIdTextBox" Header="Application ID" Text="{Binding ElementName=This, Path=ApplicationId}" IsReadOnly="True" Width="200" Margin="4" HorizontalAlignment="Left" />
+                    <TextBox x:Name="HardwareIdTextBox" Header="Hardware ID" Text="{Binding ElementName=This, Path=HardwareId}" IsReadOnly="True" Width="200" Margin="4" HorizontalAlignment="Left" />
+
+                    <Rectangle Fill="{StaticResource SystemControlPageBackgroundBaseLowBrush}" Height="4" Width="200" HorizontalAlignment="Left" Margin="4,8,4,8" />
+
+                    <TextBox x:Name="LockScreenImageTextBox" Header="Lockscreen image path" Text="ms-appx:///Assets/Images/LockScreen.png" Width="200" HorizontalAlignment="Left" Margin="4" />
+                    <Button Content="Set lockscreen" Click="SetLockScreenClicked" MinWidth="200" Margin="4"/>
+                    <Button Content="Set wallpaper" Click="SetWallpaperClicked" MinWidth="200" Margin="4"/>
+
+                    <Image x:Name="LockScreenImage" Width="300" Margin="4" HorizontalAlignment="Left" />
+
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
-</Page>
+</uwpcControls:UniversalPage>

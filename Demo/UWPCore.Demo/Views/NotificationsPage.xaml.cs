@@ -1,4 +1,5 @@
-﻿using UWPCore.Framework.Notifications;
+﻿using UWPCore.Framework.Controls;
+using UWPCore.Framework.Notifications;
 using UWPCore.Framework.Notifications.Models;
 using UWPCore.Framework.UI;
 using Windows.UI.Notifications;
@@ -10,7 +11,7 @@ namespace UWPCore.Demo.Views
     /// <summary>
     /// Demo page for all notification services.
     /// </summary>
-    public sealed partial class NotificationsPage : Page
+    public sealed partial class NotificationsPage : UniversalPage
     {
         private IToastService _toastService;
         private ITileService _tileService;
@@ -19,9 +20,9 @@ namespace UWPCore.Demo.Views
         public NotificationsPage()
         {
             InitializeComponent();
-            _toastService = new ToastService();
-            _tileService = new TileService();
-            _dialogService = new DialogService();
+            _toastService = Injector.Get<IToastService>();
+            _tileService = Injector.Get<ITileService>();
+            _dialogService = Injector.Get<IDialogService>();
         }
 
         #region Toast

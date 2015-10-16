@@ -1,4 +1,4 @@
-﻿<Page
+﻿<uwpcControls:UniversalPage
     x:Class="UWPCore.Demo.Views.TasksPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -31,4 +31,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-</Page>
+</uwpcControls:UniversalPage>

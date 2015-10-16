@@ -6,7 +6,7 @@ namespace UWPCore.Framework.Devices
     /// <summary>
     /// Service interface to access the status bar, which is only available in Windows 10 Mobile.
     /// </summary>
-    public interface IStatusBarService
+    public interface IStatusBarService : IDeviceService
     {
         /// <summary>
         /// Shows the status bar.
@@ -42,18 +42,13 @@ namespace UWPCore.Framework.Devices
         Task StopProgressAsync();
 
         /// <summary>
-        /// Gets whether this service is supported on the current plattform.
+        /// Gets or sets the foreground color.
         /// </summary>
-        bool IsSupported { get; }
+        Color ForegroundColor { set; get; }
 
         /// <summary>
-        /// Sets the foreground color.
+        /// Gets or sets the background color including its opacity.
         /// </summary>
-        Color ForegroundColor { set; }
-
-        /// <summary>
-        /// Sets the background color including its opacity.
-        /// </summary>
-        Color BackgroundColor { set; }
+        Color BackgroundColor { set; get; }
     }
 }

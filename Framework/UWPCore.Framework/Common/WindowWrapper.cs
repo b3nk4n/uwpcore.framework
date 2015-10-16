@@ -12,6 +12,12 @@ namespace UWPCore.Framework.Common
     public class WindowWrapper
     {
         /// <summary>
+        /// Gets the default wrapper.
+        /// </summary>
+        /// <returns>The default wrapper.</returns>
+        public static WindowWrapper Default() { return ActiveWrappers.FirstOrDefault(); }
+
+        /// <summary>
         /// All active wrapped windows.
         /// </summary>
         public readonly static List<WindowWrapper> ActiveWrappers = new List<WindowWrapper>();
@@ -51,17 +57,27 @@ namespace UWPCore.Framework.Common
         /// <returns>The current active window.</returns>
         public static WindowWrapper Current()
         {
-            return ActiveWrappers.First(x => x.Window.Dispatcher.HasThreadAccess);
+            return ActiveWrappers.FirstOrDefault(x => x.Window == Window.Current) ?? Default();
         }
 
         /// <summary>
         /// Gets the current active wrapped window.
         /// </summary>
         /// <param name="window">The containing window instance.</param>
-        /// <returns></returns>
+        /// <returns>The current active window.</returns>
         public static WindowWrapper Current(Window window)
         {
-            return ActiveWrappers.First(x => x.Window == window);
+            return ActiveWrappers.FirstOrDefault(x => x.Window == window);
+        }
+
+        /// <summary>
+        /// Gets the current active wrapped window.
+        /// </summary>
+        /// <param name="window">The containing navigation service instance.</param>
+        /// <returns>The current active window.</returns>
+        public static WindowWrapper Current(NavigationService navigationService)
+        {
+            return ActiveWrappers.FirstOrDefault(x => x.NavigationServices.Contains(navigationService));
         }
 
         /// <summary>

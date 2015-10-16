@@ -17,6 +17,7 @@ namespace UWPCore.Framework.Devices
 
         /// <summary>
         /// Creates a StatusBarService instance.
+        /// Remember: Do NOT create this service in any constructor, which will lead to a AccessViolationException.
         /// </summary>
         public StatusBarService()
         {
@@ -99,6 +100,10 @@ namespace UWPCore.Framework.Devices
 
                 _statusBar.ForegroundColor = value;
             }
+            get
+            {
+                return _statusBar.ForegroundColor.HasValue ? _statusBar.ForegroundColor.Value : Colors.Transparent;
+            }
         }
 
         public Color BackgroundColor
@@ -111,6 +116,10 @@ namespace UWPCore.Framework.Devices
                 // use opacity from background color, because it is transparent by default
                 _statusBar.BackgroundOpacity = (value.A / 255.0);
                 _statusBar.BackgroundColor = value;
+            }
+            get
+            {
+                return _statusBar.BackgroundColor.HasValue ? _statusBar.BackgroundColor.Value : Colors.Transparent;
             }
         }
     }

@@ -11,14 +11,6 @@ namespace UWPCore.Framework.Navigation
     public interface INavigable : IBindable
     {
         /// <summary>
-        /// Gets or sets the identifier of the view model.
-        /// </summary>
-        /// <remarks>
-        /// This identifier is used by the navigation service for (re)storing the view model.
-        /// </remarks>
-        string Identifier { get; set; }
-
-        /// <summary>
         /// Gets or sets the navigation service.
         /// </summary>
         NavigationService NavigationService { get; set; }

@@ -34,10 +34,7 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a ToastFactory instance.
         /// </summary>
-        /// <remarks>
-        /// Is internal, because the instance of the <see cref="IToastFactory"/> implementations should be used.
-        /// </remarks>
-        internal ToastFactory()
+        public ToastFactory()
         {
         }
 

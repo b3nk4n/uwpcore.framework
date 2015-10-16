@@ -28,10 +28,7 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a TileFactory instance.
         /// </summary>
-        /// <remarks>
-        /// Is internal, because the instance of the <see cref="ITileService"/> implementations should be used.
-        /// </remarks>
-        internal TileFactory()
+        public TileFactory()
         {
         }
 

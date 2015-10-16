@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Ninject;
+using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Notifications;
 
@@ -25,10 +26,11 @@ namespace UWPCore.Framework.Notifications
         /// <summary>
         /// Creates a ToastService instance.
         /// </summary>
-        public ToastService()
+        [Inject]
+        public ToastService(IToastFactory toastFactory, IAdaptiveToastFactory adaptiveToastFactory)
         {
-            _toastFactory = new ToastFactory();
-            _adaptiveToastFactory = new AdaptiveToastFactory();
+            _toastFactory = toastFactory;
+            _adaptiveToastFactory = adaptiveToastFactory;
         }
 
         public void Show(ToastNotification toast)

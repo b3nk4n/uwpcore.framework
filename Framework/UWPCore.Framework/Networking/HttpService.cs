@@ -6,6 +6,7 @@ using UWPCore.Framework.Data;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
+using Ninject;
 
 namespace UWPCore.Framework.Networking
 {
@@ -27,9 +28,10 @@ namespace UWPCore.Framework.Networking
         /// <summary>
         /// Creates a HttpService instance.
         /// </summary>
-        public HttpService()
+        [Inject]
+        public HttpService(ISerializationService serializationService)
         {
-            _serializationService = new DataContractSerializationService();
+            _serializationService = serializationService;
         }
 
         public async Task<string> GetAsync(Uri path)

@@ -6,7 +6,6 @@ using UWPCore.Demo.Models;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Data;
 using UWPCore.Framework.Mvvm;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Demo.ViewModels
@@ -32,7 +31,7 @@ namespace UWPCore.Demo.ViewModels
 
         public MvvmViewModel()
         {
-            _serializationService = new DataContractSerializationService();
+            _serializationService = Injector.Get<ISerializationService>();
                  
             Items = new ObservableCollection<ItemViewModel>();
             InitializeCommands();
@@ -60,7 +59,7 @@ namespace UWPCore.Demo.ViewModels
 
             GoHomeCommand = new DelegateCommand(() =>
             {
-                NavigationService.Navigate((Application.Current as UniversalApp).DefaultPage);
+                NavigationService.Navigate(UniversalApp.Current.DefaultPage);
             });
         }
 

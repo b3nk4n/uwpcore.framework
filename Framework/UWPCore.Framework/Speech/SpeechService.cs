@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Threading.Tasks;
 using UWPCore.Framework.Audio;
 using UWPCore.Framework.Launcher;
@@ -37,24 +38,50 @@ namespace UWPCore.Framework.Speech
         private IDialogService _dialogService;
 
         /// <summary>
-        /// The storage service.
+        /// The local storage service.
         /// </summary>
-        private IStorageService _storageService;
+        private IStorageService _localStorageService;
 
-        public SpeechSynthesizer Synthesizer { get; private set; }
+        /// <summary>
+        /// Gets the lazily created synthesizer instance.
+        /// </summary>
+        public SpeechSynthesizer Synthesizer
+        {
+            get
+            {
+                if (_snythesizer == null)
+                    _snythesizer = new SpeechSynthesizer();
+                return _snythesizer;
+            }
+        }
+        private SpeechSynthesizer _snythesizer;
 
-        public SpeechRecognizer Recognizer { get; private set; }
+        /// <summary>
+        /// Gets the lazily created recognizer instance.
+        /// </summary>
+        /// <remarks>
+        /// Created lazily to be able to use this serivce without Microphone capability.
+        /// </remarks>
+        public SpeechRecognizer Recognizer
+        {
+            get
+            {
+                if (_recognizer == null)
+                    _recognizer = new SpeechRecognizer();
+                return _recognizer;
+            }
+        }
+        private SpeechRecognizer _recognizer;
 
         /// <summary>
         /// Creates a SpeechService instance.
         /// </summary>
-        public SpeechService()
+        [Inject]
+        public SpeechService(IAudioService audioService, IDialogService dialogService, ILocalStorageService localStorageService)
         {
-            Synthesizer = new SpeechSynthesizer();
-            Recognizer = new SpeechRecognizer();
-            _audioService = new AudioService();
-            _dialogService = new DialogService();
-            _storageService = new LocalStorageService();
+            _audioService = audioService;
+            _dialogService = dialogService;
+            _localStorageService = localStorageService;
         }
 
         #region Voice Commands
@@ -65,7 +92,7 @@ namespace UWPCore.Framework.Speech
             {
                 try
                 {
-                    var storageFile = await _storageService.GetFileFromApplicationAsync(packageFilePath);
+                    var storageFile = await _localStorageService.GetFileFromApplicationAsync(packageFilePath);
                     await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile as StorageFile);
 
                     //_hasInstalledCommands = true;

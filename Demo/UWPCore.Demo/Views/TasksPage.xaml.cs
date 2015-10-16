@@ -1,16 +1,16 @@
 ﻿using UWPCore.Demo.Tasks;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Tasks;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel.Background;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace UWPCore.Demo.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TasksPage : Page
+    public sealed partial class TasksPage : UniversalPage
     {
         private IBackgroundTaskService _backgroundTaskService;
         private IDialogService _dialogService;
@@ -18,8 +18,8 @@ namespace UWPCore.Demo.Views
         public TasksPage()
         {
             InitializeComponent();
-            _backgroundTaskService = new BackgroundTaskService();
-            _dialogService = new DialogService();
+            _backgroundTaskService = Injector.Get<IBackgroundTaskService>();
+            _dialogService = Injector.Get<IDialogService>();
         }
 
         private async void RequestUserAccessClicked(object sender, RoutedEventArgs e)

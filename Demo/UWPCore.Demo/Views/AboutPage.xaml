@@ -1,4 +1,4 @@
-﻿<Page
+﻿<uwpcControls:UniversalPage
     x:Class="UWPCore.Demo.Views.AboutPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -27,18 +27,14 @@
                 <uwpcControls:AboutControl Margin="16">
                     <uwpcControls:AboutControl.DataContext>
                         <uwpcViewModels:AboutViewModel
-                        AppTitle="UWPCore"
                         AppDeveloper="Benjamin Sautermeister"
                         AppDescription="This is a sample app demonstrating the core features of the UWPCore development acceleration framework for Windows Universal Platform."
-                        AppVersion="Version 1.1b"
                         AppIcon="/Assets/Square150x150Logo.png"
                         ShowPrivacyInfoText="Privacy info"
                         SendFeedbackEmailText="Send feedback"
                         RateAndReviewText="Rate and review"
                         MoreAppsText="More apps"
                         ShareAppText="Share link to this app"
-                        ShareAppUri="http://www.windowsphone.com/s?appid=92740dff-b2e1-4813-b08b-c6429df03356"
-                        PublisherName="Benjamin Sautermeister"
                         FeedbackToEmail="apps@bsautermeister.de"
                         PrivacyInfoUri="http://bsautermeister.de/privacy.php">
                             <uwpcViewModels:AboutViewModel.Contributors>
@@ -52,4 +48,4 @@
             </ScrollViewer>
         </Grid>
     </Grid>
-</Page>
+</uwpcControls:UniversalPage>

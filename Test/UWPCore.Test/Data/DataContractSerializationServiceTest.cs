@@ -32,7 +32,7 @@ namespace UWPCore.Framework.Data
         {
             string serializedPerson = _serializationService.SerializeXML(_testPerson1);
             Assert.IsNotNull(serializedPerson);
-            Assert.AreEqual("<DataContractSerializationServiceTest.Person xmlns=\"http://schemas.datacontract.org/2004/07/UWPCore.Test.Data\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">"
+            Assert.AreEqual("<DataContractSerializationServiceTest.Person xmlns=\"http://schemas.datacontract.org/2004/07/UWPCore.Framework.Data\" xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">"
                 + "<Address>"
                 + "<City>Munich</City>"
                 + "<Street>Mainstreet</Street>"

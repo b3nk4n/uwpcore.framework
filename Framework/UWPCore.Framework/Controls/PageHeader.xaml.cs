@@ -18,8 +18,11 @@ namespace UWPCore.Framework.Controls
 
             Loaded += (s, a) =>
             {
-                AppShell.Current.TogglePaneButtonRectChanged += Current_TogglePaneButtonSizeChanged;
-                titleBar.Margin = new Thickness(AppShell.Current.TogglePaneButtonRect.Right, 0, 0, 0);
+                if (AppShell.Current != null)
+                {
+                    AppShell.Current.TogglePaneButtonRectChanged += Current_TogglePaneButtonSizeChanged;
+                    titleBar.Margin = new Thickness(AppShell.Current.TogglePaneButtonRect.Right, 0, 0, 0);
+                }
             };
         }
 

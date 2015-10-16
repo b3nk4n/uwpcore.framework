@@ -9,6 +9,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI;
 using UWPCore.Framework.Devices;
+using UWPCore.Framework.IoC;
 
 namespace UWPCore.Demo
 {
@@ -21,11 +22,9 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.Terminate, "UWPCore.Demo")
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new DefaultModule())
         {
             InitializeComponent();
-
-            ShowShellBackButton = true;
 
             // initialize Microsoft Application Insights
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -33,42 +32,49 @@ namespace UWPCore.Demo
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
         }
 
-        public async override Task OnInitializeAsync()
+        public async override Task OnInitializeAsync(IActivatedEventArgs args)
         {
-            await base.OnInitializeAsync();
+            await base.OnInitializeAsync(args);
 
-            // remove this line to hide the SplitView-Shell
+            // only add it
+            if (args.PreviousExecutionState != ApplicationExecutionState.Running &&
+                args.PreviousExecutionState != ApplicationExecutionState.Suspended)
+            {
             Window.Current.Content = new AppShell(
                 RootFrame,
                 GetNavigationMenuItems(),
                 GetBottomDockedNavigationMenuItems());
+            }
 
-            _speechService = new SpeechService();
+            _speechService = Injector.Get<ISpeechService>();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
 
-            _statusBarService = new StatusBarService();
+            _statusBarService = Injector.Get<IStatusBarService>();
             var color = (Color)Current.Resources["SystemChromeMediumColor"];
             _statusBarService.BackgroundColor = color;
         }
 
-        public override void OnPrelaunch()
-        {
-            // handle prelaunch
-        }
-
-        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs)
+        public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
         {
             // check lauch arguments
-            if (launchArgs.IsValid)
+            var launchArgs = args as ILaunchActivatedEventArgs;
+            if (launchArgs != null)
+            {
+                if (args.Kind == ActivationKind.Launch)
+        {
+                    Logger.WriteLine("Started with TILE and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+        }
+                if (args.Kind == ActivationKind.ToastNotification)
             { 
-                Logger.WriteLine("Started with launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+                    Logger.WriteLine("Started with TOAST and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
+                }
             }
 
             // check voice commands
             var command = _speechService.GetVoiceCommand(args);
             if (command != null)
             {
-                switch(command.CommandName)
+                switch (command.CommandName)
                 {
                     case "showTripToDestination":
                         string destination = command.Interpretations["destination"];
@@ -161,6 +167,12 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.Account,
                     Label = "Accounts",
                     DestinationPage = typeof(AccountsPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.ArrowRight,
+                    Label = "Navigation",
+                    DestinationPage = typeof(NavigationPage1)
                 },
                 new NavMenuItem()
                 {

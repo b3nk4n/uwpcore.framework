@@ -1,11 +1,15 @@
-﻿using System;
+﻿using Ninject.Modules;
+using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using UWPCore.Framework.Input;
+using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation.Metadata;
 using Windows.Globalization;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
@@ -18,6 +22,15 @@ namespace UWPCore.Framework.Common
     /// </summary>
     public abstract class UniversalApp : Application
     {
+        /// <summary>
+        /// Gets the inversion of control container.
+        /// </summary>
+        public static IInjector Injector { get; private set; }
+
+        public static new UniversalApp Current { get; private set; }
+
+        public StateItems SessionState { get; set; } = new StateItems();
+
         /// <summary>
         /// The assembly name of the application to be implemented by the framework user.
         /// </summary>
@@ -51,11 +64,18 @@ namespace UWPCore.Framework.Common
         /// </summary>
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
         /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
-        /// <param name="appAssemblyName">The applicatoins assembly name implememnted by the framework user.</param>
-        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, string appAssemblyName)
+        /// <param name="modules">The ninject modules.</param>
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, params NinjectModule[] modules)
         {
+            Current = this;
             DefaultPage = defaultPage;
-            AppAssemblyName = appAssemblyName;
+            BackButtonBehaviour = backButtonBehaviour;
+            AppAssemblyName = GetType().GetTypeInfo().Assembly.GetName().Name;
+
+            if (modules == null)
+                Injector = new Injector(new DefaultModule());
+            else
+                Injector = new Injector(modules);
 
             Resuming += (s, e) =>
             {
@@ -98,12 +118,17 @@ namespace UWPCore.Framework.Common
         public Frame RootFrame { get; set; }
 
         /// <summary>
-        /// Gets the navigation service.
+        /// This is the NavigationService of the primary, first, or default Frame. 
+        /// An app can contain many frames and reference to this NavigationService should
+        /// not be confused as the NavigationService to the "current" Frame as
+        /// it is only a helper property to provide the NavigationService for
+        /// the first Frame ultimately aggregated in the static WindowWrapper class.
         /// </summary>
         public NavigationService NavigationService
         {
             // because it is protected, we can safely assume it will ref the first view
             get { return WindowWrapper.ActiveWrappers.First().NavigationServices.First(); }
+            //get { return new NavigationService(RootFrame); }
         }
 
         /// <summary>
@@ -125,6 +150,8 @@ namespace UWPCore.Framework.Common
         /// Gets or sets whether the shell back button is visible.
         /// </summary>
         public bool ShowShellBackButton { get; set; } = true;
+
+        private KeyboardService _keyboardService;
 
         #endregion
 
@@ -154,12 +181,29 @@ namespace UWPCore.Framework.Common
 #pragma warning restore CS0809 // Obsolete member overrides non-obsolete member
 
         /// <summary>
-        /// The internal actived handler that is called whenever the app is activated.
+        /// This handles all the prelimimary stuff unique to Activated before calling OnStartAsync()
+        /// This is private because it is a specialized prelude to OnStartAsync().
+        /// OnStartAsync will not be called if state restore is determined.
         /// </summary>
         /// <param name="e">The event args.</param>
         private async Task InternalActivatedAsync(IActivatedEventArgs e)
         {
-            await OnStartAsync(StartKind.Activate, e, new LaunchArgs());
+            // sometimes activate requires a frame to be built, such as after a launch using a toast notification
+            if (Window.Current.Content == null)
+            {
+                InitRootFrameAndNavigation();
+            }
+
+            // onstart is shared with activate and launch
+            await OnStartAsync(StartKind.Activate, e);
+
+            // if the user didn't already set custom content use rootframe
+            if (Window.Current.Content == null)
+            {
+                Window.Current.Content = RootFrame;
+            }
+
+            // ensure active (this will hide any custom splashscreen)
             Window.Current.Activate();
         }
 
@@ -192,13 +236,6 @@ namespace UWPCore.Framework.Common
         /// <param name="e">The launch activated event args.</param>
         private async void InternalLaunchAsync(ILaunchActivatedEventArgs e)
         {
-            // first handle prelaunch, which will not continue
-            if ((e.Kind == ActivationKind.Launch) && ((e as LaunchActivatedEventArgs)?.PrelaunchActivated ?? false))
-            {
-                OnPrelaunch();
-                return;
-            }
-
             // now handle normal activation
             UIElement splashScreen = default(UIElement);
             if (SplashFactory != null)
@@ -207,25 +244,12 @@ namespace UWPCore.Framework.Common
                 Window.Current.Content = splashScreen;
             }
 
-            // setup frame
-            RootFrame = new Frame
-            {
-                Language = ApplicationLanguages.Languages[0]
-            };
-            RootFrame.Navigated += (s, args) =>
-            {
-                UpdateShellBackButton();
-            };
-
-            // setup default view
-            var view = WindowWrapper.ActiveWrappers.First();
-            var navigationService = new NavigationService(RootFrame);
-            view.NavigationServices.Add(navigationService);
+            InitRootFrameAndNavigation();
 
             // expire state (based on expiry)
             DateTime cacheDate;
             var otherwise = DateTime.MinValue.ToString();
-            if (DateTime.TryParse(navigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
+            if (DateTime.TryParse(NavigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
             {
                 var cacheAge = DateTime.Now.Subtract(cacheDate);
                 if (cacheAge >= CacheMaxDuration)
@@ -242,100 +266,137 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
-            // create launch argmunets
-            ILaunchArgs launchArgs;
-            if (!string.IsNullOrEmpty(e.Arguments) || !string.IsNullOrEmpty(e.TileId))
-            {
-                launchArgs = new LaunchArgs(e.Arguments, e.TileId);
-            }
-            else
-            {
-                launchArgs = new LaunchArgs();
-            }
-
             // the user may override to set custom content
-            await OnInitializeAsync();
+            await OnInitializeAsync(e);
+
             switch (e.PreviousExecutionState)
             {
                 case ApplicationExecutionState.NotRunning:
                 case ApplicationExecutionState.Running:
                 case ApplicationExecutionState.Suspended:
+                case ApplicationExecutionState.ClosedByUser:
                     {
                         // launch if not restored
-                        await OnStartAsync(StartKind.Launch, e, launchArgs);
+                        await OnStartAsync(StartKind.Launch, e);
                         break;
                     }
-                case ApplicationExecutionState.ClosedByUser:
                 case ApplicationExecutionState.Terminated:
                     {
-                        // restore if you need to/can do
-                        var restored = await navigationService.RestoreSavedNavigationState();
-                        if (restored)
+                        /*
+                            Restore state if you need to/can do.
+                            Remember that only the primary tile should restore.
+                            (this includes toast with no data payload)
+                            The rest are already providing a nav path.
+                            In the event that the cache has expired, attempting to restore
+                            from state will fail because of missing values. 
+                            This is okay & by design.
+                        */
+                        if (DetermineStartCause(e) == AdditionalKinds.Primary || DetermineStartCause(e) == AdditionalKinds.Toast)
                         {
-                            UpdateShellBackButton();
-
-                            // refresh current page to fire all navigation events
-                            navigationService.Refresh();
+                            var restored = NavigationService.RestoreSavedNavigation();
+                            if (!restored)
+                            {
+                                await OnStartAsync(StartKind.Launch, e);
+                            }
+                            else
+                            {
+                                // refresh current page to fire all navigation events
+                                NavigationService.Refresh();
+                            }
                         }
                         else
                         {
-                            await OnStartAsync(StartKind.Launch, e, launchArgs);
+                            await OnStartAsync(StartKind.Launch, e);
                         }
                         break;
                     }
             }
 
             // if the user didn't already set custom content use rootframe
-            if (Window.Current.Content == splashScreen) { Window.Current.Content = RootFrame; }
-            if (Window.Current.Content == null) { Window.Current.Content = RootFrame; }
+            if (Window.Current.Content == null || Window.Current.Content == splashScreen)
+            {
+                Window.Current.Content = RootFrame;
+            }
 
             // ensure active
             Window.Current.Activate();
-
-            // Hook up the default Back handler
-            SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
-            {
-                if (navigationService.CanGoBack)
-                {
-                    args.Handled = true;
-                    RaiseBackRequested();
-                }
-                else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
-                {
-                    Current.Exit();
-                }
-            };
-
-            // Hook up keyboard and mouse Back handler
-            var keyboard = new KeyboardService();
-            keyboard.AfterBackGesture = () => RaiseBackRequested();
-
-            // Hook up keyboard and house Forward handler
-            keyboard.AfterForwardGesture = () => RaiseForwardRequested();
         }
 
         /// <summary>
-        /// Updates the shells back button visibility.
+        /// Inits the root frame and the navigation.
         /// </summary>
-        private void UpdateShellBackButton()
+        private void InitRootFrameAndNavigation()
         {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
-                                (ShowShellBackButton && RootFrame.CanGoBack) ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
+            // setup frame
+            if (RootFrame == null)
+            {
+                RootFrame = new Frame
+                {
+                    Language = ApplicationLanguages.Languages[0]
+                };
+                RootFrame.Navigated += (s, args) =>
+                {
+                    UpdateShellBackButton();
+                };
+
+                // register back button
+                SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
+                {
+                    var handled = false;
+                    if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+                    {
+                        if (NavigationService.CanGoBack)
+                        {
+                            handled = true;
+                        }
+                        else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                        {
+                            args.Handled = true;
+                            Current.Exit();
+                        }
+                    }
+                    else
+                    {
+                        handled = !NavigationService.CanGoBack;
+                    }
+
+                    args.Handled = handled;
+                    RaiseBackRequested(ref handled);
+                };
+
+                // hook up keyboard and mouse Back handler
+                _keyboardService = new KeyboardService();
+                _keyboardService.AfterBackGesture = () =>
+                {
+                    //the result is no matter
+                    var handled = false;
+                    RaiseBackRequested(ref handled);
+                };
+
+                // Hook up keyboard and house Forward handler
+                _keyboardService.AfterForwardGesture = RaiseForwardRequested;
+            }
+
+            // setup default view
+            var view = WindowWrapper.ActiveWrappers.First();
+            var navigationService = new NavigationService(RootFrame);
+            view.NavigationServices.Add(navigationService);
         }
 
         /// <summary>
-        /// Default hardware/shell BACK handler overrides standard BACK behavior that navigates to previous app
-        /// in the app stack to instead cause a backward page navigation.
-        /// Views or Viewodels can override this behavior by handling the BackRequested event and setting the
-        /// Handled property of the BackRequestedEventArgs to true.
+        /// Default Hardware/Shell Back handler overrides standard Back behavior 
+        /// that navigates to previous app in the app stack to instead cause a backward page navigation.
+        /// Views or Viewodels can override this behavior by handling the BackRequested 
+        /// event and setting the Handled property of the BackRequestedEventArgs to true.
         /// </summary>
-        private void RaiseBackRequested()
+        private void RaiseBackRequested(ref bool handled)
         {
             var args = new HandledEventArgs();
             foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.FrameFacade))
             {
                 frame.RaiseBackRequested(args);
-                if (args.Handled)
+                handled = args.Handled;
+                if (handled)
                     return;
             }
 
@@ -365,23 +426,18 @@ namespace UWPCore.Framework.Common
         #region overrides
 
         /// <summary>
-        /// The hook method that is invoked before the app has launched.
-        /// </summary>
-        public virtual void OnPrelaunch() { }
-
-        /// <summary>
         /// The hook method that is invoked when the app has started.
         /// </summary>
         /// <param name="startKind">The start up kind.</param>
         /// <param name="args">The activated event args.</param>
-        /// <param name="launchArgs">The optional launch args, which can be NULL.</param>
-        public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args, ILaunchArgs launchArgs);
+        public abstract Task OnStartAsync(StartKind startKind, IActivatedEventArgs args);
 
         /// <summary>
         /// The hook method to perform some initialization work, such as registering
         /// the Shell frame wrapper class.
         /// </summary>
-        public virtual Task OnInitializeAsync()
+        /// <param name="args">The activation event args.</param>
+        public virtual Task OnInitializeAsync(IActivatedEventArgs args)
         {
             return Task.FromResult<object>(null);
         }
@@ -402,5 +458,94 @@ namespace UWPCore.Framework.Common
         public virtual void OnResuming(object args) { }
 
         #endregion
+
+        public enum BackButton { Attach, Ignore }
+        public enum ExistingContent { Include, Exclude }
+
+        /// <summary>
+        /// Craetes a new FamFrame and adds the resulting NavigationService to the 
+        /// WindowWrapper collection. In addition, it optionally will setup the 
+        /// shell back button to react to the nav of the Frame.
+        /// A developer should call this when creating a new/secondary frame.
+        /// The shell back button should only be setup one time.
+        /// </summary>
+        public NavigationService NavigationServiceFactory(BackButton backButton, ExistingContent existingContent)
+        {
+            var frame = new Frame
+            {
+                Language = ApplicationLanguages.Languages[0],
+                Content = (existingContent == ExistingContent.Include) ? Window.Current.Content : null,
+            };
+
+            var navigationService = new NavigationService(frame);
+            WindowWrapper.Current().NavigationServices.Add(navigationService);
+
+            if (backButton == BackButton.Attach)
+            {
+                // TODO: unattach others
+
+                // update shell back when backstack changes
+                // only the default frame in this case because secondary should not dismiss the app
+                frame.RegisterPropertyChangedCallback(Frame.BackStackDepthProperty, (s, args) => UpdateShellBackButton());
+
+                // update shell back when navigation occurs
+                // only the default frame in this case because secondary should not dismiss the app
+                frame.Navigated += (s, args) => UpdateShellBackButton();
+            }
+
+            // this is always okay to check, default or not
+            // expire any state (based on expiry)
+            DateTime cacheDate;
+            // default the cache age to very fresh if not known
+            var otherwise = DateTime.MinValue.ToString();
+            if (DateTime.TryParse(navigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
+            {
+                var cacheAge = DateTime.Now.Subtract(cacheDate);
+                if (cacheAge >= CacheMaxDuration)
+                {
+                    // clear state in every nav service in every view
+                    foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
+                    {
+                        service.FrameFacade.ClearFrameState();
+                    }
+                }
+            }
+            else
+            {
+                // no date, that's okay
+            }
+
+            return navigationService;
+        }
+
+        public const string DefaultTileID = "App";
+
+        public void UpdateShellBackButton()
+        {
+            // show the shell back only if there is anywhere to go in the default frame
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility =
+                (ShowShellBackButton && NavigationService.FrameFacade.CanGoBack)
+                    ? AppViewBackButtonVisibility.Visible
+                    : AppViewBackButtonVisibility.Collapsed;
+        }
+
+        public enum AdditionalKinds { Primary, Toast, SecondaryTile, Other }
+
+        /// <summary>
+        /// This determines the simplest case for starting. This should handle 80% of common scenarios. 
+        /// When Other is returned the developer must determine start manually using IActivatedEventArgs.Kind
+        /// </summary>
+        public static AdditionalKinds DetermineStartCause(IActivatedEventArgs args)
+        {
+            var e = args as ILaunchActivatedEventArgs;
+            if (args is ToastNotificationActivatedEventArgs)
+                return AdditionalKinds.Toast;
+            if (e?.TileId == DefaultTileID && string.IsNullOrEmpty(e?.Arguments))
+                return AdditionalKinds.Primary;
+            else if (e?.TileId != null && e?.TileId != DefaultTileID)
+                return AdditionalKinds.SecondaryTile;
+            else
+                return AdditionalKinds.Other;
+        }
     }
 }

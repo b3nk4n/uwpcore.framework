@@ -1,13 +1,14 @@
 ﻿using UWPCore.Framework.Audio;
+using UWPCore.Framework.Common;
+using UWPCore.Framework.Controls;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace UWPCore.Demo.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AudioPage : Page
+    public sealed partial class AudioPage : UniversalPage
     {
         private IAudioService _audioService;
 
@@ -15,7 +16,7 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
 
-            _audioService = new AudioService();
+            _audioService = UniversalApp.Injector.Get<IAudioService>();
         }
 
         private async void PlayMp3Clicked(object sender, RoutedEventArgs e)

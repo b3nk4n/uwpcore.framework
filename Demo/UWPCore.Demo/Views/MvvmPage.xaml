@@ -1,4 +1,4 @@
-﻿<Page
+﻿<uwpcControls:UniversalPage
     x:Class="UWPCore.Demo.Views.MvvmPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -10,9 +10,9 @@
     xmlns:localModels="using:UWPCore.Demo.Models"
     mc:Ignorable="d">
 
-    <Page.DataContext>
+    <uwpcControls:UniversalPage.DataContext>
         <localViewModels:MvvmViewModel />
-    </Page.DataContext>
+    </uwpcControls:UniversalPage.DataContext>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -64,4 +64,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-</Page>
+</uwpcControls:UniversalPage>
