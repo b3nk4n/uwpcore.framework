@@ -1,5 +1,6 @@
 ﻿using Ninject.Modules;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -101,6 +102,31 @@ namespace UWPCore.Framework.Common
                 finally
                 {
                     globalDeferral.Complete();
+                }
+            };
+
+            // handle exceptions from external libraries
+            UnhandledException += (s, e) =>
+            {
+                if (e != null)
+                {
+                    Exception exception = e.Exception;
+
+                    // smatoo advertising (recommanded by MSDN)
+                    if (exception is NullReferenceException && exception.ToString().ToUpper().Contains("SOMA"))
+                    {
+                        Logger.WriteLine("Handled Smaato null reference exception {0}", exception);
+                        e.Handled = true;
+                        return;
+                    }
+                }
+
+                // APP SPECIFIC HANDLING HERE
+
+                if (Debugger.IsAttached)
+                {
+                    // An unhandled exception has occurred; break into the debugger
+                    Debugger.Break();
                 }
             };
         }
