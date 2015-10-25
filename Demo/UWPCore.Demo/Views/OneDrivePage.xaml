@@ -31,8 +31,7 @@
         </uwpcControls:PageHeader>
 
         <!-- Upload and Download Pane -->
-        <Grid Grid.Row="1" 
-              Visibility="{Binding BackupPaneVisibility}"
+        <Grid Grid.Row="1"               
               EntranceNavigationTransitionInfo.IsTargetElement="True">
             <StackPanel>                
                 <ProgressBar Grid.Row="0" 
@@ -51,7 +50,7 @@
 
                 <Border BorderThickness="2" BorderBrush="AliceBlue"/>
 
-                <ListView ItemsSource="{Binding OneDriveFiles}" IsEnabled="{Binding BackupIsIndeterminate, Converter={StaticResource BoolNegationConverter}}" SelectedItem="{Binding SelectedOneDriveFile, Mode=TwoWay}"
+                <ListView ItemsSource="{Binding OneDriveItems}" IsEnabled="{Binding BackupIsIndeterminate, Converter={StaticResource BoolNegationConverter}}" SelectedItem="{Binding SelectedOneDriveItem, Mode=TwoWay}"
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -72,7 +71,7 @@
         <!-- SignUp Pane-->
         <Grid Grid.Row="1"              
               EntranceNavigationTransitionInfo.IsTargetElement="True"
-              Visibility="{Binding SignUpPaneVisibility}"
+              Visibility="{Binding SignInPaneVisibility}"
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -92,7 +91,7 @@
                 <Button Grid.Row="1" 
                         Content="Retry" 
                         HorizontalAlignment="Center" Width="75" Margin="0,10"
-                        Command="{Binding SignUpRetryCommand}"/>
+                        Command="{Binding SignInRetryCommand}"/>
             </Grid>
         </Grid>
     </Grid>

@@ -26,6 +26,9 @@ namespace UWPCore.Framework.Storage
 
         #region Properties
 
+        //https://dev.onedrive.com/misc/path-encoding.htm
+        public readonly string[] OneDriveReservedCharacters = new string[] { "/", @"\", "<", ">", "?", ":", "|" };
+
         public string[] Scopes
         {
             get { return scopes; }

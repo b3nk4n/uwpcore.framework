@@ -1,17 +1,12 @@
 ﻿using Microsoft.OneDrive.Sdk;
-using Microsoft.OneDrive.Sdk.WinStore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using UWPCore.Framework.Data;
 using UWPCore.Framework.Mvvm;
-using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -21,41 +16,85 @@ namespace UWPCore.Demo.ViewModels
 {
     class OneDriveViewModel : ViewModelBase
     {
-        //https://dev.onedrive.com/misc/path-encoding.htm
-        private string[] oneDriveReservedCharacters = new string[] { "/", @"\", "<", ">", "?", ":", "|" };
+        #region Fields
 
-        private Visibility signUpPaneVisibility;
+        private const string uploadZip = "data.zip";
+        private const string downloadZip = "download.zip";
+
+        OneDriveStorageService oneDriveService;
+        ILocalStorageService localStorageService;
+        ZipArchiveService zipArchiveService;
+
+        private bool isAuthenticated;
+        private Visibility signInPaneVisibility;
+
         private string signInStatusText;
         private bool signInIsIndeterminate;
 
-        private bool backupIsIndeterminate;
         private string backupStatusText;
+        private bool backupIsIndeterminate;
 
-        public string LocalDataPath { get; set; }
+        private string uploadName;
+        private string uploadPath;
+        private string uploadValidationText;
 
+        Item selectedOneDriveItem;
+        private readonly ObservableCollection<Item> oneDriveItems;
 
+        #endregion
 
+        #region Properties
 
-        public string SignInStatusText
+        /// <summary>
+        /// Get or set the local data path. The paths root folder is the LocalState folder of the app.
+        /// Do not left empty incase of infinity recursions if backup is created.  
+        /// </summary>
+        public string DataPath { get; set; }
+
+        /// <summary>
+        /// Get or set the OneDrive backup path. The paths root folder is the OneDrive root folder.
+        /// </summary>
+        public string BackupPath { get; set; }
+
+        /// <summary>
+        /// Get or set the visibility of the sign in pane.
+        /// </summary>
+        public Visibility SignInPaneVisibility
         {
-            get { return backupStatusText; }
-            set { Set(ref backupStatusText, value); }
+            get { return signInPaneVisibility; }
+            private set { Set(ref signInPaneVisibility, value); }
         }
 
+        /// <summary>
+        /// Get or set the sign in status.
+        /// </summary>
+        public string SignInStatusText
+        {
+            get { return signInStatusText; }
+            private set { Set(ref signInStatusText, value); }
+        }
 
-
+        /// <summary>
+        /// Get or set if sign in is in progress.
+        /// </summary>
         public bool SignInIsIndeterminate
         {
             get { return signInIsIndeterminate; }
-            set { Set(ref signInIsIndeterminate, value); }
+            private set { Set(ref signInIsIndeterminate, value); }
         }
-        
 
-        public string BackupPath { get; set; }
+        /// <summary>
+        /// Get or set if user is authenticated.
+        /// </summary>
+        public bool IsAuthenticated
+        {
+            get { return isAuthenticated; }
+            private set { Set(ref isAuthenticated, value); }
+        }
 
-
-        private string uploadName;
-
+        /// <summary>
+        /// Get or set the name of the backup.
+        /// </summary>
         public string UploadName
         {
             get { return uploadName; }
@@ -69,141 +108,158 @@ namespace UWPCore.Demo.ViewModels
             }
         }
 
-        private string uploadPath;
-
+        /// <summary>
+        /// Get or set the absolute path of the backup within the OneDrive root.
+        /// </summary>
         public string UploadPath
         {
             get { return uploadPath; }
             private set { Set(ref uploadPath, value); }
         }
-        
 
-
-        public Visibility SignUpPaneVisibility
-        {
-            get { return signUpPaneVisibility; }
-            set { Set(ref signUpPaneVisibility, value); }
-        }
-
-        public string BackupStatusText
-        {
-            get { return backupStatusText; }
-            set { Set(ref backupStatusText, value); }
-        }
-
-        public bool BackupIsIndeterminate
-        {
-            get { return backupIsIndeterminate; }
-            set
-            {
-               var x =  Set(ref backupIsIndeterminate, value);
-            }
-        }
-
-        public DelegateCommand SignUpRetryCommand { get; private set; }
-        public DelegateCommand UploadCommand { get; private set; }
-        public DelegateCommand DownloadCommand { get; private set; }
-
-
-
-        #region Fields
-
-        OneDriveStorageService service;
-
-        private bool isAuthenticated;
-
-        #endregion
-
-        #region Properties
-
-        public bool IsAuthenticated
-        {
-            get { return isAuthenticated; }
-            set { Set(ref isAuthenticated, value); }
-        }
-
-        private string uploadValidationText;
-
+        /// <summary>
+        /// Get or set a hint of invalid upload name.
+        /// </summary>
         public string UploadValidationText
         {
             get { return uploadValidationText; }
-            set { Set(ref uploadValidationText, value); }
+            private set { Set(ref uploadValidationText, value); }
         }
+
+        /// <summary>
+        /// Get or set the status text of the progress of a backup.
+        /// </summary>
+        public string BackupStatusText
+        {
+            get { return backupStatusText; }
+            private set { Set(ref backupStatusText, value); }
+        }
+
+        /// <summary>
+        /// Get or set the progress of the backup.
+        /// </summary>
+        public bool BackupIsIndeterminate
+        {
+            get { return backupIsIndeterminate; }
+            private set { Set(ref backupIsIndeterminate, value); }
+        }
+        
+        /// <summary>
+        /// Get or set the selected backup item.
+        /// </summary>
+        public Item SelectedOneDriveItem
+        {
+            get { return selectedOneDriveItem; }
+            set
+            {
+                Set(ref selectedOneDriveItem, value);
+                DownloadCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get a list of selected backup items.
+        /// </summary>
+        public ObservableCollection<Item> OneDriveItems
+        {
+            get { return oneDriveItems; }
+        }
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// Get or set command to sign in.
+        /// </summary>
+        public DelegateCommand SignInRetryCommand { get; private set; }
+
+        /// <summary>
+        /// Get or set command to upload a .buk-file.
+        /// </summary>
+        public DelegateCommand UploadCommand { get; private set; }
+
+        /// <summary>
+        /// Get or set command to download a .buk-file.
+        /// </summary>
+        public DelegateCommand DownloadCommand { get; private set; }
 
         #endregion
 
         #region Constructors
-        ILocalStorageService localStorageService;
-        ZipArchiveService zipArchiveService;
+
+        /// <summary>
+        /// Initialize object.
+        /// </summary>
         public OneDriveViewModel()
         {
-            service = new OneDriveStorageService();
+            // Init services.
+            oneDriveService = new OneDriveStorageService();
+            localStorageService = new LocalStorageService();
+            zipArchiveService = new ZipArchiveService(localStorageService);
 
-            uploadName = string.Empty;
+            // Init commands.
+            SignInRetryCommand = new DelegateCommand(async () =>
+                {
+                    await AuthenticateAsync();
+                    await ListBackupAsync();
+                },
+                () =>
+                {
+                    if (SignInIsIndeterminate)
+                        return false;
 
-            SignUpRetryCommand = new DelegateCommand(async () =>
-            {
-                await AuthenticateAsync();
-                await ListBackupAsync();
-            },
-            () =>
-            {
-                if (SignInIsIndeterminate)
-                    return false;
-
-                if (IsAuthenticated)
-                    return false;
-                return true;
-            });
+                    if (IsAuthenticated)
+                        return false;
+                    return true;
+                });
 
             UploadCommand = new DelegateCommand(async () =>
-            {
-                await CreateAndUploadBackup();
-                await ListBackupAsync();
-            },
-            () =>
-            {
-                // Maybe add length between 3 and 20 
-                if (UploadName.Length == 0)
                 {
-                    UploadValidationText = "Name backup.";
-                    return false;
-                }
-
-                if (oneDriveReservedCharacters.Count(a => UploadName.Contains(a)) > 0)
+                    await UploadBackupAsync();
+                    await ListBackupAsync();
+                },
+                () =>
                 {
-                    UploadValidationText = @"Contains reserved char /\<>:? or |.";
-                    return false;
-                }
+                    // Maybe add length between 3 and 20 
+                    if (UploadName.Length == 0)
+                    {
+                        UploadValidationText = "Name backup.";
+                        return false;
+                    }
 
-                UploadValidationText = string.Empty;
-                return true;
-            });
+                    if (oneDriveService.OneDriveReservedCharacters.Count(a => UploadName.Contains(a)) > 0)
+                    {
+                        UploadValidationText = @"Contains reserved char /\<>:? or |.";
+                        return false;
+                    }
+
+                    UploadValidationText = string.Empty;
+                    return true;
+                });
 
 
             DownloadCommand = new DelegateCommand(async () =>
-            {
-                await DownloadBackupAsync();
-            },
-            () =>
-            {
-                // Maybe add length between 3 and 20 
-                if (SelectedOneDriveFile == null)
-                    return false;
+                {
+                    await DownloadBackupAsync();
+                },
+                () =>
+                {
+                    // Maybe add length between 3 and 20 
+                    if (SelectedOneDriveItem == null)
+                        return false;
 
-                return true;
-            });
+                    return true;
+                });
 
-
-            OneDriveFiles = new ObservableCollection<Item>();
-            SelectedOneDriveFile = null;
-
+            // Init properties.
             IsAuthenticated = false;
-            SignUpPaneVisibility = Visibility.Visible;
+            SignInPaneVisibility = Visibility.Visible;
 
-            SignUpRetryCommand.RaiseCanExecuteChanged();
-            UploadCommand.RaiseCanExecuteChanged();
+            oneDriveItems = new ObservableCollection<Item>();
+            SelectedOneDriveItem = null;
 
+            DataPath = "Data";
             BackupPath = @"Apps/UWPCore.Demo/Backup/";
             UploadPath = BackupPath;
             UploadName = string.Empty;
@@ -211,212 +267,223 @@ namespace UWPCore.Demo.ViewModels
             BackupIsIndeterminate = false;
             BackupStatusText = string.Empty;
 
-            localStorageService = new LocalStorageService();
-            zipArchiveService = new ZipArchiveService(localStorageService);
 
-            LocalDataPath = "Data";
+            SignInRetryCommand.RaiseCanExecuteChanged();
+            UploadCommand.RaiseCanExecuteChanged();
+            DownloadCommand.RaiseCanExecuteChanged();
         }
 
-        string debug1;
+        #endregion
 
-        public string Debug1
-        {
-            get { return debug1; }
-            set { Set(ref debug1, value); }
-        }        
+        #region Methods
 
-        private async Task CreateAndUploadBackup()
+        /// <summary>
+        /// Zips the folder to backup and load it to one drive.
+        /// </summary>
+        /// <returns></returns>
+        private async Task UploadBackupAsync()
         {
             BackupIsIndeterminate = true;
-            BackupStatusText = "Create Backup.";
-
-            var x = await localStorageService.CreateOrGetFolderAsync("Test");
-
-
-            if (await localStorageService.GetFolderAsync(LocalDataPath) == null)
+            BackupStatusText = "Create backup ...";
+                        
+            if (await localStorageService.GetFolderAsync(DataPath) == null)
                 throw new Exception("Local data path does not exit.");
 
             try
             {
-                await zipArchiveService.CompressAsync(LocalDataPath, "Data.zip");
+                await zipArchiveService.CompressAsync(DataPath, uploadZip);
             }
             catch
             {
-                var dialog = new MessageDialog("Backup connte nicht erstellt werden.");
-                await dialog.ShowAsync();
-
+                await new MessageDialog("Could not create a backup.", "OneDrive Backup").ShowAsync();
                 BackupIsIndeterminate = false;
                 BackupStatusText = string.Empty;
 
                 return;
             }
 
-            var file = await localStorageService.GetFileAsync("Data.zip");
-            var fstream = await file.OpenStreamForReadAsync();
-            
-                   
-            BackupStatusText = $"Uploading Backup ({fstream.Length} Bytes).";
+            var file = await localStorageService.GetFileAsync(uploadZip);
+            using (var stream = await file.OpenStreamForReadAsync())
+            {
+                BackupStatusText = $"Uploading Backup (total: {stream.Length} bytes) ...";
+            }
 
             bool upload = true;
 
-            //prüfen ob existiert
-            var item = await service.GetItemByPathAsync(UploadPath);
-            if(item != null)
+            try
             {
-                var dialog = new MessageDialog($"An backup with the name \"{UploadName}.bak\" already exists.", "OneDrive Backup");
-                dialog.Commands.Add(new UICommand("Override", null, "Override"));
-                dialog.Commands.Add(new UICommand("Cancel", null, "Cancel"));
-                if((await dialog.ShowAsync()).Id.ToString() == "Cancel")
+                // Check if an item with the same name already exists.    
+                var item = await oneDriveService.GetItemByPathAsync(UploadPath);
+                if (item != null)
                 {
-                    upload = false;
+                    var dialog = new MessageDialog($"An backup with the name \"{UploadName}.bak\" already exists.", "OneDrive Backup");
+                    dialog.Commands.Add(new UICommand("Override", null, "Override"));
+                    dialog.Commands.Add(new UICommand("Cancel", null, "Cancel"));
+                    if ((await dialog.ShowAsync()).Id.ToString() == "Cancel")
+                    {
+                        upload = false;
+                    }
+                }
+
+                if (upload)
+                {
+                    var stream = await file.OpenStreamForReadAsync();
+                    var result = await oneDriveService.UploadFileByPathAsync(UploadPath, stream);
+                    if (result != null)
+                    {
+                        // TODO: Evaluate if using toast notifications instead.
+                        await new MessageDialog("The backup was sucessfully created.", "OneDrive Backup").ShowAsync();
+                    }
+                    else
+                    {
+                        await new MessageDialog("An error occured while uploading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
+                    }
                 }
             }
-
-            if (upload)
+            catch(Exception e)
             {
-
-                var stream = await file.OpenStreamForReadAsync();
-                var result = await service.UploadFileByPathAsync(UploadPath, stream);
-                if (result != null)
-                {
-                    // make toast
-                    var dialog = new MessageDialog("Success");
-                    await dialog.ShowAsync();
-                }
-                else
-                {
-                    var dialog = new MessageDialog("Failed");
-                    await dialog.ShowAsync();
-                }
+                await new MessageDialog("An error occured while uploading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
             }
-
-            //BackupStatusText = "Clean up ...";
-            //await localStorageService.DeleteFileAsync("Data.zip");
-
-            Debug1 = BackupIsIndeterminate.ToString();
-
+            
             UploadName = string.Empty;
             BackupIsIndeterminate = false;
             BackupStatusText = string.Empty;
         }
 
+        /// <summary>
+        /// Download the selected backup and replace the current data with it.
+        /// </summary>
+        /// <returns></returns>
         private async Task DownloadBackupAsync()
         {
             BackupIsIndeterminate = true;
-            BackupStatusText = "Perpare Download.";
+            BackupStatusText = "Perpare download ...";
 
             bool download = true;
 
-            var dialog = new MessageDialog($"Downloading a Backup will replace all local data.", "OneDrive Backup");
+            var dialog = new MessageDialog("Downloading a Backup will replace all local data.", "OneDrive Backup");
             dialog.Commands.Add(new UICommand("Download", null, "Download"));
             dialog.Commands.Add(new UICommand("Cancel", null, "Cancel"));
             if ((await dialog.ShowAsync()).Id.ToString() == "Cancel")
             {
                 download = false;
             }
-            
-            if(download)
+
+            if (download)
             {
-                var localBackup = await localStorageService.GetFileAsync("Data.zip");
-                if(localBackup == null)
+                var localBackup = await localStorageService.GetFileAsync(uploadZip);
+                if (localBackup == null)
                 {
                     try
                     {
-                        await zipArchiveService.CompressAsync(LocalDataPath, "Data.zip");
+                        await zipArchiveService.CompressAsync(DataPath, uploadZip);
                     }
                     catch
                     {
-                        // What to do here?
+                        // TODO: Add error handling.
                     }
                 }
-                                
-                BackupStatusText = $"Download Backup {SelectedOneDriveFile.Size}";
 
-                try {
-                    var stream = await service.GetContentByIdAsync(SelectedOneDriveFile.Id);
-                    if (stream != null)
+                BackupStatusText = $"Download Backup (total: {SelectedOneDriveItem.Size} bytes) ...";
+
+                try
+                {
+                    var backupStream = await oneDriveService.GetContentByIdAsync(SelectedOneDriveItem.Id);
+                    if (backupStream != null)
                     {
                         // Delete folder 
-                        await localStorageService.DeleteFolderAsync(LocalDataPath);
-                        var sf = await localStorageService.CreateOrGetFileAsync("Download.zip");
+                        await localStorageService.DeleteFolderAsync(DataPath);
+                        var folder = await localStorageService.CreateOrGetFileAsync(downloadZip);
 
-                        using (stream)
+                        using (backupStream)
                         {
-                            using (var aa = await sf.OpenStreamForWriteAsync())
+                            using (var fileStream = await folder.OpenStreamForWriteAsync())
                             {
-                                stream.Position = 0;
-                                aa.Position = 0;
-                                await stream.CopyToAsync(aa);
+                                backupStream.Position = 0;
+                                fileStream.Position = 0;
+                                await backupStream.CopyToAsync(fileStream);
                             }
                         }
 
                         try
                         {
-                            await zipArchiveService.UncompressAsync("Download.zip");
+                            await zipArchiveService.UncompressAsync(downloadZip);
                         }
-                        catch (Exception e)
+                        catch
                         {
-                            await localStorageService.DeleteFolderAsync(LocalDataPath);
-                            await zipArchiveService.UncompressAsync("Data.zip");
+                            await localStorageService.DeleteFolderAsync(DataPath);
+                            await zipArchiveService.UncompressAsync(uploadZip);
 
-                            var adialog = new MessageDialog("S.O. went wrong old files have been recoverd.");
-                            await adialog.ShowAsync();
+                            await new MessageDialog("An error occured while saving the backup. Old data have been restored.", "OneDrive Backup").ShowAsync();
                         }
                     }
                     else
                     {
-                        BackupStatusText = "Could not download file ...";
-                        await Task.Delay(2000);
+                        await new MessageDialog("An error occured while downloading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     await new MessageDialog("An error occured while downloading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
                 }
             }
 
-            await localStorageService.DeleteFileAsync("Download.zip");
+            await localStorageService.DeleteFileAsync(downloadZip);
 
-            SelectedOneDriveFile = null;
+            SelectedOneDriveItem = null;
 
             BackupIsIndeterminate = false;
             BackupStatusText = string.Empty;
         }
 
-        Item selectedOneDriveFile;
-        public Item SelectedOneDriveFile
-        {
-            get { return selectedOneDriveFile; }
-            set { Set(ref selectedOneDriveFile, value);
-                DownloadCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private ObservableCollection<Item> oneDriveFiles;
-
-        public ObservableCollection<Item> OneDriveFiles
-        {
-            get { return oneDriveFiles; }
-            set { oneDriveFiles = value; }
-        }
-
-
+        /// <summary>
+        /// Get the actual list of backups that are stored into OneDrive.
+        /// </summary>
+        /// <returns></returns>
         private async Task ListBackupAsync()
         {
-            var children = await service.GetChildrenByPathAsync(BackupPath);
+            var children = await oneDriveService.GetChildrenByPathAsync(BackupPath);
             var result = children.Where(a => Path.GetExtension(a.Name) == ".bak");
 
-            OneDriveFiles.Clear();
-            foreach(var item in result)
+            OneDriveItems.Clear();
+            foreach (var item in result)
             {
-                OneDriveFiles.Add(item);
+                OneDriveItems.Add(item);
             }
+        }
+        
+        /// <summary>
+        /// Authenticate the user to OneDrive.
+        /// </summary>
+        /// <returns></returns>
+        private async Task AuthenticateAsync()
+        {
+            SignInIsIndeterminate = true;
+            SignInStatusText = "Connecting to OneDrive ...";
+            SignInRetryCommand.RaiseCanExecuteChanged();
 
-            
+            //await Task.Delay(1000);
+
+            IsAuthenticated = await oneDriveService.AuthenticateAsync();
+            SignInIsIndeterminate = false;
+
+            if (IsAuthenticated)
+            {
+                SignInPaneVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SignInStatusText = "Could not connect to OneDrive.";
+                SignInRetryCommand.RaiseCanExecuteChanged();
+            }
         }
 
-        #endregion
-
+        /// <summary>
+        /// Automatic authenticate the user to OneDrive if site is loaded.
+        /// </summary>
+        /// <param name="parameter"></param>
+        /// <param name="mode"></param>
+        /// <param name="state"></param>
         public override void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state)
         {
             base.OnNavigatedTo(parameter, mode, state);
@@ -429,41 +496,6 @@ namespace UWPCore.Demo.ViewModels
             task();
         }
 
-        private async Task AuthenticateAsync()
-        {
-            SignInIsIndeterminate = true;
-            SignInStatusText = "Connecting to OneDrive ...";
-            SignUpRetryCommand.RaiseCanExecuteChanged();
-
-            await Task.Delay(1000);
-
-            IsAuthenticated = await service.AuthenticateAsync();
-            SignInIsIndeterminate = false;
-
-            if (IsAuthenticated)
-            {
-                SignUpPaneVisibility = Visibility.Collapsed;
-            }
-            else
-            {
-                SignInStatusText = "Could not connect to OneDrive.";
-                SignUpRetryCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        internal async Task Test()
-        {
-            MemoryStream ms = new MemoryStream();
-            StreamWriter sw = new StreamWriter(ms);
-            sw.Write("Helloasdasd kasjd kjaldsk jasdl k");
-            sw.Write("|||Helloasdasd kasjd kjaldsk jasdl k");
-            sw.Flush();
-
-            var item = await service.UploadFileByPathAsync("Game/Test23/aaaa/test2.txt", ms);
-
-            var stream = await service.DownloadFileByPathAsync("Game/Test23/aaaa/test2.txt");
-            StreamReader sr = new StreamReader(stream);
-            var str = sr.ReadToEnd();
-        }
+        #endregion
     }
 }
