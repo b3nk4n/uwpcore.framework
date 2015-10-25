@@ -28,14 +28,9 @@ namespace UWPCore.Demo.Views
     /// </summary>
     public sealed partial class OneDrivePage : Page
     {
-        OneDriveViewModel vm;
-        
         public OneDrivePage()
         {
             this.InitializeComponent();
-            
-            vm = new OneDriveViewModel();
-            this.DataContext = vm;            
         }
     }
 }

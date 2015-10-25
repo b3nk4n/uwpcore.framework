@@ -5,16 +5,16 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using UWPCore.Demo.Interfaces;
 using UWPCore.Framework.Data;
 using UWPCore.Framework.Mvvm;
 using UWPCore.Framework.Storage;
+using UWPCore.Framework.ViewModels.Interfaces;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
-using UWPCore.Framework.Navigation;
 
-namespace UWPCore.Demo.ViewModels
+
+namespace UWPCore.Framework.ViewModels
 {
     public class OneDriveViewModel : ViewModelBase, IOneDriveViewModel
     {

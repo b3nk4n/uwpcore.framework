@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 
-namespace UWPCore.Demo.Interfaces
+namespace UWPCore.Framework.ViewModels.Interfaces
 {
     interface IOneDriveViewModel
     {

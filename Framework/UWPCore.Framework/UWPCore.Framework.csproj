@@ -129,6 +129,9 @@
     <Compile Include="Common\StringExtensions.cs" />
     <Compile Include="Common\SystemIcons.cs" />
     <Compile Include="Common\TypedEventHandler.cs" />
+    <Compile Include="Controls\OneDriveControl.xaml.cs">
+      <DependentUpon>OneDriveControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UniversalPage.cs" />
     <Compile Include="Common\WindowWrapper.cs" />
     <Compile Include="Controls\AboutControl.xaml.cs">
@@ -282,6 +285,9 @@
     <Compile Include="UI\TemplateSelectorBase.cs" />
     <Compile Include="UI\Triggers\OrientationTrigger.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\DesignTime\OneDriveViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IOneDriveViewModel.cs" />
+    <Compile Include="ViewModels\OneDriveViewModel.cs" />
     <Content Include="Properties\UWPCore.Framework.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -300,6 +306,10 @@
     <Page Include="Controls\AppShell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\OneDriveControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\PageHeader.xaml">
       <Generator>MSBuild:Compile</Generator>

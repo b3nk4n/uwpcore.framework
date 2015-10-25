@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.OneDrive.Sdk;
-using UWPCore.Demo.Interfaces;
 using Windows.UI.Xaml;
+using UWPCore.Framework.ViewModels.Interfaces;
 
-namespace UWPCore.Demo.DesignTime
+namespace UWPCore.Framework.ViewModels.DesignTime
 {
     public class OneDriveViewModel : IOneDriveViewModel
     {
