@@ -34,17 +34,9 @@ namespace UWPCore.Demo.Views
         {
             this.InitializeComponent();
             this.Loaded += OneDrivePage_Loaded;
-
-            string path = "/asdasd/ajsdhajsdh/ajsdhajhd";
-
-            var x = Path.GetDirectoryName(path);
-            var e = Path.GetExtension(path);
-
-            var y = x;
-            y = e;
             
             vm = new OneDriveViewModel();
-            this.DataContext = vm;
+            this.DataContext = vm;            
         }
 
         private void OneDrivePage_Loaded(object sender, RoutedEventArgs e)

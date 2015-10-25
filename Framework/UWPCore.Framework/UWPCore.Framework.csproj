@@ -148,6 +148,7 @@
     <Compile Include="Converters\BooleanToStringConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="Converters\DateTimeConverter.cs" />
     <Compile Include="Converters\EnumDisplayValueConverter.cs" />
     <Compile Include="Converters\StringCaseConverter.cs" />
     <Compile Include="Converters\StringFormatConverter.cs" />

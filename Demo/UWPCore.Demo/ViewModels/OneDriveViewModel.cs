@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using UWPCore.Demo.Interfaces;
 using UWPCore.Framework.Data;
 using UWPCore.Framework.Mvvm;
 using UWPCore.Framework.Storage;
@@ -14,7 +15,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Demo.ViewModels
 {
-    class OneDriveViewModel : ViewModelBase
+    class OneDriveViewModel : ViewModelBase, IOneDriveViewModel
     {
         #region Fields
 
