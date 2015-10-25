@@ -106,6 +106,8 @@
     <Compile Include="Controls\TileSquareMedium.xaml.cs">
       <DependentUpon>TileSquareMedium.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DesignTime\OneDriveViewModel.cs" />
+    <Compile Include="Interfaces\IOneDriveViewModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\SubItemModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />

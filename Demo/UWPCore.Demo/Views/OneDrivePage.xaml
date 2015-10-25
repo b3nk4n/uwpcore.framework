@@ -6,7 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:converter="using:UWPCore.Framework.Converters"
+    xmlns:designTime="using:UWPCore.Demo.DesignTime"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <designTime:OneDriveViewModel />
+    </Page.DataContext>
+
+    <Page.Resources>
+        <converter:BooleanNegationConverter x:Key="BoolNegationConverter"/>        
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -20,10 +30,50 @@
             </uwpcControls:PageHeader.HeaderContent>
         </uwpcControls:PageHeader>
 
+        <!-- Upload and Download Pane -->
+        <Grid Grid.Row="1" 
+              Visibility="{Binding BackupPaneVisibility}"
+              EntranceNavigationTransitionInfo.IsTargetElement="True">
+            <StackPanel>                
+                <ProgressBar Grid.Row="0" 
+                         IsIndeterminate="{Binding BackupIsIndeterminate}" />
+                <TextBlock Text="{Binding BackupStatusText}"/>
+                <TextBlock Text="{Binding BackupIsIndeterminate}"/>
+
+                <TextBlock Text="CREATE BACKUP"/>
+                <TextBlock>
+                    <Run Text="Path:"/>
+                    <Run Text="{Binding UploadPath}"/>
+                </TextBlock>
+                <TextBox Text="{Binding UploadName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" IsEnabled="{Binding BackupIsIndeterminate, Converter={StaticResource BoolNegationConverter}}"/>
+                <TextBlock Text="{Binding UploadValidationText}"/>
+                <Button Content="Upload" Command="{Binding UploadCommand}" IsEnabled="{Binding BackupIsIndeterminate, Converter={StaticResource BoolNegationConverter}}"/>
+
+                <Border BorderThickness="2" BorderBrush="AliceBlue"/>
+
+                <ListView ItemsSource="{Binding OneDriveFiles}" IsEnabled="{Binding BackupIsIndeterminate, Converter={StaticResource BoolNegationConverter}}" SelectedItem="{Binding SelectedOneDriveFile, Mode=TwoWay}"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Size}"/>
+                                <TextBlock Text="{Binding LastModifiedDateTime}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Content="Download" Command="{Binding DownloadCommand}" IsEnabled="{Binding BackupIsIndeterminate, Converter={StaticResource BoolNegationConverter}}"/>
+
+            </StackPanel>
+        </Grid>
+
         <!-- SignUp Pane-->
         <Grid Grid.Row="1"              
               EntranceNavigationTransitionInfo.IsTargetElement="True"
-              Visibility="{Binding SignUpPaneVisibility}">
+              Visibility="{Binding SignUpPaneVisibility}"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -44,21 +94,6 @@
                         HorizontalAlignment="Center" Width="75" Margin="0,10"
                         Command="{Binding SignUpRetryCommand}"/>
             </Grid>
-        </Grid>
-
-        <!-- Upload and Download Pane -->
-        <Grid Grid.Row="1"              
-              EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <StackPanel>
-                <TextBlock Text="CREATE BACKUP"/>
-                <TextBlock>
-                    <Run Text="Path:"/>
-                    <Run Text="{Binding UploadPath}"/>
-                </TextBlock>
-                <TextBox Text="{Binding UploadName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                <TextBlock Text="{Binding UploadValidationText}"/>
-                <Button Content="Upload" Command="{Binding UploadCommand}"/>
-            </StackPanel>
         </Grid>
     </Grid>
 </Page>

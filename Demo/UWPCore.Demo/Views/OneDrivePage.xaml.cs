@@ -51,24 +51,5 @@ namespace UWPCore.Demo.Views
         {
             
         }
-
-        private async void SignIn_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private async void SignOut_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private async void Test_Click(object sender, RoutedEventArgs e)
-        {
-            //var asdasd = await vm.GetItemByPathAsync("Game/Test/text.txt");
-            //var asdasd = await vm.GetItemByPathAsync("Game/Test");
-
-
-            await vm.Test();            
-        }
     }
 }
