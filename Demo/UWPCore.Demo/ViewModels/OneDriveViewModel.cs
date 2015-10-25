@@ -12,10 +12,11 @@ using UWPCore.Framework.Storage;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
+using UWPCore.Framework.Navigation;
 
 namespace UWPCore.Demo.ViewModels
 {
-    class OneDriveViewModel : ViewModelBase, IOneDriveViewModel
+    public class OneDriveViewModel : ViewModelBase, IOneDriveViewModel
     {
         #region Fields
 
@@ -225,7 +226,7 @@ namespace UWPCore.Demo.ViewModels
                     // Maybe add length between 3 and 20 
                     if (UploadName.Length == 0)
                     {
-                        UploadValidationText = "Name backup.";
+                        UploadValidationText = "Your backup needs a name.";
                         return false;
                     }
 
@@ -256,6 +257,7 @@ namespace UWPCore.Demo.ViewModels
             // Init properties.
             IsAuthenticated = false;
             SignInPaneVisibility = Visibility.Visible;
+            SignInStatusText = "Could not sign in automatically. Please retry.";
 
             oneDriveItems = new ObservableCollection<Item>();
             SelectedOneDriveItem = null;
@@ -267,8 +269,7 @@ namespace UWPCore.Demo.ViewModels
 
             BackupIsIndeterminate = false;
             BackupStatusText = string.Empty;
-
-
+            
             SignInRetryCommand.RaiseCanExecuteChanged();
             UploadCommand.RaiseCanExecuteChanged();
             DownloadCommand.RaiseCanExecuteChanged();

@@ -33,15 +33,9 @@ namespace UWPCore.Demo.Views
         public OneDrivePage()
         {
             this.InitializeComponent();
-            this.Loaded += OneDrivePage_Loaded;
             
             vm = new OneDriveViewModel();
             this.DataContext = vm;            
-        }
-
-        private void OneDrivePage_Loaded(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

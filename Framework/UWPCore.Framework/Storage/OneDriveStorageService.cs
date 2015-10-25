@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPCore.Framework.Storage
 {
+    // TODO: Add comments
+
     public class OneDriveStorageService
     {
         #region Fields
