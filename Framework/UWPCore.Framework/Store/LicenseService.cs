@@ -22,7 +22,9 @@ namespace UWPCore.Framework.Store
         public LicenseService()
         {
 #if DEBUG
-            _licenseInfo = CurrentAppSimulator.LicenseInformation;
+            // TODO: check simulator requirements: https://social.msdn.microsoft.com/Forums/office/en-US/0298c819-732e-47a3-99a1-1bfac3e245c8/access-denied-on-currentappsimulatorlicenseinformation?forum=wpdevelop
+            //_licenseInfo = CurrentAppSimulator.LicenseInformation;
+            _licenseInfo = CurrentApp.LicenseInformation;
 #else
             _licenseInfo = CurrentApp.LicenseInformation;
 #endif
@@ -49,11 +51,11 @@ namespace UWPCore.Framework.Store
             try
             {
 #if DEBUG
-                await CurrentAppSimulator.RequestProductPurchaseAsync(productId);
+                var result = await CurrentAppSimulator.RequestProductPurchaseAsync(productId);
 #else
-                await CurrentApp.RequestProductPurchaseAsync(productId);
+                var result = await CurrentApp.RequestProductPurchaseAsync(productId);
 #endif
-                return true;
+                return result.Status == ProductPurchaseStatus.Succeeded || result.Status == ProductPurchaseStatus.AlreadyPurchased;
             }
             catch (Exception)
             {

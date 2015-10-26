@@ -22,10 +22,15 @@ namespace UWPCore.Framework.Mvvm
             if (Windows.ApplicationModel.DesignMode.DesignModeEnabled)
                 return;
 
-            await WindowWrapper.Current().Dispatcher.DispatchAsync(() =>
+            // ensure there is a windows, which is NULL in case of a background task
+            var window = WindowWrapper.Current();
+            if (window != null)
             {
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            });
+                await window.Dispatcher.DispatchAsync(() =>
+                {
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                });
+            }
         }
  
         public void Set<T>(ref T storage, T value, [CallerMemberName()]string propertyName = null)
