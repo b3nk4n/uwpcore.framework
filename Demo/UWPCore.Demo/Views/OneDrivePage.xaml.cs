@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWPCore.Demo.ViewModels;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Storage;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -27,7 +28,7 @@ namespace UWPCore.Demo.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class OneDrivePage : Page
+    public sealed partial class OneDrivePage : UniversalPage
     {
         public OneDrivePage()
         {
