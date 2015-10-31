@@ -9,7 +9,14 @@
     xmlns:converter="using:UWPCore.Framework.Converters"
     xmlns:uwpcViewModels="using:UWPCore.Framework.ViewModels"    
     mc:Ignorable="d">
- 
+
+    <uwpcControls:UniversalPage.DataContext>
+        <uwpcViewModels:OneDriveViewModel
+                        BackupPath="Apps/UWPCore.Demo/Backup/"
+                        DataPath="Data">
+        </uwpcViewModels:OneDriveViewModel>
+    </uwpcControls:UniversalPage.DataContext>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -23,14 +30,7 @@
         </uwpcControls:PageHeader>
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <uwpcControls:OneDriveControl>
-                <uwpcControls:OneDriveControl.DataContext>
-                    <uwpcViewModels:OneDriveViewModel
-                        BackupPath="Apps/UWPCore.Demo/Backup/"
-                        DataPath="Data">
-                    </uwpcViewModels:OneDriveViewModel>
-                </uwpcControls:OneDriveControl.DataContext>
-            </uwpcControls:OneDriveControl>
+            <uwpcControls:OneDriveControl DataContext="{Binding}" />
         </Grid>
     </Grid>
 </uwpcControls:UniversalPage>
