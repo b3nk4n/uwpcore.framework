@@ -4,6 +4,10 @@ namespace UWPCore.Framework.Common
     /// <summary>
     /// Enumeration of all glyph icons.
     /// </summary>
+    /// <remarks>
+    /// Some icons are still missing!
+    /// Check out: <see cref="http://modernicons.io/segoe-mdl2/cheatsheet/"/> and add more when needed.
+    /// </remarks>
     public enum GlyphIcons
     {
         Account = 0xEA8C,
@@ -22,6 +26,7 @@ namespace UWPCore.Framework.Common
         Album = 0xE142,
         Alert = 0xE814,
         AlertOutline = 0xE7BA,
+        AllApps = 0xE71D,
         Archive = 0xE7B8,
         Arrow = 0xE1D1,
         ArrowBottomRight = 0xE741,
@@ -109,6 +114,7 @@ namespace UWPCore.Framework.Common
         BoxHalfVertical = 0xE746,
         BoxSixteenth = 0xE743,
         BoxSmall = 0xE004,
+        BrowsePhotos = 0xE7C5,
         Bus = 0xEB47,
         BusOutline = 0xE806,
         Calculator = 0xE1D0,
