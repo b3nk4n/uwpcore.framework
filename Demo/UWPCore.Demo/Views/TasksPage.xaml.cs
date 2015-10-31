@@ -56,5 +56,15 @@ namespace UWPCore.Demo.Views
 
             await _dialogService.ShowAsync(exists.ToString().ToUpper(), "Information");
         }
+
+        private void RegisterDiscoClick(object sender, RoutedEventArgs e)
+        {
+            _backgroundTaskService.Register("DiscoBackgroundTask", typeof(DiscoTileBackgroundTask), new TimeTrigger(15, false));
+        }
+
+        private void UnregisterDiscoClick(object sender, RoutedEventArgs e)
+        {
+            _backgroundTaskService.Unregister("DiscoBackgroundTask");
+        }
     }
 }

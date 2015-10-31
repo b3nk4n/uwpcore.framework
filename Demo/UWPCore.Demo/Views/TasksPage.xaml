@@ -22,12 +22,17 @@
 
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <StackPanel>
+                <TextBox Text="Simple Background Task" />
                 <TextBox x:Name="TaskNameTextBox" Header="Task name" Width="200" Margin="4" HorizontalAlignment="Left" />
                 <Button Content="Request user access" Click="RequestUserAccessClicked" MinWidth="200" Margin="4" />
                 <Button Content="Register" Click="RegisterClicked" MinWidth="200" Margin="4" />
                 <Button Content="Unregister" Click="UnregisterClicked" MinWidth="200" Margin="4" />
                 <Button Content="Unregister all" Click="UnregisterAllClicked" MinWidth="200" Margin="4" />
                 <Button Content="Check task exists" Click="CheckTaskExistsClicked" MinWidth="200" Margin="4" />
+
+                <TextBox Text="Disco Tile Background Task" />
+                <Button Content="Rwgister Disco Tile" Click="RegisterDiscoClick" MinWidth="200" Margin="4" />
+                <Button Content="Unregister Disco Tile" Click="UnregisterDiscoClick" MinWidth="200" Margin="4" />
             </StackPanel>
         </Grid>
     </Grid>
