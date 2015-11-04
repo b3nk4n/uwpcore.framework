@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.Mvvm;
 
 namespace UWPCore.Framework.Data
 {
@@ -8,15 +9,20 @@ namespace UWPCore.Framework.Data
     /// Enum data source to make bingings to enums much more easy.
     /// </summary>
     /// <typeparam name="T">The enum type.</typeparam>
-    public sealed class EnumSource<T> where T : struct, IConvertible
+    public sealed class EnumSource<T> : BindableBase where T : struct, IConvertible
     {
         /// <summary>
         /// Gets or sets the selected enum value.
         /// </summary>
-        public object SelectedItem { get; set; }
+        public object SelectedItem {
+            get { return _selectedItem; }
+            set { Set(ref _selectedItem, value); }
+        }
+        private object _selectedItem;
 
         /// <summary>
         /// Gets or sets the selected value for storage.
+        /// Instead of this property, also the property of the model object could be used directly.
         /// </summary>
         /// <remarks>
         /// We use string values here, because <see cref="Windows.Storage.ApplicationDataContainer"/>
