@@ -73,10 +73,12 @@ namespace UWPCore.Framework.Common
             BackButtonBehaviour = backButtonBehaviour;
             AppAssemblyName = GetType().GetTypeInfo().Assembly.GetName().Name;
 
+            Injector = IoC.Injector.Instance;
+
             if (modules == null)
-                Injector = new Injector(new DefaultModule());
+                Injector.Init(new DefaultModule());
             else
-                Injector = new Injector(modules);
+                Injector.Init(modules);
 
             Resuming += (s, e) =>
             {
