@@ -3,7 +3,7 @@
     /// <summary>
     /// Extensin methods for <see cref="string"/>.
     /// </summary>
-    public  static class StringExtensions
+    public static class StringExtensions
     {
         /// <summary>
         /// Transforms the first letter to lower case.
