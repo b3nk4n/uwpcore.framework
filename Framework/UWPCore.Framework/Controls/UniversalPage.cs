@@ -25,9 +25,8 @@ namespace UWPCore.Framework.Controls
         protected async override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
-
             // call navigation service events from here to ensure ViewModel navigation methods are called in right order
-            e.Cancel = !NavigationService.NavigatingFrom(false);
+            e.Cancel = !NavigationService.NavigatingFrom(e, false);
 
             if (!e.Cancel)
             {
@@ -53,7 +52,7 @@ namespace UWPCore.Framework.Controls
         {
             get
             {
-                return UniversalApp.Injector;
+                return Injector;
             }
         }
     }

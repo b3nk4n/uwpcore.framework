@@ -72,7 +72,7 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         /// <param name="suspending">The suspending flag.</param>
         /// <returns>Returns True when navigating from is ok, else False when to cancel.</returns>
-        internal bool NavigatingFrom(bool suspending)
+        internal bool NavigatingFrom(NavigatingCancelEventArgs args, bool suspending)
         {
             var page = FrameFacade.Content as Page;
             if (page != null)
@@ -80,13 +80,15 @@ namespace UWPCore.Framework.Navigation
                 var dataContext = page.DataContext as INavigable;
                 if (dataContext != null)
                 {
-                    var args = new NavigatingEventArgs
+                    var internalArgs = new NavigatingEventArgs()
                     {
                         PageType = FrameFacade.CurrentPageType,
                         Parameter = FrameFacade.CurrentPageParam,
                         Suspending = suspending,
+                        NavigationMode = args.NavigationMode
                     };
-                    dataContext.OnNavigatingFrom(args);
+
+                    dataContext.OnNavigatingFrom(internalArgs);
                     return !args.Cancel;
                 }
             }
