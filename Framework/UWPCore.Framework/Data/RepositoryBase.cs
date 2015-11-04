@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace UWPCore.Framework.Data
 {
@@ -39,6 +40,18 @@ namespace UWPCore.Framework.Data
             return _data;
         }
 
+        public IList<TKey> GetAllIds()
+        {
+            var idList = new List<TKey>();
+
+            foreach (var item in GetAll())
+            {
+                idList.Add(item.Id);
+            }
+
+            return idList;
+        }
+
         public bool Contains(TKey id)
         {
             return Get(id) != null;
@@ -72,21 +85,21 @@ namespace UWPCore.Framework.Data
             _data.Clear();
         }
 
-        public bool Load()
+        public async Task<bool> Load()
         {
             if (!HasLoaded)
             {
-                return Reload();
+                return await Reload();
             }
 
             return false;
         }
 
-        public abstract bool Reload();
+        public abstract Task<bool> Reload();
 
         public abstract void Update(TEntity prototype);
 
-        public abstract bool Save();
+        public abstract Task<bool> Save();
 
         public int Count
         {
