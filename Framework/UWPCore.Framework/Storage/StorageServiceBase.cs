@@ -34,20 +34,21 @@ namespace UWPCore.Framework.Storage
 
         #region Public Methods
 
-        public async Task WriteFile(string filePath, string data)
+        public async Task<bool> WriteFile(string filePath, string data)
         {
             var folder = await CreateOrGetFolderAsync(filePath);
 
             if (folder == null)
-                return;
+                return false;
 
             var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
-            await WriteFile(storageFile, data);
+            return await WriteFile(storageFile, data);
         }
 
-        public async Task WriteFile(IStorageFile file, string data)
+        public async Task<bool> WriteFile(IStorageFile file, string data)
         {
             await FileIO.WriteTextAsync(file, data);
+            return true;
         }
 
         public async Task<bool> WriteFile(string filePath, Stream data)
@@ -61,7 +62,18 @@ namespace UWPCore.Framework.Storage
             return await WriteFile(storageFile, data);
         }
 
-        public async Task<bool> WriteFile(IStorageFile file, Stream data)
+        public async Task<bool> WriteFile(string filePath, IStorageFile from)
+        {
+            var folder = await CreateOrGetFolderAsync(filePath);
+
+            if (folder == null)
+                return false;
+
+            var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
+            return await WriteFile(storageFile, from);
+        }
+
+        public async Task<bool> WriteFile(IStorageFile file, Stream data) // TODO: fixme! not working!
         {
             var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
             using (var outputStream = stream.GetOutputStreamAt(0))
@@ -85,6 +97,31 @@ namespace UWPCore.Framework.Storage
             }
 
             return true;
+        }
+
+        public async Task<bool> WriteFile(IStorageFile file, IStorageFile from)
+        {
+            try
+            {
+                await from.CopyAndReplaceAsync(file);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            
+
+            //var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
+            //using (var outputStream = stream.GetOutputStreamAt(0))
+            //{
+            //    var dataWriter = new DataWriter(outputStream);
+            //    //var dataReader = new DataReader(data);
+            //    IBuffer buffer = await FileIO.ReadBufferAsync(from);
+            //    dataWriter.WriteBuffer(buffer);
+            //}
+
+            
         }
 
         public async Task<bool> WriteFile(string filePath, WriteableBitmap image)
@@ -138,20 +175,7 @@ namespace UWPCore.Framework.Storage
 
         public async Task<bool> ContainsFile(string filePath)
         {
-            try
-            {
-                var folder = await GetStorageFolder(filePath);
-
-                if (folder == null)
-                    return false;
-
-                await folder.GetFileAsync(Path.GetFileName(filePath));
-                return true;
-            }
-            catch (FileNotFoundException)
-            {
-                return false;
-            }
+            return await GetFileAsync(filePath) != null;
         }
 
         public async Task<bool> ContainsDirectory(string directoryPath)
@@ -162,12 +186,19 @@ namespace UWPCore.Framework.Storage
 
         public async Task<IStorageFile> GetFileAsync(string filePath)
         {
-            if (await ContainsFile(filePath))
+            try
             {
-                return await RootFolder.GetFileAsync(filePath);
-            }
+                var folder = await GetStorageFolder(filePath);
 
-            return null;
+                if (folder == null)
+                    return null;
+
+                return await folder.GetFileAsync(Path.GetFileName(filePath));
+            }
+            catch (FileNotFoundException)
+            {
+                return null;
+            }
         }
 
         public async Task<IReadOnlyList<IStorageFile>> GetFilesAsync(string filePath)
