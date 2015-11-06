@@ -172,16 +172,16 @@ namespace UWPCore.Framework.Speech
                 SpeechRecognitionResult speechRecognitionResult = await Recognizer.RecognizeWithUIAsync();
                 return new RecognitionResult(speechRecognitionResult);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                // Handle the speech privacy policy error.
-                if ((uint)exception.HResult == HRESULT_PRIVACY_STATEMENT_DECLINED)
+                // handle the speech privacy policy error
+                if ((uint)ex.HResult == HRESULT_PRIVACY_STATEMENT_DECLINED)
                 {
                     await SettingsLauncher.LaunchPrivacyAccountsAsync();
                 }
                 else
                 {
-                    await _dialogService.ShowAsync(exception.Message, "Exception");
+                    Logger.WriteLine(ex);
                 }
             }
             return null;
