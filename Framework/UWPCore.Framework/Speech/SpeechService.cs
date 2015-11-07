@@ -19,6 +19,8 @@ namespace UWPCore.Framework.Speech
     /// </summary>
     /// <remarks>
     /// Speech recognition requires: CAP_MICROPHONE
+    /// 
+    /// Important voice command xml source: <seealso cref="https://msdn.microsoft.com/en-us/library/windows/apps/dn706593.aspx"/>
     /// </remarks>
     public class SpeechService : ISpeechService
     {
