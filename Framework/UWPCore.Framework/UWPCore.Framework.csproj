@@ -182,6 +182,7 @@
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardController.cs" />
     <Compile Include="Input\KeyboardService.cs" />
+    <Compile Include="IoC\DesignTimeInjector.cs" />
     <Compile Include="IoC\IInjector.cs" />
     <Compile Include="IoC\Injector.cs" />
     <Compile Include="Launcher\SettingsLauncher.cs" />
