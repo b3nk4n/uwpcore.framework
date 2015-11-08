@@ -61,9 +61,9 @@ namespace UWPCore.Demo
             if (launchArgs != null)
             {
                 if (args.Kind == ActivationKind.Launch)
-        {
+                {
                     Logger.WriteLine("Started with TILE and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
-        }
+                }
                 if (args.Kind == ActivationKind.ToastNotification)
             { 
                     Logger.WriteLine("Started with TOAST and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);

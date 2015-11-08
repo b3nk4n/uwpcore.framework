@@ -1,0 +1,32 @@
+﻿<localViewModels:MvvmViewModel
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:localModels="using:UWPCore.Demo.Models"
+    xmlns:localViewModels="using:UWPCore.Demo.ViewModels"
+    mc:Ignorable="d">
+    <localViewModels:MvvmViewModel.Items>
+        
+        <localViewModels:ItemViewModel>
+            <localViewModels:ItemViewModel.Model>
+                <localModels:ItemModel Id="01" Title="Sample title 1" Description="Some sample description text...">
+                    <localModels:ItemModel.SubItem>
+                        <localModels:SubItemModel Title="Subtitle 1" Link="www.bing.com" />
+                    </localModels:ItemModel.SubItem>
+                </localModels:ItemModel>
+            </localViewModels:ItemViewModel.Model>
+        </localViewModels:ItemViewModel>
+
+        <localViewModels:ItemViewModel>
+            <localViewModels:ItemViewModel.Model>
+                <localModels:ItemModel Id="02" Title="Sample title 2" Description="Some more pseudo description text, which makes no sense at all.">
+                    <localModels:ItemModel.SubItem>
+                        <localModels:SubItemModel Title="Subtitle 2" Link="www.bing.com" />
+                    </localModels:ItemModel.SubItem>
+                </localModels:ItemModel>
+            </localViewModels:ItemViewModel.Model>
+        </localViewModels:ItemViewModel>
+
+    </localViewModels:MvvmViewModel.Items>
+</localViewModels:MvvmViewModel>
