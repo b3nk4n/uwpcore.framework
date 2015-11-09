@@ -1,26 +1,23 @@
-﻿using Windows.UI;
+﻿using System;
+using Windows.UI;
 
-namespace UWPCore.Framework.Common
+namespace UWPCore.Framework.UI
 {
     /// <summary>
-    /// The color properties of the app.
+    /// The manual color properties of the app.
     /// </summary>
-    public class AppColorProperties
+    public class AppColorProperties : IAppColorProperties
     {
-        /// <summary>
-        /// Gets the main theme color.
-        /// </summary>
         public Color? Theme { get; private set; }
 
-        /// <summary>
-        /// Gets the title bar foreground color.
-        /// </summary>
         public Color? TitleBarForeground { get; private set; }
 
-        /// <summary>
-        /// Gets the title bar background color.
-        /// </summary>
         public Color? TitleBarBackground { get; private set; }
+
+        public bool IsAutoConfigured
+        {
+            get { return false; }
+        }
 
         /// <summary>
         /// Creates an AppColorProperties instance.

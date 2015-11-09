@@ -118,7 +118,7 @@
     <Compile Include="Behaviors\TextBoxEnterKeyBehavior.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
-    <Compile Include="Common\AppColorProperties.cs" />
+    <Compile Include="UI\AppColorProperties.cs" />
     <Compile Include="Common\AppInfo.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
@@ -281,8 +281,10 @@
     <Compile Include="Accounts\UserInfoService.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
+    <Compile Include="UI\AutoAppColorProperties.cs" />
     <Compile Include="UI\ColorConverter.cs" />
     <Compile Include="UI\DialogService.cs" />
+    <Compile Include="UI\IAppColorProperties.cs" />
     <Compile Include="UI\IDialogService.cs" />
     <Compile Include="Devices\IStatusBarService.cs" />
     <Compile Include="Devices\StatusBarService.cs" />

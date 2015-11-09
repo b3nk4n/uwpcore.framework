@@ -8,6 +8,7 @@ using UWPCore.Framework.Input;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
+using UWPCore.Framework.UI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -38,7 +39,7 @@ namespace UWPCore.Framework.Common
         /// <summary>
         /// Gets the theme color of the app shell, where NULL means to use the accent color of the app.
         /// </summary>
-        public AppColorProperties ColorProperties { get; private set; }
+        public IAppColorProperties ColorProperties { get; set; }
 
         /// <summary>
         /// The assembly name of the application to be implemented by the framework user.
@@ -74,7 +75,7 @@ namespace UWPCore.Framework.Common
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
         /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
         /// <param name="modules">The ninject modules.</param>
-        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, AppColorProperties colorProperties = null, params NinjectModule[] modules)
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, params NinjectModule[] modules)
         {
             Current = this;
             DefaultPage = defaultPage;
@@ -87,8 +88,6 @@ namespace UWPCore.Framework.Common
                 Injector.Init(new DefaultModule());
             else
                 Injector.Init(modules);
-
-            ColorProperties = colorProperties;
 
             Resuming += (s, e) =>
             {
@@ -284,7 +283,6 @@ namespace UWPCore.Framework.Common
             }
 
             InitRootFrameAndNavigation();
-            InitTitleBar(ColorProperties);
 
             // expire state (based on expiry)
             DateTime cacheDate;
@@ -308,6 +306,8 @@ namespace UWPCore.Framework.Common
 
             // the user may override to set custom content
             await OnInitializeAsync(e);
+
+            InitTitleBar(ColorProperties);
 
             switch (e.PreviousExecutionState)
             {
@@ -427,7 +427,7 @@ namespace UWPCore.Framework.Common
         /// Initializes the theme color of the title bar.
         /// </summary>
         /// <param name="colorProperties">The color properties to apply.</param>
-        private void InitTitleBar(AppColorProperties colorProperties)
+        private void InitTitleBar(IAppColorProperties colorProperties)
         {
             if (colorProperties == null)
                 return;
@@ -437,11 +437,11 @@ namespace UWPCore.Framework.Common
             coreTitleBar.ButtonBackgroundColor = colorProperties.TitleBarBackground;
             coreTitleBar.ButtonForegroundColor = colorProperties.TitleBarForeground;
             coreTitleBar.ButtonHoverBackgroundColor = colorProperties.Theme;
-            coreTitleBar.ButtonHoverForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.ButtonHoverForegroundColor = Colors.White;
             coreTitleBar.ButtonInactiveBackgroundColor = colorProperties.TitleBarBackground;
             coreTitleBar.ButtonInactiveForegroundColor = Colors.Gray;
             coreTitleBar.ButtonPressedBackgroundColor = Colors.DarkGray;
-            coreTitleBar.ButtonPressedForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.ButtonPressedForegroundColor = Colors.White;
             coreTitleBar.ForegroundColor = colorProperties.TitleBarForeground;
             coreTitleBar.InactiveBackgroundColor = colorProperties.TitleBarBackground;
             coreTitleBar.InactiveForegroundColor = Colors.Gray;

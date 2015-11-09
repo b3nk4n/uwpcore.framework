@@ -10,6 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI;
 using UWPCore.Framework.Devices;
 using UWPCore.Framework.IoC;
+using UWPCore.Framework.UI;
 
 namespace UWPCore.Demo
 {
@@ -22,7 +23,7 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new AppColorProperties(Color.FromArgb(255, 0, 34, 121), Colors.White, Colors.Black), new DefaultModule())
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new DefaultModule())
         {
             InitializeComponent();
 
@@ -35,6 +36,11 @@ namespace UWPCore.Demo
         public async override Task OnInitializeAsync(IActivatedEventArgs args)
         {
             await base.OnInitializeAsync(args);
+
+            // set theme colors
+            ColorProperties = new AutoAppColorProperties();
+            // alternatively:
+            // ColorProperties =  new AppColorProperties(Color.FromArgb(255, 0, 34, 121), Colors.White, Colors.Black)
 
             // only add it
             if (args.PreviousExecutionState != ApplicationExecutionState.Running &&
