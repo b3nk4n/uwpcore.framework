@@ -22,7 +22,7 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new AppColorProperties(Colors.Green, Colors.White, Colors.Black), new DefaultModule())
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new AppColorProperties(Color.FromArgb(255, 0, 34, 121), Colors.White, Colors.Black), new DefaultModule())
         {
             InitializeComponent();
 

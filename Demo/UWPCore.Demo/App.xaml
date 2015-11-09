@@ -8,12 +8,24 @@
 
     <uwpcCommon:UniversalApp.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/ShellStyles.xaml"/>
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/SystemIcons.xaml" />
                 <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/CommonStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Accent color overrides -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="SystemAccentColor">#002277</Color>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <!-- Light theme overrides go here... -->
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
+
     </uwpcCommon:UniversalApp.Resources>
 
 </uwpcCommon:UniversalApp>

@@ -81,7 +81,7 @@
 
                     <StackPanel Grid.Row="1">
                         <Rectangle x:Name="NavMenuSeperator" Height="1" Fill="{StaticResource SystemControlHighlightListLowBrush}" />
-                        
+
                         <controls:NavMenuListView x:Name="NavMenuListBottomDock"
                                           TabIndex="3"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
@@ -90,12 +90,12 @@
                                           ItemInvoked="NavMenuList_ItemInvoked">
                         </controls:NavMenuListView>
                     </StackPanel>
-                    
+
                 </Grid>
             </SplitView.Pane>
-            
+
             <!-- Content is added at startup in code... -->
-            
+
         </SplitView>
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
