@@ -118,6 +118,7 @@
     <Compile Include="Behaviors\TextBoxEnterKeyBehavior.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
+    <Compile Include="Common\AppColorProperties.cs" />
     <Compile Include="Common\AppInfo.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\EnumExtensions.cs" />

@@ -10,9 +10,12 @@ using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation.Metadata;
 using Windows.Globalization;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,6 +34,11 @@ namespace UWPCore.Framework.Common
         public static new UniversalApp Current { get; private set; }
 
         public StateItems SessionState { get; set; } = new StateItems();
+
+        /// <summary>
+        /// Gets the theme color of the app shell, where NULL means to use the accent color of the app.
+        /// </summary>
+        public AppColorProperties ColorProperties { get; private set; }
 
         /// <summary>
         /// The assembly name of the application to be implemented by the framework user.
@@ -66,7 +74,7 @@ namespace UWPCore.Framework.Common
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
         /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
         /// <param name="modules">The ninject modules.</param>
-        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, params NinjectModule[] modules)
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, AppColorProperties colorProperties = null, params NinjectModule[] modules)
         {
             Current = this;
             DefaultPage = defaultPage;
@@ -79,6 +87,8 @@ namespace UWPCore.Framework.Common
                 Injector.Init(new DefaultModule());
             else
                 Injector.Init(modules);
+
+            ColorProperties = colorProperties;
 
             Resuming += (s, e) =>
             {
@@ -220,6 +230,7 @@ namespace UWPCore.Framework.Common
             if (Window.Current.Content == null)
             {
                 InitRootFrameAndNavigation();
+                InitTitleBar(ColorProperties);
             }
 
             // onstart is shared with activate and launch
@@ -273,6 +284,7 @@ namespace UWPCore.Framework.Common
             }
 
             InitRootFrameAndNavigation();
+            InitTitleBar(ColorProperties);
 
             // expire state (based on expiry)
             DateTime cacheDate;
@@ -409,6 +421,30 @@ namespace UWPCore.Framework.Common
             var view = WindowWrapper.ActiveWrappers.First();
             var navigationService = new NavigationService(RootFrame);
             view.NavigationServices.Add(navigationService);
+        }
+
+        /// <summary>
+        /// Initializes the theme color of the title bar.
+        /// </summary>
+        /// <param name="colorProperties">The color properties to apply.</param>
+        private void InitTitleBar(AppColorProperties colorProperties)
+        {
+            if (colorProperties == null)
+                return;
+
+            var coreTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+            coreTitleBar.BackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.ButtonBackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.ButtonForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.ButtonHoverBackgroundColor = colorProperties.Theme;
+            coreTitleBar.ButtonHoverForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.ButtonInactiveBackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.ButtonInactiveForegroundColor = Colors.Gray;
+            coreTitleBar.ButtonPressedBackgroundColor = Colors.DarkGray;
+            coreTitleBar.ButtonPressedForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.ForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.InactiveBackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.InactiveForegroundColor = Colors.Gray;
         }
 
         /// <summary>

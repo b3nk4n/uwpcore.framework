@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UWPCore.Framework.Common;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
