@@ -52,7 +52,7 @@ namespace UWPCore.Framework.Controls
         {
             get
             {
-                return Injector;
+                return IoC.Injector.Instance;
             }
         }
     }
