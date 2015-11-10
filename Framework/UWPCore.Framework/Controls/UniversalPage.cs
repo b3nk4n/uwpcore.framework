@@ -20,7 +20,7 @@ namespace UWPCore.Framework.Controls
         /// <summary>
         /// The pages theme color.
         /// </summary>
-        public static StoredObjectBase<string> PageTheme = new LocalObject<string>("__pageTheme__", ElementTheme.Dark.ToString());
+        public static StoredObjectBase<string> PageTheme = new LocalObject<string>("__pageTheme__", ElementTheme.Default.ToString());
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

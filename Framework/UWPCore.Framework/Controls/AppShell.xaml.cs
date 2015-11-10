@@ -61,6 +61,9 @@ namespace UWPCore.Framework.Controls
                 CheckTogglePaneButtonSizeChanged();
             };
 
+            if (navigationItems == null || navigationItems.Count() == 0)
+                throw new ArgumentException("There must be at least one top-level navigation item. Did you forgot to override a method in UniversalApp?");
+
             NavigationItems = new List<NavMenuItem>(navigationItems);
             NavMenuList.ItemsSource = navigationItems;
 

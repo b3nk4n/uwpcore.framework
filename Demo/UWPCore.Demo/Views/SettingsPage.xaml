@@ -32,8 +32,9 @@
                 <StackPanel>
                     <StackPanel x:Name="ThemeContainer" Margin="4">
                         <TextBlock Text="Personalization" />
-                        <RadioButton Content="Dark theme" GroupName="Theme" Tag="Dark" />
-                        <RadioButton Content="Light theme" GroupName="Theme" Tag="Light"/>
+                        <RadioButton Content="Default" GroupName="Theme" Tag="Default" />
+                        <RadioButton Content="Light" GroupName="Theme" Tag="Light"/>
+                        <RadioButton Content="Dark" GroupName="Theme" Tag="Dark" />
                     </StackPanel>
                     
                     <ToggleSwitch x:Name="SampleToggleSwitch" Header="Toggle setting" Margin="4" />
