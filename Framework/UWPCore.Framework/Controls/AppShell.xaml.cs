@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UWPCore.Framework.Common;
 using Windows.Foundation;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
@@ -282,8 +281,6 @@ namespace UWPCore.Framework.Controls
             // update selected item when toggle changes (also happens when split view opens after windows resize)
             var item = GetNavigationItem(_rootFrame.CurrentSourcePageType);
             var container = GetContainerFromItem(item);
-            NavMenuList.SetSelectedItem(container);
-            NavMenuListBottomDock.SetSelectedItem(container);
         }
 
         /// <summary>
