@@ -466,10 +466,10 @@ namespace UWPCore.Framework.Common
         {
             IAppColorProperties colorProperties;
 
-            if (UniversalPage.PageTheme.Value == ElementTheme.Dark.ToString())
-                colorProperties = ColorPropertiesDark;
-            else
+            if (UniversalPage.PageTheme.Value == ElementTheme.Light.ToString())
                 colorProperties = ColorPropertiesLight;
+            else
+                colorProperties = ColorPropertiesDark;
 
             if (colorProperties == null)
                 return;
