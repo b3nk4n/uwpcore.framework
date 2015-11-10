@@ -30,6 +30,12 @@
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <ScrollViewer>
                 <StackPanel>
+                    <StackPanel x:Name="ThemeContainer" Margin="4">
+                        <TextBlock Text="Personalization" />
+                        <RadioButton Content="Dark theme" GroupName="Theme" Tag="Dark" />
+                        <RadioButton Content="Light theme" GroupName="Theme" Tag="Light"/>
+                    </StackPanel>
+                    
                     <ToggleSwitch x:Name="SampleToggleSwitch" Header="Toggle setting" Margin="4" />
 
                     <ComboBox x:Name="SampleComboBox" Header="ComboBox setting" Margin="4" ItemsSource="{x:Bind ComboBoxEnumSource.ItemsSource}"

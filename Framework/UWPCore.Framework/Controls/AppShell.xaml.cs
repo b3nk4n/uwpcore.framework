@@ -16,7 +16,7 @@ namespace UWPCore.Framework.Controls
     /// The base class "chrome" layer of the app that provides top-level navigation with
     /// proper keyboarding navigation.
     /// </summary>
-    public partial class AppShell : Page
+    public partial class AppShell : UniversalPage
     {
         /// <summary>
         /// The declared top level navigation items list.

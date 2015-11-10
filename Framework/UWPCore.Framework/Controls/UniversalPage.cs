@@ -1,6 +1,9 @@
-﻿using UWPCore.Framework.Common;
+﻿using System;
+using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Navigation;
+using UWPCore.Framework.Storage;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -14,6 +17,11 @@ namespace UWPCore.Framework.Controls
     /// </remarks>
     public class UniversalPage : Page
     {
+        /// <summary>
+        /// The pages theme color.
+        /// </summary>
+        public static StoredObjectBase<string> PageTheme = new LocalObject<string>("__pageTheme__", ElementTheme.Dark.ToString());
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -32,6 +40,14 @@ namespace UWPCore.Framework.Controls
             {
                 await NavigationService.NavigateFromAsync(false);
             }
+        }
+
+        /// <summary>
+        /// Updates the theme.
+        /// </summary>
+        public void UpdateTheme()
+        {
+            RequestedTheme = (ElementTheme)Enum.Parse(typeof(ElementTheme), PageTheme.Value);
         }
 
         /// <summary>

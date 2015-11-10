@@ -24,7 +24,7 @@
     <Grid>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Border Background="{StaticResource SystemControlBackgroundAccentBrush}" Margin="8" Height="104" Width="104">
+                <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}" Margin="8" Height="104" Width="104">
                     <Image Source="{Binding AppIcon}" />
                 </Border>
                 <StackPanel VerticalAlignment="Center">

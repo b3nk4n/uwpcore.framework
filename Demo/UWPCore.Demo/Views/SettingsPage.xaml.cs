@@ -1,4 +1,5 @@
-﻿using UWPCore.Framework.Controls;
+﻿using UWPCore.Framework.Common;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Data;
 using Windows.UI.Xaml.Navigation;
 
@@ -15,11 +16,14 @@ namespace UWPCore.Demo.Views
 
         public RadioButtonStringSource RadioButtonSource { get; private set; }
 
+        public RadioButtonStringSource RadioButtonThemeSource { get; private set; }
+
         public SettingsPage()
         {
             InitializeComponent();
 
             RadioButtonSource = new RadioButtonStringSource(RadioButtonContainer);
+            RadioButtonThemeSource = new RadioButtonStringSource(ThemeContainer);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -32,6 +36,8 @@ namespace UWPCore.Demo.Views
             SampleSlider.Value = AppSettings.SettingsSampleInteger.Value;
             SampleCheckBox.IsChecked = AppSettings.SettingsSampleNullableBoolean.Value;
             RadioButtonSource.SelectedValue = AppSettings.SettingsSampleString.Value;
+
+            RadioButtonThemeSource.SelectedValue = PageTheme.Value;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -44,6 +50,10 @@ namespace UWPCore.Demo.Views
             AppSettings.SettingsSampleInteger.Value = (int)SampleSlider.Value;
             AppSettings.SettingsSampleNullableBoolean.Value = SampleCheckBox.IsChecked;
             AppSettings.SettingsSampleString.Value = RadioButtonSource.SelectedValue;
+
+            PageTheme.Value = RadioButtonThemeSource.SelectedValue;
+
+            UniversalApp.Current.UpdateTheme();
         }
      
     }

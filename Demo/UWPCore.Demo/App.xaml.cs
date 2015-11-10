@@ -6,11 +6,11 @@ using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Speech;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
 using Windows.UI;
 using UWPCore.Framework.Devices;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.UI;
+using System.Collections.Generic;
 
 namespace UWPCore.Demo
 {
@@ -23,7 +23,7 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new DefaultModule())
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule())
         {
             InitializeComponent();
 
@@ -38,19 +38,8 @@ namespace UWPCore.Demo
             await base.OnInitializeAsync(args);
 
             // set theme colors
-            ColorProperties = new AutoAppColorProperties();
-            // alternatively:
-            // ColorProperties =  new AppColorProperties(Color.FromArgb(255, 0, 34, 121), Colors.White, Colors.Black)
-
-            // only add it
-            if (args.PreviousExecutionState != ApplicationExecutionState.Running &&
-                args.PreviousExecutionState != ApplicationExecutionState.Suspended)
-            {
-            Window.Current.Content = new AppShell(
-                RootFrame,
-                GetNavigationMenuItems(),
-                GetBottomDockedNavigationMenuItems());
-            }
+            ColorPropertiesDark = new AppColorProperties(Color.FromArgb(255, 0, 34, 119), Colors.White, Colors.Black);
+            ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White);
 
             _speechService = Injector.Get<ISpeechService>();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
@@ -94,11 +83,7 @@ namespace UWPCore.Demo
             return Task.FromResult<object>(null);
         }
 
-        /// <summary>
-        /// Gets the navigation menu items.
-        /// </summary>
-        /// <returns>The navigation menu items.</returns>
-        private static NavMenuItem[] GetNavigationMenuItems()
+        protected override IEnumerable<NavMenuItem> CreateNavigationMenuItems()
         {
             return new[]
             {
@@ -189,11 +174,7 @@ namespace UWPCore.Demo
             };
         }
 
-        /// <summary>
-        /// Gets the navigation menu items that are docked at the bottom.
-        /// </summary>
-        /// <returns>The navigation menu items.</returns>
-        private static NavMenuItem[] GetBottomDockedNavigationMenuItems()
+        protected override IEnumerable<NavMenuItem> CreateBottomDockedNavigationMenuItems()
         {
             return new[]
             {
