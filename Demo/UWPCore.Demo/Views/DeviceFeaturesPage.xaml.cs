@@ -3,7 +3,6 @@ using UWPCore.Framework.Devices;
 using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Demo.Views

@@ -18,8 +18,10 @@ namespace UWPCore.Demo.Tasks
 
         public SimpleBackgroundTask()
         {
-            Injector Injector = new Injector(new DefaultModule());
-            _toastService = Injector.Get<IToastService>();
+            var injector = Injector.Instance;
+            injector.Init(new DefaultModule());
+
+            _toastService = injector.Get<IToastService>();
         }
 
         public async void Run(IBackgroundTaskInstance taskInstance)

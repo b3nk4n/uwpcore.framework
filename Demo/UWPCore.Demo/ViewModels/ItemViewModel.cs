@@ -5,7 +5,12 @@ namespace UWPCore.Demo.ViewModels
 {
     public class ItemViewModel : ViewModelBase
     {
-        public ItemModel Model { get; private set; }
+        public ItemModel Model { get; internal set; }
+
+        /// <summary>
+        /// Constructor for design-time data.
+        /// </summary>
+        public ItemViewModel() { }
 
         public ItemViewModel(ItemModel itemModel)
         {

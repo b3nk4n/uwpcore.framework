@@ -16,6 +16,15 @@ namespace UWPCore.Framework.Notifications.Models
     /// <summary>
     /// The text style type.
     /// </summary>
+    /// <remarks>
+    /// caption   12 epx Regular (DEFAULT)
+    /// body      15 epx Regular
+    /// base      15 epx SemiBold
+    /// subtitle  20 epx Regular
+    /// title	  24 epx Semilight
+    /// subheader 34 epx Light
+    /// header    46 epx Light
+    /// </remarks>
     public enum TextStyle
     {
         Caption,

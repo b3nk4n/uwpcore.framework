@@ -157,8 +157,10 @@ namespace UWPCore.Framework.Notifications
                 tile.LockScreenBadgeLogo = tileModel.LockScreenBadgeLogo;
             }
 
-            tile.VisualElements.BackgroundColor = tileModel.VisualElements.BackgroundColor;
-            tile.VisualElements.ForegroundText = tileModel.VisualElements.ForegroundText;
+            if (tileModel.VisualElements.BackgroundColor.HasValue)
+                tile.VisualElements.BackgroundColor = tileModel.VisualElements.BackgroundColor.Value;
+            if (tileModel.VisualElements.ForegroundText.HasValue)
+                tile.VisualElements.ForegroundText = tileModel.VisualElements.ForegroundText.Value;
             if (tileModel.VisualElements.ShowNameOnSquare150x150Logo.HasValue)
                 tile.VisualElements.ShowNameOnSquare150x150Logo = tileModel.VisualElements.ShowNameOnSquare150x150Logo.Value;
             if (tileModel.VisualElements.ShowNameOnSquare310x310Logo.HasValue)

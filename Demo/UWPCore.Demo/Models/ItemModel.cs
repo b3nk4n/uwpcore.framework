@@ -10,9 +10,9 @@ namespace UWPCore.Demo.Models
         [DataMember]
         public int Id { get { return _id; } set { Set(ref _id, value); } }
 
-        private string _name;
+        private string _title;
         [DataMember]
-        public string Name { get { return _name; } set { Set(ref _name, value); } }
+        public string Title { get { return _title; } set { Set(ref _title, value); } }
 
         private string _description;
         [DataMember]
@@ -27,7 +27,7 @@ namespace UWPCore.Demo.Models
         public ItemModel(ItemModel item)
         {
             Id = item.Id;
-            Name = item.Name;
+            Title = item.Title;
             Description = item.Description;
             if (item.SubItem != null)
                 SubItem = new SubItemModel(item.SubItem);
@@ -36,7 +36,7 @@ namespace UWPCore.Demo.Models
         public ItemModel(int id, string name, string description, SubItemModel subItem)
         {
             Id = id;
-            Name = name;
+            Title = name;
             Description = description;
             SubItem = subItem;
         }

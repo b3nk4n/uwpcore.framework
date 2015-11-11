@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace UWPCore.Framework.Data
 {
@@ -7,7 +8,7 @@ namespace UWPCore.Framework.Data
     /// </summary>
     /// <typeparam name="TEntity">The entity type.</typeparam>
     /// <typeparam name="TKey">The ID type.</typeparam>
-    public interface IRepository<TEntity, in TKey> where TEntity : IRepositoryItem<TKey>
+    public interface IRepository<TEntity, TKey> where TEntity : IRepositoryItem<TKey>
     {
         /// <summary>
         /// Adds an entitiy to the repository.
@@ -27,6 +28,12 @@ namespace UWPCore.Framework.Data
         /// </summary>
         /// <returns>Returns all entities.</returns>
         IList<TEntity> GetAll();
+
+        /// <summary>
+        /// Gets all keys.
+        /// </summary>
+        /// <returns>Returns all keys.</returns>
+        IList<TKey> GetAllIds();
 
         /// <summary>
         /// Checks whether the entity exists.
@@ -62,19 +69,19 @@ namespace UWPCore.Framework.Data
         /// Saves the repository data to disk.
         /// </summary>
         /// <returns>Returns True for success, else False.</returns>
-        bool Save();
+        Task<bool> Save();
 
         /// <summary>
         /// Loads the repository data from disk, but only when the data has not already been loaded.
         /// </summary>
         /// <returns>Returns True for success, else False.</returns>
-        bool Load();
+        Task<bool> Load();
 
         /// <summary>
         /// Reloads the repository data from disk.
         /// </summary>
         /// <returns>Returns True for success, else False.</returns>
-        bool Reload();
+        Task<bool> Reload();
 
         /// <summary>
         /// Gets whether the repository data has been loaded from disk.

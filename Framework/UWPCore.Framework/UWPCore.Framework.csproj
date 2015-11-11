@@ -118,6 +118,7 @@
     <Compile Include="Behaviors\TextBoxEnterKeyBehavior.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
+    <Compile Include="UI\AppColorProperties.cs" />
     <Compile Include="Common\AppInfo.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Input\KeyboardEventArgs.cs" />
     <Compile Include="Input\KeyboardController.cs" />
     <Compile Include="Input\KeyboardService.cs" />
+    <Compile Include="IoC\DesignTimeInjector.cs" />
     <Compile Include="IoC\IInjector.cs" />
     <Compile Include="IoC\Injector.cs" />
     <Compile Include="Launcher\SettingsLauncher.cs" />
@@ -277,11 +279,12 @@
     <Compile Include="Store\ProductItem.cs" />
     <Compile Include="Accounts\IUserInfoService.cs" />
     <Compile Include="Accounts\UserInfoService.cs" />
-    <Compile Include="Tasks\BackgroundTaskBase.cs" />
     <Compile Include="Tasks\BackgroundTaskService.cs" />
     <Compile Include="Tasks\IBackgroundTaskService.cs" />
+    <Compile Include="UI\AutoAppColorProperties.cs" />
     <Compile Include="UI\ColorConverter.cs" />
     <Compile Include="UI\DialogService.cs" />
+    <Compile Include="UI\IAppColorProperties.cs" />
     <Compile Include="UI\IDialogService.cs" />
     <Compile Include="Devices\IStatusBarService.cs" />
     <Compile Include="Devices\StatusBarService.cs" />

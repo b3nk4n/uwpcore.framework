@@ -79,7 +79,7 @@ namespace UWPCore.Framework.Notifications.Models
         /// <summary>
         /// Gets or sets the app activation type, where <see cref="ToastActivationType.Foreground"/> is the default value.
         /// </summary>
-        public ToastActivationType ActivationType { get; set; }
+        public ToastActivationType? ActivationType { get; set; }
 
         /// <summary>
         /// Gets or sets the toast scenario, where <see cref="ToastScenario.Default"/> is the default value.
@@ -102,6 +102,18 @@ namespace UWPCore.Framework.Notifications.Models
             if (Scenario.HasValue)
             {
                 element.Add(new XAttribute("scenario", Scenario.ToString().FirstLetterToLower()));
+            }
+            if (Launch != null)
+            {
+                element.Add(new XAttribute("launch", Launch));
+            }
+            if (Duration.HasValue)
+            {
+                element.Add(new XAttribute("duration", Duration.ToString().FirstLetterToLower()));
+            }
+            if (ActivationType.HasValue)
+            {
+                element.Add(new XAttribute("activationType", ActivationType.ToString().FirstLetterToLower()));
             }
             return element;
         }

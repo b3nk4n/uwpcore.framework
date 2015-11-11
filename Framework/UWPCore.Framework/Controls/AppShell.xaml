@@ -1,10 +1,11 @@
-﻿<Page x:Name="Root"
+﻿<uwpcControls:UniversalPage x:Name="Root"
       x:Class="UWPCore.Framework.Controls.AppShell"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:UWPCore.Framework.Controls"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:uwpcControls="using:UWPCore.Framework.Controls"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       KeyDown="AppShell_KeyDown"
       TabNavigation="Cycle"
@@ -81,7 +82,7 @@
 
                     <StackPanel Grid.Row="1">
                         <Rectangle x:Name="NavMenuSeperator" Height="1" Fill="{StaticResource SystemControlHighlightListLowBrush}" />
-                        
+
                         <controls:NavMenuListView x:Name="NavMenuListBottomDock"
                                           TabIndex="3"
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
@@ -90,12 +91,12 @@
                                           ItemInvoked="NavMenuList_ItemInvoked">
                         </controls:NavMenuListView>
                     </StackPanel>
-                    
+
                 </Grid>
             </SplitView.Pane>
-            
+
             <!-- Content is added at startup in code... -->
-            
+
         </SplitView>
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
@@ -108,4 +109,4 @@
                       AutomationProperties.Name="Menu"
                       ToolTipService.ToolTip="Menu" />
     </Grid>
-</Page>
+</uwpcControls:UniversalPage>

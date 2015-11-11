@@ -20,9 +20,7 @@
             <AppBarSeparator/>
             <AppBarToggleButton Icon="Sort" Label="Sort"/>
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Menu Item 1"/>
-                <AppBarButton Label="Menu Item 2"/>
-                <AppBarButton Label="Menu Item 3"/>
+                <AppBarButton Label="Settings" Click="SettingsClicked"/>
             </CommandBar.SecondaryCommands>
             <CommandBar.Content>
                 <uwpcControls:PageHeader>

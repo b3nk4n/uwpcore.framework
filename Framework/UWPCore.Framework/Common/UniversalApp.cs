@@ -1,18 +1,24 @@
 ﻿using Ninject.Modules;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using UWPCore.Framework.Controls;
 using UWPCore.Framework.Input;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
+using UWPCore.Framework.Storage;
+using UWPCore.Framework.UI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
 using Windows.Globalization;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -31,6 +37,21 @@ namespace UWPCore.Framework.Common
         public static new UniversalApp Current { get; private set; }
 
         public StateItems SessionState { get; set; } = new StateItems();
+
+        /// <summary>
+        /// Indicates whether the app shell should be populated.
+        /// </summary>
+        public bool UseAppShell { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the theme color of the apps title bar.
+        /// </summary>
+        public IAppColorProperties ColorPropertiesDark { get; set; }
+
+        /// <summary>
+        /// Gets or sets the theme color of the apps title bar.
+        /// </summary>
+        public IAppColorProperties ColorPropertiesLight { get; set; }
 
         /// <summary>
         /// The assembly name of the application to be implemented by the framework user.
@@ -65,18 +86,22 @@ namespace UWPCore.Framework.Common
         /// </summary>
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
         /// <param name="backButtonBehaviour">The back button behaviour on the root level.</param>
+        /// <param name="useAppShell">Defines whether the app shell is used.</param>
         /// <param name="modules">The ninject modules.</param>
-        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, params NinjectModule[] modules)
+        public UniversalApp(Type defaultPage, AppBackButtonBehaviour backButtonBehaviour, bool useAppShell, params NinjectModule[] modules)
         {
             Current = this;
             DefaultPage = defaultPage;
             BackButtonBehaviour = backButtonBehaviour;
+            UseAppShell = useAppShell;
             AppAssemblyName = GetType().GetTypeInfo().Assembly.GetName().Name;
 
+            Injector = IoC.Injector.Instance;
+
             if (modules == null)
-                Injector = new Injector(new DefaultModule());
+                Injector.Init(new DefaultModule());
             else
-                Injector = new Injector(modules);
+                Injector.Init(modules);
 
             Resuming += (s, e) =>
             {
@@ -218,6 +243,7 @@ namespace UWPCore.Framework.Common
             if (Window.Current.Content == null)
             {
                 InitRootFrameAndNavigation();
+                //UpdateTitleBar();
             }
 
             // onstart is shared with activate and launch
@@ -292,6 +318,15 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
+            if (e.PreviousExecutionState != ApplicationExecutionState.Running &&
+                e.PreviousExecutionState != ApplicationExecutionState.Suspended)
+            {
+                Window.Current.Content = new AppShell(
+                    RootFrame,
+                    CreateNavigationMenuItems(),
+                    CreateBottomDockedNavigationMenuItems());
+            }
+
             // the user may override to set custom content
             await OnInitializeAsync(e);
 
@@ -344,9 +379,24 @@ namespace UWPCore.Framework.Common
                 Window.Current.Content = RootFrame;
             }
 
+            // Update the app theme
+            UpdateTheme();
+
             // ensure active
             Window.Current.Activate();
         }
+
+        /// <summary>
+        /// Creates the main app shell navigation buttons.
+        /// </summary>
+        /// <returns>The app shell navigation buttons.</returns>
+        protected virtual IEnumerable<NavMenuItem> CreateNavigationMenuItems() { return null; }
+
+        /// <summary>
+        /// Creates the secondary app shell navigation buttons at the bottom.
+        /// </summary>
+        /// <returns>The app shell navigation buttons.</returns>
+        protected virtual IEnumerable<NavMenuItem> CreateBottomDockedNavigationMenuItems() { return null; }
 
         /// <summary>
         /// Inits the root frame and the navigation.
@@ -407,6 +457,54 @@ namespace UWPCore.Framework.Common
             var view = WindowWrapper.ActiveWrappers.First();
             var navigationService = new NavigationService(RootFrame);
             view.NavigationServices.Add(navigationService);
+        }
+
+        /// <summary>
+        /// Initializes the theme color of the title bar.
+        /// </summary>
+        private void UpdateTitleBar()
+        {
+            IAppColorProperties colorProperties;
+
+            if (UniversalPage.PageTheme.Value == ElementTheme.Light.ToString())
+                colorProperties = ColorPropertiesLight;
+            else
+                colorProperties = ColorPropertiesDark;
+
+            if (colorProperties == null)
+                return;
+
+            var coreTitleBar = ApplicationView.GetForCurrentView().TitleBar;
+            coreTitleBar.BackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.ButtonBackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.ButtonForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.ButtonHoverBackgroundColor = colorProperties.Theme;
+            coreTitleBar.ButtonHoverForegroundColor = Colors.White;
+            coreTitleBar.ButtonInactiveBackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.ButtonInactiveForegroundColor = Colors.Gray;
+            coreTitleBar.ButtonPressedBackgroundColor = Colors.DarkGray;
+            coreTitleBar.ButtonPressedForegroundColor = Colors.White;
+            coreTitleBar.ForegroundColor = colorProperties.TitleBarForeground;
+            coreTitleBar.InactiveBackgroundColor = colorProperties.TitleBarBackground;
+            coreTitleBar.InactiveForegroundColor = Colors.Gray;
+        }
+
+        /// <summary>
+        /// Updates the app theme.
+        /// </summary>
+        public void UpdateTheme()
+        {
+            UniversalPage rootPage;
+
+            if (UseAppShell)
+                rootPage = Window.Current.Content as UniversalPage;
+            else
+                rootPage = (Window.Current.Content as Frame).Content as UniversalPage;
+
+            if (rootPage != null)
+                rootPage.UpdateTheme();
+
+            UpdateTitleBar();
         }
 
         /// <summary>

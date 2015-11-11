@@ -1,6 +1,8 @@
 ﻿using System;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
+using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace UWPCore.Framework.Share
 {
@@ -56,6 +58,32 @@ namespace UWPCore.Framework.Share
             request.Data.SetText(_shareData.Text);
         }
 
+        public void ShareImage(string title, IStorageFile imageFile, IStorageFile thumbnailFile = null, string text = null, string description = "")
+        {
+            Register(ShareImageHandler);
+
+            _shareData.Title = title;
+            _shareData.Text = text;
+            _shareData.Description = description;
+            _shareData.Thumbnail = thumbnailFile;
+            _shareData.Image = imageFile;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void ShareImageHandler(DataTransferManager sender, DataRequestedEventArgs e)
+        {
+            Unregister(ShareImageHandler);
+
+            DataRequest request = e.Request;
+            request.Data.Properties.Title = _shareData.Title;
+            request.Data.SetBitmap(RandomAccessStreamReference.CreateFromFile(_shareData.Image));
+            if (_shareData.Thumbnail != null)
+                request.Data.Properties.Thumbnail = RandomAccessStreamReference.CreateFromFile(_shareData.Thumbnail);
+            if (_shareData.Text != null)
+                request.Data.SetText(_shareData.Text);
+            request.Data.Properties.Description = _shareData.Description;
+        }
+
         /// <summary>
         /// Registers an share content handler.
         /// </summary>
@@ -85,6 +113,8 @@ namespace UWPCore.Framework.Share
             public string Description { get; set; }
             public Uri Link { get; set; }
             public string Text { get; set; }
+            public IStorageFile Thumbnail { get; set; }
+            public IStorageFile Image { get; set; }
         }
     }
 }

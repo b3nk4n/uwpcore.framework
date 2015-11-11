@@ -6,10 +6,11 @@ using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Speech;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
 using Windows.UI;
 using UWPCore.Framework.Devices;
 using UWPCore.Framework.IoC;
+using UWPCore.Framework.UI;
+using System.Collections.Generic;
 
 namespace UWPCore.Demo
 {
@@ -22,7 +23,7 @@ namespace UWPCore.Demo
 
         IStatusBarService _statusBarService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, new DefaultModule())
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule())
         {
             InitializeComponent();
 
@@ -36,15 +37,9 @@ namespace UWPCore.Demo
         {
             await base.OnInitializeAsync(args);
 
-            // only add it
-            if (args.PreviousExecutionState != ApplicationExecutionState.Running &&
-                args.PreviousExecutionState != ApplicationExecutionState.Suspended)
-            {
-            Window.Current.Content = new AppShell(
-                RootFrame,
-                GetNavigationMenuItems(),
-                GetBottomDockedNavigationMenuItems());
-            }
+            // set theme colors
+            ColorPropertiesDark = new AppColorProperties(Color.FromArgb(255, 0, 34, 119), Colors.White, Colors.Black);
+            ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White);
 
             _speechService = Injector.Get<ISpeechService>();
             await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
@@ -61,9 +56,9 @@ namespace UWPCore.Demo
             if (launchArgs != null)
             {
                 if (args.Kind == ActivationKind.Launch)
-        {
+                {
                     Logger.WriteLine("Started with TILE and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
-        }
+                }
                 if (args.Kind == ActivationKind.ToastNotification)
             { 
                     Logger.WriteLine("Started with TOAST and launch args: args->{0}; tileId->{1}", launchArgs.Arguments, launchArgs.TileId);
@@ -88,11 +83,7 @@ namespace UWPCore.Demo
             return Task.FromResult<object>(null);
         }
 
-        /// <summary>
-        /// Gets the navigation menu items.
-        /// </summary>
-        /// <returns>The navigation menu items.</returns>
-        private static NavMenuItem[] GetNavigationMenuItems()
+        protected override IEnumerable<NavMenuItem> CreateNavigationMenuItems()
         {
             return new[]
             {
@@ -189,11 +180,7 @@ namespace UWPCore.Demo
             };
         }
 
-        /// <summary>
-        /// Gets the navigation menu items that are docked at the bottom.
-        /// </summary>
-        /// <returns>The navigation menu items.</returns>
-        private static NavMenuItem[] GetBottomDockedNavigationMenuItems()
+        protected override IEnumerable<NavMenuItem> CreateBottomDockedNavigationMenuItems()
         {
             return new[]
             {

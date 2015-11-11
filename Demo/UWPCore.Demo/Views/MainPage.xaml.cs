@@ -11,5 +11,10 @@ namespace UWPCore.Demo.Views
         {
             InitializeComponent();
         }
+
+        private void SettingsClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPage));
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace UWPCore.Demo.ViewModels
     {
         private const string TEMPORARY_ITEM_KEY = "tempItem";
 
-        public ObservableCollection<ItemViewModel> Items { get; private set; }
+        public ObservableCollection<ItemViewModel> Items { get; internal set; }
 
         public DelegateCommand<ItemModel> AddItemCommand { get; private set; }
 

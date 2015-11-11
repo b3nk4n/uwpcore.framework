@@ -15,7 +15,7 @@ namespace UWPCore.Framework.Controls
     /// The base class "chrome" layer of the app that provides top-level navigation with
     /// proper keyboarding navigation.
     /// </summary>
-    public partial class AppShell : Page
+    public partial class AppShell : UniversalPage
     {
         /// <summary>
         /// The declared top level navigation items list.
@@ -60,6 +60,9 @@ namespace UWPCore.Framework.Controls
                 // update the button size when the frame size changes, due to possible changes of the adaptive UI
                 CheckTogglePaneButtonSizeChanged();
             };
+
+            if (navigationItems == null || navigationItems.Count() == 0)
+                throw new ArgumentException("There must be at least one top-level navigation item. Did you forgot to override a method in UniversalApp?");
 
             NavigationItems = new List<NavMenuItem>(navigationItems);
             NavMenuList.ItemsSource = navigationItems;
@@ -281,8 +284,6 @@ namespace UWPCore.Framework.Controls
             // update selected item when toggle changes (also happens when split view opens after windows resize)
             var item = GetNavigationItem(_rootFrame.CurrentSourcePageType);
             var container = GetContainerFromItem(item);
-            NavMenuList.SetSelectedItem(container);
-            NavMenuListBottomDock.SetSelectedItem(container);
         }
 
         /// <summary>

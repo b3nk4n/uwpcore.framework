@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace UWPCore.Framework.Storage
@@ -23,7 +24,7 @@ namespace UWPCore.Framework.Storage
         /// <param name="filePath">The full path to write to.</param>
         /// <param name="data">The data to write.</param>
         /// <returns>The async task to wait for.</returns>
-        Task WriteFile(string filePath, string data);
+        Task<bool> WriteFile(string filePath, string data);
 
         /// <summary>
         /// Writes data to a given file.
@@ -31,7 +32,7 @@ namespace UWPCore.Framework.Storage
         /// <param name="file">The file to write to.</param>
         /// <param name="data">The data to write.</param>
         /// <returns>The async task to wait for.</returns>
-        Task WriteFile(IStorageFile file, string data);
+        Task<bool> WriteFile(IStorageFile file, string data);
 
         /// <summary>
         /// Writes data to a given file path.
@@ -42,12 +43,28 @@ namespace UWPCore.Framework.Storage
         Task<bool> WriteFile(string filePath, Stream data);
 
         /// <summary>
+        /// Writes data to a given file path.
+        /// </summary>
+        /// <param name="from">The data file to read from.</param>
+        /// <param name="data">The data stream to write.</param>
+        /// <returns>An async indicator whether the operation was successful.</returns>
+        Task<bool> WriteFile(string filePath, IStorageFile from);
+
+        /// <summary>
         /// Writes data to a given file.
         /// </summary>
         /// <param name="file">The file to write to.</param>
         /// <param name="data">The data stream to write.</param>
         /// <returns>An async indicator whether the operation was successful.</returns>
         Task<bool> WriteFile(IStorageFile file, Stream data);
+
+        /// <summary>
+        /// Writes data to a given file.
+        /// </summary>
+        /// <param name="file">The file to write to.</param>
+        /// <param name="from">The data file to read from.</param>
+        /// <returns>An async indicator whether the operation was successful.</returns>
+        Task<bool> WriteFile(IStorageFile file, IStorageFile from);
 
         /// <summary>
         /// Writes image data to a given file path.

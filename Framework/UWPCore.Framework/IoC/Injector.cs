@@ -8,16 +8,26 @@ namespace UWPCore.Framework.IoC
     /// </summary>
     public class Injector : IInjector
     {
+        private static volatile IInjector instance;
+        private static object syncRoot = new object();
+
         /// <summary>
         /// The Ninjct kernel.
         /// </summary>
         private IKernel _kernel;
 
         /// <summary>
-        /// Creates or initializes a <see cref="Injector"/> instance.
+        /// Private constructor for singleton pattern.
+        /// </summary>
+        private Injector()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a <see cref="Injector"/> instance.
         /// </summary>
         /// <param name="modules">The modules to load.</param>
-        public Injector(params NinjectModule[] modules)
+        public void Init(params NinjectModule[] modules)
         {
             _kernel = new StandardKernel(modules);
         }
@@ -38,6 +48,26 @@ namespace UWPCore.Framework.IoC
         protected IKernel Kernel
         {
             get { return _kernel; }
+        }
+
+        /// <summary>
+        /// Gets the injection instance.
+        /// </summary>
+        public static IInjector Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (instance == null)
+                            instance = new Injector();
+                    }
+                }
+
+                return instance;
+            }
         }
     }
 }

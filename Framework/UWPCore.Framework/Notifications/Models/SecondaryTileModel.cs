@@ -61,12 +61,12 @@ namespace UWPCore.Framework.Notifications.Models
             /// <summary>
             /// Gets or sets the background color.
             /// </summary>
-            public Color BackgroundColor { get; set; }
+            public Color? BackgroundColor { get; set; }
 
             /// <summary>
             /// Gets or sets the foreground text.
             /// </summary>
-            public ForegroundText ForegroundText { get; set; }
+            public ForegroundText? ForegroundText { get; set; }
 
             /// <summary>
             /// Gets or sets whether the name is shown on the medium tile.

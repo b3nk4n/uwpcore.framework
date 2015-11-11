@@ -22,15 +22,15 @@
             <uap:ShowOn Tile="wide310x150Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
+        <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#002277" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="UWPCore.Demo.Tasks.SimpleBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="UWPCore.Demo.Tasks.DiscoTileBackgroundTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="UWPCore.Demo.Tasks.DiscoTileBackgroundTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="UWPCore.Demo.Tasks.SimpleBackgroundTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>

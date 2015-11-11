@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Navigation;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Mvvm
@@ -19,7 +20,10 @@ namespace UWPCore.Framework.Mvvm
         {
             get
             {
-                return UniversalApp.Injector;
+                if (IsDesignMode)
+                    return new DesignTimeInjector();
+                
+                return IoC.Injector.Instance;
             }
         }
 
@@ -53,5 +57,16 @@ namespace UWPCore.Framework.Mvvm
         /// </summary>
         /// <param name="args">The navigating event args.</param>
         public virtual void OnNavigatingFrom(NavigatingEventArgs args) { }
+
+        /// <summary>
+        /// Gets whether we are in design mode.
+        /// </summary>
+        public bool IsDesignMode
+        {
+            get
+            {
+                return DesignMode.DesignModeEnabled;
+            }
+        }
     }
 }
