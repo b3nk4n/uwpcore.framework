@@ -41,6 +41,7 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <uap:Capability Name="userAccountInformation" />
+    <uap:Capability Name="contacts" />
     <DeviceCapability Name="microphone" />
   </Capabilities>
 </Package>

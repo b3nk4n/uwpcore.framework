@@ -179,6 +179,12 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.FolderPlus,
                     Label = "Backup",
                     DestinationPage = typeof(OneDrivePage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Contact,
+                    Label = "User Data",
+                    DestinationPage = typeof(UserDataPage)
                 }
             };
         }
