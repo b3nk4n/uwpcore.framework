@@ -10,7 +10,6 @@ using UWPCore.Framework.Input;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
-using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -318,7 +317,8 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
-            if (e.PreviousExecutionState != ApplicationExecutionState.Running &&
+            if (UseAppShell &&
+                e.PreviousExecutionState != ApplicationExecutionState.Running &&
                 e.PreviousExecutionState != ApplicationExecutionState.Suspended)
             {
                 Window.Current.Content = new AppShell(
@@ -506,6 +506,25 @@ namespace UWPCore.Framework.Common
 
             UpdateTitleBar();
         }
+
+        public ElementTheme PageTheme
+        {
+            get
+            {
+                UniversalPage rootPage;
+
+                if (UseAppShell)
+                    rootPage = Window.Current.Content as UniversalPage;
+                else
+                    rootPage = (Window.Current.Content as Frame).Content as UniversalPage;
+
+                if (rootPage != null)
+                    return rootPage.RequestedTheme;
+                else
+                    return ElementTheme.Default;
+            }
+        }
+
 
         /// <summary>
         /// Default Hardware/Shell Back handler overrides standard Back behavior 
