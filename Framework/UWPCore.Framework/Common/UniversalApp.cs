@@ -242,7 +242,18 @@ namespace UWPCore.Framework.Common
             if (Window.Current.Content == null)
             {
                 InitRootFrameAndNavigation();
-                //UpdateTitleBar();
+
+                if (UseAppShell &&
+                e.PreviousExecutionState != ApplicationExecutionState.Running &&
+                e.PreviousExecutionState != ApplicationExecutionState.Suspended)
+                {
+                    Window.Current.Content = new AppShell(
+                        RootFrame,
+                        CreateNavigationMenuItems(),
+                        CreateBottomDockedNavigationMenuItems());
+                }
+
+                await OnInitializeAsync(e);
             }
 
             // onstart is shared with activate and launch
@@ -253,6 +264,8 @@ namespace UWPCore.Framework.Common
             {
                 Window.Current.Content = RootFrame;
             }
+
+            UpdateTheme();
 
             // ensure active (this will hide any custom splashscreen)
             Window.Current.Activate();
