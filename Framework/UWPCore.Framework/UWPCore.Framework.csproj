@@ -116,6 +116,7 @@
     <Compile Include="Audio\AudioService.cs" />
     <Compile Include="Audio\IAudioService.cs" />
     <Compile Include="Behaviors\TextBoxEnterKeyBehavior.cs" />
+    <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Mvvm\ICommand.cs" />

@@ -89,6 +89,10 @@ namespace UWPCore.Demo.Views
                     break;
             }
 
+            toast.Group = GroupTextBox.Text;
+            toast.Tag = TagTextBox.Text;
+            toast.SuppressPopup = SuppressPopup.IsOn;
+
             return toast;
         }
 

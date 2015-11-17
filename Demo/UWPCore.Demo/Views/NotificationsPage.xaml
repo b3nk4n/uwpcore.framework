@@ -55,6 +55,7 @@
                     <TextBox x:Name="TagTextBox" Header="Tag" Width="200" HorizontalAlignment="Left" Margin="4"/>
                     <TextBox x:Name="GroupTextBox" Header="Group" Width="200" HorizontalAlignment="Left" Margin="4"/>
                     <TextBox x:Name="TileIdTextBox" Header="Tile ID" Width="200" HorizontalAlignment="Left" Margin="4"/>
+                    <ToggleSwitch x:Name="SuppressPopup" Header="Suppress popup" Width="200" Margin="4" />
                     <Button Content="Notify" Click="NotifyClicked" MinWidth="200" Margin="4"/>
                     <Button Content="Clear History" Click="ClearHistoryClicked" MinWidth="200" Margin="4"/>
                     <Button Content="Remove Toast by Tag" Click="RemoveToastByTagClicked" MinWidth="200" Margin="4"/>

@@ -83,114 +83,114 @@ namespace UWPCore.Demo
             return Task.FromResult<object>(null);
         }
 
-        //protected override IEnumerable<NavMenuItem> CreateNavigationMenuItems()
-        //{
-        //    return new[]
-        //    {
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Home,
-        //            Label = "Home",
-        //            DestinationPage = typeof(MainPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Music,
-        //            Label = "Audio",
-        //            DestinationPage = typeof(AudioPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Keyboard,
-        //            Label = "Device Features",
-        //            DestinationPage = typeof(DeviceFeaturesPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.WifiOutline2,
-        //            Label = "Networking",
-        //            DestinationPage = typeof(NetworkingPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Message,
-        //            Label = "Notifications",
-        //            DestinationPage = typeof(NotificationsPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.AccountMultiple,
-        //            Label = "Speech",
-        //            DestinationPage = typeof(SpeechPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Share,
-        //            Label = "Share",
-        //            DestinationPage = typeof(SharePage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.ComputerTheme,
-        //            Label = "Graphics",
-        //            DestinationPage = typeof(GraphicsPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.ListBlock,
-        //            Label = "MVVM",
-        //            DestinationPage = typeof(MvvmPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Clock,
-        //            Label = "Tasks",
-        //            DestinationPage = typeof(TasksPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.MediaPlay,
-        //            Label = "Launcher",
-        //            DestinationPage = typeof(LaunchPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Account,
-        //            Label = "Accounts",
-        //            DestinationPage = typeof(AccountsPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.ArrowRight,
-        //            Label = "Navigation",
-        //            DestinationPage = typeof(NavigationPage1)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.FolderPlus,
-        //            Label = "Backup",
-        //            DestinationPage = typeof(OneDrivePage)
-        //        }
-        //    };
-        //}
+        protected override IEnumerable<NavMenuItem> CreateNavigationMenuItems()
+        {
+            return new[]
+            {
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Home,
+                    Label = "Home",
+                    DestinationPage = typeof(MainPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Music,
+                    Label = "Audio",
+                    DestinationPage = typeof(AudioPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Keyboard,
+                    Label = "Device Features",
+                    DestinationPage = typeof(DeviceFeaturesPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.WifiOutline2,
+                    Label = "Networking",
+                    DestinationPage = typeof(NetworkingPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Message,
+                    Label = "Notifications",
+                    DestinationPage = typeof(NotificationsPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.AccountMultiple,
+                    Label = "Speech",
+                    DestinationPage = typeof(SpeechPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Share,
+                    Label = "Share",
+                    DestinationPage = typeof(SharePage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.ComputerTheme,
+                    Label = "Graphics",
+                    DestinationPage = typeof(GraphicsPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.ListBlock,
+                    Label = "MVVM",
+                    DestinationPage = typeof(MvvmPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Clock,
+                    Label = "Tasks",
+                    DestinationPage = typeof(TasksPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.MediaPlay,
+                    Label = "Launcher",
+                    DestinationPage = typeof(LaunchPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Account,
+                    Label = "Accounts",
+                    DestinationPage = typeof(AccountsPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.ArrowRight,
+                    Label = "Navigation",
+                    DestinationPage = typeof(NavigationPage1)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.FolderPlus,
+                    Label = "Backup",
+                    DestinationPage = typeof(OneDrivePage)
+                }
+            };
+        }
 
-        //protected override IEnumerable<NavMenuItem> CreateBottomDockedNavigationMenuItems()
-        //{
-        //    return new[]
-        //    {
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Info,
-        //            Label = "About",
-        //            DestinationPage = typeof(AboutPage)
-        //        },
-        //        new NavMenuItem()
-        //        {
-        //            Symbol = GlyphIcons.Setting,
-        //            Label = "Settings",
-        //            DestinationPage = typeof(SettingsPage)
-        //        }
-        //    };
-        //}
+        protected override IEnumerable<NavMenuItem> CreateBottomDockedNavigationMenuItems()
+        {
+            return new[]
+            {
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Info,
+                    Label = "About",
+                    DestinationPage = typeof(AboutPage)
+                },
+                new NavMenuItem()
+                {
+                    Symbol = GlyphIcons.Setting,
+                    Label = "Settings",
+                    DestinationPage = typeof(SettingsPage)
+                }
+            };
+        }
     }
 }
