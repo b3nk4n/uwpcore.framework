@@ -243,6 +243,8 @@ namespace UWPCore.Framework.Common
             {
                 InitRootFrameAndNavigation();
 
+                await OnInitializeAsync(e);
+
                 if (UseAppShell &&
                 e.PreviousExecutionState != ApplicationExecutionState.Running &&
                 e.PreviousExecutionState != ApplicationExecutionState.Suspended)
@@ -252,8 +254,6 @@ namespace UWPCore.Framework.Common
                         CreateNavigationMenuItems(),
                         CreateBottomDockedNavigationMenuItems());
                 }
-
-                await OnInitializeAsync(e);
             }
 
             // onstart is shared with activate and launch
@@ -330,6 +330,9 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
+            // the user may override to set custom content
+            await OnInitializeAsync(e);
+
             if (UseAppShell &&
                 e.PreviousExecutionState != ApplicationExecutionState.Running &&
                 e.PreviousExecutionState != ApplicationExecutionState.Suspended)
@@ -339,9 +342,6 @@ namespace UWPCore.Framework.Common
                     CreateNavigationMenuItems(),
                     CreateBottomDockedNavigationMenuItems());
             }
-
-            // the user may override to set custom content
-            await OnInitializeAsync(e);
 
             switch (e.PreviousExecutionState)
             {
