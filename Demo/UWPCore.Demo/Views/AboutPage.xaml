@@ -36,7 +36,8 @@
                         MoreAppsText="More apps"
                         ShareAppText="Share link to this app"
                         FeedbackToEmail="apps@bsautermeister.de"
-                        PrivacyInfoUri="http://bsautermeister.de/privacy.php">
+                        PrivacyInfoUri="http://bsautermeister.de/privacy.php"
+                        ContributorsTitle="Constributors:">
                             <uwpcViewModels:AboutViewModel.Contributors>
                                 <uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/uk-circle.png" />
                                 <uwpcModels:ContributorModel Title="Vorname Nachname" Icon="/Assets/Images/germany-circle.png" />
