@@ -229,6 +229,12 @@ namespace UWPCore.Framework.Controls
                         break;
                 }
             }
+            else if (item == null)
+            {
+                var page = AppFrame.Content as UniversalPage;
+                if (page != null)
+                    item = GetNavigationItem(page.ParentPage);
+            }
 
             var container = GetContainerFromItem(item);
 

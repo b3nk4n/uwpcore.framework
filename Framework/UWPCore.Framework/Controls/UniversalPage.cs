@@ -22,6 +22,19 @@ namespace UWPCore.Framework.Controls
         /// </summary>
         public static StoredObjectBase<string> PageTheme = new LocalObject<string>("__pageTheme__", ElementTheme.Default.ToString());
 
+        /// <summary>
+        /// Gets the parent page of the navigation tree. This attribute is optional and only
+        /// used in case the app uses sub-pages in the AppShell.
+        /// </summary>
+        public Type ParentPage { get; private set; }
+
+        public UniversalPage() { }
+
+        public UniversalPage(Type parentPage)
+        {
+            ParentPage = parentPage;
+        }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
