@@ -29,5 +29,16 @@ namespace UWPCore.Framework.Graphics
         /// <param name="bitmapEncoder">The bitmap encoder GUID, such as BitmapEncoder.PngEncoderId.</param>
         /// <returns>The RenderTargetBitmap containing the rendered data.</returns>
         Task<RenderTargetBitmap> RenderToStreamAsync(UIElement uiElement, IRandomAccessStream stream, Guid bitmapEncoder);
+
+        /// <summary>
+        /// Resizes the image file and saves the resized image in the destination file.
+        /// </summary>
+        /// <param name="sourceFile">The source image file.</param>
+        /// <param name="destinationFile">The destination image file.</param>
+        /// <param name="maxWidth">The max image width.</param>
+        /// <param name="maxHeight">The max image heigth.</param>
+        /// <param name="dpi">The destination image DPIs.</param>
+        /// <returns>Returns True for success, else False.</returns>
+        Task<bool> ResizeImageAsync(IStorageFile sourceFile, IStorageFile destinationFile, uint maxWidth, uint maxHeight, uint dpi = 96);
     }
 }
