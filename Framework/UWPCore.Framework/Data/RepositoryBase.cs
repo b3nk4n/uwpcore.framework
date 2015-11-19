@@ -37,7 +37,7 @@ namespace UWPCore.Framework.Data
 
         public IList<TEntity> GetAll()
         {
-            return _data;
+            return new List<TEntity>(_data);
         }
 
         public IList<TKey> GetAllIds()
@@ -95,6 +95,11 @@ namespace UWPCore.Framework.Data
             return false;
         }
 
+        /// <summary>
+        /// Reloads the data from disk or web.
+        /// Remember to set the <see cref="HasLoaded"/> property to true!
+        /// </summary>
+        /// <returns>Returns True, when loading was successfull, else False.</returns>
         public abstract Task<bool> Reload();
 
         public abstract void Update(TEntity prototype);
