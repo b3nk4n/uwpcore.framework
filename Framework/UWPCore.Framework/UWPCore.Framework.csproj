@@ -119,6 +119,8 @@
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
+    <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
+    <Compile Include="Data\StringComboBoxSource.cs" />
     <Compile Include="Mvvm\ICommand.cs" />
     <Compile Include="UI\AppColorProperties.cs" />
     <Compile Include="Common\AppInfo.cs" />
