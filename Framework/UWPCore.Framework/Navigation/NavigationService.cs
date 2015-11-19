@@ -102,6 +102,7 @@ namespace UWPCore.Framework.Navigation
         internal async Task NavigateFromAsync(bool suspending)
         {
             var page = FrameFacade.Content as Page;
+
             if (page != null)
             {
                 // call viewmodel
@@ -246,7 +247,6 @@ namespace UWPCore.Framework.Navigation
                 FrameFacade.CurrentPageType = pageTypeOfAppAssembly;
                 FrameFacade.CurrentPageParam = state[CURRENT_PAGE_PARAM_KEY];
                 FrameFacade.SetNavigationState(state[NAVIGATE_STATE_KEY].ToString());
-                NavigateTo(NavigationMode.Refresh, FrameFacade.CurrentPageParam);
 
                 while (FrameFacade.Frame.Content == null) { /* wait */ }
 

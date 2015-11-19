@@ -372,11 +372,6 @@ namespace UWPCore.Framework.Common
                             {
                                 await OnStartAsync(StartKind.Launch, e);
                             }
-                            else
-                            {
-                                // refresh current page to fire all navigation events
-                                NavigationService.Refresh();
-                            }
                         }
                         else
                         {
