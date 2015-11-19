@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Windows.UI.Notifications;
 
 namespace UWPCore.Framework.Notifications
@@ -13,6 +14,13 @@ namespace UWPCore.Framework.Notifications
         /// </summary>
         /// <param name="toast">The notification to show.</param>
         void Show(ToastNotification toast);
+
+        /// <summary>
+        /// Shows the toast notification delayed.
+        /// </summary>
+        /// <param name="toast">The notification to show.</param>
+        /// <param name="when">The time when the toast notification should be scheduled.</param>
+        void Show(ToastNotification toast, DateTimeOffset when);
 
         /// <summary>
         /// Clears the action center history.
