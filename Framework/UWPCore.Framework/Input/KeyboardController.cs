@@ -50,7 +50,7 @@ namespace UWPCore.Framework.Input
             if ((e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown ||
                 e.EventType == CoreAcceleratorKeyEventType.KeyDown))
             {
-                var coreWindow = Windows.UI.Xaml.Window.Current.CoreWindow;
+                var coreWindow = Window.Current.CoreWindow;
                 var downState = CoreVirtualKeyStates.Down;
                 var virtualKey = e.VirtualKey;
                 bool winKey = ((coreWindow.GetKeyState(VirtualKey.LeftWindows) & downState) == downState || (coreWindow.GetKeyState(VirtualKey.RightWindows) & downState) == downState);
