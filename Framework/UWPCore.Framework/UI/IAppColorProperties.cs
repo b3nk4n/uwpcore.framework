@@ -23,5 +23,15 @@ namespace UWPCore.Framework.UI
         /// Gets the title bar background color.
         /// </summary>
         Color? TitleBarBackground { get; }
+
+        /// <summary>
+        /// Gets the status bar foreground color.
+        /// </summary>
+        Color? StatusBarForeground { get; }
+
+        /// <summary>
+        /// Gets the status bar background color.
+        /// </summary>
+        Color? StatusBarBackground { get; }
     }
 }
