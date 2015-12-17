@@ -10,6 +10,7 @@ namespace UWPCore.Demo.Views
     public sealed partial class NavigationPage2 : UniversalPage
     {
         public NavigationPage2()
+            : base(typeof(NavigationPage1))
         {
             InitializeComponent();
         }
