@@ -63,18 +63,18 @@ namespace UWPCore.Framework.Tasks
             return GetRegistration(taskName) != null;
         }
 
-        public void Unregister(string taskName)
+        public void Unregister(string taskName, bool cancelTask = false)
         {
             var registration = GetRegistration(taskName);
             if (registration != null)
-                registration.Unregister(true);
+                registration.Unregister(cancelTask);
         }
 
-        public void UnregisterAll()
+        public void UnregisterAll(bool cancelTasks = false)
         {
             foreach (var task in BackgroundTaskRegistration.AllTasks)
             {
-                task.Value.Unregister(true);
+                task.Value.Unregister(cancelTasks);
             }
         }
     }

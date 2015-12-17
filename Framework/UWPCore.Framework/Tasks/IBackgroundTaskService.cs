@@ -53,11 +53,17 @@ namespace UWPCore.Framework.Tasks
         /// Unregisters a background task.
         /// </summary>
         /// <param name="taskName">The background task name.</param>
-        void Unregister(string taskName);
+        /// <param name="cancelTask">True if currently running instances of this background task should be canceled.
+        /// If this parameter is false, currently running instances are allowed to finish.
+        /// Canceled instances receive a Canceled event with a cancellation reason of Abort.</param>
+        void Unregister(string taskName, bool cancelTask = false);
 
         /// <summary>
         /// Unregisters all background tasks.
         /// </summary>
-        void UnregisterAll();
+        /// <param name="cancelTasks">True if currently running instances of this background task should be canceled.
+        /// If this parameter is false, currently running instances are allowed to finish.
+        /// Canceled instances receive a Canceled event with a cancellation reason of Abort.</param>
+        void UnregisterAll(bool cancelTasks = false);
     }
 }
