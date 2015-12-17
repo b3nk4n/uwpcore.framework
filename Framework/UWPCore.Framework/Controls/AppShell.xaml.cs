@@ -52,6 +52,8 @@ namespace UWPCore.Framework.Controls
             {
                 Current = this;
 
+                SelectNavigationItem(NavigationService.CurrentPageType);
+
                 TogglePaneButton.Focus(FocusState.Programmatic);
             };
 
@@ -191,8 +193,9 @@ namespace UWPCore.Framework.Controls
         private ListViewItem GetContainerFromItem(NavMenuItem item)
         {
             NavMenuList.UpdateLayout();
-            var container = (ListViewItem)NavMenuList.ContainerFromItem(item);
-            
+            NavMenuList.ScrollIntoView(item);
+            var container = (ListViewItem)NavMenuList.ContainerFromItem(item); // TODO: for somehow, this seems to return null on some devices (on PC, but not on mobile, and NOT before the last VS15.1 update!)?
+
             if (container == null)
             {
                 NavMenuListBottomDock.UpdateLayout();
@@ -204,9 +207,7 @@ namespace UWPCore.Framework.Controls
 
         private void OnNavigatedToPage(object sender, NavigationEventArgs e)
         {
-            var item = GetNavigationItem(e.SourcePageType);
-
-            item = SelectNavigationItem(item);
+            SelectNavigationItem(e.SourcePageType);
 
             // after a successful navigation set keyboard focus to the loaded page
             if (e.Content is Page && e.Content != null)
@@ -257,6 +258,13 @@ namespace UWPCore.Framework.Controls
             ((Page)sender).Focus(FocusState.Programmatic);
             ((Page)sender).Loaded -= Page_Loaded;
             CheckTogglePaneButtonSizeChanged();
+        }
+        
+        private void SelectNavigationItem(Type pageType)
+        {
+            // select the current item
+            var item = GetNavigationItem(pageType);
+            SelectNavigationItem(item);
         }
 
         #endregion
@@ -341,6 +349,21 @@ namespace UWPCore.Framework.Controls
             {
                 args.ItemContainer.ClearValue(AutomationProperties.NameProperty);
             }
+        }
+
+        private void SplitViewManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            if (e.Position.X < 20)
+            {
+
+            }
+
+            Logging.Logger.WriteLine(e.Position.X.ToString());
+        }
+
+        private void ManiDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+        {
+            Logging.Logger.WriteLine(e.Position.X.ToString());
         }
     }
 }

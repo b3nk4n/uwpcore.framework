@@ -29,7 +29,7 @@ namespace UWPCore.Framework.Controls
         /// <summary>
         /// The hosting split view.
         /// </summary>
-        private SplitView splitViewHost;
+        private SwipeableSplitView splitViewHost;
 
         /// <summary>
         /// Creates a NavMenuListView instance.
@@ -51,7 +51,7 @@ namespace UWPCore.Framework.Controls
 
                 if (parent != null)
                 {
-                    splitViewHost = parent as SplitView;
+                    splitViewHost = parent as SwipeableSplitView;
 
                     splitViewHost.RegisterPropertyChangedCallback(SplitView.IsPaneOpenProperty, (sender, args) =>
                     {
@@ -238,11 +238,11 @@ namespace UWPCore.Framework.Controls
             SetSelectedItem(focusedItem as ListViewItem);
             ItemInvoked(this, focusedItem as ListViewItem);
 
-            if (splitViewHost.IsPaneOpen && (
+            if (splitViewHost.IsSwipeablePaneOpen && (
                 splitViewHost.DisplayMode == SplitViewDisplayMode.CompactOverlay ||
                 splitViewHost.DisplayMode == SplitViewDisplayMode.Overlay))
             {
-                splitViewHost.IsPaneOpen = false;
+                splitViewHost.IsSwipeablePaneOpen = false;
                 if (focusedItem is ListViewItem)
                 {
                     ((ListViewItem)focusedItem).Focus(FocusState.Programmatic);
@@ -256,7 +256,7 @@ namespace UWPCore.Framework.Controls
         /// </summary>
         private void OnPaneToggled()
         {
-            if (splitViewHost.IsPaneOpen)
+            if (splitViewHost.IsSwipeablePaneOpen)
             {
                 ItemsPanelRoot.ClearValue(WidthProperty);
                 ItemsPanelRoot.ClearValue(HorizontalAlignmentProperty);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using UWPCore.Framework.Controls;
+using UWPCore.Framework.Devices;
 using UWPCore.Framework.Input;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
@@ -36,6 +37,8 @@ namespace UWPCore.Framework.Common
         public static new UniversalApp Current { get; private set; }
 
         public StateItems SessionState { get; set; } = new StateItems();
+
+        private IStatusBarService _statusBarService;
 
         /// <summary>
         /// Indicates whether the app shell should be populated.
@@ -245,6 +248,8 @@ namespace UWPCore.Framework.Common
 
                 await OnInitializeAsync(e);
 
+                _statusBarService = Injector.Get<IStatusBarService>();
+
                 if (UseAppShell &&
                 e.PreviousExecutionState != ApplicationExecutionState.Running &&
                 e.PreviousExecutionState != ApplicationExecutionState.Suspended)
@@ -333,6 +338,8 @@ namespace UWPCore.Framework.Common
             // the user may override to set custom content
             await OnInitializeAsync(e);
 
+            _statusBarService = Injector.Get<IStatusBarService>();
+
             if (UseAppShell &&
                 e.PreviousExecutionState != ApplicationExecutionState.Running &&
                 e.PreviousExecutionState != ApplicationExecutionState.Suspended)
@@ -372,6 +379,10 @@ namespace UWPCore.Framework.Common
                             {
                                 await OnStartAsync(StartKind.Launch, e);
                             }
+                            else
+                            {
+                                UpdateShellBackButton();
+                            }
                         }
                         else
                         {
@@ -385,6 +396,11 @@ namespace UWPCore.Framework.Common
             if (Window.Current.Content == null || Window.Current.Content == splashScreen)
             {
                 Window.Current.Content = RootFrame;
+            }
+
+            if (UseAppShell)
+            {
+                //(Window.Current.Content as AppShell).SelectCurrentNavigationItem();
             }
 
             // Update the app theme
@@ -468,16 +484,12 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
-        /// Initializes the theme color of the title bar.
+        /// Updates the theme color of the title bar (pc only).
         /// </summary>
-        private void UpdateTitleBar()
+        /// <param name="theme">The theme to use.</param>
+        private void UpdateTitleBarTheme(ApplicationTheme theme)
         {
-            IAppColorProperties colorProperties;
-
-            if (UniversalPage.PageTheme.Value == ElementTheme.Light.ToString())
-                colorProperties = ColorPropertiesLight;
-            else
-                colorProperties = ColorPropertiesDark;
+            IAppColorProperties colorProperties = (theme == ApplicationTheme.Light) ? ColorPropertiesLight : ColorPropertiesDark;
 
             if (colorProperties == null)
                 return;
@@ -498,24 +510,34 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
+        /// Updates the theme color of the status bar (phone only).
+        /// </summary>
+        /// <param name="theme">The theme to use.</param>
+        public void UpdateStatusBarTheme(ApplicationTheme theme)
+        {
+            if (_statusBarService.IsSupported)
+            {
+                IAppColorProperties colorProperties = (theme == ApplicationTheme.Light) ? ColorPropertiesLight : ColorPropertiesDark;
+
+                if (colorProperties.StatusBarBackground.HasValue)
+                    _statusBarService.BackgroundColor = colorProperties.StatusBarBackground.Value;
+                if (colorProperties.StatusBarForeground.HasValue)
+                    _statusBarService.ForegroundColor = colorProperties.StatusBarForeground.Value;
+            }
+        }
+
+        /// <summary>
         /// Updates the app theme.
         /// </summary>
         public void UpdateTheme()
         {
-            UniversalPage rootPage;
+            var theme = ApplicationTheme;
 
-            if (UseAppShell)
-                rootPage = Window.Current.Content as UniversalPage;
-            else
-                rootPage = (Window.Current.Content as Frame).Content as UniversalPage;
-
-            if (rootPage != null)
-                rootPage.UpdateTheme();
-
-            UpdateTitleBar();
+            UpdateTitleBarTheme(theme);
+            UpdateStatusBarTheme(theme);
         }
 
-        public ElementTheme PageTheme
+        public ApplicationTheme ApplicationTheme
         {
             get
             {
@@ -526,10 +548,18 @@ namespace UWPCore.Framework.Common
                 else
                     rootPage = (Window.Current.Content as Frame).Content as UniversalPage;
 
-                if (rootPage != null)
-                    return rootPage.RequestedTheme;
+
+                if (rootPage == null)
+                    return RequestedTheme;
+
+                // ensure the app theme is updated
+                rootPage.UpdateTheme();
+
+                if (rootPage.RequestedTheme == ElementTheme.Light ||
+                    rootPage.RequestedTheme == ElementTheme.Default && RequestedTheme == ApplicationTheme.Light)
+                    return ApplicationTheme.Light;
                 else
-                    return ElementTheme.Default;
+                    return ApplicationTheme.Dark;
             }
         }
 
