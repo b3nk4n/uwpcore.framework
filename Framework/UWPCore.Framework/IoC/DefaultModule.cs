@@ -11,6 +11,7 @@ using UWPCore.Framework.Share;
 using UWPCore.Framework.Speech;
 using UWPCore.Framework.Storage;
 using UWPCore.Framework.Store;
+using UWPCore.Framework.Support;
 using UWPCore.Framework.Tasks;
 using UWPCore.Framework.UI;
 
@@ -25,6 +26,7 @@ namespace UWPCore.Framework.IoC
         {
             // Accounts
             Bind<IUserInfoService>().To<UserInfoService>().InSingletonScope();
+            Bind<IOnlineIdService>().To<OnlineIdService>().InSingletonScope();
 
             // Audio
             Bind<IAudioService>().To<AudioService>().InSingletonScope();
@@ -81,6 +83,9 @@ namespace UWPCore.Framework.IoC
 
             // Store
             Bind<ILicenseService>().To<LicenseService>().InSingletonScope();
+
+            // Support
+            Bind<IStartupActionService>().To<StartupActionService>().InSingletonScope();
 
             // Tasks
             Bind<IBackgroundTaskService>().To<BackgroundTaskService>().InSingletonScope();
