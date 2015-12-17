@@ -23,6 +23,9 @@
         <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
             <ScrollViewer>
                 <StackPanel>
+                    <TextBlock Text="Non-roamable ID" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
+                    <TextBlock x:Name="NonRoamableId" Margin="4"  />
+                    
                     <TextBlock Text="First name" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
                     <TextBlock x:Name="FirstNameTextBox" Margin="4"  />
 
@@ -37,6 +40,10 @@
                     <Image x:Name="ProfilePicture208Image" Width="208" Height="208" HorizontalAlignment="Left" Margin="4" />
                     <Image x:Name="ProfilePicture424Image" Width="424" Height="424" HorizontalAlignment="Left" Margin="4" />
                     <Image x:Name="ProfilePicture1080Image" Width="540" Height="540" HorizontalAlignment="Left" Margin="4" />
+                    
+                    <Button Content="LoginOnline" Margin="4" Click="LogInOnline" />
+                    <TextBlock Text="Online Live Id" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" Margin="4" />
+                    <TextBlock x:Name="OnlineLiveId" Margin="4"  />
                 </StackPanel>
             </ScrollViewer>
         </Grid>
