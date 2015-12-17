@@ -1,6 +1,7 @@
 ﻿using System;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
+using UWPCore.Framework.Mvvm;
 using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Storage;
 using Windows.UI.Xaml;
@@ -82,6 +83,19 @@ namespace UWPCore.Framework.Controls
             get
             {
                 return IoC.Injector.Instance;
+            }
+        }
+
+        /// <summary>
+        /// Gets called when the page gets resumed.
+        /// </summary>
+        public virtual void OnResume() {
+            if (DataContext != null)
+            {
+                var viewModel = DataContext as ViewModelBase;
+
+                if (viewModel != null)
+                    viewModel.OnResume();
             }
         }
     }

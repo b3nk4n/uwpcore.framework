@@ -126,6 +126,9 @@
     <Compile Include="Views\GraphicsPage.xaml.cs">
       <DependentUpon>GraphicsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\KeyboardPage.xaml.cs">
+      <DependentUpon>KeyboardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LaunchPage.xaml.cs">
       <DependentUpon>LaunchPage.xaml</DependentUpon>
     </Compile>
@@ -226,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GraphicsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KeyboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

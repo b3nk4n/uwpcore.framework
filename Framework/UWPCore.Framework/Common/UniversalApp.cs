@@ -109,6 +109,13 @@ namespace UWPCore.Framework.Common
             {
                 Logger.WriteLine("RESUMING");
                 OnResuming(e);
+
+                var rootPage = NavigationService.FrameFacade.Content as UniversalPage;
+
+                if (rootPage != null)
+                {
+                    rootPage.OnResume();
+                }
             };
             Suspending += async (s, e) =>
             {
@@ -204,7 +211,7 @@ namespace UWPCore.Framework.Common
         /// </summary>
         public bool ShowShellBackButton { get; set; } = true;
 
-        private KeyboardService _keyboardService;
+        private IKeyboardService _keyboardService;
 
         #endregion
 
@@ -465,7 +472,7 @@ namespace UWPCore.Framework.Common
                 };
 
                 // hook up keyboard and mouse Back handler
-                _keyboardService = new KeyboardService();
+                _keyboardService = Injector.Get<IKeyboardService>();
                 _keyboardService.AfterBackGesture = () =>
                 {
                     //the result is no matter

@@ -5,6 +5,7 @@ using UWPCore.Framework.Audio;
 using UWPCore.Framework.Data;
 using UWPCore.Framework.Devices;
 using UWPCore.Framework.Graphics;
+using UWPCore.Framework.Input;
 using UWPCore.Framework.Networking;
 using UWPCore.Framework.Notifications;
 using UWPCore.Framework.Share;
@@ -44,6 +45,9 @@ namespace UWPCore.Framework.IoC
 
             // Graphics
             Bind<IGraphicsService>().To<GraphicsService>().InSingletonScope();
+
+            // Input
+            Bind<IKeyboardService>().To<KeyboardService>().InSingletonScope();
 
             // Navigation
             // TODO: introduce INavigationService interface?

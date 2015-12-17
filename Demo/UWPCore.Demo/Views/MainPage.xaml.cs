@@ -65,5 +65,10 @@ namespace UWPCore.Demo.Views
         {
             NavigationService.Navigate(typeof(AudioPage));
         }
+
+        private void KeyboardClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(KeyboardPage));
+        }
     }
 }
