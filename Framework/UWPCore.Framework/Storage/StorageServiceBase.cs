@@ -62,6 +62,17 @@ namespace UWPCore.Framework.Storage
             return await WriteFile(storageFile, data);
         }
 
+        public async Task<bool> WriteFile(string filePath, IBuffer buffer)
+        {
+            var folder = await CreateOrGetFolderAsync(filePath);
+
+            if (folder == null)
+                return false;
+
+            var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
+            return await WriteFile(storageFile, buffer);
+        }
+
         public async Task<bool> WriteFile(string filePath, IStorageFile from)
         {
             var folder = await CreateOrGetFolderAsync(filePath);
@@ -96,6 +107,12 @@ namespace UWPCore.Framework.Storage
                 }
             }
 
+            return true;
+        }
+
+        public async Task<bool> WriteFile(IStorageFile file, IBuffer buffer)
+        {
+            await FileIO.WriteBufferAsync(file, buffer);
             return true;
         }
 

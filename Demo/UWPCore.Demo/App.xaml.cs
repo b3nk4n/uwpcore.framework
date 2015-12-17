@@ -7,7 +7,6 @@ using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Speech;
 using Windows.ApplicationModel.Activation;
 using Windows.UI;
-using UWPCore.Framework.Devices;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.UI;
 using System.Collections.Generic;
@@ -20,8 +19,6 @@ namespace UWPCore.Demo
     sealed partial class App : UniversalApp
     {
         ISpeechService _speechService;
-
-        IStatusBarService _statusBarService;
 
         public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule())
         {
@@ -38,15 +35,11 @@ namespace UWPCore.Demo
             await base.OnInitializeAsync(args);
 
             // set theme colors
-            ColorPropertiesDark = new AppColorProperties(Color.FromArgb(255, 0, 34, 119), Colors.White, Colors.Black);
-            ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White);
+            ColorPropertiesDark = new AppColorProperties(Color.FromArgb(255, 0, 34, 119), Colors.White, Colors.Black, null, null);
+            ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White, null, null);
 
             _speechService = Injector.Get<ISpeechService>();
-            await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
-
-            _statusBarService = Injector.Get<IStatusBarService>();
-            var color = (Color)Current.Resources["SystemChromeMediumColor"];
-            _statusBarService.BackgroundColor = color;
+            //await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml"); // hangs in 10586 on  mobile !?
         }
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
@@ -95,18 +88,6 @@ namespace UWPCore.Demo
                 },
                 new NavMenuItem()
                 {
-                    Symbol = GlyphIcons.Music,
-                    Label = "Audio",
-                    DestinationPage = typeof(AudioPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = GlyphIcons.Keyboard,
-                    Label = "Device Features",
-                    DestinationPage = typeof(DeviceFeaturesPage)
-                },
-                new NavMenuItem()
-                {
                     Symbol = GlyphIcons.WifiOutline2,
                     Label = "Networking",
                     DestinationPage = typeof(NetworkingPage)
@@ -116,18 +97,6 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.Message,
                     Label = "Notifications",
                     DestinationPage = typeof(NotificationsPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = GlyphIcons.AccountMultiple,
-                    Label = "Speech",
-                    DestinationPage = typeof(SpeechPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = GlyphIcons.Share,
-                    Label = "Share",
-                    DestinationPage = typeof(SharePage)
                 },
                 new NavMenuItem()
                 {
@@ -146,18 +115,6 @@ namespace UWPCore.Demo
                     Symbol = GlyphIcons.Clock,
                     Label = "Tasks",
                     DestinationPage = typeof(TasksPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = GlyphIcons.MediaPlay,
-                    Label = "Launcher",
-                    DestinationPage = typeof(LaunchPage)
-                },
-                new NavMenuItem()
-                {
-                    Symbol = GlyphIcons.Account,
-                    Label = "Accounts",
-                    DestinationPage = typeof(AccountsPage)
                 },
                 new NavMenuItem()
                 {
