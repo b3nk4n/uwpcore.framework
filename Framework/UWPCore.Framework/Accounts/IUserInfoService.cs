@@ -33,5 +33,11 @@ namespace UWPCore.Framework.Accounts
         /// <param name="desiredSize">The desired picture size.</param>
         /// <returns>Returns the users profile picutre or NULL.</returns>
         Task<ImageSource> GetProfilePictureAsync(UserPictureSize desiredSize);
+
+        /// <summary>
+        /// Gets the users non-roamable ID.
+        /// </summary>
+        /// <returns>Returns the non-roamable user ID.</returns>
+        Task<string> GetNonRoamableId();
     }
 }
