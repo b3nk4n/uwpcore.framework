@@ -65,6 +65,9 @@ namespace UWPCore.Framework.IoC
             Bind<IAdaptiveToastFactory>().To<AdaptiveToastFactory>().InSingletonScope();
             Bind<IToastFactory>().To<ToastFactory>().InSingletonScope();
             Bind<IToastService>().To<ToastService>().InSingletonScope();
+
+            Bind<IBadgeFactory>().To<BadgeFactory>().InSingletonScope();
+            Bind<IBadgeService>().To<BadgeService>().InSingletonScope();
             
 
             // Security

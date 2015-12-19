@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -32,10 +30,6 @@ namespace UWPCore.Framework.Controls
         CompositeTransform _panAreaTransform;
         Storyboard _openSwipeablePane;
         Storyboard _closeSwipeablePane;
-
-        static double TOTAL_PANNING_DISTANCE = 160d;
-        double _distancePerItem;
-        double _startingDistance;
 
         #endregion
 
@@ -380,10 +374,13 @@ namespace UWPCore.Framework.Controls
             }
         }
 
-        void CloseSwipeablePane()
+        async void CloseSwipeablePane()
         {
             if (!IsSwipeablePaneOpen)
             {
+                // workaround: fixes the problem that the close animation is sometimes not played
+                await Task.Delay(10);
+
                 CloseSwipeablePaneAnimation.Begin();
             }
             else
