@@ -69,7 +69,7 @@ namespace UWPCore.Framework.Controls
             NavigationItems = new List<NavMenuItem>(navigationItems);
             NavMenuList.ItemsSource = navigationItems;
 
-            if (bottomDockedNavigationItems != null || bottomDockedNavigationItems.Count() > 0)
+            if (bottomDockedNavigationItems != null && bottomDockedNavigationItems.Count() > 0)
             {
                 NavMenuListBottomDock.ItemsSource = bottomDockedNavigationItems;
 
