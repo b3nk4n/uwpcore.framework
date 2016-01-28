@@ -526,6 +526,9 @@ namespace UWPCore.Framework.Common
             {
                 IAppColorProperties colorProperties = (theme == ApplicationTheme.Light) ? ColorPropertiesLight : ColorPropertiesDark;
 
+                if (colorProperties == null)
+                    return;
+
                 if (colorProperties.StatusBarBackground.HasValue)
                     _statusBarService.BackgroundColor = colorProperties.StatusBarBackground.Value;
                 if (colorProperties.StatusBarForeground.HasValue)

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.Logging;
 using Windows.ApplicationModel.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -59,6 +60,11 @@ namespace UWPCore.Framework.Navigation
             FrameFacade = new FrameFacade(frame);
             FrameFacade.Navigated += (s, e) =>
             {
+                if (e.PageType == UniversalApp.Current.DefaultPage)
+                {
+                    ClearHistory();
+                }
+
                 // KEEP THIS EVENT REGISTERED: without having this empty event registered, for whatever reason no navigation takes place
                 // Navigation method calls are moved to UniversalPage, to ensure the call order of ViewModel navigation events is aligned
                 // with the one of a Page.
@@ -82,14 +88,14 @@ namespace UWPCore.Framework.Navigation
                 {
                     var internalArgs = new NavigatingEventArgs()
                     {
-                        PageType = FrameFacade.CurrentPageType,
-                        Parameter = FrameFacade.CurrentPageParam,
+                        PageType = args.SourcePageType,
+                        Parameter = args.Parameter,
                         Suspending = suspending,
                         NavigationMode = args.NavigationMode
                     };
 
                     dataContext.OnNavigatingFrom(internalArgs);
-                    return !args.Cancel;
+                    return !internalArgs.Cancel;
                 }
             }
             return true;
@@ -195,7 +201,7 @@ namespace UWPCore.Framework.Navigation
 
             if (page == UniversalApp.Current.DefaultPage)
             {
-                ClearHistory();
+                //ClearHistory();
             }
 
             return result;
@@ -309,10 +315,18 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         public void ClearHistory()
         {
-            FrameFacade.Frame.BackStack.Clear();
+            try
+            {
+                FrameFacade.Frame.BackStack.Clear();
 
-            // force update the shell back button after the history was cleared
-            UniversalApp.Current.UpdateShellBackButton();
+                // force update the shell back button after the history was cleared
+                UniversalApp.Current.UpdateShellBackButton();
+            }
+            catch (Exception e)
+            {
+                Logger.WriteLine("CLEAR HISTORY FAILED!", e);
+            }
+            
         }
 
         public void Resuming(){ } // TODO: FIXME: not referenced and empty. Delete? Check again after some more progress in Template10!
