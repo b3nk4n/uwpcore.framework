@@ -63,6 +63,9 @@ namespace UWPCore.Framework.Graphics
 
         public async Task<bool> ResizeImageAsync(IStorageFile sourceFile, IStorageFile destinationFile, uint maxWidth, uint maxHeight, uint dpi = 96)
         {
+            if (sourceFile == null || destinationFile == null)
+                return false;
+
             try
             {
                 using (var sourceStream = await sourceFile.OpenAsync(FileAccessMode.Read))

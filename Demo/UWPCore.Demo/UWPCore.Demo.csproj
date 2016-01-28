@@ -190,6 +190,7 @@
     <Content Include="Assets\discoTile.xml" />
     <Content Include="Assets\disco-ball.png" />
     <Content Include="Assets\Images\bug.png" />
+    <Content Include="Assets\Images\chinese.png" />
     <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Images\germany-circle.png" />
     <Content Include="Assets\Images\LockScreen.png" />
