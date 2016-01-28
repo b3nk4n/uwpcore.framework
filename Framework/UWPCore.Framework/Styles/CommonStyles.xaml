@@ -26,4 +26,41 @@
         <Setter Property="FontWeight" Value="SemiLight"/>
     </Style>
 
+    <!-- AppBarSeperatorStyle, that allows to use 4 other AppBarButtons with with=62 next to it on a phone -->
+    <Style x:Key="ThinAppBarSeparatorStyle" TargetType="AppBarSeparator">
+        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="AppBarSeparator">
+                    <Rectangle x:Name="SeparatorRectangle" Fill="{TemplateBinding Foreground}" Height="20" Margin="6,12,5,12" VerticalAlignment="Top" Width="1">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="ApplicationViewStates">
+                                <VisualState x:Name="FullSize"/>
+                                <VisualState x:Name="Compact"/>
+                                <VisualState x:Name="Overflow">
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Width" Storyboard.TargetName="SeparatorRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="NaN"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="HorizontalAlignment" Storyboard.TargetName="SeparatorRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="Stretch"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Height" Storyboard.TargetName="SeparatorRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="SeparatorRectangle">
+                                            <DiscreteObjectKeyFrame KeyTime="0" Value="12,6,12,5"/>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Rectangle>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

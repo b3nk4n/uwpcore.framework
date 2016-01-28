@@ -61,6 +61,53 @@ namespace UWPCore.Framework.Graphics
             }
         }
 
+        public async Task<bool> ResizeImageAsync(IStorageFile sourceFile, IStorageFile destinationFile, uint maxWidth, uint maxHeight, uint dpi = 96)
+        {
+            try
+            {
+                using (var sourceStream = await sourceFile.OpenAsync(FileAccessMode.Read))
+                {
+                    BitmapDecoder decoder = await BitmapDecoder.CreateAsync(sourceStream);
+
+                    var w = decoder.OrientedPixelWidth;
+                    var h = decoder.OrientedPixelHeight;
+                    var wScale = 1.0;
+                    var hScale = 1.0;
+                    if (w > maxWidth)
+                        wScale = (double)maxWidth / w;
+                    if (h > maxHeight)
+                        hScale = (double)maxHeight / h;
+                    var scale = Math.Min(wScale, hScale);
+
+                    BitmapTransform transform = new BitmapTransform()
+                    {
+                        ScaledWidth = (uint)(w * scale),
+                        ScaledHeight = (uint)(h * scale)
+                    };
+
+                    PixelDataProvider pixelData = await decoder.GetPixelDataAsync(
+                        BitmapPixelFormat.Rgba8,
+                        BitmapAlphaMode.Straight,
+                        transform,
+                        ExifOrientationMode.RespectExifOrientation,
+                        ColorManagementMode.DoNotColorManage);
+
+                    using (var destinationStream = await destinationFile.OpenAsync(FileAccessMode.ReadWrite))
+                    {
+                        BitmapEncoder encoder = await BitmapEncoder.CreateAsync(GetBitmapEncoder(destinationFile.FileType), destinationStream);
+                        encoder.SetPixelData(BitmapPixelFormat.Rgba8, BitmapAlphaMode.Premultiplied, transform.ScaledWidth, transform.ScaledHeight, dpi, dpi, pixelData.DetachPixelData());
+                        await encoder.FlushAsync();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Gets the bitmap encoder of the given file extension.
         /// </summary>
@@ -68,20 +115,28 @@ namespace UWPCore.Framework.Graphics
         /// <returns>The corresponding bitmap encoder.</returns>
         private Guid GetBitmapEncoder(string fileExtension)
         {
-            Guid encoderId = BitmapEncoder.JpegEncoderId;
+            Guid encoderId;
+
             switch (fileExtension)
             {
+                case "bmp":
                 case ".bmp":
                     encoderId = BitmapEncoder.BmpEncoderId;
                     break;
+                case "gif":
                 case ".gif":
                     encoderId = BitmapEncoder.GifEncoderId;
                     break;
+                case "png":
                 case ".png":
                     encoderId = BitmapEncoder.PngEncoderId;
                     break;
+                case "tif":
                 case ".tif":
                     encoderId = BitmapEncoder.TiffEncoderId;
+                    break;
+                default:
+                    encoderId = BitmapEncoder.JpegEncoderId;
                     break;
             }
 

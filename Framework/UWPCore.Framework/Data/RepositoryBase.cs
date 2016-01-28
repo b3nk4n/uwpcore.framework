@@ -19,7 +19,7 @@ namespace UWPCore.Framework.Data
             _data = new List<TEntity>();
         }
 
-        public void Add(TEntity entity)
+        public virtual void Add(TEntity entity)
         {
             _data.Add(entity);
         }
@@ -37,7 +37,7 @@ namespace UWPCore.Framework.Data
 
         public IList<TEntity> GetAll()
         {
-            return _data;
+            return new List<TEntity>(_data);
         }
 
         public IList<TKey> GetAllIds()
@@ -62,7 +62,7 @@ namespace UWPCore.Framework.Data
             Remove(entity.Id);
         }
 
-        public void Remove(TKey id)
+        public virtual void Remove(TKey id)
         {
             int indexToRemove = -1;
             int index = 0;
@@ -80,7 +80,7 @@ namespace UWPCore.Framework.Data
                 _data.RemoveAt(indexToRemove);
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             _data.Clear();
         }
@@ -95,6 +95,11 @@ namespace UWPCore.Framework.Data
             return false;
         }
 
+        /// <summary>
+        /// Reloads the data from disk or web.
+        /// Remember to set the <see cref="HasLoaded"/> property to true!
+        /// </summary>
+        /// <returns>Returns True, when loading was successfull, else False.</returns>
         public abstract Task<bool> Reload();
 
         public abstract void Update(TEntity prototype);

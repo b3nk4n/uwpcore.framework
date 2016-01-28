@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using UWPCore.Framework.Logging;
+using UWPCore.Framework.Storage;
 using Windows.ApplicationModel.Store;
+using Windows.Storage;
 
 namespace UWPCore.Framework.Store
 {
@@ -11,30 +15,22 @@ namespace UWPCore.Framework.Store
     /// </summary>
     public class LicenseService : ILicenseService
     {
-        /// <summary>
-        /// The license information, eigher simulated or live depending on solution config..
-        /// </summary>
-        private static LicenseInformation _licenseInfo;
+        private IStorageService _localStorageService;
 
         /// <summary>
         /// Creates a LicenseServce instance.
         /// </summary>
-        public LicenseService()
+        [Inject]
+        public LicenseService(ILocalStorageService localStorageService)
         {
-#if DEBUG
-            // TODO: check simulator requirements: https://social.msdn.microsoft.com/Forums/office/en-US/0298c819-732e-47a3-99a1-1bfac3e245c8/access-denied-on-currentappsimulatorlicenseinformation?forum=wpdevelop
-            //_licenseInfo = CurrentAppSimulator.LicenseInformation;
-            _licenseInfo = CurrentApp.LicenseInformation;
-#else
-            _licenseInfo = CurrentApp.LicenseInformation;
-#endif
+            _localStorageService = localStorageService;
         }
 
         public bool IsProductActive(string productId)
         {
             try
             {
-                return _licenseInfo.ProductLicenses[productId].IsActive;
+                return GetLicenseInformation().ProductLicenses[productId].IsActive;
             }
             catch (Exception e)
             {
@@ -80,6 +76,7 @@ namespace UWPCore.Framework.Store
 #else
                 ListingInformation lisitingInfo = await CurrentApp.LoadListingInformationByProductIdsAsync(supportedProductIds);
 #endif
+                
                 foreach (var id in lisitingInfo.ProductListings.Keys)
                 {
                     ProductListing product = lisitingInfo.ProductListings[id];
@@ -102,6 +99,7 @@ namespace UWPCore.Framework.Store
             catch (Exception e)
             {
                 Logger.WriteLine(e, "Loading of products failed");
+                return null;
             }
 
             return productItems;
@@ -111,8 +109,44 @@ namespace UWPCore.Framework.Store
         {
             get
             {
-                return _licenseInfo.IsTrial;
+                return GetLicenseInformation().IsTrial;
             }
+        }
+
+        /// <summary>
+        /// Refreshes the simulator.
+        /// </summary>
+        /// <returns></returns>
+#pragma warning disable 1998
+        public async Task RefeshSimulator()
+        {
+#if DEBUG
+            var proxyPath = IOConstants.APPX_SCHEME + "/Assets/IAP/WindowsStoreProxy.xml";
+            var proxyFile = await _localStorageService.GetFileFromApplicationAsync(proxyPath);
+
+            if (proxyFile != null)
+            {
+                await CurrentAppSimulator.ReloadSimulatorAsync(proxyFile as StorageFile);
+            }  
+            else
+            {
+                throw new FileNotFoundException("Could not find the proxy file under the path: " + proxyPath);
+            }
+#endif
+        }
+#pragma warning restore 1998
+
+        /// <summary>
+        /// Gets the appropriate license information.
+        /// </summary>
+        /// <returns>Either the real or limulated license information.</returns>
+        private LicenseInformation GetLicenseInformation()
+        {
+#if DEBUG
+            return CurrentAppSimulator.LicenseInformation;
+#else
+            return CurrentApp.LicenseInformation;
+#endif
         }
     }
 }

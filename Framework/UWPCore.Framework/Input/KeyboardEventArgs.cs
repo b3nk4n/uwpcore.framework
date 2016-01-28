@@ -10,6 +10,11 @@ namespace UWPCore.Framework.Input
     public class KeyboardEventArgs : EventArgs
     {
         /// <summary>
+        /// Gets or sets whether the event was handled.
+        /// </summary>
+        public bool Handled { get; set; } = false;
+
+        /// <summary>
         /// Gets or sets whether the ALT key was pressed.
         /// </summary>
         public bool AltKey { get; set; }
@@ -38,5 +43,30 @@ namespace UWPCore.Framework.Input
         /// Gets or sets the character.
         /// </summary>
         public char? Character { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the WINDOWS key was pressed.
+        /// </summary>
+        public bool WindowsKey { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets whether only the WINDOWS key was pressed.
+        /// </summary>
+        public bool OnlyWindows => WindowsKey & !AltKey & !ControlKey & !ShiftKey;
+
+        /// <summary>
+        /// Gets or sets whether only the ALT key was pressed.
+        /// </summary>
+        public bool OnlyAlt => !WindowsKey & AltKey & !ControlKey & !ShiftKey;
+
+        /// <summary>
+        /// Gets or sets whether only the CTRL key was pressed.
+        /// </summary>
+        public bool OnlyControl => !WindowsKey & !AltKey & ControlKey & !ShiftKey;
+
+        /// <summary>
+        /// Gets or sets whether only the SHIFT key was pressed.
+        /// </summary>
+        public bool OnlyShift => !WindowsKey & !AltKey & !ControlKey & ShiftKey;
     }
 }

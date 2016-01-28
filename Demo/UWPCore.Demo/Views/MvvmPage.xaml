@@ -55,7 +55,7 @@
                 <StackPanel DataContext="{Binding TemporaryItem}" Margin="4">
                     <TextBox Header="#Id" Text="{Binding Model.Id, Mode=TwoWay}"
                          Width="200" Margin="4" HorizontalAlignment="Left" />
-                    <TextBox Header="Name" Text="{Binding Model.Name, Mode=TwoWay}"
+                    <TextBox Header="Name" Text="{Binding Model.Title, Mode=TwoWay}"
                          Width="200" Margin="4" HorizontalAlignment="Left" />
                     <TextBox Header="Description" Text="{Binding Model.Description, Mode=TwoWay}"
                          Width="200" Margin="4" HorizontalAlignment="Left" />

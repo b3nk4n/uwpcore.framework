@@ -11,7 +11,7 @@
     <AssemblyName>UWPCore.Demo</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -128,6 +128,9 @@
     <Compile Include="Views\GraphicsPage.xaml.cs">
       <DependentUpon>GraphicsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\KeyboardPage.xaml.cs">
+      <DependentUpon>KeyboardPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LaunchPage.xaml.cs">
       <DependentUpon>LaunchPage.xaml</DependentUpon>
     </Compile>
@@ -231,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GraphicsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KeyboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

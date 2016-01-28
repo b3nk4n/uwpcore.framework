@@ -7,6 +7,7 @@ using Windows.Storage.Streams;
 using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using Ninject;
+using System.Threading;
 
 namespace UWPCore.Framework.Networking
 {
@@ -34,68 +35,153 @@ namespace UWPCore.Framework.Networking
             _serializationService = serializationService;
         }
 
-        public async Task<string> GetAsync(Uri path)
+        public async Task<HttpResponseMessage> GetAsync(Uri path, int? timeoutMillis = null)
         {
-            using (var http = GetClient())
+            try
             {
-                var response = await http.GetAsync(path);
-                if (response.StatusCode == HttpStatusCode.Ok)
-                    return await response.Content.ReadAsStringAsync();
-                else
-                    return null;
+                using (var http = GetClient())
+                {
+                    if (timeoutMillis != null)
+                    {
+                        var cancelation = new CancellationTokenSource(timeoutMillis.Value);
+                        return await http.GetAsync(path).AsTask(cancelation.Token);
+                    }
+                    else
+                    {
+                        return await http.GetAsync(path);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // timeout
+                return null;
+            }
+            catch (Exception)
+            {
+                // server error, offline, ...
+                return null;
             }
         }
 
-        public async Task<string> GetAsync(Uri path, NameValueCollection parameters)
+        public async Task<HttpResponseMessage> GetAsync(Uri path, NameValueCollection parameters, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await GetAsync(uri);
+            return await GetAsync(uri, timeoutMillis);
         }
 
-        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload)
+        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload, int? timeoutMillis = null)
         {
-            using (var http = GetClient())
+            try
             {
-                var data = _serializationService.SerializeJson(payload);
-                var content = new HttpStringContent(data, Encoding, HttpConstants.APPLICATION_JSON);
-                return await http.PutAsync(path, content);
+                using (var http = GetClient())
+                {
+                    var data = _serializationService.SerializeJson(payload);
+                    var content = new HttpStringContent(data, Encoding, HttpConstants.APPLICATION_JSON);
+                    if (timeoutMillis != null)
+                    {
+                        var cancelation = new CancellationTokenSource(timeoutMillis.Value);
+                        return await http.PutAsync(path, content).AsTask(cancelation.Token);
+                    }
+                    else
+                    {
+                        return await http.PutAsync(path, content);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // timeout
+                return null;
+            }
+            catch (Exception)
+            {
+                // server error, offline, ...
+                return null;
             }
         }
 
-        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, NameValueCollection parameters, T payload)
+        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, NameValueCollection parameters, T payload, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await PutAsync(uri, payload);
+            return await PutAsync(uri, payload, timeoutMillis);
         }
 
-        public async Task<HttpResponseMessage> PostAsync<T>(Uri path, T payload)
+        public async Task<HttpResponseMessage> PostAsync(Uri path, IHttpContent content, int? timeoutMillis = null)
         {
-            using (var http = GetClient())
+            try
             {
-                var data = _serializationService.SerializeJson(payload);
-                var content = new HttpStringContent(data, Encoding, HttpConstants.APPLICATION_JSON);
-                return await http.PostAsync(path, content);
+                using (var http = GetClient())
+                {
+                    if (timeoutMillis != null)
+                    {
+                        var cancelation = new CancellationTokenSource(timeoutMillis.Value);
+                        return await http.PostAsync(path, content).AsTask(cancelation.Token);
+                    }
+                    else
+                    {
+                        return await http.PostAsync(path, content);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // timeout
+                return null;
+            }
+            catch (Exception)
+            {
+                // server error, offline, ...
+                return null;
             }
         }
 
-        public async Task<HttpResponseMessage> PostAsync<T>(Uri path, NameValueCollection parameters, T payload)
+        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, T payload, int? timeoutMillis = null)
         {
-            var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await PostAsync(uri, payload);
+            var data = _serializationService.SerializeJson(payload);
+            var content = new HttpStringContent(data, Encoding, HttpConstants.APPLICATION_JSON);
+            return await PostAsync(path, content, timeoutMillis);
         }
 
-        public async Task<HttpResponseMessage> DeleteAsync(Uri path)
+        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, NameValueCollection parameters, T payload, int? timeoutMillis = null)
         {
-            using (var http = GetClient())
+            var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
+            return await PostJsonAsync(uri, payload, timeoutMillis);
+        }
+
+        public async Task<HttpResponseMessage> DeleteAsync(Uri path, int? timeoutMillis = null)
+        {
+            try
             {
-                return await http.DeleteAsync(path);
+                using (var http = GetClient())
+                {
+                    if (timeoutMillis != null)
+                    {
+                        var cancelation = new CancellationTokenSource(timeoutMillis.Value);
+                        return await http.DeleteAsync(path).AsTask(cancelation.Token);
+                    }
+                    else
+                    {
+                        return await http.DeleteAsync(path);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // timeout
+                return null;
+            }
+            catch (Exception)
+            {
+                // server error, offline, ...
+                return null;
             }
         }
 
-        public async Task<HttpResponseMessage> DeleteAsync(Uri path, NameValueCollection parameters)
+        public async Task<HttpResponseMessage> DeleteAsync(Uri path, NameValueCollection parameters, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await DeleteAsync(uri);
+            return await DeleteAsync(uri, timeoutMillis);
         }
 
         /// <summary>
@@ -125,3 +211,4 @@ namespace UWPCore.Framework.Networking
         }
     }
 }
+

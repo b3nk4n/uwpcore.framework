@@ -1,4 +1,5 @@
 ﻿using Ninject;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Notifications;
@@ -37,6 +38,16 @@ namespace UWPCore.Framework.Notifications
         {
             var notifier = ToastNotificationManager.CreateToastNotifier();
             notifier.Show(toast);
+        }
+
+        public void Show(ToastNotification toast, DateTimeOffset when)
+        {
+            var notifier = ToastNotificationManager.CreateToastNotifier();
+            var scheduled = new ScheduledToastNotification(toast.Content, when);
+            scheduled.Group = toast.Group;
+            scheduled.Tag = toast.Tag;
+            scheduled.SuppressPopup = toast.SuppressPopup;
+            notifier.AddToSchedule(scheduled);
         }
 
         public void ClearHistory()

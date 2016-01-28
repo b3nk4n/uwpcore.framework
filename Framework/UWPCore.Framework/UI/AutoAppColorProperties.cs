@@ -15,6 +15,10 @@ namespace UWPCore.Framework.UI
 
         public Color? TitleBarBackground { get; private set; }
 
+        public Color? StatusBarForeground { get; private set; }
+
+        public Color? StatusBarBackground { get; private set; }
+
         public bool IsAutoConfigured
         {
             get { return true; }
@@ -30,11 +34,15 @@ namespace UWPCore.Framework.UI
             {
                 TitleBarForeground = Colors.White;
                 TitleBarBackground = Colors.Black;
+                StatusBarForeground = Colors.White;
+                StatusBarBackground = Colors.Black;
             }
             else
             {
                 TitleBarForeground = Colors.Black;
                 TitleBarBackground = Colors.White;
+                StatusBarForeground = Colors.Black;
+                StatusBarBackground = Colors.White;
             }
         }
     }

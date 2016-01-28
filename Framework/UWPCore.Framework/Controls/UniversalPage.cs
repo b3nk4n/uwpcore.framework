@@ -1,6 +1,7 @@
 ﻿using System;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
+using UWPCore.Framework.Mvvm;
 using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Storage;
 using Windows.UI.Xaml;
@@ -21,6 +22,19 @@ namespace UWPCore.Framework.Controls
         /// The pages theme color.
         /// </summary>
         public static StoredObjectBase<string> PageTheme = new LocalObject<string>("__pageTheme__", ElementTheme.Default.ToString());
+
+        /// <summary>
+        /// Gets the parent page of the navigation tree. This attribute is optional and only
+        /// used in case the app uses sub-pages in the AppShell.
+        /// </summary>
+        public Type ParentPage { get; private set; }
+
+        public UniversalPage() { }
+
+        public UniversalPage(Type parentPage)
+        {
+            ParentPage = parentPage;
+        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -69,6 +83,19 @@ namespace UWPCore.Framework.Controls
             get
             {
                 return IoC.Injector.Instance;
+            }
+        }
+
+        /// <summary>
+        /// Gets called when the page gets resumed.
+        /// </summary>
+        public virtual void OnResume() {
+            if (DataContext != null)
+            {
+                var viewModel = DataContext as ViewModelBase;
+
+                if (viewModel != null)
+                    viewModel.OnResume();
             }
         }
     }

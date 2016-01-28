@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using UWPCore.Demo.Models;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Data;

@@ -59,6 +59,11 @@ namespace UWPCore.Framework.Mvvm
         public virtual void OnNavigatingFrom(NavigatingEventArgs args) { }
 
         /// <summary>
+        /// Gets called when the view model gets resumed.
+        /// </summary>
+        public virtual void OnResume() { }
+
+        /// <summary>
         /// Gets whether we are in design mode.
         /// </summary>
         public bool IsDesignMode

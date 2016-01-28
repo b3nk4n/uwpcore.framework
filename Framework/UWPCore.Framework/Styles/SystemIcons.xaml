@@ -198,7 +198,7 @@
     <x:String x:Key="Filter">&#xE16E;</x:String>
     <x:String x:Key="Fingerprint">&#xE928;</x:String>
     <x:String x:Key="Firewall">&#xE83D;</x:String>
-    <x:String x:Key="Flag">&#xEB4F;</x:String>
+    <x:String x:Key="Flag">&#xE7C1;</x:String>
     <x:String x:Key="FlagOutline">&#xEB50;</x:String>
     <x:String x:Key="Flash">&#xE945;</x:String>
     <x:String x:Key="Flashlight">&#xE754;</x:String>

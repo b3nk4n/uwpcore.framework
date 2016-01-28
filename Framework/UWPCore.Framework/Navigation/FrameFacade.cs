@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UWPCore.Framework.Common;
+using UWPCore.Framework.Controls;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -271,23 +272,39 @@ namespace UWPCore.Framework.Navigation
         /// </summary>
         public void Refresh()
         {
-            if (Frame.CanGoBack)
+            try
             {
-                // back and forth
-                Frame.GoBack();
-                Frame.GoForward();
+                Windows.ApplicationModel.Resources.Core.ResourceContext.GetForCurrentView().Reset();
+                // this only works for apps using serializable types
+                var state = Frame.GetNavigationState();
+                Frame.SetNavigationState(state);
             }
-            else
+            catch (Exception)
             {
-                // navigate to the same one and then back again (workaround)
-                var page = CurrentPageType;
-                var param = CurrentPageParam;
 
-                if (Frame.BackStack.Count > 0)
-                    Frame.BackStack.Remove(Frame.BackStack.Last());
+                if (Frame.CanGoBack)
+                {
+                    // back and forth
+                    Frame.GoBack(); // down-side: fires navigation events twice!
+                    Frame.GoForward();
+                }
+                else
+                {
+                    // navigate to the same one and then back again (workaround)
+                    var page = CurrentPageType;
+                    var param = CurrentPageParam;
 
-                Navigate(page, param);
-                Frame.GoBack();
+                    if (Frame.BackStack.Count > 0)
+                    {
+                        Frame.BackStack.Remove(Frame.BackStack.Last());
+                        Navigate(page, param);
+                    }
+                    else
+                    {
+                        Navigate(page, param); // down-side: fires navigation events twice when we refresh the root page!
+                        Frame.GoBack();
+                    }
+                }
             }
         }
 

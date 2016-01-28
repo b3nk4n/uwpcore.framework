@@ -44,7 +44,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="CompactInline"/>
-                        <Setter Target="RootSplitView.IsPaneOpen" Value="True"/>
+                        <Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="True"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -59,7 +59,7 @@
         </VisualStateManager.VisualStateGroups>
 
         <!-- Top-level navigation menu + app content -->
-        <SplitView x:Name="RootSplitView"
+        <uwpcControls:SwipeableSplitView x:Name="RootSplitView"
                    DisplayMode="Inline"
                    OpenPaneLength="256"
                    IsTabStop="False">
@@ -76,7 +76,9 @@
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
-                                          ItemInvoked="NavMenuList_ItemInvoked">
+                                          ItemInvoked="NavMenuList_ItemInvoked"
+                                          VerticalAlignment="Top"
+                                          ScrollViewer.VerticalScrollMode="Disabled">
                     </controls:NavMenuListView>
 
 
@@ -88,7 +90,8 @@
                                           ContainerContentChanging="NavMenuItemContainerContentChanging"
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
-                                          ItemInvoked="NavMenuList_ItemInvoked">
+                                          ItemInvoked="NavMenuList_ItemInvoked"
+                                          ScrollViewer.VerticalScrollMode="Disabled">
                         </controls:NavMenuListView>
                     </StackPanel>
 
@@ -97,13 +100,13 @@
 
             <!-- Content is added at startup in code... -->
 
-        </SplitView>
+        </uwpcControls:SwipeableSplitView>
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"
                       TabIndex="1"
                       Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                      IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
+                      IsChecked="{Binding IsSwipeablePaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
                       Unchecked="TogglePaneButton_Unchecked"
                       Checked="TogglePaneButton_Checked"
                       AutomationProperties.Name="Menu"

@@ -72,6 +72,12 @@ namespace UWPCore.Framework.Accounts
             return null;
         }
 
+        public async Task<string> GetNonRoamableId()
+        {
+            var user = await GetCurrentUserAsync();
+            return user.NonRoamableId;
+        }
+
         /// <summary>
         /// Gets or loads the current user.
         /// </summary>

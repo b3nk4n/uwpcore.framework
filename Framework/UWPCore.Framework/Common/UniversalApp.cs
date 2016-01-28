@@ -6,11 +6,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using UWPCore.Framework.Controls;
+using UWPCore.Framework.Devices;
 using UWPCore.Framework.Input;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Navigation;
-using UWPCore.Framework.Storage;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -37,6 +37,8 @@ namespace UWPCore.Framework.Common
         public static new UniversalApp Current { get; private set; }
 
         public StateItems SessionState { get; set; } = new StateItems();
+
+        private IStatusBarService _statusBarService;
 
         /// <summary>
         /// Indicates whether the app shell should be populated.
@@ -107,6 +109,13 @@ namespace UWPCore.Framework.Common
             {
                 Logger.WriteLine("RESUMING");
                 OnResuming(e);
+
+                var rootPage = NavigationService.FrameFacade.Content as UniversalPage;
+
+                if (rootPage != null)
+                {
+                    rootPage.OnResume();
+                }
             };
             Suspending += async (s, e) =>
             {
@@ -202,7 +211,7 @@ namespace UWPCore.Framework.Common
         /// </summary>
         public bool ShowShellBackButton { get; set; } = true;
 
-        private KeyboardService _keyboardService;
+        private IKeyboardService _keyboardService;
 
         #endregion
 
@@ -243,7 +252,20 @@ namespace UWPCore.Framework.Common
             if (Window.Current.Content == null)
             {
                 InitRootFrameAndNavigation();
-                //UpdateTitleBar();
+
+                await OnInitializeAsync(e);
+
+                _statusBarService = Injector.Get<IStatusBarService>();
+
+                if (UseAppShell &&
+                e.PreviousExecutionState != ApplicationExecutionState.Running &&
+                e.PreviousExecutionState != ApplicationExecutionState.Suspended)
+                {
+                    Window.Current.Content = new AppShell(
+                        RootFrame,
+                        CreateNavigationMenuItems(),
+                        CreateBottomDockedNavigationMenuItems());
+                }
             }
 
             // onstart is shared with activate and launch
@@ -254,6 +276,8 @@ namespace UWPCore.Framework.Common
             {
                 Window.Current.Content = RootFrame;
             }
+
+            UpdateTheme();
 
             // ensure active (this will hide any custom splashscreen)
             Window.Current.Activate();
@@ -318,7 +342,13 @@ namespace UWPCore.Framework.Common
                 // no date, also fine...
             }
 
-            if (e.PreviousExecutionState != ApplicationExecutionState.Running &&
+            // the user may override to set custom content
+            await OnInitializeAsync(e);
+
+            _statusBarService = Injector.Get<IStatusBarService>();
+
+            if (UseAppShell &&
+                e.PreviousExecutionState != ApplicationExecutionState.Running &&
                 e.PreviousExecutionState != ApplicationExecutionState.Suspended)
             {
                 Window.Current.Content = new AppShell(
@@ -326,9 +356,6 @@ namespace UWPCore.Framework.Common
                     CreateNavigationMenuItems(),
                     CreateBottomDockedNavigationMenuItems());
             }
-
-            // the user may override to set custom content
-            await OnInitializeAsync(e);
 
             switch (e.PreviousExecutionState)
             {
@@ -361,8 +388,7 @@ namespace UWPCore.Framework.Common
                             }
                             else
                             {
-                                // refresh current page to fire all navigation events
-                                NavigationService.Refresh();
+                                UpdateShellBackButton();
                             }
                         }
                         else
@@ -377,6 +403,11 @@ namespace UWPCore.Framework.Common
             if (Window.Current.Content == null || Window.Current.Content == splashScreen)
             {
                 Window.Current.Content = RootFrame;
+            }
+
+            if (UseAppShell)
+            {
+                //(Window.Current.Content as AppShell).SelectCurrentNavigationItem();
             }
 
             // Update the app theme
@@ -441,7 +472,7 @@ namespace UWPCore.Framework.Common
                 };
 
                 // hook up keyboard and mouse Back handler
-                _keyboardService = new KeyboardService();
+                _keyboardService = Injector.Get<IKeyboardService>();
                 _keyboardService.AfterBackGesture = () =>
                 {
                     //the result is no matter
@@ -460,16 +491,12 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
-        /// Initializes the theme color of the title bar.
+        /// Updates the theme color of the title bar (pc only).
         /// </summary>
-        private void UpdateTitleBar()
+        /// <param name="theme">The theme to use.</param>
+        private void UpdateTitleBarTheme(ApplicationTheme theme)
         {
-            IAppColorProperties colorProperties;
-
-            if (UniversalPage.PageTheme.Value == ElementTheme.Light.ToString())
-                colorProperties = ColorPropertiesLight;
-            else
-                colorProperties = ColorPropertiesDark;
+            IAppColorProperties colorProperties = (theme == ApplicationTheme.Light) ? ColorPropertiesLight : ColorPropertiesDark;
 
             if (colorProperties == null)
                 return;
@@ -490,22 +517,59 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
+        /// Updates the theme color of the status bar (phone only).
+        /// </summary>
+        /// <param name="theme">The theme to use.</param>
+        public void UpdateStatusBarTheme(ApplicationTheme theme)
+        {
+            if (_statusBarService.IsSupported)
+            {
+                IAppColorProperties colorProperties = (theme == ApplicationTheme.Light) ? ColorPropertiesLight : ColorPropertiesDark;
+
+                if (colorProperties.StatusBarBackground.HasValue)
+                    _statusBarService.BackgroundColor = colorProperties.StatusBarBackground.Value;
+                if (colorProperties.StatusBarForeground.HasValue)
+                    _statusBarService.ForegroundColor = colorProperties.StatusBarForeground.Value;
+            }
+        }
+
+        /// <summary>
         /// Updates the app theme.
         /// </summary>
         public void UpdateTheme()
         {
-            UniversalPage rootPage;
+            var theme = ApplicationTheme;
 
-            if (UseAppShell)
-                rootPage = Window.Current.Content as UniversalPage;
-            else
-                rootPage = (Window.Current.Content as Frame).Content as UniversalPage;
+            UpdateTitleBarTheme(theme);
+            UpdateStatusBarTheme(theme);
+        }
 
-            if (rootPage != null)
+        public ApplicationTheme ApplicationTheme
+        {
+            get
+            {
+                UniversalPage rootPage;
+
+                if (UseAppShell)
+                    rootPage = Window.Current.Content as UniversalPage;
+                else
+                    rootPage = (Window.Current.Content as Frame).Content as UniversalPage;
+
+
+                if (rootPage == null)
+                    return RequestedTheme;
+
+                // ensure the app theme is updated
                 rootPage.UpdateTheme();
 
-            UpdateTitleBar();
+                if (rootPage.RequestedTheme == ElementTheme.Light ||
+                    rootPage.RequestedTheme == ElementTheme.Default && RequestedTheme == ApplicationTheme.Light)
+                    return ApplicationTheme.Light;
+                else
+                    return ApplicationTheme.Dark;
+            }
         }
+
 
         /// <summary>
         /// Default Hardware/Shell Back handler overrides standard Back behavior 

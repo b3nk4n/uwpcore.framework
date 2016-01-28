@@ -24,7 +24,7 @@ namespace UWPCore.Framework.Data
         TEntity Get(TKey id);
 
         /// <summary>
-        /// Gets all entities.
+        /// Gets all entities, but as a copy to be able to manipulate the list.
         /// </summary>
         /// <returns>Returns all entities.</returns>
         IList<TEntity> GetAll();
@@ -74,7 +74,7 @@ namespace UWPCore.Framework.Data
         /// <summary>
         /// Loads the repository data from disk, but only when the data has not already been loaded.
         /// </summary>
-        /// <returns>Returns True for success, else False.</returns>
+        /// <returns>Returns True for success, else False when data has already been loaded or in case of an error.</returns>
         Task<bool> Load();
 
         /// <summary>

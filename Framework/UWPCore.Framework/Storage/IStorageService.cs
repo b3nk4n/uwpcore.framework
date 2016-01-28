@@ -42,6 +42,8 @@ namespace UWPCore.Framework.Storage
         /// <returns>An async indicator whether the operation was successful.</returns>
         Task<bool> WriteFile(string filePath, Stream data);
 
+        Task<bool> WriteFile(string filePath, IBuffer buffer);
+
         /// <summary>
         /// Writes data to a given file path.
         /// </summary>
@@ -57,6 +59,8 @@ namespace UWPCore.Framework.Storage
         /// <param name="data">The data stream to write.</param>
         /// <returns>An async indicator whether the operation was successful.</returns>
         Task<bool> WriteFile(IStorageFile file, Stream data);
+
+        Task<bool> WriteFile(IStorageFile file, IBuffer buffer);
 
         /// <summary>
         /// Writes data to a given file.

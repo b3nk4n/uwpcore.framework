@@ -31,8 +31,11 @@ namespace UWPCore.Framework.Navigation
         Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending);
 
         /// <summary>
-        /// Hooh method that is called when a page using this view model is navigating from.
+        /// Hook method that is called when a page using this view model is navigating from.
         /// </summary>
+        /// <remarks>
+        /// REMEMBER: This method is not called when we suspend the app using the BACK button.
+        /// </remarks>
         /// <param name="args">The navigating event args.</param>
         void OnNavigatingFrom(NavigatingEventArgs args);
     }

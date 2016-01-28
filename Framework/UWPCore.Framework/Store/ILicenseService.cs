@@ -36,6 +36,12 @@ namespace UWPCore.Framework.Store
         Task<IList<ProductItem>> LoadProductsAsync(IEnumerable<string> supportedProductIds, string localizedPurchasedText = null);
 
         /// <summary>
+        /// Refreshes the simulator. This method has only an effec on debug mode.
+        /// This method should be called in <see cref="Common.UniversalApp.OnInitializeAsync"/>.
+        /// </summary>
+        Task RefeshSimulator();
+
+        /// <summary>
         /// Gets whether the app runs on trial mode or not.
         /// </summary>
         bool IsTrial { get; }

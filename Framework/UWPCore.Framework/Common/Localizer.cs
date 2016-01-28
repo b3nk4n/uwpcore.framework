@@ -1,4 +1,5 @@
 ﻿using System;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Resources;
 
 namespace UWPCore.Framework.Common
@@ -25,10 +26,14 @@ namespace UWPCore.Framework.Common
         /// <param name="assemblyName">The optional assembly name, in case the resource files are located in a different one.</param>
         public Localizer(string assemblyName = null)
         {
-            if (assemblyName == null)
-                _resourceLoader = ResourceLoader.GetForCurrentView();
-            else
-                _resourceLoader = ResourceLoader.GetForViewIndependentUse(assemblyName + "/Resources");
+            // do not init in design mode, which causes error with preview data when used in view model.
+            if (!DesignMode.DesignModeEnabled)
+            {
+                if (assemblyName == null)
+                    _resourceLoader = ResourceLoader.GetForCurrentView();
+                else
+                    _resourceLoader = ResourceLoader.GetForViewIndependentUse(assemblyName + "/Resources");
+            }
         }
 
         /// <summary>

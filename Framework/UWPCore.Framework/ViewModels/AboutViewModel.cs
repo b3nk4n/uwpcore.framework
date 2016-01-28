@@ -119,6 +119,12 @@ namespace UWPCore.Framework.ViewModels
         private bool _hasContributors;
 
         /// <summary>
+        /// Gets or sets the contributors title.
+        /// </summary>
+        public string ContributorsTitle { get { return _contributorsTitle; } set { Set(ref _contributorsTitle, value); } }
+        private string _contributorsTitle;
+
+        /// <summary>
         /// Gets the command to show the privacy info.
         /// </summary>
         public DelegateCommand ShowPrivacyInfoCommand { get { return _showPrivacyInfoCommand ?? (_showPrivacyInfoCommand = new DelegateCommand(ExecuteShowPrivacyInfo)); } }

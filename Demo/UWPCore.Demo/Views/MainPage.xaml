@@ -40,22 +40,13 @@
                         <uwpcControls:WrapPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-                <Button Content="Wraped" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped like Magic" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped so cool!" Margin="4" />
-                <Button Content="Wraped" Margin="4" />
-                <Button Content="Wraped Button" Margin="4" />
-                <Button Content="Wraped awesomely.." Margin="4" />
+                <Button Content="Speech" Margin="4" Click="SpeechClicked" />
+                <Button Content="Accounts" Margin="4" Click="AccountsClicked" />
+                <Button Content="Launcher" Margin="4" Click="LauncherClicked" />
+                <Button Content="Share" Margin="4" Click="ShareClicked" />
+                <Button Content="Device Features" Margin="4" Click="DeviceFeaturesClicked" />
+                <Button Content="Audio" Margin="4" Click="AudioClicked" />
+                <Button Content="Keyboard" Margin="4" Click="KeyboardClicked" />
             </ItemsControl>
             
         </Grid>
