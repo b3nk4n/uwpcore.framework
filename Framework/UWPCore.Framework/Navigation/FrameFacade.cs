@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UWPCore.Framework.Common;
-using UWPCore.Framework.Controls;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

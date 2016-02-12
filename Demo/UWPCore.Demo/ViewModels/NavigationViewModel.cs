@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Mvvm;

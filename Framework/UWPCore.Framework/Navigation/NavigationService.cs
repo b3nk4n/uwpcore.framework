@@ -57,20 +57,25 @@ namespace UWPCore.Framework.Navigation
         /// <param name="frame">The page frame.</param>
         internal NavigationService(Frame frame)
         {
-            FrameFacade = new FrameFacade(frame);
-            FrameFacade.Navigated += (s, e) =>
+            try
             {
-                if (e.PageType == UniversalApp.Current.DefaultPage)
+                FrameFacade = new FrameFacade(frame);
+                FrameFacade.Navigated += (s, e) =>
                 {
-                    ClearHistory();
-                }
+                    if (e.PageType == UniversalApp.Current.DefaultPage)
+                    {
+                        ClearHistory();
+                    }
 
-                // KEEP THIS EVENT REGISTERED: without having this empty event registered, for whatever reason no navigation takes place
-                // Navigation method calls are moved to UniversalPage, to ensure the call order of ViewModel navigation events is aligned
-                // with the one of a Page.
-
-                // TODO: why is it required to register this empty event?
-            };
+                    // KEEP THIS EVENT REGISTERED: without having this empty event registered, for whatever reason no navigation takes place
+                    // Navigation method calls are moved to UniversalPage, to ensure the call order of ViewModel navigation events is aligned
+                    // with the one of a Page.
+                };
+            }
+            catch (Exception e)
+            {
+                // exception in ShareTarget here.
+            }
         }
 
         /// <summary>
@@ -198,12 +203,6 @@ namespace UWPCore.Framework.Navigation
                 return false;
 
             var result = FrameFacade.Navigate(page, parameter);
-
-            if (page == UniversalApp.Current.DefaultPage)
-            {
-                //ClearHistory();
-            }
-
             return result;
         }
 
@@ -259,7 +258,11 @@ namespace UWPCore.Framework.Navigation
                 AfterRestoreSavedNavigation?.Invoke(this, FrameFacade.CurrentPageType);
                 return true;
             }
-            catch { return false; }
+            catch (Exception ex)
+            {
+                Logger.WriteLine(ex, "Could not restore app state");
+                return false;
+            }
         }
 
         /// <summary>
