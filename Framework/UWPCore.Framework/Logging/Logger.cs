@@ -25,11 +25,6 @@ namespace UWPCore.Framework.Logging
         /// </summary> 
         public static int MaxSize { get; set; } = 300;
 
-        /// <summary> 
-        /// enable/disable store logging 
-        /// </summary>
-        private static bool Enabled { get; set; } = true;
-
         /// <summary>
         /// Gets or sets the log data buffer.
         /// </summary>
@@ -79,32 +74,31 @@ namespace UWPCore.Framework.Logging
         /// <param name="line">The line to write.</param>
         public static void WriteLine(string line)
         {
-            if (Enabled)
+#if DEBUG
+            StringBuilder sb = new StringBuilder("[");
+            sb.Append(DateTime.Now.ToString("yyyyMMddhhmss"));
+            sb.Append("-TID:");
+            sb.Append(Environment.CurrentManagedThreadId);
+            sb.Append("] ");
+            sb.Append(line);
+
+            lock (sync)
             {
-                StringBuilder sb = new StringBuilder("[");
-                sb.Append(DateTime.Now.ToString("yyyyMMddhhmss"));
-                sb.Append("-TID:");
-                sb.Append(Environment.CurrentManagedThreadId);
-                sb.Append("] ");
-                sb.Append(line);
-
-                lock (sync)
+                if (Buffer == null)
                 {
-                    if (Buffer == null)
-                    {
-                        Buffer = new List<string>();
-                    }
-
-                    Buffer.Add(sb.ToString());
-
-                    while (Buffer.Count() > MaxSize)
-                    {
-                        Buffer.RemoveAt(0);
-                    }
+                    Buffer = new List<string>();
                 }
 
-                Debug.WriteLine(sb);
+                Buffer.Add(sb.ToString());
+
+                while (Buffer.Count() > MaxSize)
+                {
+                    Buffer.RemoveAt(0);
+                }
             }
+
+            Debug.WriteLine(sb);
+#endif
         }
 
         /// <summary>
