@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UWPCore.Framework.Logging;
 using Windows.ApplicationModel.Background;
 
 namespace UWPCore.Framework.Tasks
@@ -43,7 +44,17 @@ namespace UWPCore.Framework.Tasks
                 }
             }
 
-            return taskBuilder.Register();
+            IBackgroundTaskRegistration result = null;
+            try
+            {
+                result = taskBuilder.Register();
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLine(ex, "Could not register Task: " + taskName);
+            }
+
+            return result;
         }
 
         public IBackgroundTaskRegistration GetRegistration(string taskName)
