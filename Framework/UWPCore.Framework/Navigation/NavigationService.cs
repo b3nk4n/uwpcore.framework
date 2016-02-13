@@ -199,7 +199,7 @@ namespace UWPCore.Framework.Navigation
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
             if (page.FullName.Equals(_lastNavigationType)
-                && parameter == _lastNavigationParameter)
+                && parameter.Equals(_lastNavigationParameter))
                 return false;
 
             var result = FrameFacade.Navigate(page, parameter);
