@@ -61,7 +61,7 @@ namespace UWPCore.Framework.Common
             get
             {
                 var version = Package.Current.Id.Version;
-                return string.Format("{0}.{1}", version.Major, version.Minor);
+                return string.Format("{0}.{1}.{2}", version.Major, version.Minor, version.Build);
             }
         }
     }
