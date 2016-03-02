@@ -17,11 +17,12 @@ namespace UWPCore.Framework.Data
         /// <summary>
         /// Gets or sets the selected string value.
         /// </summary>
-        public SourceComboBoxItem SelectedItem {
+        /// <remarks>Must be of type OBJECT to ensure x:Bind is working without a converter.</remarks>
+        public object SelectedItem {
             get { return _selectedItem; }
             set { Set(ref _selectedItem, value); }
         }
-        private SourceComboBoxItem _selectedItem;
+        private object _selectedItem;
 
         /// <summary>
         /// Gets or sets the selected value for storage.
@@ -31,7 +32,7 @@ namespace UWPCore.Framework.Data
         {
             get
             {
-                return SelectedItem.Key;
+                return (SelectedItem as SourceComboBoxItem).Key;
             }
             set
             {
