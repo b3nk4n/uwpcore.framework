@@ -198,8 +198,8 @@ namespace UWPCore.Framework.Navigation
         {
             if (page == null)
                 throw new ArgumentNullException(nameof(page));
-            if (page.FullName.Equals(_lastNavigationType)
-                && parameter.Equals(_lastNavigationParameter))
+            if (page.FullName.Equals(_lastNavigationType) && 
+                (parameter == null && _lastNavigationParameter == null) || (parameter != null && parameter.Equals(_lastNavigationParameter)))
                 return false;
 
             var result = FrameFacade.Navigate(page, parameter);
