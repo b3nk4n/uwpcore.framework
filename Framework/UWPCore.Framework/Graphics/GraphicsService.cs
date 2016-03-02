@@ -8,7 +8,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UWPCore.Framework.Logging;
 using Windows.Storage;
-using Windows.Foundation;
 
 namespace UWPCore.Framework.Graphics
 {

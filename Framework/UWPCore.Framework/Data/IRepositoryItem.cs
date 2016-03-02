@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UWPCore.Framework.Data
+﻿namespace UWPCore.Framework.Data
 {
     /// <summary>
     /// Interface for model items in the <see cref="IRepository{TEntity, TKey}"/>.
