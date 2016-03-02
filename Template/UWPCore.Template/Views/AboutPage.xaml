@@ -1,0 +1,45 @@
+﻿<uwpcControls:UniversalPage
+    x:Class="UWPCore.Template.Views.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Template.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcViewModels="using:UWPCore.Framework.ViewModels"
+    xmlns:uwpcModels="using:UWPCore.Framework.Models"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uwpcControls:PageHeader>
+            <uwpcControls:PageHeader.HeaderContent>
+                <TextBlock x:Uid="AboutTitle" Text="ABOUT" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcControls:PageHeader.HeaderContent>
+        </uwpcControls:PageHeader>
+
+        <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <uwpcControls:AboutControl Margin="16">
+                    <uwpcControls:AboutControl.DataContext>
+                        <uwpcViewModels:AboutViewModel x:Uid="About"
+                        AppDeveloper="Benjamin Sautermeister"
+                        AppDescription="The description goes here and still needs to be translated."
+                        AppIcon="/Assets/Square150x150Logo.png"
+                        FeedbackToEmail="apps@bsautermeister.de"
+                        PrivacyInfoUri="http://bsautermeister.de/privacy.php" 
+                        ContributorsTitle="Contributors:">
+                            <uwpcViewModels:AboutViewModel.Contributors>
+                                <!--<uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/country.png" />-->
+                            </uwpcViewModels:AboutViewModel.Contributors>
+                        </uwpcViewModels:AboutViewModel>
+                    </uwpcControls:AboutControl.DataContext>
+                </uwpcControls:AboutControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</uwpcControls:UniversalPage>
