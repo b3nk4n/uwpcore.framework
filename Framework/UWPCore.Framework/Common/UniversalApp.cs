@@ -134,6 +134,9 @@ namespace UWPCore.Framework.Common
                 Logger.WriteLine("SUSPENDING");
                 try
                 {
+                    // call system-level suspend
+                    await OnSuspendingAsync(e);
+
                     foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
                     {
                         try
@@ -151,9 +154,6 @@ namespace UWPCore.Framework.Common
                             Logger.WriteLine(ex, "Suspending failed: FrameFacade.SetFrameState(CACHE_DATE_KEY)");
                         }
                     }
-
-                    // call system-level suspend
-                    await OnSuspendingAsync(e);
                 }
                 finally
                 {
