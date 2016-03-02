@@ -121,4 +121,10 @@
     <value />
     <comment>Dummy data that is required that external resources can be used</comment>
   </data>
+  <data name="StringSource.TextA" xml:space="preserve">
+    <value>Test Value A</value>
+  </data>
+  <data name="StringSource.TextB" xml:space="preserve">
+    <value>Test Value B</value>
+  </data>
 </root>

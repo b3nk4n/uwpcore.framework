@@ -1,0 +1,71 @@
+﻿<uwpcControls:UniversalPage
+    x:Class="UWPCore.Demo.Views.SettingsPageWithViewModelAndStringSource"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:uwpcConverters="using:UWPCore.Framework.Converters"
+    xmlns:uwpcData="using:UWPCore.Framework.Data"
+    mc:Ignorable="d">
+
+    <uwpcControls:UniversalPage.Resources>
+        <uwpcConverters:EnumDisplayValueConverter x:Key="EnumDisplayValueConv" />
+    </uwpcControls:UniversalPage.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <uwpcControls:PageHeader>
+            <uwpcControls:PageHeader.HeaderContent>
+                <TextBlock Text="SETTINGS" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+            </uwpcControls:PageHeader.HeaderContent>
+        </uwpcControls:PageHeader>
+
+        <Grid Grid.Row="1" EntranceNavigationTransitionInfo.IsTargetElement="True">
+            <ScrollViewer>
+                <StackPanel>
+                    <ToggleSwitch x:Name="SampleToggleSwitch" Header="Toggle setting" Margin="4"
+                                  IsOn="{Binding SampleBoolean, Mode=TwoWay}" />
+
+                    <ComboBox x:Name="SampleComboBox" Header="ComboBox setting" Margin="4" ItemsSource="{x:Bind ViewModel.ComboBoxEnumSource.ItemsSource}"
+                          SelectedItem="{x:Bind ViewModel.ComboBoxEnumSource.SelectedItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayValueConv}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <ListBox x:Name="SampleListBox" Margin="4" ItemsSource="{x:Bind ViewModel.ListBoxEnumSource.ItemsSource}"
+                          SelectedItem="{x:Bind ViewModel.ListBoxEnumSource.SelectedItem, Mode=TwoWay}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource EnumDisplayValueConv}}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Slider x:Name="SampleSlider" Header="Slider setting" Margin="4" Minimum="0" Maximum="100" StepFrequency="1"
+                            Value="{Binding SampleInteger, Mode=TwoWay}"/>
+
+                    <CheckBox x:Name="SampleCheckBox" Content="CheckBox setting" Margin="4"
+                              IsChecked="{Binding SampleNullableBoolean}"/>
+
+                    <ComboBox Header="Test data" Width="264" Margin="4,4,4,12"
+                              ItemsSource="{x:Bind ViewModel.TestStringSource.ItemsSource}" SelectedItem="{x:Bind ViewModel.TestStringSource.SelectedItem, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="uwpcData:SourceComboBoxItem">
+                                <TextBlock Text="{x:Bind Translation}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</uwpcControls:UniversalPage>
