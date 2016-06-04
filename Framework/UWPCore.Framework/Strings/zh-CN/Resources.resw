@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DUMMY" xml:space="preserve">
-    <value />
-    <comment>Dummy data that is required that external resources can be used</comment>
-  </data>
-  <data name="StringSource.TextA" xml:space="preserve">
-    <value>Test Wert A</value>
-  </data>
-  <data name="StringSource.TextB" xml:space="preserve">
-    <value>Test Wert B</value>
+  <data name="AppShellMenu.ToolTipService.ToolTip" xml:space="preserve">
+    <value>菜单栏</value>
+    <comment>UWPCore AppShell</comment>
   </data>
 </root>
