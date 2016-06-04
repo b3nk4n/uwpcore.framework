@@ -11,6 +11,7 @@
     <x:String x:Key="AccountPlus">&#xE1E2;</x:String>
     <x:String x:Key="AccountStatus">&#xE181;</x:String>
     <x:String x:Key="AccountSwitch">&#xE748;</x:String>
+    <x:String x:Key="ActionCenter">&#xEC42;</x:String>
     <x:String x:Key="Airplane">&#xEB4C;</x:String>
     <x:String x:Key="AirplaneOutline">&#xE709;</x:String>
     <x:String x:Key="Album">&#xE142;</x:String>
