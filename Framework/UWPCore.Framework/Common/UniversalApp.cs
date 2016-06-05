@@ -500,26 +500,45 @@ namespace UWPCore.Framework.Common
                 // register back button
                 SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
                 {
-                    var handled = false;
-                    if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+                    
+                    var handledByAppShell = false;
+                    if (UseAppShell)
                     {
-                        if (NavigationService.CanGoBack)
+                        var appshell = Window.Current.Content as AppShell;
+                        if (appshell != null)
                         {
-                            handled = true;
+                            appshell.BackRequested(ref handledByAppShell);
                         }
-                        else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                    }
+
+                    if (!handledByAppShell)
+                    {
+                        var handled = false;
+
+                        if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
                         {
-                            args.Handled = true;
-                            Current.Exit();
+                            if (NavigationService.CanGoBack)
+                            {
+                                handled = true;
+                            }
+                            else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                            {
+                                args.Handled = true;
+                                Current.Exit();
+                            }
                         }
+                        else
+                        {
+                            handled = !NavigationService.CanGoBack;
+                        }
+
+                        args.Handled = handled;
+                        RaiseBackRequested(ref handled);
                     }
                     else
                     {
-                        handled = !NavigationService.CanGoBack;
+                        args.Handled = true;
                     }
-
-                    args.Handled = handled;
-                    RaiseBackRequested(ref handled);
                 };
 
                 // hook up keyboard and mouse Back handler
@@ -634,6 +653,7 @@ namespace UWPCore.Framework.Common
         private void RaiseBackRequested(ref bool handled)
         {
             var args = new HandledEventArgs();
+
             foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.FrameFacade))
             {
                 frame.RaiseBackRequested(args);

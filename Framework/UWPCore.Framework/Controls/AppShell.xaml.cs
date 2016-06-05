@@ -143,17 +143,16 @@ namespace UWPCore.Framework.Controls
         /// Gest a hold of the current frame so that we can inspect the app back stack.
         /// </summary>
         /// <param name="handled">The handled flag.</param>
-        private void BackRequested(ref bool handled)
+        public void BackRequested(ref bool handled)
         {
             if (AppFrame == null)
                 return;
 
-            // Check to see if this is the top-most page on the app back stack.
-            if (AppFrame.CanGoBack && !handled)
+            if (RootSplitView.IsSwipeablePaneOpen &&
+                RootSplitView.DisplayMode == SplitViewDisplayMode.Overlay || RootSplitView.DisplayMode == SplitViewDisplayMode.CompactOverlay)
             {
-                // If not, set the event to handled and go back to the previous page in the app.
                 handled = true;
-                AppFrame.GoBack();
+                RootSplitView.CloseSwipeablePane();
             }
         }
 

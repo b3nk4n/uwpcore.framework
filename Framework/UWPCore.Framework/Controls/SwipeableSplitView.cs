@@ -367,7 +367,7 @@ namespace UWPCore.Framework.Controls
 
         #region private methods
 
-        void OpenSwipeablePane()
+        public void OpenSwipeablePane()
         {
             if (IsSwipeablePaneOpen)
             {
@@ -380,7 +380,7 @@ namespace UWPCore.Framework.Controls
             }
         }
 
-        async void CloseSwipeablePane()
+        public async void CloseSwipeablePane()
         {
             if (!IsSwipeablePaneOpen)
             {
