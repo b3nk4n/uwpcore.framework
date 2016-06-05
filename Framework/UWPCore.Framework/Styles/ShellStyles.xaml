@@ -165,10 +165,10 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="HCPaneBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
                                             </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
+                                            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding TemplateSettings.NegativeOpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.35" Value="0" />
-                                            </DoubleAnimationUsingKeyFrames>
+                                            </DoubleAnimationUsingKeyFrames>-->
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneClipRectangleTransform">
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding TemplateSettings.OpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.35" Value="0" />
@@ -192,10 +192,10 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="HCPaneBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
                                             </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
+                                            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding TemplateSettings.OpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.35" Value="0" />
-                                            </DoubleAnimationUsingKeyFrames>
+                                            </DoubleAnimationUsingKeyFrames>-->
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneClipRectangleTransform">
                                                 <DiscreteDoubleKeyFrame KeyTime="0:0:0" Value="{Binding TemplateSettings.NegativeOpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.35" Value="0" />
@@ -271,9 +271,9 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="HCPaneBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
                                             </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
+                                            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.12" Value="{Binding TemplateSettings.NegativeOpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                            </DoubleAnimationUsingKeyFrames>
+                                            </DoubleAnimationUsingKeyFrames>-->
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneClipRectangleTransform">
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.12" Value="{Binding TemplateSettings.OpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                             </DoubleAnimationUsingKeyFrames>
@@ -293,9 +293,9 @@
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="HCPaneBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Visible" />
                                             </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
+                                            <!--<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneTransform">
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.12" Value="{Binding TemplateSettings.OpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
-                                            </DoubleAnimationUsingKeyFrames>
+                                            </DoubleAnimationUsingKeyFrames>-->
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="PaneClipRectangleTransform">
                                                 <SplineDoubleKeyFrame KeySpline="0.1,0.9 0.2,1.0" KeyTime="0:0:0.12" Value="{Binding TemplateSettings.NegativeOpenPaneLength, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                             </DoubleAnimationUsingKeyFrames>

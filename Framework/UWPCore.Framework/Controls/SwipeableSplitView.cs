@@ -153,7 +153,10 @@ namespace UWPCore.Framework.Controls
         public bool IsSwipeablePaneOpen
         {
             get { return (bool)GetValue(IsSwipeablePaneOpenProperty); }
-            set { SetValue(IsSwipeablePaneOpenProperty, value); }
+            set
+            {
+                SetValue(IsSwipeablePaneOpenProperty, value);
+            }
         }
 
         public static readonly DependencyProperty IsSwipeablePaneOpenProperty =
@@ -172,7 +175,9 @@ namespace UWPCore.Framework.Controls
                     break;
 
                 case SplitViewDisplayMode.Overlay:
-                    if (splitView.OpenSwipeablePaneAnimation == null || splitView.CloseSwipeablePaneAnimation == null) return;
+                    if (splitView.OpenSwipeablePaneAnimation == null || splitView.CloseSwipeablePaneAnimation == null)
+                        return;
+
                     if ((bool)e.NewValue)
                     {
                         splitView.OpenSwipeablePane();
@@ -366,7 +371,8 @@ namespace UWPCore.Framework.Controls
         {
             if (IsSwipeablePaneOpen)
             {
-                OpenSwipeablePaneAnimation.Begin();
+                if (OpenSwipeablePaneAnimation != null)
+                    OpenSwipeablePaneAnimation.Begin();
             }
             else
             {
@@ -381,7 +387,8 @@ namespace UWPCore.Framework.Controls
                 // workaround: fixes the problem that the close animation is sometimes not played
                 await Task.Delay(10);
 
-                CloseSwipeablePaneAnimation.Begin();
+                if (CloseSwipeablePaneAnimation != null)
+                    CloseSwipeablePaneAnimation.Begin();
             }
             else
             {

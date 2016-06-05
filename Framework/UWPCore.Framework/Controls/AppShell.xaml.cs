@@ -320,7 +320,6 @@ namespace UWPCore.Framework.Controls
             var handler = TogglePaneButtonRectChanged;
             if (handler != null)
             {
-                // handler(this, this.TogglePaneButtonRect);
                 handler.DynamicInvoke(this, TogglePaneButtonRect);
             }
         }
@@ -349,21 +348,6 @@ namespace UWPCore.Framework.Controls
             {
                 args.ItemContainer.ClearValue(AutomationProperties.NameProperty);
             }
-        }
-
-        private void SplitViewManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
-        {
-            if (e.Position.X < 20)
-            {
-
-            }
-
-            Logging.Logger.WriteLine(e.Position.X.ToString());
-        }
-
-        private void ManiDelta(object sender, ManipulationDeltaRoutedEventArgs e)
-        {
-            Logging.Logger.WriteLine(e.Position.X.ToString());
         }
     }
 }
