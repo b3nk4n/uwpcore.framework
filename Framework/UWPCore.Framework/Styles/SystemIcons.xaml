@@ -336,7 +336,7 @@
     <x:String x:Key="PhoneForward">&#xE7F2;</x:String>
     <x:String x:Key="PhoneForwardRtl">&#xEA97;</x:String>
     <x:String x:Key="PhoneHangup">&#xE137;</x:String>
-    <x:String x:Key="Pin">&#xE840;</x:String>
+    <x:String x:Key="Pin">&#xE718;</x:String>
     <x:String x:Key="PinColor">&#xE842;</x:String>
     <x:String x:Key="PinLeft">&#xE141;</x:String>
     <x:String x:Key="PinLeftColor">&#xE841;</x:String>
@@ -421,6 +421,7 @@
     <x:String x:Key="Undo">&#xE10E;</x:String>
     <x:String x:Key="Unlock">&#xE1F7;</x:String>
     <x:String x:Key="Upload">&#xE11C;</x:String>
+    <x:String x:Key="Unpin">&#xE77A;</x:String>
     <x:String x:Key="Uppercase">&#xE84B;</x:String>
     <x:String x:Key="Usb">&#xE88E;</x:String>
     <x:String x:Key="Video">&#xE25D;</x:String>
