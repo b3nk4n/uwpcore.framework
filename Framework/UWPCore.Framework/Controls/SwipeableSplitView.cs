@@ -317,7 +317,6 @@ namespace UWPCore.Framework.Controls
         private void OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
             var x = e.Velocities.Linear.X;
-            Logging.Logger.WriteLine("Velo: {0}  -  Comm-Trans: {1}", x, e.Cumulative.Translation);
 
             // ignore a little bit velocity (+/-0.1) AND mini-swipes
             if (x <= -0.1 ||

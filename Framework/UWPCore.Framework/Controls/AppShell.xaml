@@ -47,7 +47,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="CompactInline"/>
-                        <Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="False"/>
+                        <!--<Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="False"/> Could cause a crash in RELEASE mode -->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -56,7 +56,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="Overlay"/>
-                        <Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="False"/>
+                        <!--<Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="False"/> Could cause a crash in RELEASE mode -->
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>

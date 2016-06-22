@@ -118,7 +118,6 @@
     </AppxManifest>
     <PRIResource Include="Strings\de-DE\Resources.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
-    <None Include="UWPCore.Template_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\IAP\WindowsStoreProxy.xml" />
