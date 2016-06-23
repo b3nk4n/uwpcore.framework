@@ -141,6 +141,7 @@
     <Compile Include="Controls\SwipeableSplitView.cs" />
     <Compile Include="Converters\BooleanToNullableConverter.cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
+    <Compile Include="Data\EnumIndexSource.cs" />
     <Compile Include="Data\StringComboBoxSource.cs" />
     <Compile Include="Input\IKeyboardService.cs" />
     <Compile Include="Mvvm\ICommand.cs" />
