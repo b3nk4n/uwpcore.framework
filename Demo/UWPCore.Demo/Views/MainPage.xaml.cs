@@ -105,5 +105,10 @@ namespace UWPCore.Demo.Views
         {
             NavigationService.Navigate(typeof(SettingsPageWithDefaultComboBoxStyleCopyAndViewModel));
         }
+
+        private void SerializationTestClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SerializationPerformanceTestPage));
+        }
     }
 }
