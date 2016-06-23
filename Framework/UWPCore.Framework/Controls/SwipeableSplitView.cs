@@ -20,6 +20,8 @@ namespace UWPCore.Framework.Controls
     /// <see cref="https://github.com/JustinXinLiu/SwipeableSplitView"/>
     public sealed class SwipeableSplitView : SplitView
     {
+        public const double SWIPE_REGION_LEFT = 16.0;
+
         #region private variables
 
         Grid _paneRoot;
@@ -294,6 +296,11 @@ namespace UWPCore.Framework.Controls
 
         void OnManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
+            if (DisplayMode == SplitViewDisplayMode.Overlay &&
+                !IsSwipeablePaneOpen &&
+                e.Position.X > SWIPE_REGION_LEFT)
+                return;
+
             _panAreaTransform = PanArea.RenderTransform as CompositeTransform;
             _paneRootTransform = PaneRoot.RenderTransform as CompositeTransform;
 
@@ -305,6 +312,9 @@ namespace UWPCore.Framework.Controls
 
         void OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
+            if (_panAreaTransform == null || _paneRootTransform == null)
+                return;
+
             var x = _panAreaTransform.TranslateX + e.Delta.Translation.X;
 
             // keep the pan within the bountry
@@ -316,6 +326,9 @@ namespace UWPCore.Framework.Controls
 
         private void OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
+            if (_panAreaTransform == null || _paneRootTransform == null)
+                return;
+
             var x = e.Velocities.Linear.X;
 
             // ignore a little bit velocity (+/-0.1) AND mini-swipes
@@ -339,6 +352,9 @@ namespace UWPCore.Framework.Controls
             {
                 OpenSwipeablePane();
             }
+
+            _panAreaTransform = null;
+            _paneRootTransform = null;
         }
 
         #endregion
