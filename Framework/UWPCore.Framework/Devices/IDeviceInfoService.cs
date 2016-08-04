@@ -28,7 +28,7 @@
         /// <summary>
         /// Gets the Windows OS vesion number
         /// </summary>
-        string WindowsVersion { get; }
+        Version WindowsVersion { get; }
 
         /// <summary>
         /// Gets whether at least the Anniversary update 10.0.14393.0 is installed.
