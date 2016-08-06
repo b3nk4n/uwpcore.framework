@@ -5,25 +5,17 @@ namespace UWPCore.Framework.Launcher
 {
     /// <summary>
     /// Launcher class for system settings.
+    /// <seealso cref="https://msdn.microsoft.com/en-us/windows/uwp/launch-resume/launch-settings-app"/>
     /// </summary>
     public static class SettingsLauncher
     {
-        /// <summary>
-        /// Launches the privacy acounts settings.
-        /// </summary>
-        /// <returns>Returns true if successful, else false.</returns>
-        public static async Task<bool> LaunchPrivacyAccountsAsync()
-        {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-accounts"));
-        }
-
         /// <summary>
         /// Lauchnes the airplane mode settings.
         /// </summary>
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchAirplaneModeAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-airplanemode:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:network-airplanemode"));
         }
 
         /// <summary>
@@ -32,7 +24,7 @@ namespace UWPCore.Framework.Launcher
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchBluetoothAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-bluetooth:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:bluetooth"));
         }
 
         /// <summary>
@@ -41,7 +33,7 @@ namespace UWPCore.Framework.Launcher
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchCellularAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-cellular:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:network-cellular"));
         }
 
         /// <summary>
@@ -50,7 +42,7 @@ namespace UWPCore.Framework.Launcher
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchEmailAccountsAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-emailandaccounts:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:emailandaccounts"));
         }
 
         /// <summary>
@@ -59,7 +51,7 @@ namespace UWPCore.Framework.Launcher
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchLocationAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-location:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-location"));
         }
 
         /// <summary>
@@ -72,12 +64,39 @@ namespace UWPCore.Framework.Launcher
         }
 
         /// <summary>
+        /// Lauchnes the Notifications & Actions settings.
+        /// </summary>
+        /// <returns>Returns true if successful, else false.</returns>
+        public static async Task<bool> LaunchNotificationsAsync()
+        {
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:screenrotation"));
+        }
+
+        /// <summary>
         /// Lauches the battery saver settings.
         /// </summary>
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchBatterySaverAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-power:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:batterysaver"));
+        }
+
+        /// <summary>
+        /// Launches the privacy acounts settings.
+        /// </summary>
+        /// <returns>Returns true if successful, else false.</returns>
+        public static async Task<bool> LaunchPrivacyAccountsAsync()
+        {
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-accounts"));
+        }
+
+        /// <summary>
+        /// Launches the privacy webcam settings.
+        /// </summary>
+        /// <returns>Returns true if successful, else false.</returns>
+        public static async Task<bool> LaunchPrivacyWebcamAsync()
+        {
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:privacy-webcam"));
         }
 
         /// <summary>
@@ -89,7 +108,7 @@ namespace UWPCore.Framework.Launcher
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchScreenRotationAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-screenrotation:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:screenrotation"));
         }
 
         /// <summary>
@@ -98,7 +117,7 @@ namespace UWPCore.Framework.Launcher
         /// <returns>Returns true if successful, else false.</returns>
         public static async Task<bool> LaunchWifiAsync()
         {
-            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings-wifi:"));
+            return await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:network-wifi"));
         }
     }
 }
