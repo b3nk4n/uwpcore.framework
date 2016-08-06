@@ -11,7 +11,8 @@ namespace UWPCore.Framework.Notifications.Models
         Inline,
         Background,
         Peek,
-        AppLogoOverride // Toast only!
+        AppLogoOverride, // Toast only!
+        Hero
     }
 
     /// <summary>

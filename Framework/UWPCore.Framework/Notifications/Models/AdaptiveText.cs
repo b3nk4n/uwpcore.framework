@@ -47,6 +47,14 @@ namespace UWPCore.Framework.Notifications.Models
     }
 
     /// <summary>
+    /// The placement of the text.
+    /// </summary>
+    public enum TextPlacement
+    {
+        Attribution // Toast only
+    }
+
+    /// <summary>
     /// Class for adaptive text elements.
     /// </summary>
     public class AdaptiveText : IAdaptiveVisualChild, IAdaptiveSubGroupChild
@@ -81,10 +89,19 @@ namespace UWPCore.Framework.Notifications.Models
         /// </summary>
         public TextHintAlign? HintAlign { get; set; }
 
+        /// <summary>
+        /// Gets or sets the optional text placement.
+        /// </summary>
+        public TextPlacement? Placement { get; set; }
+
         public XElement GetXElement()
         {
             var element = new XElement("text", Content);
 
+            if (Placement.HasValue)
+            {
+                element.Add(new XAttribute("placement", Placement.Value.ToString().FirstLetterToLower()));
+            }
             if (HintWrap.HasValue)
             {
                 element.Add(new XAttribute("hint-wrap", HintWrap.Value));
