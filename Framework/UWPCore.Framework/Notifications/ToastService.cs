@@ -42,6 +42,8 @@ namespace UWPCore.Framework.Notifications
 
         public void Show(ToastNotification toast, DateTimeOffset when)
         {
+            // TODO: check if DateTime offset > DateTimeNow
+
             var notifier = ToastNotificationManager.CreateToastNotifier();
             var scheduled = new ScheduledToastNotification(toast.Content, when);
             scheduled.Group = toast.Group;
