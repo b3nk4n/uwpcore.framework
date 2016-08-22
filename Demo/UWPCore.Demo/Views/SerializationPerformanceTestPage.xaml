@@ -1,0 +1,29 @@
+﻿<uwpcControls:UniversalPage
+    x:Class="UWPCore.Demo.Views.SerializationPerformanceTestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Demo.Views"
+    xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0">
+            <StackPanel Margin="16">
+                <TextBlock TextWrapping="Wrap"  Margin="4"
+                    Text="This page tests the serialization performance. This is interesting because .NET Native seems to be very slow in serialization performance, which is always used in Release mode." />
+
+                <Button Content="Serialize DataContract JSON" Click="SerializeDataContractJsonClicked" Margin="4" Width="300" />
+                <Button Content="Deserialize DataContract JSON" Click="DeserializeDataContractJsonClicked" Margin="4" Width="300" />
+
+                
+            </StackPanel>
+        </ScrollViewer>
+        <TextBox Grid.Row="1" x:Name="Output" VerticalAlignment="Bottom" Height="100" Margin="4" />
+    </Grid>
+</uwpcControls:UniversalPage>

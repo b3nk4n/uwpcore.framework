@@ -10,6 +10,8 @@ namespace UWPCore.Framework.Common
     /// <remarks>
     /// Taken from <see cref="http://metronuggets.com/2015/05/18/introducing-mdl2-helpers/"/>.
     /// Cheetsheet available at <seealso cref="http://modernicons.io/segoe-mdl2/cheatsheet/"/>.
+    /// Keep in mind:
+    /// When a FontIcon is set in C# code at runtime, we have to use '\uE123;' instad of '&#xE123'.
     /// </remarks>
     public static class SystemIcons
     {
@@ -49,6 +51,7 @@ namespace UWPCore.Framework.Common
             public static string ArrowUp => "&xE110;";
             public static string ArrowUpVariant => "&xE752;";
             public static string Attach => "&xE16C;";
+            public static string BackToWindows => "&xE73F;";
             public static string Bag => "&xE14D;";
             public static string Battery0 => "&xE850;";
             public static string Battery1 => "&xE851;";
@@ -244,6 +247,7 @@ namespace UWPCore.Framework.Common
             public static string FormatTextLeft => "&xE1A2;";
             public static string FormatTextRight => "&xE1A0;";
             public static string FormatUnderline => "&xE19A;";
+            public static string FullScreen => "&xE740;";
             public static string Gps => "&xE1D2;";
             public static string Grid => "&xE80A;";
             public static string GridPerspective => "&xE809;";

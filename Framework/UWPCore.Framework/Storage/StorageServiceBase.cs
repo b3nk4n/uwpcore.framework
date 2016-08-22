@@ -183,6 +183,10 @@ namespace UWPCore.Framework.Storage
             {
                 return null;
             }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task<string> ReadFile(IStorageFile file)
@@ -213,6 +217,10 @@ namespace UWPCore.Framework.Storage
                 return await folder.GetFileAsync(Path.GetFileName(filePath));
             }
             catch (FileNotFoundException)
+            {
+                return null;
+            }
+            catch (Exception)
             {
                 return null;
             }
@@ -329,6 +337,10 @@ namespace UWPCore.Framework.Storage
             {
                 // NOP
             }
+            catch (Exception)
+            {
+                // NOP
+            }
         }
 
         public async Task<IStorageFolder> GetFolderAsync(string path)
@@ -387,6 +399,10 @@ namespace UWPCore.Framework.Storage
             {
                 // NOP
             }
+            catch (Exception)
+            {
+                // NOP
+            }
         }
 
         public async Task<IStorageFile> GetFileFromApplicationAsync(Uri uri)
@@ -434,6 +450,10 @@ namespace UWPCore.Framework.Storage
                     currentFolder = await currentFolder.GetFolderAsync(dirName);
                 }
                 catch (FileNotFoundException)
+                {
+                    return null;
+                }
+                catch (Exception)
                 {
                     return null;
                 }

@@ -99,6 +99,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Test\serialization.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +164,9 @@
     <Compile Include="Views\OneDrivePage.xaml.cs">
       <DependentUpon>OneDrivePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SerializationPerformanceTestPage.xaml.cs">
+      <DependentUpon>SerializationPerformanceTestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -216,6 +222,7 @@
     <Content Include="Assets\Images\czech.png" />
     <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Images\germany-circle.png" />
+    <Content Include="Assets\Images\israel.png" />
     <Content Include="Assets\Images\italia.png" />
     <Content Include="Assets\Images\korea.png" />
     <Content Include="Assets\Images\LockScreen.png" />
@@ -308,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OneDrivePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SerializationPerformanceTestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

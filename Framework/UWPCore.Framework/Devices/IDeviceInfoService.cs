@@ -24,5 +24,21 @@
         /// Gets the application ID.
         /// </summary>
         string ApplicationId { get; }
+
+        /// <summary>
+        /// Gets the Windows OS vesion number
+        /// </summary>
+        Version WindowsVersion { get; }
+
+        /// <summary>
+        /// Gets whether at least the Anniversary update 10.0.14393.0 is installed.
+        /// </summary>
+        bool IsAnniversaryUpdateInstalled { get; }
+
+        /// <summary>
+        /// Gets whether at least the Anniversary update or one of its
+        /// previews of versoin 10.0.14xxx.0 is installed.
+        /// </summary>
+        bool IsAnniversaryUpdateOrPreviewInstalled { get; }
     }
 }

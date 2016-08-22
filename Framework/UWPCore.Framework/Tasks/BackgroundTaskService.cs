@@ -14,8 +14,8 @@ namespace UWPCore.Framework.Tasks
         {
             BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
 
-            return (status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
-                status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity);
+            return (status == BackgroundAccessStatus.AllowedSubjectToSystemPolicy ||
+                status == BackgroundAccessStatus.AlwaysAllowed);
         }
 
         public IBackgroundTaskRegistration Register(string taskName, Type taskEntryPoint, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)

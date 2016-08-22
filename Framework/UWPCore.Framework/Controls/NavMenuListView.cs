@@ -53,7 +53,8 @@ namespace UWPCore.Framework.Controls
                 {
                     splitViewHost = parent as SwipeableSplitView;
 
-                    splitViewHost.RegisterPropertyChangedCallback(SplitView.IsPaneOpenProperty, (sender, args) =>
+                    
+                    splitViewHost.RegisterPropertyChangedCallback(SwipeableSplitView.IsSwipeablePaneOpenProperty, (sender, args) =>
                     {
                         OnPaneToggled();
                     });

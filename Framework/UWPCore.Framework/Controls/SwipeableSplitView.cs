@@ -20,6 +20,8 @@ namespace UWPCore.Framework.Controls
     /// <see cref="https://github.com/JustinXinLiu/SwipeableSplitView"/>
     public sealed class SwipeableSplitView : SplitView
     {
+        public const double SWIPE_REGION_LEFT = 16.0;
+
         #region private variables
 
         Grid _paneRoot;
@@ -153,7 +155,10 @@ namespace UWPCore.Framework.Controls
         public bool IsSwipeablePaneOpen
         {
             get { return (bool)GetValue(IsSwipeablePaneOpenProperty); }
-            set { SetValue(IsSwipeablePaneOpenProperty, value); }
+            set
+            {
+                SetValue(IsSwipeablePaneOpenProperty, value);
+            }
         }
 
         public static readonly DependencyProperty IsSwipeablePaneOpenProperty =
@@ -172,7 +177,9 @@ namespace UWPCore.Framework.Controls
                     break;
 
                 case SplitViewDisplayMode.Overlay:
-                    if (splitView.OpenSwipeablePaneAnimation == null || splitView.CloseSwipeablePaneAnimation == null) return;
+                    if (splitView.OpenSwipeablePaneAnimation == null || splitView.CloseSwipeablePaneAnimation == null)
+                        return;
+
                     if ((bool)e.NewValue)
                     {
                         splitView.OpenSwipeablePane();
@@ -289,6 +296,11 @@ namespace UWPCore.Framework.Controls
 
         void OnManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
+            if (DisplayMode == SplitViewDisplayMode.Overlay &&
+                !IsSwipeablePaneOpen &&
+                e.Position.X > SWIPE_REGION_LEFT)
+                return;
+
             _panAreaTransform = PanArea.RenderTransform as CompositeTransform;
             _paneRootTransform = PaneRoot.RenderTransform as CompositeTransform;
 
@@ -300,6 +312,9 @@ namespace UWPCore.Framework.Controls
 
         void OnManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
         {
+            if (_panAreaTransform == null || _paneRootTransform == null)
+                return;
+
             var x = _panAreaTransform.TranslateX + e.Delta.Translation.X;
 
             // keep the pan within the bountry
@@ -311,10 +326,14 @@ namespace UWPCore.Framework.Controls
 
         private void OnManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
+            if (_panAreaTransform == null || _paneRootTransform == null)
+                return;
+
             var x = e.Velocities.Linear.X;
 
-            // ignore a little bit velocity (+/-0.1)
-            if (x <= -0.1)
+            // ignore a little bit velocity (+/-0.1) AND mini-swipes
+            if (x <= -0.1 ||
+                Math.Abs(e.Cumulative.Translation.X) < 20)
             {
                 CloseSwipeablePane();
             }
@@ -333,6 +352,9 @@ namespace UWPCore.Framework.Controls
             {
                 OpenSwipeablePane();
             }
+
+            _panAreaTransform = null;
+            _paneRootTransform = null;
         }
 
         #endregion
@@ -362,11 +384,12 @@ namespace UWPCore.Framework.Controls
 
         #region private methods
 
-        void OpenSwipeablePane()
+        public void OpenSwipeablePane()
         {
             if (IsSwipeablePaneOpen)
             {
-                OpenSwipeablePaneAnimation.Begin();
+                if (OpenSwipeablePaneAnimation != null)
+                    OpenSwipeablePaneAnimation.Begin();
             }
             else
             {
@@ -374,14 +397,15 @@ namespace UWPCore.Framework.Controls
             }
         }
 
-        async void CloseSwipeablePane()
+        public async void CloseSwipeablePane()
         {
             if (!IsSwipeablePaneOpen)
             {
                 // workaround: fixes the problem that the close animation is sometimes not played
                 await Task.Delay(10);
 
-                CloseSwipeablePaneAnimation.Begin();
+                if (CloseSwipeablePaneAnimation != null)
+                    CloseSwipeablePaneAnimation.Begin();
             }
             else
             {

@@ -77,6 +77,58 @@ namespace UWPCore.Framework.Devices
             }
         }
 
+        public Version WindowsVersion
+        {
+            get
+            {
+                return Version.GetCurrent();
+            }
+        }
+
+        public bool IsAnniversaryUpdateInstalled
+        {
+            get
+            {
+                var version = Version.GetCurrent();
+                if (version.Major < 10)
+                    return false;
+                if (version.Major > 10)
+                    return true;
+
+                // major 10
+                if (version.Minor > 0)
+                    return true;
+
+                // major 10, minor 0
+                if (version.Build >= 14393)
+                    return true;
+
+                return false;
+            }
+        }
+
+        public bool IsAnniversaryUpdateOrPreviewInstalled
+        {
+            get
+            {
+                var version = Version.GetCurrent();
+                if (version.Major < 10)
+                    return false;
+                if (version.Major > 10)
+                    return true;
+
+                // major 10
+                if (version.Minor > 0)
+                    return true;
+
+                // major 10, minor 0
+                if (version.Build >= 14000)
+                    return true;
+
+                return false;
+            }
+        }
+
         /// <summary>
         /// Gets the hardware identification number.
         /// </summary>

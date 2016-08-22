@@ -26,7 +26,7 @@ namespace UWPCore.Framework.Store
             _localStorageService = localStorageService;
         }
 
-        public bool IsProductActive(string productId)
+        public virtual bool IsProductActive(string productId)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace UWPCore.Framework.Store
             }
         }
 
-        public async Task<bool> RequestProductPurchaseAsync(string productId)
+        public virtual async Task<bool> RequestProductPurchaseAsync(string productId)
         {
             if (IsProductActive(productId))
                 return false;

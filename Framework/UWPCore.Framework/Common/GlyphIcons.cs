@@ -21,6 +21,7 @@ namespace UWPCore.Framework.Common
         AccountPlus = 0xE1E2,
         AccountStatus = 0xE181,
         AccountSwitch = 0xE748,
+        ActionCenter = 0xEC42,
         Airplane = 0xEB4C,
         AirplaneOutline = 0xE709,
         Album = 0xE142,

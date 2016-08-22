@@ -47,6 +47,7 @@
                 <Button Content="Device Features" Margin="4" Click="DeviceFeaturesClicked" />
                 <Button Content="Audio" Margin="4" Click="AudioClicked" />
                 <Button Content="Keyboard" Margin="4" Click="KeyboardClicked" />
+                <Button Content="Serialization Test" Margin="4" Click="SerializationTestClicked" />
             </ItemsControl>
             
             <StackPanel VerticalAlignment="Bottom">
