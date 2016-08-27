@@ -99,9 +99,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Test\serialization.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -227,7 +224,6 @@
     <Content Include="Assets\Images\czech.png" />
     <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Images\germany-circle.png" />
-    <Content Include="Assets\Images\israel.png" />
     <Content Include="Assets\Images\italia.png" />
     <Content Include="Assets\Images\korea.png" />
     <Content Include="Assets\Images\LockScreen.png" />
@@ -324,8 +320,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SerializationPerformanceTestPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
