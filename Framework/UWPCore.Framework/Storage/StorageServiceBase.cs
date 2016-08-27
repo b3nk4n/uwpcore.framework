@@ -36,12 +36,10 @@ namespace UWPCore.Framework.Storage
 
         public async Task<bool> WriteFile(string filePath, string data)
         {
-            var folder = await CreateOrGetFolderAsync(filePath);
-
-            if (folder == null)
+            var storageFile = await CreateOrGetFileAsync(filePath);
+            if (storageFile == null)
                 return false;
 
-            var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
             return await WriteFile(storageFile, data);
         }
 
@@ -53,34 +51,28 @@ namespace UWPCore.Framework.Storage
 
         public async Task<bool> WriteFile(string filePath, Stream data)
         {
-            var folder = await CreateOrGetFolderAsync(filePath);
-
-            if (folder == null)
+            var storageFile = await CreateOrGetFileAsync(filePath);
+            if (storageFile == null)
                 return false;
 
-            var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
             return await WriteFile(storageFile, data);
         }
 
         public async Task<bool> WriteFile(string filePath, IBuffer buffer)
         {
-            var folder = await CreateOrGetFolderAsync(filePath);
-
-            if (folder == null)
+            var storageFile = await CreateOrGetFileAsync(filePath);
+            if (storageFile == null)
                 return false;
 
-            var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
             return await WriteFile(storageFile, buffer);
         }
 
         public async Task<bool> WriteFile(string filePath, IStorageFile from)
         {
-            var folder = await CreateOrGetFolderAsync(filePath);
-
-            if (folder == null)
+            var storageFile = await CreateOrGetFileAsync(filePath);
+            if (storageFile == null)
                 return false;
 
-            var storageFile = await folder.CreateFileAsync(Path.GetFileName(filePath), CreationCollisionOption.OpenIfExists);
             return await WriteFile(storageFile, from);
         }
 
@@ -364,23 +356,15 @@ namespace UWPCore.Framework.Storage
             return null;
         }
 
+        // TODO UnitTest
         public async Task<IStorageFolder> CreateOrGetFolderAsync(string path)
         {
-            if (string.IsNullOrEmpty(Path.GetDirectoryName(path)))
-                return RootFolder;
-
-            path = Path.GetDirectoryName(path);
-
             return await RootFolder.CreateFolderAsync(path, CreationCollisionOption.OpenIfExists);
         }
 
+        // TODO UnitTest
         public async Task<IStorageFolder> CreateOrReplaceFolderAsync(string path)
         {
-            if (string.IsNullOrEmpty(Path.GetDirectoryName(path)))
-                return RootFolder;
-
-            path = Path.GetDirectoryName(path);
-
             return await RootFolder.CreateFolderAsync(path, CreationCollisionOption.ReplaceExisting);
         }
 
