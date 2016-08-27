@@ -70,5 +70,45 @@ namespace UWPCore.Demo.Views
         {
             NavigationService.Navigate(typeof(KeyboardPage));
         }
+
+        private void SettingsWithViewModelClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithViewModel));
+        }
+
+        private void SettingsWithViewModelAndStringSourceClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithViewModelAndStringSource));
+        }
+
+        private void SettingsWithViewModelAndComboBoxStyleClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithComboBoxStyleAndViewModel));
+        }
+
+        private void SettingsWithViewModelAndComboBoxStyle2Clicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithComboBoxStyle2AndViewModel));
+        }
+
+        private void SettingsWithViewModelAndToggleButtonStyleClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithToggleButtonStyleAndViewModel));
+        }
+
+        private void SettingsHitTestViewModelClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithHitTestViewModel));
+        }
+
+        private void SettingsWithViewModelAndComboBoxStyleDefaultCopyClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SettingsPageWithDefaultComboBoxStyleCopyAndViewModel));
+        }
+
+        private void SerializationTestClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            NavigationService.Navigate(typeof(SerializationPerformanceTestPage));
+        }
     }
 }

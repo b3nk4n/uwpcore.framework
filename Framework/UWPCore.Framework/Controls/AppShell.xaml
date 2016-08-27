@@ -6,6 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:uwpcControls="using:UWPCore.Framework.Controls"
+      xmlns:uwpcConverters="using:UWPCore.Framework.Converters"                           
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       KeyDown="AppShell_KeyDown"
       TabNavigation="Cycle"
@@ -18,6 +19,8 @@
     -->
 
     <Page.Resources>
+        <uwpcConverters:BooleanToNullableConverter x:Key="boolToNullableConv" />
+
         <DataTemplate x:Key="NavMenuItemTemplate" x:DataType="controls:NavMenuItem">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -44,7 +47,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="CompactInline"/>
-                        <Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="True"/>
+                        <!--<Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="False"/> Could cause a crash in RELEASE mode -->
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -53,6 +56,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="Overlay"/>
+                        <!--<Setter Target="RootSplitView.IsSwipeablePaneOpen" Value="False"/> Could cause a crash in RELEASE mode -->
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -101,15 +105,21 @@
             <!-- Content is added at startup in code... -->
 
         </uwpcControls:SwipeableSplitView>
+        
+        <!-- DEBUG OUTPUT FOR AppShell/SwipableSplitView -->
+        <!--<StackPanel>
+            <TextBlock Text="{Binding ElementName=RootSplitView, Path=IsSwipeablePaneOpen, Converter={StaticResource boolToNullableConv}}" />
+        </StackPanel>-->
 
         <!-- Declared last to have it rendered above everything else, but it needs to be the first item in the tab sequence. -->
         <ToggleButton x:Name="TogglePaneButton"
+                      x:Uid="AppShellMenu"
                       TabIndex="1"
                       Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                      IsChecked="{Binding IsSwipeablePaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
+                      IsChecked="{x:Bind RootSplitView.IsSwipeablePaneOpen, Mode=TwoWay, Converter={StaticResource boolToNullableConv}}"
                       Unchecked="TogglePaneButton_Unchecked"
                       Checked="TogglePaneButton_Checked"
                       AutomationProperties.Name="Menu"
-                      ToolTipService.ToolTip="Menu" />
+                      ToolTipService.ToolTip="Menu"/>
     </Grid>
 </uwpcControls:UniversalPage>

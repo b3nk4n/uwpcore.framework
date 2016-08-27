@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Mvvm;
@@ -71,7 +72,8 @@ namespace UWPCore.Framework.Controls
         {
             get
             {
-                return UniversalApp.Current.NavigationService;
+                var currentWindow = WindowWrapper.Current(Window.Current);
+                return currentWindow.NavigationServices.FirstOrDefault();
             }
         }
 

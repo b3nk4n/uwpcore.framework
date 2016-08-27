@@ -1,4 +1,7 @@
-﻿using Windows.Foundation;
+﻿using System;
+using UWPCore.Framework.Common;
+using UWPCore.Framework.Logging;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,15 +23,35 @@ namespace UWPCore.Framework.Controls
             {
                 if (AppShell.Current != null)
                 {
-                    AppShell.Current.TogglePaneButtonRectChanged += Current_TogglePaneButtonSizeChanged;
-                    titleBar.Margin = new Thickness(AppShell.Current.TogglePaneButtonRect.Right, 0, 0, 0);
+                    var activeFrame = Window.Current.Content as FrameworkElement;
+                    if (activeFrame != null &&
+                        activeFrame.Tag as string != UniversalApp.FRAME_IN_SHARE_CONTEXT)
+                    {
+                        AppShell.Current.TogglePaneButtonRectChanged += Current_TogglePaneButtonSizeChanged;
+                        titleBar.Margin = new Thickness(AppShell.Current.TogglePaneButtonRect.Right, 0, 0, 0);
+                    }
+                }
+            };
+
+            Unloaded += (s, e) =>
+            {
+                if (AppShell.Current != null)
+                {
+                    AppShell.Current.TogglePaneButtonRectChanged -= Current_TogglePaneButtonSizeChanged;
                 }
             };
         }
 
         private void Current_TogglePaneButtonSizeChanged(AppShell sender, Rect e)
         {
-            titleBar.Margin = new Thickness(e.Right, 0, 0, 0);
+            try
+            {
+                titleBar.Margin = new Thickness(e.Right, 0, 0, 0);
+            }
+            catch(Exception ex)
+            {
+                Logger.WriteLine(ex, "WRONG THRED to access the titleBar in PageHeader.");
+            }
         }
 
         /// <summary>

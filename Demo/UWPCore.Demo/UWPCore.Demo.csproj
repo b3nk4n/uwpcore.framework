@@ -21,6 +21,7 @@
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>8C4928A5C2C91BA70547FA2CA9CB8358993685EB</PackageCertificateThumbprint>
+    <AppxBundle>Never</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -98,6 +99,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Test\serialization.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +118,9 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MvvmViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
+    <Compile Include="ViewModels\SettingsHitTestViewModel.cs" />
+    <Compile Include="ViewModels\SettingsWithStringSourceViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SubItemViewModel.cs" />
     <Compile Include="ViewModels\UserDataViewModel.cs" />
     <Compile Include="Views\AboutPage.xaml.cs">
@@ -159,8 +166,32 @@
     <Compile Include="Views\OneDrivePage.xaml.cs">
       <DependentUpon>OneDrivePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SerializationPerformanceTestPage.xaml.cs">
+      <DependentUpon>SerializationPerformanceTestPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithComboBoxStyle2AndViewModel.xaml.cs">
+      <DependentUpon>SettingsPageWithComboBoxStyle2AndViewModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithDefaultComboBoxStyleCopyAndViewModel.xaml.cs">
+      <DependentUpon>SettingsPageWithDefaultComboBoxStyleCopyAndViewModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithToggleButtonStyleAndViewModel.xaml.cs">
+      <DependentUpon>SettingsPageWithToggleButtonStyleAndViewModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithComboBoxStyleAndViewModel.xaml.cs">
+      <DependentUpon>SettingsPageWithComboBoxStyleAndViewModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithHitTestViewModel.xaml.cs">
+      <DependentUpon>SettingsPageWithHitTestViewModel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithViewModelAndStringSource.xaml.cs">
+      <DependentUpon>SettingsPageWithViewModelAndStringSource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsPageWithViewModel.xaml.cs">
+      <DependentUpon>SettingsPageWithViewModel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SharePage.xaml.cs">
       <DependentUpon>SharePage.xaml</DependentUpon>
@@ -189,12 +220,26 @@
     <Content Include="Assets\Audio\click.wav" />
     <Content Include="Assets\discoTile.xml" />
     <Content Include="Assets\disco-ball.png" />
+    <Content Include="Assets\Images\brasil.png" />
     <Content Include="Assets\Images\bug.png" />
     <Content Include="Assets\Images\chinese.png" />
+    <Content Include="Assets\Images\colombia.png" />
+    <Content Include="Assets\Images\czech.png" />
     <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Images\germany-circle.png" />
+    <Content Include="Assets\Images\israel.png" />
+    <Content Include="Assets\Images\italia.png" />
+    <Content Include="Assets\Images\korea.png" />
     <Content Include="Assets\Images\LockScreen.png" />
     <Content Include="Assets\Images\mexico-circle.png" />
+    <Content Include="Assets\Images\noun_project.png" />
+    <Content Include="Assets\Images\persian.png" />
+    <Content Include="Assets\Images\polen.png" />
+    <Content Include="Assets\Images\quebec_french.png" />
+    <Content Include="Assets\Images\russia.png" />
+    <Content Include="Assets\Images\spain.png" />
+    <Content Include="Assets\Images\sweden.png" />
+    <Content Include="Assets\Images\taiwan.png" />
     <Content Include="Assets\Images\uk-circle.png" />
     <Content Include="Assets\Speech\AdventureWorksCommands.xml" />
     <None Include="Package.StoreAssociation.xml">
@@ -278,7 +323,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SerializationPerformanceTestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsPageWithComboBoxStyle2AndViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPageWithDefaultComboBoxStyleCopyAndViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPageWithToggleButtonStyleAndViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPageWithComboBoxStyleAndViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPageWithHitTestViewModel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPageWithViewModelAndStringSource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SettingsPageWithViewModel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

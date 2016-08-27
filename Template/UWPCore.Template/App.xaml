@@ -1,0 +1,35 @@
+﻿<uwpcCommon:UniversalApp
+    x:Class="UWPCore.Template.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPCore.Template"
+    xmlns:uwpcCommon="using:UWPCore.Framework.Common"
+    xmlns:uwpcConverters="using:UWPCore.Framework.Converters">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/ShellStyles.xaml"/>
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/SystemIcons.xaml" />
+                <ResourceDictionary Source="ms-appx:///UWPCore.Framework/Styles/CommonStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Accent color overrides -->
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="SystemAccentColor">#0063B1</Color>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="SystemAccentColor">#0063B1</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <!-- Converters -->
+            <uwpcConverters:BooleanToVisibilityConverter x:Key="boolToVisConv" />
+            
+            <!-- Styles -->
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</uwpcCommon:UniversalApp>

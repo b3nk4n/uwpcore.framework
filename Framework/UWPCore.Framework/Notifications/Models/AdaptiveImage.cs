@@ -11,7 +11,8 @@ namespace UWPCore.Framework.Notifications.Models
         Inline,
         Background,
         Peek,
-        AppLogoOverride // Toast only!
+        AppLogoOverride, // Toast only!
+        Hero
     }
 
     /// <summary>
@@ -74,6 +75,32 @@ namespace UWPCore.Framework.Notifications.Models
         /// </summary>
         public ImageHintAlign? HintAlign { get; set; }
 
+        private int? _hintOverlay;
+        /// <summary>
+        /// Gets or sets the overlay number in range [0-100]. A value of >99 is displayed as 99+.
+        /// </summary>  
+        /// <remarks>
+        /// In 1511, we allow you to specify an overlay for your peek image, just like your background image.
+        /// Specify hint-overlay on the peek image element as an integer from 0-100.
+        /// The default overlay for peek images is 0 (no overlay).
+        /// </remarks>
+        public int? HintOverlay
+        {
+            get
+            {
+                return _hintOverlay;
+            }
+            set
+            {
+                if (value < 0)
+                    _hintOverlay = 0;
+                else if (value > 100)
+                    _hintOverlay = 100;
+                else
+                    _hintOverlay = value;
+            }
+        }
+
         public XElement GetXElement()
         {
             var element = new XElement("image", new XAttribute("src", Source));
@@ -100,6 +127,10 @@ namespace UWPCore.Framework.Notifications.Models
             if (HintAlign.HasValue)
             {
                 element.Add(new XAttribute("hint-align", HintAlign.Value.ToString().FirstLetterToLower()));
+            }
+            if (HintOverlay.HasValue)
+            {
+                element.Add(new XAttribute("hint-overlay", HintOverlay.Value));
             }
 
             return element;

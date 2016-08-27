@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
-using Windows.Storage.Streams;
 using Windows.Web.Http;
 
 namespace UWPCore.Framework.Networking

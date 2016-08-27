@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -63,7 +64,11 @@ namespace UWPCore.Framework.Data
             {
                 return default(T);
             }
-}
+            catch (Exception)
+            {
+                return default(T);
+            }
+        }
 
         public T DeserializeXML<T>(string data)
         {
@@ -109,6 +114,10 @@ namespace UWPCore.Framework.Data
                 return (T)serializer.ReadObject(stream);
             }
             catch (SerializationException)
+            {
+                return default(T);
+            }
+            catch (Exception)
             {
                 return default(T);
             }

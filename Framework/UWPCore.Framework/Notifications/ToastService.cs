@@ -36,12 +36,22 @@ namespace UWPCore.Framework.Notifications
 
         public void Show(ToastNotification toast)
         {
-            var notifier = ToastNotificationManager.CreateToastNotifier();
-            notifier.Show(toast);
+            try
+            {
+                var notifier = ToastNotificationManager.CreateToastNotifier();
+                notifier.Show(toast);
+            }
+            catch (Exception)
+            {
+                // Paranoia catch, because we got a couple of crashes from this code region:
+                // See: https://social.msdn.microsoft.com/Forums/windowsapps/de-DE/ee869674-84de-432a-a61a-6ed9c2bfd6bd/uwptoastnotifiershow-causes-crashes-stowedexceptionsystemexception?forum=wpdevelop
+            }
         }
 
         public void Show(ToastNotification toast, DateTimeOffset when)
         {
+            // TODO: check if DateTime offset > DateTimeNow
+
             var notifier = ToastNotificationManager.CreateToastNotifier();
             var scheduled = new ScheduledToastNotification(toast.Content, when);
             scheduled.Group = toast.Group;

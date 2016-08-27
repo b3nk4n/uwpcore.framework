@@ -72,43 +72,50 @@ namespace UWPCore.Framework.Graphics
                 {
                     BitmapDecoder decoder = await BitmapDecoder.CreateAsync(sourceStream);
 
-                    var w = decoder.OrientedPixelWidth;
-                    var h = decoder.OrientedPixelHeight;
-                    var wScale = 1.0;
-                    var hScale = 1.0;
-                    if (w > maxWidth)
-                        wScale = (double)maxWidth / w;
-                    if (h > maxHeight)
-                        hScale = (double)maxHeight / h;
-                    var scale = Math.Min(wScale, hScale);
-
-                    BitmapTransform transform = new BitmapTransform()
-                    {
-                        ScaledWidth = (uint)(w * scale),
-                        ScaledHeight = (uint)(h * scale)
-                    };
+                    var inTransformation = GetTransformation(decoder.PixelWidth, decoder.PixelHeight, maxWidth, maxHeight);
+                    var outTransformation = GetTransformation(decoder.OrientedPixelWidth, decoder.OrientedPixelHeight, maxWidth, maxHeight);
 
                     PixelDataProvider pixelData = await decoder.GetPixelDataAsync(
-                        BitmapPixelFormat.Rgba8,
+                        decoder.BitmapPixelFormat,
                         BitmapAlphaMode.Straight,
-                        transform,
+                        inTransformation,
                         ExifOrientationMode.RespectExifOrientation,
                         ColorManagementMode.DoNotColorManage);
 
                     using (var destinationStream = await destinationFile.OpenAsync(FileAccessMode.ReadWrite))
                     {
                         BitmapEncoder encoder = await BitmapEncoder.CreateAsync(GetBitmapEncoder(destinationFile.FileType), destinationStream);
-                        encoder.SetPixelData(BitmapPixelFormat.Rgba8, BitmapAlphaMode.Premultiplied, transform.ScaledWidth, transform.ScaledHeight, dpi, dpi, pixelData.DetachPixelData());
+                        encoder.SetPixelData(decoder.BitmapPixelFormat, BitmapAlphaMode.Premultiplied, outTransformation.ScaledWidth, outTransformation.ScaledHeight, dpi, dpi, pixelData.DetachPixelData());
                         await encoder.FlushAsync();
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.WriteLine("Resizing image failed with error:", e);
                 return false;
             }
 
             return true;
+        }
+
+        private BitmapTransform GetTransformation(uint width, uint height, uint maxWidth, uint maxHeight)
+        {
+            var w = width;
+            var h = height;
+            var wScale = 1.0;
+            var hScale = 1.0;
+            if (w > maxWidth)
+                wScale = (double)maxWidth / w;
+            if (h > maxHeight)
+                hScale = (double)maxHeight / h;
+            var scale = Math.Min(wScale, hScale);
+
+            return new BitmapTransform()
+            {
+                ScaledWidth = (uint)(w * scale),
+                ScaledHeight = (uint)(h * scale)
+            };
         }
 
         /// <summary>

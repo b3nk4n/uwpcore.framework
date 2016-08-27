@@ -47,8 +47,20 @@
                 <Button Content="Device Features" Margin="4" Click="DeviceFeaturesClicked" />
                 <Button Content="Audio" Margin="4" Click="AudioClicked" />
                 <Button Content="Keyboard" Margin="4" Click="KeyboardClicked" />
+                <Button Content="Serialization Test" Margin="4" Click="SerializationTestClicked" />
             </ItemsControl>
             
+            <StackPanel VerticalAlignment="Bottom">
+                <Button Content="Settings" Margin="4" Click="SettingsClicked" />
+                <Button Content="Settings with ViewModel" Margin="4" Click="SettingsWithViewModelClicked" />
+                <Button Content="Settings with ViewModel + StringSource" Margin="4" Click="SettingsWithViewModelAndStringSourceClicked" />
+                <Button Content="Settings with ViewModel + ComboBox style" Margin="4" Click="SettingsWithViewModelAndComboBoxStyleClicked" />
+                <Button Content="Settings with ViewModel + ComboBox style (x:Key)" Margin="4" Click="SettingsWithViewModelAndComboBoxStyle2Clicked" />
+                <Button Content="Settings with ViewModel + ComboBox style (Default copy)" Margin="4" Click="SettingsWithViewModelAndComboBoxStyleDefaultCopyClicked" />
+                <Button Content="Settings with ViewModel + ToggleSwtich style" Margin="4" Click="SettingsWithViewModelAndToggleButtonStyleClicked" />
+                <Button Content="Settings with ViewModel + HitTest" Margin="4" Click="SettingsHitTestViewModelClicked" />
+            </StackPanel>
+
         </Grid>
     </Grid>
 </uwpcControls:UniversalPage>

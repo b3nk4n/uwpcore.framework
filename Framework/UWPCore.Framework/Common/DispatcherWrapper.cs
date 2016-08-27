@@ -80,5 +80,13 @@ namespace UWPCore.Framework.Common
                 return tcs.Task.Result;
             }
         }
+
+        /// <summary>
+        /// Gets the core dispatcher.
+        /// </summary>
+        public CoreDispatcher CoreDispatcher
+        {
+            get { return dispatcher; }
+        }
     }
 }

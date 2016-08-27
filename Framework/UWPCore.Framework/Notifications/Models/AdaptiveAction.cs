@@ -3,6 +3,11 @@ using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Notifications.Models
 {
+    public enum ActionPlacement
+    {
+        ContextMenu // Toast only
+    }
+
     /// <summary>
     /// Class for an adaptive action element.
     /// </summary>
@@ -40,6 +45,11 @@ namespace UWPCore.Framework.Notifications.Models
         /// </summary>
         public string HintInputId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the placement of the action.
+        /// </summary>
+        public ActionPlacement? Placement { get; set; }
+
         public XElement GetXElement()
         {
             var element = new XElement("action", new XAttribute("content", Content), new XAttribute("arguments", Arguments));
@@ -47,6 +57,10 @@ namespace UWPCore.Framework.Notifications.Models
             if (ActivationType.HasValue)
             {
                 element.Add(new XAttribute("activationType", ActivationType.Value.ToString().FirstLetterToLower()));
+            }
+            if (Placement.HasValue)
+            {
+                element.Add(new XAttribute("placement", Placement.Value.ToString().FirstLetterToLower()));
             }
 
             if (!string.IsNullOrEmpty(ImageUri))

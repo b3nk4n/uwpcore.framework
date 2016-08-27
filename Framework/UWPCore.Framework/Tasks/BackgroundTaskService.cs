@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using UWPCore.Framework.Logging;
 using Windows.ApplicationModel.Background;
 
 namespace UWPCore.Framework.Tasks
@@ -13,8 +14,8 @@ namespace UWPCore.Framework.Tasks
         {
             BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
 
-            return (status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
-                status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity);
+            return (status == BackgroundAccessStatus.AllowedSubjectToSystemPolicy ||
+                status == BackgroundAccessStatus.AlwaysAllowed);
         }
 
         public IBackgroundTaskRegistration Register(string taskName, Type taskEntryPoint, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)
@@ -43,7 +44,17 @@ namespace UWPCore.Framework.Tasks
                 }
             }
 
-            return taskBuilder.Register();
+            IBackgroundTaskRegistration result = null;
+            try
+            {
+                result = taskBuilder.Register();
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLine(ex, "Could not register Task: " + taskName);
+            }
+
+            return result;
         }
 
         public IBackgroundTaskRegistration GetRegistration(string taskName)

@@ -84,6 +84,17 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
+        /// Gets or sets the Share Target page type.
+        /// </summary>
+        /// <remarks>Do not forget to set the declaration in the manifest!</remarks>
+        protected Type ShareTargetPage { get; set; }
+
+        /// <summary>
+        /// Indicator tag for a frame which is in Share Target context.
+        /// </summary>
+        public const string FRAME_IN_SHARE_CONTEXT = "shareTarget";
+
+        /// <summary>
         /// Creates a new UniversalApp instance.
         /// </summary>
         /// <param name="defaultPage">The default page to navigate to when the app is started.</param>
@@ -123,15 +134,26 @@ namespace UWPCore.Framework.Common
                 Logger.WriteLine("SUSPENDING");
                 try
                 {
-                    foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
-                    {
-                        // date the cache (which marks the date/time it was suspended)
-                        service.FrameFacade.SetFrameState(CACHE_DATE_KEY, DateTime.Now.ToString());
-                        // call view model suspend (OnNavigatedfrom)
-                        await service.SuspendingAsync();
-                    }
                     // call system-level suspend
                     await OnSuspendingAsync(e);
+
+                    foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
+                    {
+                        try
+                        {
+                            // date the cache (which marks the date/time it was suspended)
+                            service.FrameFacade.SetFrameState(CACHE_DATE_KEY, DateTime.Now.ToString());
+
+                            // call view model suspend (OnNavigatedfrom)
+                            await service.SuspendingAsync();
+                        }
+                        catch (Exception ex)
+                        {
+                            // FrameFacade.SetFrameState() causes en error sometimes:
+                            // State Manager failed to write the setting. (Exception from HRESULT: 0x80073DC0)
+                            Logger.WriteLine(ex, "Suspending failed: FrameFacade.SetFrameState(CACHE_DATE_KEY)");
+                        }
+                    }
                 }
                 finally
                 {
@@ -188,7 +210,6 @@ namespace UWPCore.Framework.Common
         {
             // because it is protected, we can safely assume it will ref the first view
             get { return WindowWrapper.ActiveWrappers.First().NavigationServices.First(); }
-            //get { return new NavigationService(RootFrame); }
         }
 
         /// <summary>
@@ -248,6 +269,39 @@ namespace UWPCore.Framework.Common
         /// <param name="e">The event args.</param>
         private async Task InternalActivatedAsync(IActivatedEventArgs e)
         {
+            if (e.Kind == ActivationKind.ShareTarget)
+            {
+                var shareArgs = e as ShareTargetActivatedEventArgs;
+
+                if (e.PreviousExecutionState == ApplicationExecutionState.Running ||
+                    e.PreviousExecutionState == ApplicationExecutionState.Suspended)
+                {
+                    var frame = new Frame();
+                    frame.Tag = FRAME_IN_SHARE_CONTEXT;
+                    Window.Current.Content = frame;
+
+                    var view = WindowWrapper.Current(Window.Current);
+                    var navigationService = new NavigationService(frame);
+                    view.NavigationServices.Add(navigationService);
+
+                    if (frame.Content == null)
+                        navigationService.Navigate(ShareTargetPage, shareArgs.ShareOperation);
+                }
+                else
+                {
+                    InitRootFrameAndNavigation();
+                    Window.Current.Content = RootFrame;
+
+                    await WindowWrapper.Current(NavigationService).Dispatcher.DispatchAsync(() =>
+                    {
+                        NavigationService.Navigate(ShareTargetPage, shareArgs.ShareOperation);
+                    });
+                }
+
+                Window.Current.Activate();
+                return;
+            }
+
             // sometimes activate requires a frame to be built, such as after a launch using a toast notification
             if (Window.Current.Content == null)
             {
@@ -258,8 +312,9 @@ namespace UWPCore.Framework.Common
                 _statusBarService = Injector.Get<IStatusBarService>();
 
                 if (UseAppShell &&
-                e.PreviousExecutionState != ApplicationExecutionState.Running &&
-                e.PreviousExecutionState != ApplicationExecutionState.Suspended)
+                    e.PreviousExecutionState != ApplicationExecutionState.Running &&
+                    e.PreviousExecutionState != ApplicationExecutionState.Suspended &&
+                    e.Kind != ActivationKind.ShareTarget)
                 {
                     Window.Current.Content = new AppShell(
                         RootFrame,
@@ -296,6 +351,7 @@ namespace UWPCore.Framework.Common
         /// <param name="args">The event args.</param>
         protected override void OnWindowCreated(WindowCreatedEventArgs args)
         {
+            bool test = Window.Current == args.Window;
             var window = new WindowWrapper(args.Window);
             WindowCreated?.Invoke(this, args);
             base.OnWindowCreated(args);
@@ -405,11 +461,6 @@ namespace UWPCore.Framework.Common
                 Window.Current.Content = RootFrame;
             }
 
-            if (UseAppShell)
-            {
-                //(Window.Current.Content as AppShell).SelectCurrentNavigationItem();
-            }
-
             // Update the app theme
             UpdateTheme();
 
@@ -449,26 +500,45 @@ namespace UWPCore.Framework.Common
                 // register back button
                 SystemNavigationManager.GetForCurrentView().BackRequested += (s, args) =>
                 {
-                    var handled = false;
-                    if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+                    
+                    var handledByAppShell = false;
+                    if (UseAppShell)
                     {
-                        if (NavigationService.CanGoBack)
+                        var appshell = Window.Current.Content as AppShell;
+                        if (appshell != null)
                         {
-                            handled = true;
+                            appshell.BackRequested(ref handledByAppShell);
                         }
-                        else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                    }
+
+                    if (!handledByAppShell)
+                    {
+                        var handled = false;
+
+                        if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
                         {
-                            args.Handled = true;
-                            Current.Exit();
+                            if (NavigationService.CanGoBack)
+                            {
+                                handled = true;
+                            }
+                            else if (BackButtonBehaviour == AppBackButtonBehaviour.Terminate)
+                            {
+                                args.Handled = true;
+                                Current.Exit();
+                            }
                         }
+                        else
+                        {
+                            handled = !NavigationService.CanGoBack;
+                        }
+
+                        args.Handled = handled;
+                        RaiseBackRequested(ref handled);
                     }
                     else
                     {
-                        handled = !NavigationService.CanGoBack;
+                        args.Handled = true;
                     }
-
-                    args.Handled = handled;
-                    RaiseBackRequested(ref handled);
                 };
 
                 // hook up keyboard and mouse Back handler
@@ -583,6 +653,7 @@ namespace UWPCore.Framework.Common
         private void RaiseBackRequested(ref bool handled)
         {
             var args = new HandledEventArgs();
+
             foreach (var frame in WindowWrapper.Current().NavigationServices.Select(x => x.FrameFacade))
             {
                 frame.RaiseBackRequested(args);
@@ -662,6 +733,7 @@ namespace UWPCore.Framework.Common
         /// </summary>
         public NavigationService NavigationServiceFactory(BackButton backButton, ExistingContent existingContent)
         {
+            // TODO: What is this factory good for? Never used up to now...
             var frame = new Frame
             {
                 Language = ApplicationLanguages.Languages[0],
