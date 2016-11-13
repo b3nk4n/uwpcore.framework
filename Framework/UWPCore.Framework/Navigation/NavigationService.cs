@@ -72,7 +72,7 @@ namespace UWPCore.Framework.Navigation
                     // with the one of a Page.
                 };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // exception in ShareTarget here.
             }

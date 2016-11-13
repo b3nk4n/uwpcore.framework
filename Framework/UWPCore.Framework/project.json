@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
-    "Microsoft.OneDriveSDK": "1.0.1",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.OneDriveSDK": "2.0.6",
     "Portable.Ninject": "3.3.1"
   },
   "frameworks": {

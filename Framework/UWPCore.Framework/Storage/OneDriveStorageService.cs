@@ -1,5 +1,4 @@
 ﻿using Microsoft.OneDrive.Sdk;
-using Microsoft.OneDrive.Sdk.WinStore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +10,7 @@ namespace UWPCore.Framework.Storage
 
     public class OneDriveStorageService
     {
-        #region Fields
+        /*#region Fields
 
         IOneDriveClient oneDriveClient;
 
@@ -56,8 +55,8 @@ namespace UWPCore.Framework.Storage
         {
             try
             {
-                oneDriveClient = OneDriveClientExtensions.GetUniversalClient(Scopes);
-                await oneDriveClient.AuthenticateAsync();
+                //oneDriveClient = OneDriveClientExtensions.GetUniversalClient(Scopes);
+                //await oneDriveClient.AuthenticateAsync();
             }
             catch
             {
@@ -148,7 +147,7 @@ namespace UWPCore.Framework.Storage
                                            .Request()
                                            .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -172,7 +171,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -195,7 +194,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -219,7 +218,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -242,7 +241,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -284,6 +283,6 @@ namespace UWPCore.Framework.Storage
             return item;
         }
 
-        #endregion
+#endregion*/
     }
 }

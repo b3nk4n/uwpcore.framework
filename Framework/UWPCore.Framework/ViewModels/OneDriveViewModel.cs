@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.ViewModels
 {
-    public class OneDriveViewModel : ViewModelBase, IOneDriveViewModel
+    /*public class OneDriveViewModel : ViewModelBase, IOneDriveViewModel
     {
         #region Fields
 
@@ -499,5 +499,5 @@ namespace UWPCore.Framework.ViewModels
         }
 
         #endregion
-    }
+    }*/
 }
