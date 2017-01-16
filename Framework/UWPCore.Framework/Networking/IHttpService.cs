@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Specialized;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Web.Http;
 
@@ -25,7 +25,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="parameters">The query parameters.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved content or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> GetAsync(Uri path, NameValueCollection parameters, int? timeoutMillis = null);
+        Task<HttpResponseMessage> GetAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null);
 
         /// <summary>
         /// Sends a PUT request.
@@ -46,7 +46,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PutAsync<T>(Uri path, NameValueCollection parameters, T payload, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PutAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null);
 
         /// <summary>
         /// Sends a PUT request.
@@ -78,7 +78,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, NameValueCollection parameters, T payload, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null);
 
         /// <summary>
         /// Sends a DELETE request.
@@ -95,6 +95,6 @@ namespace UWPCore.Framework.Networking
         /// <param name="parameters">The query parameters.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> DeleteAsync(Uri path, NameValueCollection parameters, int? timeoutMillis = null);
+        Task<HttpResponseMessage> DeleteAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null);
     }
 }

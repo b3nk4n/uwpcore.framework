@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Collections.Specialized;
 using System.Threading.Tasks;
 using UWPCore.Framework.Data;
 using Windows.Storage.Streams;
@@ -8,6 +7,7 @@ using Windows.Web.Http;
 using Windows.Web.Http.Headers;
 using Ninject;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace UWPCore.Framework.Networking
 {
@@ -64,7 +64,7 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> GetAsync(Uri path, NameValueCollection parameters, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> GetAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
             return await GetAsync(uri, timeoutMillis);
@@ -101,7 +101,7 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, NameValueCollection parameters, T payload, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
             return await PutAsync(uri, payload, timeoutMillis);
@@ -143,7 +143,7 @@ namespace UWPCore.Framework.Networking
             return await PostAsync(path, content, timeoutMillis);
         }
 
-        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, NameValueCollection parameters, T payload, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
             return await PostJsonAsync(uri, payload, timeoutMillis);
@@ -178,7 +178,7 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> DeleteAsync(Uri path, NameValueCollection parameters, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> DeleteAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
             return await DeleteAsync(uri, timeoutMillis);
@@ -201,11 +201,10 @@ namespace UWPCore.Framework.Networking
         /// </summary>
         /// <param name="parameters">The query parameters.</param>
         /// <returns>The ecoded query string.</returns>
-        private string ToEncodedQueryString(NameValueCollection parameters)
+        private string ToEncodedQueryString(Dictionary<string, object> parameters)
         {
-            var array = (from key in parameters.AllKeys
-                         from value in parameters.GetValues(key)
-                         select string.Format("{0}={1}", Uri.EscapeUriString(key), Uri.EscapeUriString(value)))
+            var array = (from key in parameters.Keys
+                         select string.Format("{0}={1}", Uri.EscapeUriString(key), Uri.EscapeUriString(parameters[key].ToString())))
                 .ToArray();
             return "?" + string.Join("&", array);
         }

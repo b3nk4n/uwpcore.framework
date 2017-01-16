@@ -1,5 +1,4 @@
 ﻿using Microsoft.OneDrive.Sdk;
-using Microsoft.OneDrive.Sdk.WinStore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,11 +31,11 @@ namespace UWPCore.Framework.Storage
             get { return scopes; }
             set { scopes = value; }
         }
-        
+
         public bool IsAuthenticated
         {
             get { return isAuthenticated; }
-            private set { isAuthenticated= value; }
+            private set { isAuthenticated = value; }
         }
 
         #endregion
@@ -56,8 +55,8 @@ namespace UWPCore.Framework.Storage
         {
             try
             {
-                oneDriveClient = OneDriveClientExtensions.GetUniversalClient(Scopes);
-                await oneDriveClient.AuthenticateAsync();
+                //oneDriveClient = OneDriveClientExtensions.GetUniversalClient(Scopes);
+                //await oneDriveClient.AuthenticateAsync();
             }
             catch
             {
@@ -83,7 +82,7 @@ namespace UWPCore.Framework.Storage
             if (!isAuthenticated)
                 throw new Exception("Not authenticated");
 
-            var folderToCreate = new Item { Name = name, Folder = new Folder(), AdditionalData = new Dictionary<string, object> {["@name.conflictBehavior"] = "rename" } };
+            var folderToCreate = new Item { Name = name, Folder = new Folder(), AdditionalData = new Dictionary<string, object> { ["@name.conflictBehavior"] = "rename" } };
 
             Item folder = null;
             try
@@ -148,7 +147,7 @@ namespace UWPCore.Framework.Storage
                                            .Request()
                                            .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -172,7 +171,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -195,7 +194,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -219,7 +218,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -242,7 +241,7 @@ namespace UWPCore.Framework.Storage
                                               .Request()
                                               .GetAsync();
             }
-            catch (OneDriveException)
+            catch (Exception)
             {
                 return null;
             }
@@ -259,7 +258,7 @@ namespace UWPCore.Framework.Storage
                 throw new Exception("Not a file");
 
             var dir = Path.GetDirectoryName(path);
-            if(GetOrCreateFolderAsync(dir) == null)
+            if (GetOrCreateFolderAsync(dir) == null)
                 throw new Exception("No Folder");
 
             Item item = null;
