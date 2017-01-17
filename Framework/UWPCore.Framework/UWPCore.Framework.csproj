@@ -137,6 +137,7 @@
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\AsyncTools.cs" />
     <Compile Include="Common\QueueExtensions.cs" />
+    <Compile Include="Common\TaskExtensions.cs" />
     <Compile Include="Controls\SwipeableSplitView.cs" />
     <Compile Include="Converters\BooleanToNullableConverter.cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />

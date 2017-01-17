@@ -40,7 +40,7 @@ namespace UWPCore.Demo
             ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White, null, null, Colors.Black, null);
 
             _speechService = Injector.Get<ISpeechService>();
-            //await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml"); // hangs in 10586 on  mobile !?
+            _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
         }
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)

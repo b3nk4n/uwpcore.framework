@@ -4,6 +4,7 @@ using UWPCore.Framework.Logging;
 using UWPCore.Framework.Support;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.VoiceCommands;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Demo.Views
@@ -118,6 +119,14 @@ namespace UWPCore.Demo.Views
         private void SerializationTestClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             NavigationService.Navigate(typeof(SerializationPerformanceTestPage));
+        }
+
+        private async void CheckVoiceCommandInstallClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            // takes about 20 seconds!
+            var x = VoiceCommandDefinitionManager.InstalledCommandDefinitions.Count;
+
+            await _dialogService.ShowAsync(x.ToString(), "Installed Voice Command count");
         }
     }
 }
