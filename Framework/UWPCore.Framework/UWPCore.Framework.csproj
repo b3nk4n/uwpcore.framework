@@ -145,6 +145,7 @@
     <Compile Include="Data\StringComboBoxSource.cs" />
     <Compile Include="Devices\Version.cs" />
     <Compile Include="Input\IKeyboardService.cs" />
+    <Compile Include="Models\ThirdPartyModel.cs" />
     <Compile Include="Mvvm\ICommand.cs" />
     <Compile Include="Support\IStartupActionService.cs" />
     <Compile Include="Support\StartupAction.cs" />

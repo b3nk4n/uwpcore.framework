@@ -37,12 +37,18 @@
                         ShareAppText="Share link to this app"
                         FeedbackToEmail="apps@bsautermeister.de"
                         PrivacyInfoUri="http://bsautermeister.de/privacy.php"
-                        ContributorsTitle="Constributors:">
+                        ContributorsTitle="Constributors:"
+                        ThirdPartiesTitle="Third party software:">
                             <uwpcViewModels:AboutViewModel.Contributors>
                                 <uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/uk-circle.png" />
                                 <uwpcModels:ContributorModel Title="Vorname Nachname" Icon="/Assets/Images/germany-circle.png" />
                                 <uwpcModels:ContributorModel Title="Nombre Apellido" Icon="/Assets/Images/mexico-circle.png" />
                             </uwpcViewModels:AboutViewModel.Contributors>
+                            <uwpcViewModels:AboutViewModel.ThirdParties>
+                                <uwpcModels:ThirdPartyModel Title="Ninject for Portable Class Libraries" Author="Oren Novotny"
+                                                            Icon="/Assets/Images/ninject-logo.png" License="Apache 2.0, MS-PL"
+                                                            Link="https://google.de"/>
+                            </uwpcViewModels:AboutViewModel.ThirdParties>
                         </uwpcViewModels:AboutViewModel>
                     </uwpcControls:AboutControl.DataContext>
                 </uwpcControls:AboutControl>

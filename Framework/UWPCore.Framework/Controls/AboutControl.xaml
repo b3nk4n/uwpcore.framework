@@ -56,6 +56,27 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
+
+            <TextBlock Text="{Binding ThirdPartiesTitle}" Style="{StaticResource SubtitleTextBlockStyle}" Visibility="{Binding HasThirdPartiesTitle, Converter={StaticResource BoolToVisibilityConv}}" Margin="8,16,8,8" />
+
+            <ItemsControl ItemsSource="{Binding ThirdParties}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Tapped="ThirdPartyItemTapped" Tag="{Binding Link}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                            <Image Source="{Binding Icon}" Width="32" Height="32" Margin="8" />
+                            <StackPanel Margin="8" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Title}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <FontIcon Glyph="{StaticResource ProtectedDocument}" Style="{StaticResource UWPCoreSublteFontIconStyle}" FontSize="11" />
+                                    <TextBlock Text="{Binding License}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" FontSize="11" Margin="4,0,0,0" />
+                                    <FontIcon Glyph="{StaticResource People}" Style="{StaticResource UWPCoreSublteFontIconStyle}" Margin="8,0,0,0" FontSize="11"/>
+                                    <TextBlock Text="{Binding Author}" Style="{StaticResource UWPCoreSubtleTextBlockStyle}" FontSize="11" Margin="4,0,0,0" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
         
     </Grid>
