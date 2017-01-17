@@ -82,7 +82,7 @@ namespace UWPCore.Demo
             {
                 new NavMenuItem()
                 {
-                    Symbol = GlyphIcons.Home,
+                    Symbol = GlyphIcons.HomeOutline,
                     Label = "Home",
                     DestinationPage = typeof(MainPage)
                 },

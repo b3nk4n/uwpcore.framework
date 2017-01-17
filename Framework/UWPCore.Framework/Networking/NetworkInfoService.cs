@@ -28,30 +28,6 @@ namespace UWPCore.Framework.Networking
             {
                 var connections = NetworkInformation.GetInternetConnectionProfile();
                 return connections != null && connections.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess;
-
-                /*
-                 * In case of en exception:
-                 * http://stackoverflow.com/questions/13625304/check-internet-connection-availability-in-windows-8
-                 *  class ConnectivityUtil
-                    {
-                        internal static bool HasInternetConnection()
-                        {            
-                            var connections = NetworkInformation.GetConnectionProfiles().ToList();
-                            connections.Add(NetworkInformation.GetInternetConnectionProfile());
-
-                            foreach (var connection in connections)
-                            {
-                                if (connection == null)
-                                    continue;
-
-                                if (connection.GetNetworkConnectivityLevel() == NetworkConnectivityLevel.InternetAccess)
-                                    return true;
-                            }
-
-                            return false;
-                        }
-                    }
-                 */
             }
         }
 

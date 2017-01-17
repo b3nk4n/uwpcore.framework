@@ -132,7 +132,6 @@
     <Compile Include="Accounts\OnlineIdService.cs" />
     <Compile Include="Audio\AudioService.cs" />
     <Compile Include="Audio\IAudioService.cs" />
-    <Compile Include="Behaviors\TextBoxEnterKeyBehavior.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
@@ -203,10 +202,8 @@
     <Compile Include="Devices\IDeviceInfoService.cs" />
     <Compile Include="Devices\IDeviceService.cs" />
     <Compile Include="Devices\IDisplayService.cs" />
-    <Compile Include="Devices\ILockScreenService.cs" />
     <Compile Include="Devices\IPersonalizationService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
-    <Compile Include="Devices\LockScreenService.cs" />
     <Compile Include="Devices\PersonalizationService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
     <Compile Include="Graphics\GraphicsService.cs" />

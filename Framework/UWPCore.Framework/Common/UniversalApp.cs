@@ -721,66 +721,6 @@ namespace UWPCore.Framework.Common
 
         #endregion
 
-        public enum BackButton { Attach, Ignore }
-        public enum ExistingContent { Include, Exclude }
-
-        /// <summary>
-        /// Craetes a new FamFrame and adds the resulting NavigationService to the 
-        /// WindowWrapper collection. In addition, it optionally will setup the 
-        /// shell back button to react to the nav of the Frame.
-        /// A developer should call this when creating a new/secondary frame.
-        /// The shell back button should only be setup one time.
-        /// </summary>
-        public NavigationService NavigationServiceFactory(BackButton backButton, ExistingContent existingContent)
-        {
-            // TODO: What is this factory good for? Never used up to now...
-            var frame = new Frame
-            {
-                Language = ApplicationLanguages.Languages[0],
-                Content = (existingContent == ExistingContent.Include) ? Window.Current.Content : null,
-            };
-
-            var navigationService = new NavigationService(frame);
-            WindowWrapper.Current().NavigationServices.Add(navigationService);
-
-            if (backButton == BackButton.Attach)
-            {
-                // TODO: unattach others
-
-                // update shell back when backstack changes
-                // only the default frame in this case because secondary should not dismiss the app
-                frame.RegisterPropertyChangedCallback(Frame.BackStackDepthProperty, (s, args) => UpdateShellBackButton());
-
-                // update shell back when navigation occurs
-                // only the default frame in this case because secondary should not dismiss the app
-                frame.Navigated += (s, args) => UpdateShellBackButton();
-            }
-
-            // this is always okay to check, default or not
-            // expire any state (based on expiry)
-            DateTime cacheDate;
-            // default the cache age to very fresh if not known
-            var otherwise = DateTime.MinValue.ToString();
-            if (DateTime.TryParse(navigationService.FrameFacade.GetFrameState(CACHE_DATE_KEY, otherwise), out cacheDate))
-            {
-                var cacheAge = DateTime.Now.Subtract(cacheDate);
-                if (cacheAge >= CacheMaxDuration)
-                {
-                    // clear state in every nav service in every view
-                    foreach (var service in WindowWrapper.ActiveWrappers.SelectMany(x => x.NavigationServices))
-                    {
-                        service.FrameFacade.ClearFrameState();
-                    }
-                }
-            }
-            else
-            {
-                // no date, that's okay
-            }
-
-            return navigationService;
-        }
-
         public const string DefaultTileID = "App";
 
         public void UpdateShellBackButton()

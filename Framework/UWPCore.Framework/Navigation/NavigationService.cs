@@ -158,37 +158,6 @@ namespace UWPCore.Framework.Navigation
         }
 
         /// <summary>
-        /// Open the page in a new window instaad of navigating to an exisitng frame.
-        /// </summary>
-        /// <param name="page">The page type.</param>
-        /// <param name="parameter">The parameter.</param>
-        /// <param name="title">The window title.</param>
-        /// <param name="size">The prefered windows size.</param>
-        /// <returns>The view ID of the new window.</returns>
-        public async Task OpenAsync(Type page, object parameter = null, string title = null, ViewSizePreference size = ViewSizePreference.UseHalf)
-        {
-            var currentView = ApplicationView.GetForCurrentView();
-            title = title ?? currentView.Title;
-
-            var newView = CoreApplication.CreateNewView();
-            var dispatcher = new DispatcherWrapper(newView.Dispatcher);
-            await dispatcher.DispatchAsync(async () =>
-            {
-                var newWindow = Window.Current;
-                var newAppView = ApplicationView.GetForCurrentView();
-                newAppView.Title = title;
-
-                var frame = UniversalApp.Current.NavigationServiceFactory(UniversalApp.BackButton.Ignore, UniversalApp.ExistingContent.Exclude);
-                frame.Navigate(page, parameter);
-                newWindow.Content = frame.FrameFacade.Frame;
-                newWindow.Activate();
-
-                await ApplicationViewSwitcher
-                    .TryShowAsStandaloneAsync(newAppView.Id, ViewSizePreference.Default, currentView.Id, size);
-            });
-        }
-
-        /// <summary>
         /// Navigates to a page.
         /// </summary>
         /// <param name="page">The page type.</param>
