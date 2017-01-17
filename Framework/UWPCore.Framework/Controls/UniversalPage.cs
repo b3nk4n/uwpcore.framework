@@ -41,6 +41,9 @@ namespace UWPCore.Framework.Controls
         {
             base.OnNavigatedTo(e);
 
+            // update the page theme, because we have to set it each time in case of no AppShell is used.
+            UpdateTheme();
+
             // call navigation service events from here to ensure ViewModel navigation methods are called in right order
             NavigationService.NavigateTo(e.NavigationMode, e.Parameter);
         }
@@ -59,6 +62,7 @@ namespace UWPCore.Framework.Controls
 
         /// <summary>
         /// Updates the theme.
+        /// Basically required for AppShell page only, because this one os not navigatedTo during lifetime of the app.
         /// </summary>
         public void UpdateTheme()
         {
