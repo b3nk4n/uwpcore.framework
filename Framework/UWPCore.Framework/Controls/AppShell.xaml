@@ -74,6 +74,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    <Rectangle Height="48" HorizontalAlignment="Stretch" VerticalAlignment="Top" Fill="{ThemeResource SystemControlBackgroundAccentBrush}" />
                     <controls:NavMenuListView x:Name="NavMenuList" Grid.Row="0"
                                           TabIndex="3"
                                           Margin="0,48,0,0"
