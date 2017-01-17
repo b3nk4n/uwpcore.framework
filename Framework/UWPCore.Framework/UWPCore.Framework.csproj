@@ -152,7 +152,6 @@
     <Compile Include="Common\AppInfo.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
-    <Compile Include="Common\GlyphIcons.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\Localizer.cs" />
     <Compile Include="Common\StateItem.cs" />

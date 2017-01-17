@@ -293,7 +293,7 @@ namespace UWPCore.Framework.Controls
         {
             get
             {
-                return (char)Symbol;
+                return SystemIcons.Chars.FromSymbol(Symbol);
             }
         }
 
