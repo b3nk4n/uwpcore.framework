@@ -1,6 +1,9 @@
-﻿using UWPCore.Framework.Controls;
+﻿using System.Threading.Tasks;
+using UWPCore.Framework.Controls;
+using UWPCore.Framework.Logging;
 using UWPCore.Framework.Support;
 using UWPCore.Framework.UI;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Demo.Views
@@ -29,6 +32,12 @@ namespace UWPCore.Demo.Views
         {
             base.OnNavigatedTo(e);
             _startupActions.OnNavigatedTo(e.NavigationMode);
+        }
+
+        public override Task OnSuspendingAsync(SuspendingEventArgs e)
+        {
+            Logger.WriteLine("Suspending MainPage.");
+            return base.OnSuspendingAsync(e);
         }
 
         private void SpeechClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)

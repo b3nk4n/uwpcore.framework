@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
 using UWPCore.Framework.Mvvm;
 using UWPCore.Framework.Navigation;
 using UWPCore.Framework.Storage;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -37,6 +39,10 @@ namespace UWPCore.Framework.Controls
             ParentPage = parentPage;
         }
 
+        /// <summary>
+        /// Called by the framework when the page is navigated to.
+        /// </summary>
+        /// <param name="e">The navigation event args.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
@@ -48,6 +54,10 @@ namespace UWPCore.Framework.Controls
             NavigationService.NavigateTo(e.NavigationMode, e.Parameter);
         }
 
+        /// <summary>
+        /// Called by the framework when the page is navigated from.
+        /// </summary>
+        /// <param name="e">The navigation event args.</param>
         protected async override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             base.OnNavigatingFrom(e);
@@ -58,6 +68,15 @@ namespace UWPCore.Framework.Controls
             {
                 await NavigationService.NavigateFromAsync(false);
             }
+        }
+
+        /// <summary>
+        /// Called by the framework when the app is suspended while the current page is shown.
+        /// </summary>
+        /// <param name="e">The suspending event args.</param>
+        public virtual Task OnSuspendingAsync(SuspendingEventArgs e)
+        {
+            return Task.FromResult<object>(null);
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace UWPCore.Template
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
-            : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule())
+            : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, false, new DefaultModule())
         {
             // initialize Microsoft Application Insights
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -53,8 +53,8 @@ namespace UWPCore.Template
             Localizer = new Localizer();
 
             // setup theme colors (mainly for title bar)
-            ColorPropertiesDark = new AppColorProperties(AppConstants.COLOR_ACCENT, Colors.White, Colors.Black, Colors.White, Color.FromArgb(255, 31, 31, 31));
-            ColorPropertiesLight = new AppColorProperties(AppConstants.COLOR_ACCENT, Colors.Black, Colors.White, Colors.Black, Color.FromArgb(255, 230, 230, 230));
+            ColorPropertiesDark = new AppColorProperties(AppConstants.COLOR_ACCENT, Colors.White, Colors.Black, Colors.White, Color.FromArgb(255, 31, 31, 31), null, null);
+            ColorPropertiesLight = new AppColorProperties(AppConstants.COLOR_ACCENT, Colors.Black, Colors.White, Colors.Black, Color.FromArgb(255, 230, 230, 230), null, null);
 
 #if DEBUG
             await LicenseService.RefeshSimulator();
