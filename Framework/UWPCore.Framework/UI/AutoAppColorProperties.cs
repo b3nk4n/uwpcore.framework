@@ -19,6 +19,10 @@ namespace UWPCore.Framework.UI
 
         public Color? StatusBarBackground { get; private set; }
 
+        public Color? AppShellHamburgerForeground { get; private set; }
+
+        public Color? AppShellHamburgerBackground { get; private set; }
+
         public bool IsAutoConfigured
         {
             get { return true; }
@@ -36,6 +40,9 @@ namespace UWPCore.Framework.UI
                 TitleBarBackground = Colors.Black;
                 StatusBarForeground = Colors.White;
                 StatusBarBackground = Colors.Black;
+
+                AppShellHamburgerForeground = null;
+                AppShellHamburgerBackground = Colors.Transparent;
             }
             else
             {
@@ -43,6 +50,9 @@ namespace UWPCore.Framework.UI
                 TitleBarBackground = Colors.White;
                 StatusBarForeground = Colors.Black;
                 StatusBarBackground = Colors.White;
+
+                AppShellHamburgerForeground = null;
+                AppShellHamburgerBackground = Colors.Transparent;
             }
         }
     }

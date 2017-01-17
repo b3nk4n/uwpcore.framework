@@ -18,7 +18,11 @@ namespace UWPCore.Demo.Views
 
         private async void LaunchSettingClicked(object sender, RoutedEventArgs e)
         {
-            var settingCommand = (SettingCommandsComboBox.SelectedItem as ComboBoxItem).Content as string;
+            var selectedItem = SettingCommandsComboBox.SelectedItem as ComboBoxItem;
+            if (selectedItem == null)
+                return;
+
+            var settingCommand = selectedItem.Content as string;
 
             switch(settingCommand)
             {

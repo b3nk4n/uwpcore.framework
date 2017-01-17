@@ -607,6 +607,27 @@ namespace UWPCore.Framework.Common
         }
 
         /// <summary>
+        /// Updates the theme color of the app shell hamburger.
+        /// </summary>
+        /// <param name="theme">The theme to use.</param>
+        public void UpdateAppShellHamburgerTheme(ApplicationTheme theme)
+        {
+            IAppColorProperties colorProperties = (theme == ApplicationTheme.Light) ? ColorPropertiesLight : ColorPropertiesDark;
+
+            if (colorProperties == null)
+                return;
+
+            if (UseAppShell)
+            {
+                var appshell = Window.Current.Content as AppShell;
+                if (appshell != null)
+                {
+                    appshell.SetToggleButtonColors(colorProperties.AppShellHamburgerForeground, colorProperties.AppShellHamburgerBackground);
+                }
+            }
+        }
+
+        /// <summary>
         /// Updates the app theme.
         /// </summary>
         public void UpdateTheme()
@@ -615,6 +636,7 @@ namespace UWPCore.Framework.Common
 
             UpdateTitleBarTheme(theme);
             UpdateStatusBarTheme(theme);
+            UpdateAppShellHamburgerTheme(theme);
         }
 
         public ApplicationTheme ApplicationTheme
