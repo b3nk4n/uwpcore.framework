@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace UWPCore.Framework.Storage
@@ -37,6 +38,28 @@ namespace UWPCore.Framework.Storage
         public void Initialize()
         {
             _storageService = new LocalStorageService();
+        }
+
+        [TestMethod]
+        public async Task TestWriteFileWithStreamInputAsync()
+        {
+            var file = await _storageService.CreateOrGetFileAsync(TEST_FILE_TXT);
+            string text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.";
+
+            var ms = new MemoryStream();
+            ms.Write(Encoding.UTF8.GetBytes(text), 0, text.Length);
+            ms.Flush();
+            ms.Seek(0, SeekOrigin.Begin);
+            
+            var result = await _storageService.WriteFile(file, ms);
+
+            
+            var refFile = await _storageService.GetFileAsync(TEST_FILE_TXT);
+            var refStream = await refFile.OpenStreamForReadAsync();
+
+            long expected = text.Length;
+            long actual = refStream.Length;
+            Assert.AreEqual(expected, actual);
         }
 
         [TestMethod]

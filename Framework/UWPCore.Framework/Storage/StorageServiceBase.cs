@@ -76,29 +76,20 @@ namespace UWPCore.Framework.Storage
             return await WriteFile(storageFile, from);
         }
 
-        public async Task<bool> WriteFile(IStorageFile file, Stream data) // TODO: fixme! not working!
+        public async Task<bool> WriteFile(IStorageFile file, Stream data)
         {
-            var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-            using (var outputStream = stream.GetOutputStreamAt(0))
+            using (var fileStream = await file.OpenStreamForWriteAsync())
             {
-                var dataWriter = new DataWriter(outputStream);
-                using (var inputStream = data.AsInputStream())
+                const int BUFFER_SIZE = 1024;
+                byte[] buf = new byte[BUFFER_SIZE];
+
+                int bytesread = 0;
+                while ((bytesread = await data.ReadAsync(buf, 0, BUFFER_SIZE)) > 0)
                 {
-                    var dataReader = new DataReader(inputStream);
-                    IBuffer buffer;
-
-                    // store loaded data in isolated storage
-                    var dataBuffer = new byte[1024];
-                    while ((buffer = dataReader.ReadBuffer(1024)) != null)
-                    {
-                        dataWriter.WriteBuffer(buffer);
-
-                        if (buffer.Length != 1024) // TODO: FIXME: how to detect the end of the stream?
-                            break;
-                    }
+                    await fileStream.WriteAsync(buf, 0, bytesread);
                 }
             }
-
+            
             return true;
         }
 
