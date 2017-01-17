@@ -14,6 +14,7 @@ using UWPCore.Framework.Navigation;
 using UWPCore.Framework.UI;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.Globalization;
 using Windows.UI;
@@ -558,6 +559,10 @@ namespace UWPCore.Framework.Common
             var view = WindowWrapper.ActiveWrappers.First();
             var navigationService = new NavigationService(RootFrame);
             view.NavigationServices.Add(navigationService);
+
+            // requrest minimum size, to be like the MSN apps
+            var applicationView = ApplicationView.GetForCurrentView();
+            applicationView.SetPreferredMinSize(new Size(500, 500));
         }
 
         /// <summary>
