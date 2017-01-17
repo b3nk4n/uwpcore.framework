@@ -20,7 +20,7 @@ namespace UWPCore.Demo
     {
         ISpeechService _speechService;
 
-        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, false, new DefaultModule())
+        public App() : base(typeof(MainPage), AppBackButtonBehaviour.KeepAlive, true, new DefaultModule())
         {
             InitializeComponent();
 

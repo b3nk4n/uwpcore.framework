@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.ObjectModel;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Launcher;
@@ -25,7 +26,7 @@ namespace UWPCore.Framework.ViewModels
         /// </summary>
         public AboutViewModel()
         {
-            _shareContentService = new ShareContentService();
+            _shareContentService = Injector.Get<IShareContentService>();
 
             Contributors.CollectionChanged += (s, e) =>
             {
