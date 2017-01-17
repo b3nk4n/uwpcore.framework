@@ -145,6 +145,10 @@
     <value>Datenschutzerklärung</value>
     <comment>AboutPage</comment>
   </data>
+  <data name="About.ThirdPartiesTitle" xml:space="preserve">
+    <value>Drittanbieter-Software:</value>
+    <comment>AboutPage</comment>
+  </data>
   <data name="AboutTitle.Text" xml:space="preserve">
     <value>INFO</value>
     <comment>AboutPage</comment>

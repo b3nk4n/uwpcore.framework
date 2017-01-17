@@ -37,7 +37,7 @@
             <TextBlock Text="{Binding AppDescription}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" TextWrapping="Wrap" MaxWidth="520" HorizontalAlignment="Left" Margin="8,16" />
 
             <StackPanel Orientation="Horizontal" Margin="0,8">
-                <Button Content="{StaticResource Star}" ToolTipService.ToolTip="{Binding RateAndReviewText}" Command="{Binding RateAndReviewCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8,8,4,8" />
+                <Button Content="{StaticResource StarOutline}" ToolTipService.ToolTip="{Binding RateAndReviewText}" Command="{Binding RateAndReviewCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="8,8,4,8" />
                 <Button Content="{StaticResource Bag}" ToolTipService.ToolTip="{Binding MoreAppsText}" Command="{Binding MoreAppsCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8" />
                 <Button Content="{StaticResource Share}" ToolTipService.ToolTip="{Binding ShareAppText}" Command="{Binding ShareAppCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8" />
                 <Button Content="{StaticResource EmailReply}" ToolTipService.ToolTip="{Binding SendFeedbackEmailText}" Command="{Binding SendFeedbackEmailCommand}" Style="{StaticResource UWPCoreSymbolButtonStyle}" Margin="4,8" />
@@ -57,7 +57,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Text="{Binding ThirdPartiesTitle}" Style="{StaticResource SubtitleTextBlockStyle}" Visibility="{Binding HasThirdPartiesTitle, Converter={StaticResource BoolToVisibilityConv}}" Margin="8,16,8,8" />
+            <TextBlock Text="{Binding ThirdPartiesTitle}" Style="{StaticResource SubtitleTextBlockStyle}" Visibility="{Binding HasThirdParties, Converter={StaticResource BoolToVisibilityConv}}" Margin="8,16,8,8" />
 
             <ItemsControl ItemsSource="{Binding ThirdParties}">
                 <ItemsControl.ItemTemplate>

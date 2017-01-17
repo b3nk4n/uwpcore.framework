@@ -38,7 +38,7 @@
                         FeedbackToEmail="apps@bsautermeister.de"
                         PrivacyInfoUri="http://bsautermeister.de/privacy.php"
                         ContributorsTitle="Constributors:"
-                        ThirdPartiesTitle="Third party software:">
+                        ThirdPartiesTitle="Third-Party Software:">
                             <uwpcViewModels:AboutViewModel.Contributors>
                                 <uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/uk-circle.png" />
                                 <uwpcModels:ContributorModel Title="Vorname Nachname" Icon="/Assets/Images/germany-circle.png" />
@@ -47,7 +47,7 @@
                             <uwpcViewModels:AboutViewModel.ThirdParties>
                                 <uwpcModels:ThirdPartyModel Title="Ninject for Portable Class Libraries" Author="Oren Novotny"
                                                             Icon="/Assets/Images/ninject-logo.png" License="Apache 2.0, MS-PL"
-                                                            Link="https://google.de"/>
+                                                            Link="https://www.nuget.org/packages/Portable.Ninject/"/>
                             </uwpcViewModels:AboutViewModel.ThirdParties>
                         </uwpcViewModels:AboutViewModel>
                     </uwpcControls:AboutControl.DataContext>

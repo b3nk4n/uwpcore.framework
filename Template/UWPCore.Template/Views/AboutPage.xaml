@@ -32,10 +32,16 @@
                         AppIcon="/Assets/Square150x150Logo.png"
                         FeedbackToEmail="apps@bsautermeister.de"
                         PrivacyInfoUri="http://bsautermeister.de/privacy.php" 
-                        ContributorsTitle="Contributors:">
+                        ContributorsTitle="Contributors:"
+                        ThirdPartiesTitle="Third-Party Software:">
                             <uwpcViewModels:AboutViewModel.Contributors>
                                 <!--<uwpcModels:ContributorModel Title="Firstname Lastname" Icon="/Assets/Images/country.png" />-->
                             </uwpcViewModels:AboutViewModel.Contributors>
+                            <uwpcViewModels:AboutViewModel.ThirdParties>
+                                <!--<uwpcModels:ThirdPartyModel Title="Ninject for Portable Class Libraries" Author="Oren Novotny"
+                                                            Icon="/Assets/Images/ninject-logo.png" License="Apache 2.0, MS-PL"
+                                                            Link="https://www.nuget.org/packages/Portable.Ninject/"/>-->
+                            </uwpcViewModels:AboutViewModel.ThirdParties>
                         </uwpcViewModels:AboutViewModel>
                     </uwpcControls:AboutControl.DataContext>
                 </uwpcControls:AboutControl>
