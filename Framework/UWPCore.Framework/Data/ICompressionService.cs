@@ -4,10 +4,6 @@ namespace UWPCore.Framework.Data
 {
     /// <summary>
     /// Interface for compression services.
-    /// 
-    /// HINT: TODO: Evaluate or add as additional function:
-    /// - give storage folder to zip 
-    /// - give storage folder to unzip
     /// </summary>
     public interface ICompressionService
     {

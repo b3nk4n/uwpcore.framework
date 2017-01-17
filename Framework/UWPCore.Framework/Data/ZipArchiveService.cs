@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Threading.Tasks;
 using UWPCore.Framework.Logging;
 using UWPCore.Framework.Storage;
+using Windows.Storage;
 
 namespace UWPCore.Framework.Data
 {
@@ -76,7 +77,7 @@ namespace UWPCore.Framework.Data
                 }
             }
         }
-
+        
         public async Task UncompressAsync(string path, string name = null)
         {
             var zipFile = await _localStorageService.GetFileAsync(path);
@@ -119,7 +120,7 @@ namespace UWPCore.Framework.Data
                 }
             }
         }
-
+        
         /// <summary>
         /// Helper method of Zip(...), to compress files and folders recursive.
         /// </summary>
