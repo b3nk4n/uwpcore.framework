@@ -26,6 +26,11 @@
         <Setter Property="FontWeight" Value="SemiLight"/>
     </Style>
 
+    <Style x:Key="UWPCoreSublteFontIconStyle" TargetType="FontIcon">
+        <Setter Property="FontWeight" Value="SemiLight"/>
+        <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundChromeHighBrush}" />
+    </Style>
+
     <!-- AppBarSeperatorStyle, that allows to use 4 other AppBarButtons with with=62 next to it on a phone -->
     <Style x:Key="ThinAppBarSeparatorStyle" TargetType="AppBarSeparator">
         <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"/>

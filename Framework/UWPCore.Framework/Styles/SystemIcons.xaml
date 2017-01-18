@@ -331,6 +331,7 @@
     <x:String x:Key="PanelRight">&#xE146;</x:String>
     <x:String x:Key="Pen">&#xE929;</x:String>
     <x:String x:Key="Percent">&#xE94C;</x:String>
+    <x:String x:Key="People">&#xE716;</x:String>
     <x:String x:Key="Phone">&#xE13A;</x:String>
     <x:String x:Key="PhoneBook">&#xE1D4;</x:String>
     <x:String x:Key="PhoneForward">&#xE7F2;</x:String>
@@ -346,6 +347,7 @@
     <x:String x:Key="Printer3d">&#xE2F7;</x:String>
     <x:String x:Key="Processor">&#xE950;</x:String>
     <x:String x:Key="Projector">&#xE95D;</x:String>
+    <x:String x:Key="ProtectedDocument">&#xE8A6;</x:String>
     <x:String x:Key="Puzzle">&#xEA86;</x:String>
     <x:String x:Key="Redo">&#xE10D;</x:String>
     <x:String x:Key="Refresh">&#xE117;</x:String>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Mvvm;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject;
+using System;
 using System.Collections.ObjectModel;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Launcher;
@@ -25,12 +26,18 @@ namespace UWPCore.Framework.ViewModels
         /// </summary>
         public AboutViewModel()
         {
-            _shareContentService = new ShareContentService();
+            _shareContentService = Injector.Get<IShareContentService>();
 
             Contributors.CollectionChanged += (s, e) =>
             {
                 // updates the contributors visibility
                 HasContributors = Contributors.Count > 0;
+            };
+
+            ThirdParties.CollectionChanged += (s, e) =>
+            {
+                // updates the 3rd parties visibility
+                HasThirdParties = ThirdParties.Count > 0;
             };
         }
 
@@ -125,6 +132,23 @@ namespace UWPCore.Framework.ViewModels
         private string _contributorsTitle;
 
         /// <summary>
+        /// Gets or sets the 3rd party items.
+        /// </summary>
+        public ThirdPartyModelList ThirdParties { get; private set; } = new ThirdPartyModelList();
+
+        /// <summary>
+        /// Gets whether there are 3rd parties to display.
+        /// </summary>
+        public bool HasThirdParties { get { return _hasThirdParties; } set { Set(ref _hasThirdParties, value); } }
+        private bool _hasThirdParties;
+
+        /// <summary>
+        /// Gets or sets the third party title.
+        /// </summary>
+        public string ThirdPartiesTitle { get { return _thirdPartiesTitle; } set { Set(ref _thirdPartiesTitle, value); } }
+        private string _thirdPartiesTitle;
+
+        /// <summary>
         /// Gets the command to show the privacy info.
         /// </summary>
         public DelegateCommand ShowPrivacyInfoCommand { get { return _showPrivacyInfoCommand ?? (_showPrivacyInfoCommand = new DelegateCommand(ExecuteShowPrivacyInfo)); } }
@@ -184,4 +208,9 @@ namespace UWPCore.Framework.ViewModels
     /// Implemented an own class because XAML can not handle generics.
     /// </summary>
     public sealed class ContributorModelList : ObservableCollection<ContributorModel> { }
+
+    /// <summary>
+    /// Implemented an own class because XAML can not handle generics.
+    /// </summary>
+    public sealed class ThirdPartyModelList : ObservableCollection<ThirdPartyModel> { }
 }

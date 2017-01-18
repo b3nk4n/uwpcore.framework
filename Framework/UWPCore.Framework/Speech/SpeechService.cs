@@ -11,6 +11,7 @@ using Windows.ApplicationModel.VoiceCommands;
 using Windows.Media.SpeechRecognition;
 using Windows.Media.SpeechSynthesis;
 using Windows.Storage;
+using UWPCore.Framework.Common;
 
 namespace UWPCore.Framework.Speech
 {
@@ -88,21 +89,16 @@ namespace UWPCore.Framework.Speech
 
         #region Voice Commands
 
-        public async Task InstallCommandSets(string packageFilePath)
+        public async void InstallCommandSets(string packageFilePath)
         {
-            //if (!_hasInstalledCommands)
+            try
             {
-                try
-                {
-                    var storageFile = await _localStorageService.GetFileFromApplicationAsync(packageFilePath);
-                    await VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile as StorageFile);
-
-                    //_hasInstalledCommands = true;
-                }
-                catch (Exception e)
-                {
-                    Logger.WriteLine(e, "Voice Commands failed to install");
-                }
+                var storageFile = await _localStorageService.GetFileFromApplicationAsync(packageFilePath);
+                var installAsyncAction = VoiceCommandDefinitionManager.InstallCommandDefinitionsFromStorageFileAsync(storageFile as StorageFile);
+            }
+            catch (Exception e)
+            {
+                Logger.WriteLine(e, "Voice Commands failed to install");
             }
         }
 

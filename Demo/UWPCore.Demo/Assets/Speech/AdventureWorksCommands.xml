@@ -15,6 +15,29 @@
       <Item> London </Item>
       <Item> Dallas </Item>
       <Item> New York </Item>
+      <Item> Berlin </Item>
+      <Item> Munich </Item>
+    </PhraseList>
+
+  </CommandSet>
+  
+  <CommandSet xml:lang="de-de" Name="AdventureWorksCommandSet_de-de">
+    <CommandPrefix> Abenteuer Fabrik, </CommandPrefix>
+    <Example> Zeige Trips nach London </Example>
+
+    <Command Name="showTripToDestination">
+      <Example> Zeige Trips nach London  </Example>
+      <ListenFor> Zeige Trips nach {destination} </ListenFor>
+      <Feedback> Ich zeige dir die Trips nach {destination} </Feedback>
+      <Navigate/>
+    </Command>
+
+    <PhraseList Label="destination">
+      <Item> London </Item>
+      <Item> Dallas </Item>
+      <Item> New York </Item>
+      <Item> Berlin </Item>
+      <Item> München </Item>
     </PhraseList>
 
   </CommandSet>

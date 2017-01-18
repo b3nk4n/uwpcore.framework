@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UWPCore.Framework.Common;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Controls
@@ -275,6 +277,25 @@ namespace UWPCore.Framework.Controls
         {
             get;
             private set;
+        }
+
+        /// <summary>
+        /// Sets the (optional) colors of the AppShell Hamburger menu.
+        /// </summary>
+        /// <param name="foreground">The foreground color.</param>
+        /// <param name="background">The background color.</param>
+        public void SetToggleButtonColors(Color? foreground, Color? background)
+        {
+            if (foreground.HasValue)
+                TogglePaneButton.Foreground = new SolidColorBrush(foreground.Value);
+            if (background.HasValue)
+            {
+                HamburgerButtonBackground.Fill = new SolidColorBrush(background.Value);
+            }
+            else
+            {
+                HamburgerButtonBackground.Fill = new SolidColorBrush(Colors.Transparent);
+            }   
         }
 
         /// <summary>

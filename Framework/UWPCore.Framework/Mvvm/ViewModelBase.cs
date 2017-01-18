@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.IoC;
@@ -46,6 +47,12 @@ namespace UWPCore.Framework.Mvvm
         public virtual void OnNavigatedTo(object parameter, NavigationMode mode, IDictionary<string, object> state) { }
 
         /// <summary>
+        /// Hooh method that is called when a page using this view model is navigating from.
+        /// </summary>
+        /// <param name="args">The navigating event args.</param>
+        public virtual void OnNavigatingFrom(NavigatingEventArgs args) { }
+
+        /// <summary>
         /// Hook method that is called when a page using this view model was navigated from.
         /// </summary>
         /// <param name="state">The state.</param>
@@ -53,10 +60,11 @@ namespace UWPCore.Framework.Mvvm
         public virtual Task OnNavigatedFromAsync(IDictionary<string, object> state, bool suspending) { return Task.FromResult<object>(null); }
 
         /// <summary>
-        /// Hooh method that is called when a page using this view model is navigating from.
+        /// Hook method that is called when the page is suspended.
+        /// Remember that <see cref="OnNavigatedFromAsync(IDictionary{string, object}, bool)"/> is not called in this case.
         /// </summary>
-        /// <param name="args">The navigating event args.</param>
-        public virtual void OnNavigatingFrom(NavigatingEventArgs args) { }
+        /// <param name="op">The suspension args.</param>
+        public virtual Task OnSuspendingAsync(SuspendingOperation op) { return Task.FromResult<object>(null); }
 
         /// <summary>
         /// Gets called when the view model gets resumed.

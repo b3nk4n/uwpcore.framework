@@ -48,6 +48,7 @@
                 <Button Content="Audio" Margin="4" Click="AudioClicked" />
                 <Button Content="Keyboard" Margin="4" Click="KeyboardClicked" />
                 <Button Content="Serialization Test" Margin="4" Click="SerializationTestClicked" />
+                <Button Content="Check Voice Command Install" Margin="4" Click="CheckVoiceCommandInstallClicked" />
             </ItemsControl>
             
             <StackPanel VerticalAlignment="Bottom">

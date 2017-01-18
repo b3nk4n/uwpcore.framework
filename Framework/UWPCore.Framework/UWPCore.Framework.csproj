@@ -132,12 +132,12 @@
     <Compile Include="Accounts\OnlineIdService.cs" />
     <Compile Include="Audio\AudioService.cs" />
     <Compile Include="Audio\IAudioService.cs" />
-    <Compile Include="Behaviors\TextBoxEnterKeyBehavior.cs" />
     <Compile Include="Collections\CollectionExtensions.cs" />
     <Compile Include="Collections\ListExtensions.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Common\AsyncTools.cs" />
     <Compile Include="Common\QueueExtensions.cs" />
+    <Compile Include="Common\TaskExtensions.cs" />
     <Compile Include="Controls\SwipeableSplitView.cs" />
     <Compile Include="Converters\BooleanToNullableConverter.cs" />
     <Compile Include="Converters\EmptyStringToVisibilityConverter.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="Data\StringComboBoxSource.cs" />
     <Compile Include="Devices\Version.cs" />
     <Compile Include="Input\IKeyboardService.cs" />
+    <Compile Include="Models\ThirdPartyModel.cs" />
     <Compile Include="Mvvm\ICommand.cs" />
     <Compile Include="Support\IStartupActionService.cs" />
     <Compile Include="Support\StartupAction.cs" />
@@ -155,7 +156,6 @@
     <Compile Include="Common\AppInfo.cs" />
     <Compile Include="Common\DispatcherWrapper.cs" />
     <Compile Include="Common\EnumExtensions.cs" />
-    <Compile Include="Common\GlyphIcons.cs" />
     <Compile Include="Common\HandledEventArgs.cs" />
     <Compile Include="Common\Localizer.cs" />
     <Compile Include="Common\StateItem.cs" />
@@ -205,10 +205,8 @@
     <Compile Include="Devices\IDeviceInfoService.cs" />
     <Compile Include="Devices\IDeviceService.cs" />
     <Compile Include="Devices\IDisplayService.cs" />
-    <Compile Include="Devices\ILockScreenService.cs" />
     <Compile Include="Devices\IPersonalizationService.cs" />
     <Compile Include="Devices\IVibrateService.cs" />
-    <Compile Include="Devices\LockScreenService.cs" />
     <Compile Include="Devices\PersonalizationService.cs" />
     <Compile Include="Devices\VibrateService.cs" />
     <Compile Include="Graphics\GraphicsService.cs" />

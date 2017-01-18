@@ -74,6 +74,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
+                    <Rectangle x:Name="HamburgerButtonBackground" Height="48" HorizontalAlignment="Stretch" VerticalAlignment="Top" Fill="Transparent" />
+
                     <controls:NavMenuListView x:Name="NavMenuList" Grid.Row="0"
                                           TabIndex="3"
                                           Margin="0,48,0,0"
@@ -82,7 +85,8 @@
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
                                           ItemInvoked="NavMenuList_ItemInvoked"
                                           VerticalAlignment="Top"
-                                          ScrollViewer.VerticalScrollMode="Disabled">
+                                          ScrollViewer.VerticalScrollMode="Auto"
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     </controls:NavMenuListView>
 
 
@@ -95,7 +99,8 @@
                                           ItemContainerStyle="{StaticResource NavMenuItemContainerStyle}"
                                           ItemTemplate="{StaticResource NavMenuItemTemplate}"
                                           ItemInvoked="NavMenuList_ItemInvoked"
-                                          ScrollViewer.VerticalScrollMode="Disabled">
+                                          ScrollViewer.VerticalScrollMode="Disabled"
+                                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
                         </controls:NavMenuListView>
                     </StackPanel>
 
@@ -105,7 +110,7 @@
             <!-- Content is added at startup in code... -->
 
         </uwpcControls:SwipeableSplitView>
-        
+
         <!-- DEBUG OUTPUT FOR AppShell/SwipableSplitView -->
         <!--<StackPanel>
             <TextBlock Text="{Binding ElementName=RootSplitView, Path=IsSwipeablePaneOpen, Converter={StaticResource boolToNullableConv}}" />

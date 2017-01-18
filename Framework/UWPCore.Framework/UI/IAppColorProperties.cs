@@ -33,5 +33,17 @@ namespace UWPCore.Framework.UI
         /// Gets the status bar background color.
         /// </summary>
         Color? StatusBarBackground { get; }
+
+        /// <summary>
+        /// Gets the hamburger foreground color.
+        /// Remarks: When either Light or Dark theme define such a style, the other theme should define one as well. 
+        ///          Otherwise theme changing issues will occure.
+        /// </summary>
+        Color? AppShellHamburgerForeground { get; }
+
+        /// <summary>
+        /// Gets the hamburger background color.
+        /// </summary>
+        Color? AppShellHamburgerBackground { get; }
     }
 }

@@ -35,11 +35,12 @@ namespace UWPCore.Demo
             await base.OnInitializeAsync(args);
 
             // set theme colors
-            ColorPropertiesDark = new AppColorProperties(Color.FromArgb(255, 0, 34, 119), Colors.White, Colors.Black, null, null);
-            ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White, null, null);
+            var BLUE_THEME = Color.FromArgb(255, 0, 34, 119);
+            ColorPropertiesDark = new AppColorProperties(BLUE_THEME, Colors.White, Colors.Black, null, null, Colors.White, BLUE_THEME);
+            ColorPropertiesLight = new AppColorProperties(Colors.Red, Colors.Black, Colors.White, null, null, Colors.Black, null);
 
             _speechService = Injector.Get<ISpeechService>();
-            //await _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml"); // hangs in 10586 on  mobile !?
+            _speechService.InstallCommandSets("/Assets/Speech/AdventureWorksCommands.xml");
         }
 
         public override Task OnStartAsync(StartKind startKind, IActivatedEventArgs args)
@@ -82,7 +83,7 @@ namespace UWPCore.Demo
             {
                 new NavMenuItem()
                 {
-                    Symbol = GlyphIcons.Home,
+                    Symbol = GlyphIcons.HomeOutline,
                     Label = "Home",
                     DestinationPage = typeof(MainPage)
                 },

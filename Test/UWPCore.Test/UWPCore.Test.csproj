@@ -154,10 +154,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="MSTestFramework.Universal, Version=15.0">
+    <SDKReference Include="MSTestFramework.Universal, Version=14.0">
       <Name>MSTest for Managed Projects</Name>
     </SDKReference>
-    <SDKReference Include="TestPlatform.Universal, Version=15.0">
+    <SDKReference Include="TestPlatform.Universal, Version=14.0">
       <Name>Microsoft Visual Studio Test Core</Name>
     </SDKReference>
   </ItemGroup>

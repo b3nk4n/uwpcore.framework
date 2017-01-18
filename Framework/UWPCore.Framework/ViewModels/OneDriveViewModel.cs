@@ -342,7 +342,7 @@ namespace UWPCore.Framework.ViewModels
                     }
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 await new MessageDialog("An error occured while uploading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
             }
@@ -424,7 +424,7 @@ namespace UWPCore.Framework.ViewModels
                         await new MessageDialog("An error occured while downloading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     await new MessageDialog("An error occured while downloading a backup. Please try again later.", "OneDrive Backup").ShowAsync();
                 }

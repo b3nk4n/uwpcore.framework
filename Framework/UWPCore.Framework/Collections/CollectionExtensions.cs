@@ -10,7 +10,13 @@ namespace UWPCore.Framework.Collections
     /// </summary>
     public static class CollectionExtensions
     {
-        public static void Sort<T>(this Collection<T> observable, Func<T, object> keySelector)// where T : IComparable<T>, IEquatable<T>
+        /// <summary>
+        /// Adds a sort function to <see cref="Collection{T}"/>.
+        /// </summary>
+        /// <typeparam name="T">The generic type.</typeparam>
+        /// <param name="observable">The collection to sort.</param>
+        /// <param name="keySelector">The key selector.</param>
+        public static void Sort<T>(this Collection<T> observable, Func<T, object> keySelector)
         {
             List<T> sorted = observable.OrderBy(keySelector).ToList();
 

@@ -110,18 +110,6 @@ namespace UWPCore.Framework.Storage
             {
                 return false;
             }
-            
-
-            //var stream = await file.OpenAsync(FileAccessMode.ReadWrite);
-            //using (var outputStream = stream.GetOutputStreamAt(0))
-            //{
-            //    var dataWriter = new DataWriter(outputStream);
-            //    //var dataReader = new DataReader(data);
-            //    IBuffer buffer = await FileIO.ReadBufferAsync(from);
-            //    dataWriter.WriteBuffer(buffer);
-            //}
-
-            
         }
 
         public async Task<bool> WriteFile(string filePath, WriteableBitmap image)
