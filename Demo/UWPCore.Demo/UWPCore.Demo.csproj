@@ -217,13 +217,16 @@
     <Content Include="Assets\Audio\click.wav" />
     <Content Include="Assets\discoTile.xml" />
     <Content Include="Assets\disco-ball.png" />
+    <Content Include="Assets\Images\arabic.png" />
     <Content Include="Assets\Images\brasil.png" />
     <Content Include="Assets\Images\bug.png" />
     <Content Include="Assets\Images\chinese.png" />
     <Content Include="Assets\Images\colombia.png" />
     <Content Include="Assets\Images\czech.png" />
+    <Content Include="Assets\Images\dutch.png" />
     <Content Include="Assets\Images\flash.png" />
     <Content Include="Assets\Images\germany-circle.png" />
+    <Content Include="Assets\Images\hungary.png" />
     <Content Include="Assets\Images\italia.png" />
     <Content Include="Assets\Images\korea.png" />
     <Content Include="Assets\Images\LockScreen.png" />
@@ -237,6 +240,7 @@
     <Content Include="Assets\Images\spain.png" />
     <Content Include="Assets\Images\sweden.png" />
     <Content Include="Assets\Images\taiwan.png" />
+    <Content Include="Assets\Images\taiwan2.png" />
     <Content Include="Assets\Images\uk-circle.png" />
     <Content Include="Assets\Speech\AdventureWorksCommands.xml" />
     <None Include="Package.StoreAssociation.xml">
