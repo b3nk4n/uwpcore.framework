@@ -33,6 +33,12 @@ namespace UWPCore.Framework.ViewModels
                 // updates the contributors visibility
                 HasContributors = Contributors.Count > 0;
             };
+
+            ThirdParties.CollectionChanged += (s, e) =>
+            {
+                // updates the 3rd parties visibility
+                HasThirdParties = ThirdParties.Count > 0;
+            };
         }
 
         /// <summary>
