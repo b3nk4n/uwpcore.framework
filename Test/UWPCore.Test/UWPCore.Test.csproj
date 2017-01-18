@@ -100,6 +100,7 @@
     <Compile Include="Data\CacheServiceTest.cs" />
     <Compile Include="Data\CustomCacheService.cs" />
     <Compile Include="Data\DataContractSerializationServiceTest.cs" />
+    <Compile Include="Data\ZipArchiveTest.cs" />
     <Compile Include="Graphics\Controls\SampleControl300.xaml.cs">
       <DependentUpon>SampleControl300.xaml</DependentUpon>
     </Compile>
