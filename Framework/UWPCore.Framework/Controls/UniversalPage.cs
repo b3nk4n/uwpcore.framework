@@ -73,10 +73,10 @@ namespace UWPCore.Framework.Controls
         /// <summary>
         /// Called by the framework when the app is suspended while the current page is shown.
         /// </summary>
-        /// <param name="e">The suspending event args.</param>
-        public virtual Task OnSuspendingAsync(SuspendingEventArgs e)
+        /// <param name="e">The suspending args.</param>
+        public virtual async Task OnSuspendingAsync(SuspendingOperation op)
         {
-            return Task.FromResult<object>(null);
+            await NavigationService.OnSuspendingAsync(op);
         }
 
         /// <summary>

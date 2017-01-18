@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UWPCore.Framework.Mvvm;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Navigation;
 
 namespace UWPCore.Framework.Navigation
@@ -38,5 +39,12 @@ namespace UWPCore.Framework.Navigation
         /// </remarks>
         /// <param name="args">The navigating event args.</param>
         void OnNavigatingFrom(NavigatingEventArgs args);
+
+        /// <summary>
+        /// Hook method that is called when the page is suspended.
+        /// Remember that <see cref="OnNavigatedFromAsync(IDictionary{string, object}, bool)"/> is not called in this case.
+        /// </summary>
+        /// <param name="op">The suspension args.</param>
+        Task OnSuspendingAsync(SuspendingOperation op);
     }
 }

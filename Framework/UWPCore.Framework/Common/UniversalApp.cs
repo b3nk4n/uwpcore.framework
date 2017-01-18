@@ -741,7 +741,7 @@ namespace UWPCore.Framework.Common
 
             if (currentPage != null)
             {
-                await currentPage.OnSuspendingAsync(e);
+                await currentPage.OnSuspendingAsync(e.SuspendingOperation);
             }
         }
 

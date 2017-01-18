@@ -35,7 +35,7 @@ namespace UWPCore.Demo.Views
             _startupActions.OnNavigatedTo(e.NavigationMode);
         }
 
-        public override Task OnSuspendingAsync(SuspendingEventArgs e)
+        public override Task OnSuspendingAsync(SuspendingOperation e)
         {
             Logger.WriteLine("Suspending MainPage.");
             return base.OnSuspendingAsync(e);

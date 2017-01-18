@@ -3,9 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UWPCore.Framework.Common;
 using UWPCore.Framework.Logging;
-using Windows.ApplicationModel.Core;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
+using Windows.ApplicationModel;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -153,6 +151,22 @@ namespace UWPCore.Framework.Navigation
                     dataContext.NavigationService = this;
                     var pageState = FrameFacade.GetPageStateContainer(page.GetType());
                     dataContext.OnNavigatedTo(parameter, mode, pageState);
+                }
+            }
+        }
+
+        internal async Task OnSuspendingAsync(SuspendingOperation op)
+        {
+            var page = FrameFacade.Content as Page;
+
+            if (page != null)
+            {
+                // call viewmodel
+                var dataContext = page.DataContext as INavigable;
+                if (dataContext != null)
+                {
+                    var pageState = FrameFacade.GetPageStateContainer(page.GetType());
+                    await dataContext.OnSuspendingAsync(op);
                 }
             }
         }
