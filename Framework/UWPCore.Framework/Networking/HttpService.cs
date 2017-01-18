@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using UWPCore.Framework.Data;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
-using Windows.Web.Http.Headers;
 using Ninject;
 using System.Threading;
 using System.Collections.Generic;
+using Windows.Web.Http.Headers;
 
 namespace UWPCore.Framework.Networking
 {
@@ -25,7 +25,7 @@ namespace UWPCore.Framework.Networking
         /// Gets or sets the used encoding.
         /// </summary>
         public UnicodeEncoding Encoding { get; set; } = UnicodeEncoding.Utf8;
-
+        
         /// <summary>
         /// Creates a HttpService instance.
         /// </summary>
@@ -35,7 +35,7 @@ namespace UWPCore.Framework.Networking
             _serializationService = serializationService;
         }
 
-        public async Task<HttpResponseMessage> GetAsync(Uri path, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> GetAsync(Uri path, int? timeoutMillis = null, string token = null)
         {
             try
             {
@@ -64,17 +64,17 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> GetAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> GetAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null, string token = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
             return await GetAsync(uri, timeoutMillis);
         }
 
-        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload, int? timeoutMillis = null, string token = null)
         {
             try
             {
-                using (var http = GetClient())
+                using (var http = GetClient(token))
                 {
                     var data = _serializationService.SerializeJson(payload);
                     var content = new HttpStringContent(data, Encoding, HttpConstants.APPLICATION_JSON);
@@ -101,17 +101,17 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PutAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null, string token = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await PutAsync(uri, payload, timeoutMillis);
+            return await PutAsync(uri, payload, timeoutMillis, token);
         }
 
-        public async Task<HttpResponseMessage> PostAsync(Uri path, IHttpContent content, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PostAsync(Uri path, IHttpContent content, int? timeoutMillis = null, string token = null)
         {
             try
             {
-                using (var http = GetClient())
+                using (var http = GetClient(token))
                 {
                     if (timeoutMillis != null)
                     {
@@ -136,24 +136,24 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, T payload, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, T payload, int? timeoutMillis = null, string token = null)
         {
             var data = _serializationService.SerializeJson(payload);
             var content = new HttpStringContent(data, Encoding, HttpConstants.APPLICATION_JSON);
-            return await PostAsync(path, content, timeoutMillis);
+            return await PostAsync(path, content, timeoutMillis, token);
         }
 
-        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null, string token = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await PostJsonAsync(uri, payload, timeoutMillis);
+            return await PostJsonAsync(uri, payload, timeoutMillis, token);
         }
 
-        public async Task<HttpResponseMessage> DeleteAsync(Uri path, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> DeleteAsync(Uri path, int? timeoutMillis = null, string token = null)
         {
             try
             {
-                using (var http = GetClient())
+                using (var http = GetClient(token))
                 {
                     if (timeoutMillis != null)
                     {
@@ -178,21 +178,22 @@ namespace UWPCore.Framework.Networking
             }
         }
 
-        public async Task<HttpResponseMessage> DeleteAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null)
+        public async Task<HttpResponseMessage> DeleteAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null, string token = null)
         {
             var uri = new Uri(path.AbsolutePath + ToEncodedQueryString(parameters));
-            return await DeleteAsync(uri, timeoutMillis);
+            return await DeleteAsync(uri, timeoutMillis, token);
         }
 
         /// <summary>
         /// Gets a new HTTP client.
         /// </summary>
         /// <returns>The new HTTP client.</returns>
-        private HttpClient GetClient()
+        private HttpClient GetClient(string token = null)
         {
             var httpClient = new HttpClient();
-            var header = new HttpMediaTypeWithQualityHeaderValue(HttpConstants.APPLICATION_JSON);
-            httpClient.DefaultRequestHeaders.Accept.Add(header);
+            httpClient.DefaultRequestHeaders.Accept.Add(new HttpMediaTypeWithQualityHeaderValue(HttpConstants.APPLICATION_JSON));
+            if (token != null)
+                httpClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("Bearer", token);
             return httpClient;
         }
 
