@@ -39,12 +39,5 @@ namespace UWPCore.Framework.Navigation
         /// </remarks>
         /// <param name="args">The navigating event args.</param>
         void OnNavigatingFrom(NavigatingEventArgs args);
-
-        /// <summary>
-        /// Hook method that is called when the page is suspended.
-        /// Remember that <see cref="OnNavigatedFromAsync(IDictionary{string, object}, bool)"/> is not called in this case.
-        /// </summary>
-        /// <param name="op">The suspension args.</param>
-        Task OnSuspendingAsync(SuspendingOperation op);
     }
 }

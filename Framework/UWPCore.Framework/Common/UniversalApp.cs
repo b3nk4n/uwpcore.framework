@@ -735,14 +735,9 @@ namespace UWPCore.Framework.Common
         /// The hook method that is invoked when the app is suspended.
         /// </summary>
         /// <param name="e">The suspending event args.</param>
-        public virtual async Task OnSuspendingAsync(SuspendingEventArgs e)
+        public virtual Task OnSuspendingAsync(SuspendingEventArgs e)
         {
-            var currentPage = NavigationService.FrameFacade.Content as UniversalPage;
-
-            if (currentPage != null)
-            {
-                await currentPage.OnSuspendingAsync(e.SuspendingOperation);
-            }
+            return Task.FromResult<object>(null);
         }
 
         /// <summary>

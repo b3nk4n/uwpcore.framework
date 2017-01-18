@@ -155,22 +155,6 @@ namespace UWPCore.Framework.Navigation
             }
         }
 
-        internal async Task OnSuspendingAsync(SuspendingOperation op)
-        {
-            var page = FrameFacade.Content as Page;
-
-            if (page != null)
-            {
-                // call viewmodel
-                var dataContext = page.DataContext as INavigable;
-                if (dataContext != null)
-                {
-                    var pageState = FrameFacade.GetPageStateContainer(page.GetType());
-                    await dataContext.OnSuspendingAsync(op);
-                }
-            }
-        }
-
         /// <summary>
         /// Navigates to a page.
         /// </summary>

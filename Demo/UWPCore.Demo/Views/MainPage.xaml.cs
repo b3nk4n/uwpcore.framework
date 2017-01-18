@@ -35,12 +35,6 @@ namespace UWPCore.Demo.Views
             _startupActions.OnNavigatedTo(e.NavigationMode);
         }
 
-        public override Task OnSuspendingAsync(SuspendingOperation e)
-        {
-            Logger.WriteLine("Suspending MainPage.");
-            return base.OnSuspendingAsync(e);
-        }
-
         private void SpeechClicked(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             NavigationService.Navigate(typeof(SpeechPage));

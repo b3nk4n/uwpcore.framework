@@ -71,15 +71,6 @@ namespace UWPCore.Framework.Controls
         }
 
         /// <summary>
-        /// Called by the framework when the app is suspended while the current page is shown.
-        /// </summary>
-        /// <param name="e">The suspending args.</param>
-        public virtual async Task OnSuspendingAsync(SuspendingOperation op)
-        {
-            await NavigationService.OnSuspendingAsync(op);
-        }
-
-        /// <summary>
         /// Updates the theme.
         /// Basically required for AppShell page only, because this one os not navigatedTo during lifetime of the app.
         /// </summary>
