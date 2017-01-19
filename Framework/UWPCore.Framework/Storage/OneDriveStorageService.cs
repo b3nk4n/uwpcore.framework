@@ -1,4 +1,5 @@
 ﻿using Microsoft.OneDrive.Sdk;
+using Microsoft.OneDrive.Sdk.WinStore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace UWPCore.Framework.Storage
 {
-    // TODO: Add comments
-
+    [Obsolete("Use on own risk")]
     public class OneDriveStorageService
     {
         #region Fields
@@ -55,8 +55,8 @@ namespace UWPCore.Framework.Storage
         {
             try
             {
-                //oneDriveClient = OneDriveClientExtensions.GetUniversalClient(Scopes);
-                //await oneDriveClient.AuthenticateAsync();
+                oneDriveClient = OneDriveClientExtensions.GetUniversalClient(Scopes);
+                await oneDriveClient.AuthenticateAsync();
             }
             catch
             {

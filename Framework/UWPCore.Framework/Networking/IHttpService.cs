@@ -16,7 +16,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="path">The URI path.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved content or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> GetAsync(Uri path, int? timeoutMillis = null);
+        Task<HttpResponseMessage> GetAsync(Uri path, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a GET request.
@@ -25,7 +25,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="parameters">The query parameters.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved content or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> GetAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null);
+        Task<HttpResponseMessage> GetAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a PUT request.
@@ -35,7 +35,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PutAsync<T>(Uri path, T payload, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a PUT request.
@@ -46,7 +46,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PutAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PutAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a PUT request.
@@ -57,7 +57,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="content">The HTTP content to send, such as <see cref="HttpMultipartFormDataContent"/> or <see cref="HttpStringContent"/>.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PostAsync(Uri path, IHttpContent content, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PostAsync(Uri path, IHttpContent content, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a POST request.
@@ -67,7 +67,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, T payload, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, T payload, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a POST request.
@@ -78,7 +78,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="payload">The serializable payload data.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null);
+        Task<HttpResponseMessage> PostJsonAsync<T>(Uri path, Dictionary<string, object> parameters, T payload, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a DELETE request.
@@ -86,7 +86,7 @@ namespace UWPCore.Framework.Networking
         /// <param name="path">The URI path.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> DeleteAsync(Uri path, int? timeoutMillis = null);
+        Task<HttpResponseMessage> DeleteAsync(Uri path, int? timeoutMillis = null, string token = null);
 
         /// <summary>
         /// Sends a DELETE request.
@@ -95,6 +95,6 @@ namespace UWPCore.Framework.Networking
         /// <param name="parameters">The query parameters.</param>
         /// <param name="timeoutMillis">The optional timeout in millis.</param>
         /// <returns>The retrieved response or NULL in case of an error.</returns>
-        Task<HttpResponseMessage> DeleteAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null);
+        Task<HttpResponseMessage> DeleteAsync(Uri path, Dictionary<string, object> parameters, int? timeoutMillis = null, string token = null);
     }
 }
