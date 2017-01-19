@@ -10,18 +10,21 @@
     VerticalContentAlignment="Top"
     HorizontalAlignment="Stretch"
     HorizontalContentAlignment="Stretch"
+    Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}"
+    Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
     Height="48"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid x:Name="grid" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}">
+    <Grid x:Name="grid" Background="{Binding Background, ElementName=Root}">
         <Grid x:Name="titleBar">
             <ContentPresenter x:Name="content"
                               VerticalAlignment="{x:Bind VerticalContentAlignment}"
                               HorizontalAlignment="{x:Bind HorizontalContentAlignment}"
                               Margin="{x:Bind Padding}"
-                              Content="{x:Bind HeaderContent}"/>
+                              Content="{x:Bind HeaderContent}"
+                              Foreground="{Binding Foreground, ElementName=Root}"/>
         </Grid>
     </Grid>
 </UserControl>
