@@ -249,6 +249,7 @@ namespace UWPCore.Framework.Common
         HeartOutline = 0xE006,
         HeartPulse = 0xE95E,
         Help = 0xE11B,
+        History = 0xE81C,
         Home = 0xEA8A,
         HomeOutline = 0xE10F,
         HomeTree = 0xE1C3,
@@ -721,6 +722,7 @@ namespace UWPCore.Framework.Common
             public static string HeartOutline => "&xE006;";
             public static string HeartPulse => "&xE95E;";
             public static string Help => "&xE11B;";
+            public static string History => "&xE81C;";
             public static string Home => "&xEA8A;";
             public static string HomeOutline => "&xE10F;";
             public static string HomeTree => "&xE1C3;";

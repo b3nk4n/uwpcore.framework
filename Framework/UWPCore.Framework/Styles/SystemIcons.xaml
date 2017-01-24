@@ -232,6 +232,7 @@
     <x:String x:Key="HeartOutline">&#xE006;</x:String>
     <x:String x:Key="HeartPulse">&#xE95E;</x:String>
     <x:String x:Key="Help">&#xE11B;</x:String>
+    <x:String x:Key="History">&#xE81C;</x:String>
     <x:String x:Key="Home">&#xEA8A;</x:String>
     <x:String x:Key="HomeOutline">&#xE10F;</x:String>
     <x:String x:Key="HomeTree">&#xE1C3;</x:String>
