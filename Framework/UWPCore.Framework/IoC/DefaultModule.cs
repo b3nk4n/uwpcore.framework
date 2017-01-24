@@ -8,6 +8,7 @@ using UWPCore.Framework.Graphics;
 using UWPCore.Framework.Input;
 using UWPCore.Framework.Networking;
 using UWPCore.Framework.Notifications;
+using UWPCore.Framework.Security.Cryptography;
 using UWPCore.Framework.Share;
 using UWPCore.Framework.Speech;
 using UWPCore.Framework.Storage;
@@ -49,9 +50,6 @@ namespace UWPCore.Framework.IoC
             // Input
             Bind<IKeyboardService>().To<KeyboardService>().InSingletonScope();
 
-            // Navigation
-            // TODO: introduce INavigationService interface?
-
             // Networking
             Bind<IHttpService>().To<HttpService>(); // no singleton, because each has its own HTTP headers and session
             Bind<INetworkInfoService>().To<NetworkInfoService>().InSingletonScope();
@@ -68,10 +66,11 @@ namespace UWPCore.Framework.IoC
 
             Bind<IBadgeFactory>().To<BadgeFactory>().InSingletonScope();
             Bind<IBadgeService>().To<BadgeService>().InSingletonScope();
-            
+
 
             // Security
-            // TODO: implementation finished?
+            Bind<IDataProtectionProviderService>().To<DataProtectionProviderService>().InSingletonScope();
+            Bind<ISymmetricAlgorithmService>().To<Aes256Service>().InSingletonScope();
 
             // Share
             Bind<IEmailService>().To<EmailService>().InSingletonScope();

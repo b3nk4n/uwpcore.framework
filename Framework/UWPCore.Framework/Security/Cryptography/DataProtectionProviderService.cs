@@ -12,14 +12,14 @@ namespace UWPCore.Framework.Security.Cryptography
     /// 
     /// On default the data will be protected to LOCAL=user. That means nobody else than the LOCAL user can unprotect the data.
     /// </summary>
-    public class DataProtectionProviderService  : IDataProtectionProviderService
+    public sealed class DataProtectionProviderService  : IDataProtectionProviderService
     {
         #region Fields
 
         /// <summary>
         /// Used encoding of data protection provider service.
         /// </summary>
-        BinaryStringEncoding encoding = BinaryStringEncoding.Utf8;
+        private BinaryStringEncoding encoding = BinaryStringEncoding.Utf8;
 
         #endregion
 

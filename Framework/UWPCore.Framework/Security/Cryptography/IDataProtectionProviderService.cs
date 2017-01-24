@@ -4,7 +4,7 @@ using Windows.Storage.Streams;
 
 namespace UWPCore.Framework.Security.Cryptography
 {
-    interface IDataProtectionProviderService
+    public interface IDataProtectionProviderService
     {
         /// <summary>
         /// Get the used encoding.

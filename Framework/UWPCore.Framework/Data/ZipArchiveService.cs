@@ -200,7 +200,6 @@ namespace UWPCore.Framework.Data
                     {
                         var unzipPath = Path.Combine(root, zipArchiveEntry.FullName);   // Replace folder name by name.
 
-                        // TODO: Fix bug with path renameing!!
                         if (!string.IsNullOrEmpty(name))
                         {
                             var substring = unzipPath.Remove(0, Path.GetFileNameWithoutExtension(path).Length + 1);

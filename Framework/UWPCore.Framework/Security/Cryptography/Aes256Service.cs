@@ -10,7 +10,7 @@ namespace UWPCore.Framework.Security.Cryptography
     /// The IV is generated randomly for each encryption and append before the encrypted data. In this service the IV has 
     /// a length of 16 Byte.
     /// </summary>
-    public class Aes256Service : ISymmetricAlgorithmService
+    public sealed class Aes256Service : ISymmetricAlgorithmService
     {
         /// <summary>
         /// Encrypt value using password.
