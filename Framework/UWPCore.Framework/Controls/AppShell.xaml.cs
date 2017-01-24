@@ -351,7 +351,7 @@ namespace UWPCore.Framework.Controls
         /// <returns>Returns the navigation item.</returns>
         private NavMenuItem GetNavigationItem(Type pageType)
         {
-            return (from p in NavigationItems where p.DestinationPage == pageType select p).SingleOrDefault();
+            return (from p in NavigationItems where p.DestinationPage == pageType select p).FirstOrDefault();
         }
 
         /// <summary>
