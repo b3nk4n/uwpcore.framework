@@ -5,16 +5,6 @@ using UWPCore.Framework.Common;
 namespace UWPCore.Framework.Notifications.Models
 {
     /// <summary>
-    /// The sub group text stacking type.
-    /// </summary>
-    public enum SubGroupTextStacking // TODO: remove, because redundant with VisualHintTextStacking
-    {
-        Top,
-        Center,
-        Bottom
-    }
-
-    /// <summary>
     /// Class for an adaptive sub group element.
     /// </summary>
     public class AdaptiveSubGroup : IAdaptiveVisualChild
@@ -44,7 +34,7 @@ namespace UWPCore.Framework.Notifications.Models
         /// <summary>
         /// Gets or sets the optional text stacking.
         /// </summary>
-        public SubGroupTextStacking? HintTextStacking { get; set; }
+        public VisualHintTextStacking? HintTextStacking { get; set; }
 
         /// <summary>
         /// Gets or sets the adaptive children elements.

@@ -34,7 +34,7 @@ namespace UWPCore.Demo.Views
             var subtitle = SubtitleTextBox.Text;
             var uiElementToRender = new TileSquareMedium(title, subtitle);
             HiddenRenderContainer.Children.Add(uiElementToRender);
-            // TODO: is there a way that rendering of a UI element not requires to add it to the visual tree? Or is there a nice way to hide these UI elements?
+            // TODO: Check if there is a way that rendering of a UI element not requires to add it to the visual tree? Or is there a nice way to hide these UI elements?
 
             var file = await _localStorageService.CreateOrGetFileAsync(TEST_FILE_NAME);
             RenderTargetBitmap renderResult;

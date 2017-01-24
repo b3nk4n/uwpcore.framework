@@ -157,14 +157,8 @@ namespace UWPCore.Framework.Speech
         {
             try
             {
-                //Recognizer.UIOptions.AudiblePrompt = "Say what you want to search for...";
-                //Recognizer.UIOptions.ExampleText = @"Ex. 'weather for London'";
-
-                //var webSearchGrammar = new SpeechRecognitionTopicConstraint(SpeechRecognitionScenario.WebSearch, "webSearch");
-                //Recognizer.Constraints.Add(webSearchGrammar);
-
                 // Compile the dictation grammar by default.
-                await Recognizer.CompileConstraintsAsync(); // TODO: FIXME: is this call required? Each time?
+                await Recognizer.CompileConstraintsAsync();
 
                 // Start recognition.
                 SpeechRecognitionResult speechRecognitionResult = await Recognizer.RecognizeWithUIAsync();

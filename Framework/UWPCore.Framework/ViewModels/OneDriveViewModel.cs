@@ -378,7 +378,7 @@ namespace UWPCore.Framework.ViewModels
                 {
                     try
                     {
-                        await zipArchiveService.CompressAsync(DataPath, uploadZip);
+                        await zipArchiveService.CompressAsync(DataPath, uploadZip); // TODO: fix deprecation
                     }
                     catch
                     {
@@ -409,12 +409,12 @@ namespace UWPCore.Framework.ViewModels
 
                         try
                         {
-                            await zipArchiveService.UncompressAsync(downloadZip);
+                            await zipArchiveService.UncompressAsync(downloadZip); // TODO: fix deprecation
                         }
                         catch
                         {
                             await localStorageService.DeleteFolderAsync(DataPath);
-                            await zipArchiveService.UncompressAsync(uploadZip);
+                            await zipArchiveService.UncompressAsync(uploadZip); // TODO: fix deprecation
 
                             await new MessageDialog("An error occured while saving the backup. Old data have been restored.", "OneDrive Backup").ShowAsync();
                         }

@@ -18,9 +18,8 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace UWPCore.Demo.Tasks
 {
     // https://code.msdn.microsoft.com/windowsapps/Updating-a-tile-from-a-e0e492df/view/SourceCode#content
-    // TODO: Crash if using IBackgroundTask because of different task contexts.
-    // TODO: Sometimes Tile disappears
-    public sealed class DiscoTileBackgroundTask : XamlRenderingBackgroundTask //, IBackgroundTask
+    // TODO: Check why sometimes Tile disappears
+    public sealed class DiscoTileBackgroundTask : XamlRenderingBackgroundTask
     {
         #region Fields
 

@@ -195,7 +195,7 @@ namespace UWPCore.Framework.Controls
         {
             NavMenuList.UpdateLayout();
             NavMenuList.ScrollIntoView(item);
-            var container = (ListViewItem)NavMenuList.ContainerFromItem(item); // TODO: for somehow, this seems to return null on some devices (on PC, but not on mobile, and NOT before the last VS15.1 update!)?
+            var container = (ListViewItem)NavMenuList.ContainerFromItem(item);
 
             if (container == null)
             {
