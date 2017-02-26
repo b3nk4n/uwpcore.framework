@@ -338,6 +338,7 @@ namespace UWPCore.Framework.Common
         Music = 0xE189,
         Network = 0xE17B,
         NetworkClose = 0xE17A,
+        NewWindow = 0xE78B,
         Nfc = 0xE9A1,
         Note = 0xE70B,
         OpenInApp = 0xE17C,
@@ -811,6 +812,7 @@ namespace UWPCore.Framework.Common
             public static string Music => "&xE189;";
             public static string Network => "&xE17B;";
             public static string NetworkClose => "&xE17A;";
+            public static string NewWindow => "&xE78B;";
             public static string Nfc => "&xE9A1;";
             public static string Note => "&xE70B;";
             public static string OpenInApp => "&xE17C;";

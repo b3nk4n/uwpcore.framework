@@ -321,6 +321,7 @@
     <x:String x:Key="Music">&#xE189;</x:String>
     <x:String x:Key="Network">&#xE17B;</x:String>
     <x:String x:Key="NetworkClose">&#xE17A;</x:String>
+    <x:String x:Key="NewWindow">&#xE78B;</x:String>
     <x:String x:Key="Nfc">&#xE9A1;</x:String>
     <x:String x:Key="Note">&#xE70B;</x:String>
     <x:String x:Key="OpenInApp">&#xE17C;</x:String>

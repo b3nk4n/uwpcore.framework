@@ -43,7 +43,7 @@ namespace UWPCore.Framework.Store
         public virtual async Task<bool> RequestProductPurchaseAsync(string productId)
         {
             if (IsProductActive(productId))
-                return false;
+                return false; // TODO: return TRUE here?
             try
             {
 #if DEBUG
