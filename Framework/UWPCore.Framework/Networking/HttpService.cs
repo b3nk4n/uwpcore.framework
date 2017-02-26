@@ -39,7 +39,7 @@ namespace UWPCore.Framework.Networking
         {
             try
             {
-                using (var http = GetClient())
+                using (var http = GetClient(token))
                 {
                     if (timeoutMillis != null)
                     {
