@@ -15,7 +15,13 @@ namespace UWPCore.Framework.Tasks
             BackgroundAccessStatus status = await BackgroundExecutionManager.RequestAccessAsync();
 
             return (status == BackgroundAccessStatus.AllowedSubjectToSystemPolicy ||
-                status == BackgroundAccessStatus.AlwaysAllowed);
+                status == BackgroundAccessStatus.AlwaysAllowed ||
+#pragma warning disable CS0618 // Typ oder Element ist veraltet
+                status == BackgroundAccessStatus.AllowedMayUseActiveRealTimeConnectivity ||
+#pragma warning restore CS0618 // Typ oder Element ist veraltet
+#pragma warning disable CS0618 // Typ oder Element ist veraltet
+                status == BackgroundAccessStatus.AllowedWithAlwaysOnRealTimeConnectivity);
+#pragma warning restore CS0618 // Typ oder Element ist veraltet
         }
 
         public IBackgroundTaskRegistration Register(string taskName, Type taskEntryPoint, IBackgroundTrigger trigger, params IBackgroundCondition[] conditions)
