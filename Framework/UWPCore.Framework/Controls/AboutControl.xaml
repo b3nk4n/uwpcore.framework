@@ -62,7 +62,7 @@
             <ItemsControl ItemsSource="{Binding ThirdParties}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Tapped="ThirdPartyItemTapped" Tag="{Binding Link}" Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
+                        <StackPanel Orientation="Horizontal" Tapped="ThirdPartyItemTapped" Tag="{Binding Link}" Background="Transparent">
                             <Image Source="{Binding Icon}" Width="32" Height="32" Margin="8" />
                             <StackPanel Margin="8" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding Title}" Style="{StaticResource UWPCoreBodyTextBlockStyle}" />
